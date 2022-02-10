@@ -61,6 +61,12 @@ public class RoomGrid
                         }
                     }
 
+                    if(cell.flag.Equals(RoomGridCell.CellFlag.TEST))
+                    {
+                        Gizmos.color = Color.magenta;
+                        Gizmos.DrawSphere(cell.position, 0.1f);
+                    }
+
                     if (Vector3.Distance(UnityEditor.SceneView.currentDrawingSceneView.camera.transform.position, transform.position + cell.position) < 5f)
                     {
                         Gizmos.color = Color.white;

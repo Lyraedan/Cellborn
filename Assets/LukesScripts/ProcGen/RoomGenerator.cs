@@ -19,6 +19,8 @@ public class RoomGenerator : MonoBehaviour
 
     private int failedAttempts = 0;
 
+    private PathFinding pathfinder;
+
     private void Awake()
     {
         if (instance == null)
@@ -30,7 +32,9 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        start = GenerateRandomVector(0, 0, 0, 10, 1, 10);
+        pathfinder = new PathFinding();
+
+        start = GenerateRandomVector(3, 0, 3, 10, 1, 10);
         end = GenerateRandomVector(start.x, 0, start.z, 50, 1, 50);
 
         //var distance = end - start;
@@ -39,7 +43,10 @@ public class RoomGenerator : MonoBehaviour
         grid = new RoomGrid(new Vector3Int(end.x, 1, end.z));
         ScoreGrid();
 
-        for(int i = 0; i < maxRoomLimit; i++)
+        GenerateRandomRoom(start);
+        GenerateRandomRoom(end);
+
+        for (int i = 0; i < maxRoomLimit; i++)
         {
             GenerateRandomRoom();
         }
@@ -48,6 +55,8 @@ public class RoomGenerator : MonoBehaviour
         {
             Debug.LogError("No rooms were generated!");
         }
+
+        ConnectRooms();
     }
 
     bool GenerateRandomRoom()
@@ -61,6 +70,14 @@ public class RoomGenerator : MonoBehaviour
         var dimensions = new Vector3Int(sizeX, 1, sizeZ);
 
         return GenerateRoom(position, dimensions);
+    }
+
+    bool GenerateRandomRoom(Vector3Int pos)
+    {
+        var sizeX = Mathf.RoundToInt(Random.Range(3, 6));
+        var sizeZ = Mathf.RoundToInt(Random.Range(3, 6));
+        var dimensions = new Vector3Int(sizeX, 1, sizeZ);
+        return GenerateRoom(pos, dimensions);
     }
 
     bool GenerateRoom(Vector3Int pos, Vector3Int dimensions)
@@ -101,8 +118,28 @@ public class RoomGenerator : MonoBehaviour
         if (room.tiles.Count <= 0)
             return false;
 
+        room.SpawnTiles();
         rooms.Add(room);
         return true;
+    }
+
+    void ConnectRooms()
+    {
+        for (int i = 0; i < rooms.Count - 1; i++)
+        {
+            pathfinder.source = rooms[i].center.cell.position;
+            pathfinder.destination = rooms[i + 1].center.cell.position;
+
+            pathfinder.CalculatePath(path => {
+                Debug.Log("Path node count: " + path.Count);
+                foreach(RoomGridCell cell in path)
+                {
+                    SpawnPrefab(test, cell.position, Vector3.zero);
+                    cell.flag = RoomGridCell.CellFlag.TEST;
+                    cell.occupied = true;
+                }
+            });
+        }
     }
 
     Vector3Int GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
@@ -113,7 +150,7 @@ public class RoomGenerator : MonoBehaviour
         return new Vector3Int(x, y, z);
     }
 
-    Vector3Int GetPositionAsGridSpace(Vector3Int position)
+    public Vector3Int GetPositionAsGridSpace(Vector3Int position)
     {
         var x = Mathf.RoundToInt(position.x / RoomGrid.cellSize.x);
         var y = Mathf.RoundToInt(position.y / RoomGrid.cellSize.y);
@@ -121,14 +158,14 @@ public class RoomGenerator : MonoBehaviour
         return new Vector3Int(x, y, z);
     }
 
-    GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
+    public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
     {
         GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
         spawned.transform.SetParent(roomParent);
         return spawned;
     }
 
-    RoomGridCell GetCellAt(int x, int z)
+    public RoomGridCell GetCellAt(int x, int z)
     {
         if (x < 0 || z < 0 || x >= grid.dimensions.x || z >= grid.dimensions.z)
             return null;
@@ -157,5 +194,19 @@ public class RoomGenerator : MonoBehaviour
 
         if (grid != null)
             grid.OnDrawGizmos(transform);
+
+        if(pathfinder != null)
+            pathfinder.DrawGizmos();
+
+        if (rooms.Count > 0)
+        {
+            for (int i = 0; i < rooms.Count - 1; i++)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawCube(rooms[i].center.cell.position, Vector3.one);
+                Gizmos.color = Color.black;
+                Gizmos.DrawLine(rooms[i].center.cell.position, rooms[i + 1].center.cell.position);
+            }
+        }
     }
 }

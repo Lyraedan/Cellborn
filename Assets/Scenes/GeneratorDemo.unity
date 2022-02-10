@@ -236,10 +236,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
+  grid:
+    dimensions: {x: 0, y: 0, z: 0}
+    drawGrid: 1
+    hideFreeSlots: 0
+    fillOccupiedSlots: 0
+  rooms: []
   start: {x: 0, y: 0, z: 0}
   end: {x: 0, y: 0, z: 0}
   rotationTest: 45
-  test: {fileID: 6078077439397417307, guid: e0fbc4e9a5210004d98116aa3223be7f, type: 3}
+  test: {fileID: 919132149155446097, guid: d4aa98f49783593469273ad3c8b4d97f, type: 3}
+  maxRoomLimit: 10
 --- !u!4 &1226544329
 Transform:
   m_ObjectHideFlags: 0
