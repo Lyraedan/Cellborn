@@ -8,6 +8,7 @@ public class RoomGenerator : MonoBehaviour
 
     public Transform roomParent;
     public RoomGrid grid;
+    public List<Room> rooms = new List<Room>();
 
     public Vector3Int start, end;
 
@@ -30,7 +31,7 @@ public class RoomGenerator : MonoBehaviour
     void Start()
     {
         start = GenerateRandomVector(0, 0, 0, 10, 1, 10);
-        end = GenerateRandomVector(start.x, 0, start.z, 100, 1, 100);
+        end = GenerateRandomVector(start.x, 0, start.z, 50, 1, 50);
 
         //var distance = end - start;
         Debug.Log("End: " + end.ToString());
@@ -41,6 +42,11 @@ public class RoomGenerator : MonoBehaviour
         for(int i = 0; i < maxRoomLimit; i++)
         {
             GenerateRandomRoom();
+        }
+
+        if(rooms.Count == 0)
+        {
+            Debug.LogError("No rooms were generated!");
         }
     }
 
@@ -61,35 +67,41 @@ public class RoomGenerator : MonoBehaviour
     {
         var position = GetPositionAsGridSpace(pos);
 
-        if(position.x < 0 || position.z < 0 ||
-           position.x + dimensions.x > end.x || position.z + dimensions.z > end.z)
+        var width = grid.dimensions.x;
+        var length = grid.dimensions.z;
+
+        if (pos.x < 0 || pos.z < 0 || pos.x + dimensions.x >= width || pos.z + dimensions.z >= length)
         {
-            Debug.LogError("Room size exceeds grid dimensions! @ " + position.ToString() + " | " + new Vector3Int(position.x + dimensions.x, position.y + dimensions.y, position.z + dimensions.z).ToString());
+            Debug.Log("Room size exceeds grid size!");
             return false;
         }
 
-        bool wasAlreadyOccupied = false;
-        for (int x = position.x; x < position.x + dimensions.x; x++)
+        Room room = new Room();
+        for(int x = pos.x; x < pos.x + dimensions.x; x++)
         {
-            for (int z = position.z; z < dimensions.z; z++)
+            for(int z = pos.z; z < pos.z + dimensions.z; z++)
             {
                 if(grid.cells[x, z].occupied)
                 {
-                    wasAlreadyOccupied = true;
+                    Debug.LogError("Overlapping rooms!");
                     break;
                 }
 
-                Debug.Log("Occupying space @ " + x + ", " + z);
                 grid.cells[x, z].occupied = true;
+                grid.cells[x, z].flag = RoomGridCell.CellFlag.FLOOR;
+                RoomTile tile = new RoomTile();
+                tile.gridX = x;
+                tile.gridZ = z;
+                tile.cell = grid.cells[x, z];
+                room.tiles.Add(tile);
             }
-            if (wasAlreadyOccupied)
-                break;
         }
-        if(wasAlreadyOccupied)
-        {
-            Debug.LogError("Room tried overlappign existing room!");
+
+        // No tiles were assigned
+        if (room.tiles.Count <= 0)
             return false;
-        }
+
+        rooms.Add(room);
         return true;
     }
 

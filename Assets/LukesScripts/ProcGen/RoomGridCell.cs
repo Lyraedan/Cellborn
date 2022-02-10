@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class RoomGridCell
 {
     public enum CellFlag
     {
-        FLOOR, OBSTACLE, DOOR
+        FLOOR, OBSTACLE, DOOR, FREE, EDGE, CORNER
     }
 
-    public CellFlag flag = CellFlag.FLOOR;
+    public CellFlag flag = CellFlag.FREE;
     public Vector3 position;
     public bool occupied = false;
     public float distance;

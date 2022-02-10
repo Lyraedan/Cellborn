@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class RoomGrid
 {
     public static Vector3Int cellSize = new Vector3Int(2, 2, 2);
@@ -11,6 +12,8 @@ public class RoomGrid
 
     [Header("Debugging")]
     public bool drawGrid = true;
+    public bool hideFreeSlots = false;
+    public bool fillOccupiedSlots = false;
 
     public RoomGrid(Vector3Int dimensions)
     {
@@ -39,8 +42,24 @@ public class RoomGrid
                 {
                     var cell = cells[x, z];
 
-                    Gizmos.color = cell.occupied ? Color.red : Color.green;
-                    Gizmos.DrawWireCube(cell.position, cellSize);
+                    if (!hideFreeSlots)
+                    {
+                        Gizmos.color = cell.occupied ? Color.red : Color.green;
+                        if (fillOccupiedSlots)
+                            Gizmos.DrawCube(cell.position, cellSize);
+                        else
+                            Gizmos.DrawWireCube(cell.position, cellSize);
+                    } else
+                    {
+                        if (cell.occupied)
+                        {
+                            Gizmos.color = Color.red;
+                            if (fillOccupiedSlots)
+                                Gizmos.DrawCube(cell.position, cellSize);
+                            else
+                                Gizmos.DrawWireCube(cell.position, cellSize);
+                        }
+                    }
 
                     if (Vector3.Distance(UnityEditor.SceneView.currentDrawingSceneView.camera.transform.position, transform.position + cell.position) < 5f)
                     {
