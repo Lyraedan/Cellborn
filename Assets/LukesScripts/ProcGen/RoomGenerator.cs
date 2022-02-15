@@ -35,7 +35,7 @@ public class RoomGenerator : MonoBehaviour
     void Start()
     {
         if (seed == 0)
-            seed = Random.Range(0, 10000);
+            seed = Random.Range(0, 1000000);
 
         Random.InitState(seed);
         generatedDungeonSize = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);

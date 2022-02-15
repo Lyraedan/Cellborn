@@ -239,9 +239,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  minDungeonSize: {x: 10, y: 10}
-  maxDungeonSize: {x: 25, y: 25}
-  minRoomSize: {x: 3, y: 6}
+  seed: 0
+  minDungeonSize: {x: 25, y: 25}
+  maxDungeonSize: {x: 75, y: 75}
+  minRoomSize: {x: 5, y: 10}
+  generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 10
   rooms: []
   test: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
