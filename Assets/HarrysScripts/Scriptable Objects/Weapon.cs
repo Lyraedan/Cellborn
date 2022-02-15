@@ -25,6 +25,10 @@ public class Weapon : ScriptableObject
     [Header("Cooldown")]
     public float cooldownTime;
 
+    [Header("Multiple Projectiles")]
+    [Range(0.0f, 360.0f)]
+    public float fireAngle = 90f;
+
     private void OnEnable()
     {
         currentAmmo = maxAmmo;

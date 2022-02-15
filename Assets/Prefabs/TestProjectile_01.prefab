@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2089850481414163982}
   - component: {fileID: 2089850481414163969}
   - component: {fileID: 2089850481414163978}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestProjectile_01
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -128,4 +128,5 @@ MonoBehaviour:
   projRigidbody: {fileID: 2089850481414163969}
   throwStrength: 10
   arcSize: 4
+  lines: 1
   lifetime: 5

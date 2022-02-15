@@ -13,13 +13,15 @@ public class UIWeaponSlot : MonoBehaviour
 
     void Update()
     {
-        imageSlot.sprite = weapon.icon;
-        imageSlot.enabled = true;
-
-        if(Input.GetKeyDown(slotKey))
+        if(Input.GetKeyDown(slotKey) && weapon != null)
         {
-            fireScript.equippedWeapon = weapon;
-            fireScript.UpdateParameters(weapon);
+            EquipWeapon(weapon);
+        }
+
+        if (weapon != null)
+        {
+            imageSlot.sprite = weapon.icon;
+            imageSlot.enabled = true;
         }
     }
 
@@ -37,5 +39,34 @@ public class UIWeaponSlot : MonoBehaviour
 
         imageSlot.sprite = null;
         imageSlot.enabled = false;
+    }
+
+    public void EquipWeapon(Weapon newWeapon)
+    {
+        fireScript.equippedWeapon = weapon;
+        fireScript.UpdateParameters(weapon);
+
+        imageSlot.sprite = weapon.icon;
+        imageSlot.enabled = true;
+        
+    }
+
+    public void ResetParameters()
+    {
+        fireScript.equippedWeapon = null;
+        fireScript.SetParametersToNull();
+
+        imageSlot.sprite = null;
+        imageSlot.enabled = false;
+    }
+
+    public void SelectSlot()
+    {
+        gameObject.GetComponent<Image>().CrossFadeAlpha(1f, 0.01f, false);
+    }
+
+    public void DeselectSlot()
+    {
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0.75f, 0.01f, false);
     }
 }

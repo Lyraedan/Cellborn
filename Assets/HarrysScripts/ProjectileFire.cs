@@ -15,6 +15,8 @@ public class ProjectileFire : MonoBehaviour
     public bool usesAmmo;
     public int maxAmmo, currentAmmo;
     public int shotsPerFire;
+
+    [Header("Ammo UI Settings")]
     public TextMeshProUGUI ammoText;
     public Color ammoFull, ammoNormal, ammoEmpty;
 
@@ -28,9 +30,20 @@ public class ProjectileFire : MonoBehaviour
     float tCooldown;
     bool canFire;
 
+    [Header("Multiple Projectiles")]
+    [Range(0.0f, 360.0f)]
+    public float fireAngle = 90f;
+
     void Start()
     {
-        UpdateParameters(equippedWeapon);
+        if (equippedWeapon != null)
+        {
+            UpdateParameters(equippedWeapon);
+        }
+        else
+        {
+            SetParametersToNull();
+        }
     }
 
     void Update()
@@ -69,10 +82,14 @@ public class ProjectileFire : MonoBehaviour
 
         #endregion
 
+        #region Firing Conditionals (WARNING! LOTS OF COMPOUND IF STATEMENTS! ENTER IF YOU DARE!)
+
+        //Check if weapon uses ammo
         if (usesAmmo)
         {
             ammoText.enabled = true;
             
+            //Check if weapon is rapidfire
             if (isRapidFire)
             {
                 if (Input.GetButton("Fire1"))
@@ -83,7 +100,7 @@ public class ProjectileFire : MonoBehaviour
                     {
                         if (currentAmmo > 0)
                         {
-                            GameObject projInstance = Instantiate(projectile, transform.position, transform.rotation);
+                            SpawnProjectile(projectile, shotsPerFire, fireAngle);
                             currentAmmo--;
                             equippedWeapon.ChangeAmmo(-1);
                             tFire = 0;
@@ -97,7 +114,7 @@ public class ProjectileFire : MonoBehaviour
                 {
                     if (currentAmmo > 0)
                     {
-                        GameObject projInstance = Instantiate(projectile, transform.position, transform.rotation);
+                        SpawnProjectile(projectile, shotsPerFire, fireAngle);
                         currentAmmo--;
                         equippedWeapon.ChangeAmmo(-1);
                         canFire = false;
@@ -125,7 +142,7 @@ public class ProjectileFire : MonoBehaviour
                 {
                     if (Input.GetButton("Fire1"))
                     {
-                        GameObject projInstance = Instantiate(projectile, transform.position, transform.rotation);
+                        SpawnProjectile(projectile, shotsPerFire, fireAngle);
                         canFire = false;                        
                         tCooldown = cooldownTime;
                     } 
@@ -135,7 +152,7 @@ public class ProjectileFire : MonoBehaviour
             {
                 if (Input.GetButtonDown("Fire1") && canFire)
                 {
-                    GameObject projInstance = Instantiate(projectile, transform.position, transform.rotation);
+                    SpawnProjectile(projectile, shotsPerFire, fireAngle);
                     canFire = false;
                     tCooldown = cooldownTime;
                 }
@@ -148,8 +165,18 @@ public class ProjectileFire : MonoBehaviour
                 } 
             }            
         }
-    
-        weaponText.text = "Equipped weapon: " + equippedWeapon.name.ToString();
+
+        #endregion
+        
+        if (equippedWeapon != null)
+        {
+            weaponText.text = "Equipped weapon: " + equippedWeapon.name.ToString();
+        }
+        else
+        {
+            weaponText.text = "";
+        }
+
         ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
     }
 
@@ -166,5 +193,41 @@ public class ProjectileFire : MonoBehaviour
         fireRate = weapon.fireRate;
 
         cooldownTime = weapon.cooldownTime;
+
+        fireAngle = weapon.fireAngle;
+    }
+
+    public void SetParametersToNull()
+    {
+        projectile = null;
+
+        usesAmmo = false;
+        maxAmmo = 0;
+        currentAmmo = 0;
+        shotsPerFire = 0;
+
+        isRapidFire = false;
+        fireRate = 0;
+
+        cooldownTime = 0;
+
+        fireAngle = 0;        
+    }
+
+    public void SpawnProjectile(GameObject projectile, int shots, float angle)
+    {
+        for (int i = 0; i < shots; i++)
+        {
+            float y = ((transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
+
+            GameObject projInstance = Instantiate(projectile, transform.position, Quaternion.Euler(0, y, 0));
+        }        
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 0.3f);
     }
 }
