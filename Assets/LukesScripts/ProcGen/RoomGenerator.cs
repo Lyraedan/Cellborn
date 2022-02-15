@@ -118,7 +118,7 @@ public class RoomGenerator : MonoBehaviour
                 if(grid.grid[x, 0, z].flag.Equals(GridCell.GridFlag.OCCUPIED))
                 {
                     Debug.LogWarning("Overlapping rooms!");
-                    break;
+                    //break;
                 }
 
                 grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
