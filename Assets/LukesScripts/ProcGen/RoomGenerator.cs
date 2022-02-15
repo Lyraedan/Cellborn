@@ -41,8 +41,6 @@ public class RoomGenerator : MonoBehaviour
         grid.cells = dimensions;
         grid.Init();
 
-        ScoreGrid();
-
         GenerateRandomRoom(start);
         GenerateRandomRoom(end);
 
@@ -55,9 +53,34 @@ public class RoomGenerator : MonoBehaviour
         {
             Debug.LogError("No rooms were generated!");
         }
-        //ConnectRooms();
+        ConnectRooms();
+
+        PlaceFloors();
     }
 
+    public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
+    {
+        GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
+        spawned.transform.SetParent(roomParent);
+        return spawned;
+    }
+
+    #region Population
+    void PlaceFloors()
+    {
+        for(int x = 0; x < grid.cells.x; x++)
+        {
+            for(int z = 0; z < grid.cells.z; z++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if(cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.HALLWAY))
+                    SpawnPrefab(test, cell.position, Vector3.zero);
+            }
+        }
+    }
+    #endregion
+
+    #region Proc gen
     void ConnectRooms()
     {
         for(int i = 0; i < rooms.Count - 1; i++)
@@ -69,26 +92,8 @@ public class RoomGenerator : MonoBehaviour
             {
                 if(cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
-                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    cell.flag = GridCell.GridFlag.HALLWAY;
                 }
-            }
-        }
-    }
-
-    public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
-    {
-        GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
-        spawned.transform.SetParent(roomParent);
-        return spawned;
-    }
-
-    void ScoreGrid()
-    {
-        for (int x = 0; x < grid.cells.x; x++)
-        {
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                grid.grid[x, 0, z].SetDistance(end);
             }
         }
     }
@@ -135,7 +140,7 @@ public class RoomGenerator : MonoBehaviour
             {
                 if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
-                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    cell.flag = GridCell.GridFlag.HALLWAY;
                 }
             }
 
@@ -143,7 +148,7 @@ public class RoomGenerator : MonoBehaviour
             {
                 if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
-                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    cell.flag = GridCell.GridFlag.HALLWAY;
                 }
             }
         }
@@ -170,6 +175,7 @@ public class RoomGenerator : MonoBehaviour
         var dimensions = new Vector3(sizeX, 1, sizeZ);
         return GenerateRoom(pos, dimensions);
     }
+    #endregion
 
     Vector3 GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
     {

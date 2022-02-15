@@ -24,6 +24,7 @@ public class Grid : MonoBehaviour
     public bool drawWalkable = true;
     public bool drawWalls = true;
     public bool drawOccupied = true;
+    public bool drawHallways = true;
     public bool drawDistances = true;
     public bool drawAllPaths = false;
 
@@ -92,6 +93,13 @@ public class Grid : MonoBehaviour
                                 Gizmos.color = Color.red;
                                 Gizmos.DrawWireCube(grid[x, y, z].position, cellSize);
                             }
+                        } else if(grid[x, y, z].flag.Equals(GridCell.GridFlag.HALLWAY))
+                        {
+                            if (drawHallways)
+                            {
+                                Gizmos.color = Color.yellow;
+                                Gizmos.DrawWireCube(grid[x, y, z].position, cellSize);
+                            }
                         }
                         if (drawDistances)
                         {
@@ -109,7 +117,7 @@ public class Grid : MonoBehaviour
 public class GridCell
 {
     public enum GridFlag {
-        WALKABLE, NONWALKABLE, OCCUPIED
+        WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY
     }
 
     public GridFlag flag = GridFlag.WALKABLE;

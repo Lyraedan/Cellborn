@@ -243,7 +243,7 @@ MonoBehaviour:
   start: {x: 0, y: 0, z: 0}
   end: {x: 0, y: 0, z: 0}
   rotationTest: 45
-  test: {fileID: 919132149155446097, guid: d4aa98f49783593469273ad3c8b4d97f, type: 3}
+  test: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
   maxRoomLimit: 10
   navAgent: {fileID: 1226544331}
 --- !u!4 &1226544329
@@ -277,8 +277,9 @@ MonoBehaviour:
   drawWalkable: 0
   drawWalls: 0
   drawOccupied: 1
+  drawHallways: 1
   drawDistances: 0
-  drawAllPaths: 1
+  drawAllPaths: 0
   ready: 0
 --- !u!114 &1226544331
 MonoBehaviour:
@@ -299,8 +300,8 @@ MonoBehaviour:
   open: []
   closed: []
   reachedDestination: 0
-  drawPath: 1
-  drawBlocked: 1
+  drawPath: 0
+  drawBlocked: 0
   drawOccupiedSpace: 0
 --- !u!1 &2139805919
 GameObject:
