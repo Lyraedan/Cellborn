@@ -239,12 +239,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  rooms: []
-  start: {x: 0, y: 0, z: 0}
-  end: {x: 0, y: 0, z: 0}
-  rotationTest: 45
-  test: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+  minDungeonSize: {x: 10, y: 10}
+  maxDungeonSize: {x: 25, y: 25}
+  minRoomSize: {x: 3, y: 6}
   maxRoomLimit: 10
+  rooms: []
+  test: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
   navAgent: {fileID: 1226544331}
 --- !u!4 &1226544329
 Transform:

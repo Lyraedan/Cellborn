@@ -8,14 +8,16 @@ public class RoomGenerator : MonoBehaviour
 
     public Transform roomParent;
     public Grid grid;
+    [Header("Dungeon settings")]
+    public Vector2 minDungeonSize = new Vector2(10, 10);
+    public Vector2 maxDungeonSize = new Vector2(25, 25);
+    public Vector2 minRoomSize = new Vector2(3, 6);
+    public int maxRoomLimit = 10;
     public List<Room> rooms = new List<Room>();
 
-    public Vector3 start, end;
+    private Vector3 start, end;
 
-    public float rotationTest = 45;
     public GameObject test;
-
-    public int maxRoomLimit = 10;
 
     private int failedAttempts = 0;
 
@@ -32,17 +34,14 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        start = GenerateRandomVector(10, 0, 10, 25, 1, 25);
-        end = GenerateRandomVector((int) start.x, 0, (int) start.z, (int) start.x + 25, 1, (int)start.z + 25);
+        start = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
+        end = GenerateRandomVector((int) start.x, 0, (int) start.z, (int) start.x + (int) maxDungeonSize.y, 1, (int)start.z + (int) maxDungeonSize.y);
 
         //var distance = end - start;
 
         var dimensions = new Vector3(end.x, 1, end.z);
         grid.cells = dimensions;
         grid.Init();
-
-        GenerateRandomRoom(start);
-        GenerateRandomRoom(end);
 
         for (int i = 0; i < maxRoomLimit; i++)
         {
@@ -161,8 +160,8 @@ public class RoomGenerator : MonoBehaviour
         var posZ = Mathf.RoundToInt(Random.Range(0, end.z));
         var position = new Vector3(posX, 1, posZ);
 
-        var sizeX = Mathf.RoundToInt(Random.Range(3, 6));
-        var sizeZ = Mathf.RoundToInt(Random.Range(3, 6));
+        var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
+        var sizeZ = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
         var dimensions = new Vector3(sizeX, 1, sizeZ);
 
         return GenerateRoom(position, dimensions);
@@ -170,8 +169,8 @@ public class RoomGenerator : MonoBehaviour
 
     bool GenerateRandomRoom(Vector3 pos)
     {
-        var sizeX = Mathf.RoundToInt(Random.Range(3, 6));
-        var sizeZ = Mathf.RoundToInt(Random.Range(3, 6));
+        var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
+        var sizeZ = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
         var dimensions = new Vector3(sizeX, 1, sizeZ);
         return GenerateRoom(pos, dimensions);
     }
