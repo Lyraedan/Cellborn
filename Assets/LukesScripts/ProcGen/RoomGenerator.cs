@@ -12,10 +12,9 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 minDungeonSize = new Vector2(10, 10);
     public Vector2 maxDungeonSize = new Vector2(25, 25);
     public Vector2 minRoomSize = new Vector2(3, 6);
+    [Tooltip("This gets updated at runtime")]public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
     public List<Room> rooms = new List<Room>();
-
-    private Vector3 start, end;
 
     public GameObject test;
 
@@ -34,12 +33,10 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        start = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
-        end = GenerateRandomVector((int) start.x, 0, (int) start.z, (int) start.x + (int) maxDungeonSize.y, 1, (int)start.z + (int) maxDungeonSize.y);
+        generatedDungeonSize = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
+        Debug.Log("Generated dungeon of size: " + generatedDungeonSize.ToString());
 
-        //var distance = end - start;
-
-        var dimensions = new Vector3(end.x, 1, end.z);
+        var dimensions = new Vector3(generatedDungeonSize.x, 1, generatedDungeonSize.z);
         grid.cells = dimensions;
         grid.Init();
 
@@ -156,8 +153,8 @@ public class RoomGenerator : MonoBehaviour
 
     bool GenerateRandomRoom()
     {
-        var posX = Mathf.RoundToInt(Random.Range(0, end.x));
-        var posZ = Mathf.RoundToInt(Random.Range(0, end.z));
+        var posX = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.x));
+        var posZ = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.z));
         var position = new Vector3(posX, 1, posZ);
 
         var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
@@ -184,12 +181,4 @@ public class RoomGenerator : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(start, 0.25f);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(end, 0.25f);
-    }
 }
