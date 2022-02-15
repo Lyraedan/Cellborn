@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
@@ -60,8 +61,9 @@ public class RoomGenerator : MonoBehaviour
 
         PlaceFloors();
 
-        start = rooms[0];
-        end = rooms[Random.Range(rooms.Count > 1 ? 1 : 0, rooms.Count)];
+        var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
+        start = sorted[0];
+        end = sorted[sorted.Count - 1];
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
@@ -193,6 +195,9 @@ public class RoomGenerator : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (start == null || end == null)
+            return;
+
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(start.centre, 0.25f);
         Gizmos.color = Color.magenta;
