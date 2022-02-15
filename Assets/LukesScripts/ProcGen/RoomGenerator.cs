@@ -17,6 +17,8 @@ public class RoomGenerator : MonoBehaviour
     public int maxRoomLimit = 10;
     public List<Room> rooms = new List<Room>();
 
+    private Room start, end;
+
     public GameObject test;
 
     private int failedAttempts = 0;
@@ -57,6 +59,9 @@ public class RoomGenerator : MonoBehaviour
         ConnectRooms();
 
         PlaceFloors();
+
+        start = rooms[0];
+        end = rooms[Random.Range(rooms.Count > 1 ? 1 : 0, rooms.Count)];
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
@@ -186,4 +191,11 @@ public class RoomGenerator : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(start.centre, 0.25f);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawSphere(end.centre, 0.25f);
+    }
 }
