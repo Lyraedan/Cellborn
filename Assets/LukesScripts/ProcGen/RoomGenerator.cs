@@ -9,6 +9,7 @@ public class RoomGenerator : MonoBehaviour
     public Transform roomParent;
     public Grid grid;
     [Header("Dungeon settings")]
+    public int seed = 0;
     public Vector2 minDungeonSize = new Vector2(10, 10);
     public Vector2 maxDungeonSize = new Vector2(25, 25);
     public Vector2 minRoomSize = new Vector2(3, 6);
@@ -33,6 +34,10 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (seed == 0)
+            seed = Random.Range(0, 10000);
+
+        Random.InitState(seed);
         generatedDungeonSize = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
         Debug.Log("Generated dungeon of size: " + generatedDungeonSize.ToString());
 
