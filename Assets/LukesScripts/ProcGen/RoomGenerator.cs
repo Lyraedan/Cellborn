@@ -124,17 +124,14 @@ public class RoomGenerator : MonoBehaviour
                     GridCell next = room.hallways[j + 1];
 
                     var adjacent = GetAdjacentCells(current);
-                    /*if (adjacent[0].Equals(next) || adjacent[1].Equals(next) || adjacent[2].Equals(next) || adjacent[3].Equals(next))
-                    {
-                        Debug.Log("Hit the next tile");
-                        break;
-                    }*/
 
                     int cx = (int) current.position.x;
                     int cz = (int) current.position.z;
                     int nx = (int) next.position.x;
                     int nz = (int) next.position.z;
                     Debug.Log($"Current ({cx}, {cz}) -> Next({nx}, {nz})");
+                    
+                    // Diagonals
                     if(nx > cx)
                     {
                         if(adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -155,6 +152,49 @@ public class RoomGenerator : MonoBehaviour
                         if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
                             adjacent[0].flag = GridCell.GridFlag.HALLWAY;
                     }
+                    // Straight up, down, left, right
+                    if(adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    {
+                        adjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                    }
+
+                    if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    {
+                        adjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                    }
+
+                    if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    {
+                        adjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                    }
+
+                    if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    {
+                        adjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                    }
+                }
+
+                //Check last square since we miss it off
+                GridCell last = room.hallways[room.hallways.Count - 1];
+                var finalAdjacent = GetAdjacentCells(last);
+                if (finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    finalAdjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                }
+
+                if (finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    finalAdjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                }
+
+                if (finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    finalAdjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                }
+
+                if (finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    finalAdjacent[3].flag = GridCell.GridFlag.HALLWAY;
                 }
             }
         }
@@ -279,10 +319,14 @@ public class RoomGenerator : MonoBehaviour
             if (room.drawHallwayPath)
             {
                 Gizmos.color = Color.black;
-                for(int j = 0; j < room.hallways.Count; j++)
+                for(int j = 1; j < room.hallways.Count - 1; j++)
                 {
                     Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
                 }
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(room.hallways[0].position, 0.25f);
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
         }
     }
