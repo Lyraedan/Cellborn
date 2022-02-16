@@ -136,7 +136,7 @@ public class GradedPath : MonoBehaviour
                     GridCell next = GetGridCellAt((int)start.position.x + x, (int)start.position.y + y, (int)start.position.z + z);
                     if (next != null)
                     {
-                        var isFree = next.flag.Equals(GridCell.GridFlag.WALKABLE) || next.flag.Equals(GridCell.GridFlag.OCCUPIED);
+                        var isFree = next.flag.Equals(GridCell.GridFlag.WALKABLE) || next.flag.Equals(GridCell.GridFlag.OCCUPIED) || next.flag.Equals(GridCell.GridFlag.WALL);
                         if (isFree && !closed.Contains(next))
                             neighbours.Add(next);
                     }

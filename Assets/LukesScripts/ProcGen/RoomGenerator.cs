@@ -59,8 +59,10 @@ public class RoomGenerator : MonoBehaviour
         }
         ConnectRooms();
         ShapeHallways();
+        Smooth();
 
         PlaceFloors();
+        PlaceWalls();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
@@ -69,6 +71,7 @@ public class RoomGenerator : MonoBehaviour
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
     {
+        position.y += -0.5f;
         GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
         spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
         spawned.transform.SetParent(roomParent);
@@ -88,6 +91,19 @@ public class RoomGenerator : MonoBehaviour
             }
         }
     }
+
+    void PlaceWalls()
+    {
+        for(int x = 0; x < grid.cells.x; x++)
+        {
+            for(int z = 0; z < grid.cells.z; z++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                    SpawnPrefab(test, cell.position, Vector3.zero);
+            }
+        }
+    }
     #endregion
 
     #region Proc gen
@@ -100,7 +116,7 @@ public class RoomGenerator : MonoBehaviour
             navAgent.CalculatePath();
             foreach(GridCell cell in navAgent.open)
             {
-                if(cell.flag.Equals(GridCell.GridFlag.WALKABLE))
+                if(cell.flag.Equals(GridCell.GridFlag.WALKABLE) || cell.flag.Equals(GridCell.GridFlag.WALL))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
                     rooms[i].hallways.Add(cell);
@@ -133,41 +149,41 @@ public class RoomGenerator : MonoBehaviour
                     // Diagonals
                     if(nx > cx)
                     {
-                        if(adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if(adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                             adjacent[3].flag = GridCell.GridFlag.HALLWAY;
                     }
                     if(nx < cx)
                     {
-                        if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                             adjacent[2].flag = GridCell.GridFlag.HALLWAY;
                     }
                     if(nz < cz)
                     {
-                        if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
                             adjacent[1].flag = GridCell.GridFlag.HALLWAY;
                     }
                     if(nz > cz)
                     {
-                        if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
                             adjacent[0].flag = GridCell.GridFlag.HALLWAY;
                     }
                     // Straight up, down, left, right
-                    if(adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    if(adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
                     {
                         adjacent[0].flag = GridCell.GridFlag.HALLWAY;
                     }
 
-                    if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
                     {
                         adjacent[1].flag = GridCell.GridFlag.HALLWAY;
                     }
 
-                    if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                     {
                         adjacent[2].flag = GridCell.GridFlag.HALLWAY;
                     }
 
-                    if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                    if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                     {
                         adjacent[3].flag = GridCell.GridFlag.HALLWAY;
                     }
@@ -176,24 +192,60 @@ public class RoomGenerator : MonoBehaviour
                 //Check last square since we miss it off
                 GridCell last = room.hallways[room.hallways.Count - 1];
                 var finalAdjacent = GetAdjacentCells(last);
-                if (finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALL))
                 {
                     finalAdjacent[0].flag = GridCell.GridFlag.HALLWAY;
                 }
 
-                if (finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALL))
                 {
                     finalAdjacent[1].flag = GridCell.GridFlag.HALLWAY;
                 }
 
-                if (finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                 {
                     finalAdjacent[2].flag = GridCell.GridFlag.HALLWAY;
                 }
 
-                if (finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                 {
                     finalAdjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                }
+            }
+        }
+    }
+
+    void Smooth()
+    {
+        for(int i = 0; i < rooms.Count; i++)
+        {
+            var room = rooms[i];
+            if(room.hallways.Count >= 1)
+            {
+                for(int j = 0; j < room.hallways.Count; j++)
+                {
+                    var tile = room.hallways[j];
+                    tile.flag = GridCell.GridFlag.OCCUPIED;
+
+                    var adjacent = GetAdjacentCells(room.hallways[j]);
+                    if (adjacent[0].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[2].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].Equals(GridCell.GridFlag.OCCUPIED))
+                    {
+                        var tileAdj = room.walls[j];
+                        tileAdj.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+
+            if(room.walls.Count >= 1)
+            {
+                for(int j = 0; j < room.walls.Count; j++)
+                {
+                    var adjacent = GetAdjacentCells(room.walls[j]);
+                    if(adjacent[0].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[2].Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].Equals(GridCell.GridFlag.OCCUPIED))
+                    {
+                        var tile = room.walls[j];
+                        tile.flag = GridCell.GridFlag.OCCUPIED;
+                    }
                 }
             }
         }
@@ -235,7 +287,18 @@ public class RoomGenerator : MonoBehaviour
                     //break;
                 }
 
-                grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                //Flag walls
+                if(x <= pos.x || x >= pos.x + (roomDimensions.x - 1) ||
+                   z <= pos.z || z >= pos.z + (roomDimensions.z - 1))
+                {
+                    // These are walls
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.WALL;
+                    room.walls.Add(grid.grid[x, 0, z]);
+                } else
+                {
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    room.occupied.Add(grid.grid[x, 0, z]);
+                }
             }
         }
         room.centre = new Vector3(pos.x + (roomDimensions.x / 2), 0, pos.z + (roomDimensions.z / 2));
@@ -253,7 +316,7 @@ public class RoomGenerator : MonoBehaviour
 
             foreach (GridCell cell in navAgent.open)
             {
-                if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (cell.flag.Equals(GridCell.GridFlag.WALKABLE) || cell.flag.Equals(GridCell.GridFlag.WALL))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
                     rooms[rooms.Count - 2].hallways.Add(cell);
@@ -262,7 +325,7 @@ public class RoomGenerator : MonoBehaviour
 
             foreach (GridCell cell in navAgent.closed)
             {
-                if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
+                if (cell.flag.Equals(GridCell.GridFlag.WALKABLE) || cell.flag.Equals(GridCell.GridFlag.WALL))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
                     rooms[rooms.Count - 2].hallways.Add(cell);
