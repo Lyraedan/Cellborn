@@ -58,6 +58,7 @@ public class RoomGenerator : MonoBehaviour
             Debug.LogError("No rooms were generated!");
         }
         ConnectRooms();
+        ShapeHallways();
 
         PlaceFloors();
 
@@ -69,6 +70,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
     {
         GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
+        spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
         spawned.transform.SetParent(roomParent);
         return spawned;
     }
@@ -101,9 +103,75 @@ public class RoomGenerator : MonoBehaviour
                 if(cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
+                    rooms[i].hallways.Add(cell);
                 }
             }
         }
+    }
+
+    void ShapeHallways()
+    {
+        // Look for 1x1 hallway tiles and extend them to either 2x2
+        for(int i = 0; i < rooms.Count; i++)
+        {
+            var room = rooms[i];
+            Debug.Log("Rooms[" + i + "]");
+            if (room.hallways.Count >= 2)
+            {
+                for (int j = 0; j < room.hallways.Count - 1; j++)
+                {
+                    GridCell current = room.hallways[j];
+                    GridCell next = room.hallways[j + 1];
+
+                    var adjacent = GetAdjacentCells(current);
+                    /*if (adjacent[0].Equals(next) || adjacent[1].Equals(next) || adjacent[2].Equals(next) || adjacent[3].Equals(next))
+                    {
+                        Debug.Log("Hit the next tile");
+                        break;
+                    }*/
+
+                    int cx = (int) current.position.x;
+                    int cz = (int) current.position.z;
+                    int nx = (int) next.position.x;
+                    int nz = (int) next.position.z;
+                    Debug.Log($"Current ({cx}, {cz}) -> Next({nx}, {nz})");
+                    if(nx > cx)
+                    {
+                        if(adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            adjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                    }
+                    if(nx < cx)
+                    {
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            adjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                    }
+                    if(nz < cz)
+                    {
+                        if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            adjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                    }
+                    if(nz > cz)
+                    {
+                        if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            adjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns the cells "up, down, left, right" to the current cell
+    /// </summary>
+    /// <param name="current"></param>
+    /// <returns></returns>
+    GridCell[] GetAdjacentCells(GridCell current)
+    {
+        GridCell up = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z + 1);
+        GridCell down = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z - 1);
+        GridCell left = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z);
+        GridCell right = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z);
+        return new GridCell[] { up, down, left, right };
     }
 
     bool GenerateRoom(Vector3 pos, Vector3 roomDimensions)
@@ -149,6 +217,7 @@ public class RoomGenerator : MonoBehaviour
                 if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
+                    rooms[rooms.Count - 2].hallways.Add(cell);
                 }
             }
 
@@ -157,6 +226,7 @@ public class RoomGenerator : MonoBehaviour
                 if (cell.flag.Equals(GridCell.GridFlag.WALKABLE))
                 {
                     cell.flag = GridCell.GridFlag.HALLWAY;
+                    rooms[rooms.Count - 2].hallways.Add(cell);
                 }
             }
         }
@@ -202,5 +272,18 @@ public class RoomGenerator : MonoBehaviour
         Gizmos.DrawSphere(start.centre, 0.25f);
         Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(end.centre, 0.25f);
+
+        for(int i = 0; i < rooms.Count; i++)
+        {
+            var room = rooms[i];
+            if (room.drawHallwayPath)
+            {
+                Gizmos.color = Color.black;
+                for(int j = 0; j < room.hallways.Count; j++)
+                {
+                    Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
+                }
+            }
+        }
     }
 }

@@ -122,8 +122,8 @@ public class GridCell
 
     public GridFlag flag = GridFlag.WALKABLE;
     public Vector3 position = Vector3.zero;
-    public float score = 0;
-    public float distance = 0;
+    [HideInInspector] public float score = 0;
+    [HideInInspector] public float distance = 0;
     public float scoredDistance => score + distance;
 
     public void SetDistance(Vector3 target)

@@ -6,4 +6,6 @@ using UnityEngine;
 public class Room
 {
     public Vector3 centre;
+    public List<GridCell> hallways = new List<GridCell>();
+    public bool drawHallwayPath = false;
 }
