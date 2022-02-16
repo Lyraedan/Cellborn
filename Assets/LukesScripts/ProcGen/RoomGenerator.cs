@@ -115,7 +115,6 @@ public class RoomGenerator : MonoBehaviour
         for(int i = 0; i < rooms.Count; i++)
         {
             var room = rooms[i];
-            Debug.Log("Rooms[" + i + "]");
             if (room.hallways.Count >= 2)
             {
                 for (int j = 0; j < room.hallways.Count - 1; j++)
@@ -284,14 +283,6 @@ public class RoomGenerator : MonoBehaviour
         var dimensions = new Vector3(sizeX, 1, sizeZ);
 
         return GenerateRoom(position, dimensions);
-    }
-
-    bool GenerateRandomRoom(Vector3 pos)
-    {
-        var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
-        var sizeZ = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
-        var dimensions = new Vector3(sizeX, 1, sizeZ);
-        return GenerateRoom(pos, dimensions);
     }
     #endregion
 
