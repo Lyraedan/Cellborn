@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "Objects/New Weapon")]
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Scriptable Object/New Weapon")]
 public class Weapon : ScriptableObject
 {
     [Header("Basic Settings")]  
@@ -28,6 +28,9 @@ public class Weapon : ScriptableObject
     [Header("Multiple Projectiles")]
     [Range(0.0f, 360.0f)]
     public float fireAngle = 90f;
+
+    [Header("Weapon Prefab")]
+    public GameObject prefab;
 
     private void OnEnable()
     {

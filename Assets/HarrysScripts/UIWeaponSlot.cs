@@ -13,41 +13,22 @@ public class UIWeaponSlot : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(slotKey) && weapon != null)
-        {
-            EquipWeapon(weapon);
-        }
-
         if (weapon != null)
         {
             imageSlot.sprite = weapon.icon;
             imageSlot.enabled = true;
-        }
-    }
 
-    void AddWeapon(Weapon newWeapon)
-    {
-        weapon = newWeapon;
-
-        imageSlot.sprite = weapon.icon;
-        imageSlot.enabled = true;
-    }
-
-    void RemoveWeapon()
-    {
-        weapon = null;
-
-        imageSlot.sprite = null;
-        imageSlot.enabled = false;
+            if (Input.GetKeyDown(slotKey))
+            {
+                EquipWeapon(weapon);
+            }
+        }        
     }
 
     public void EquipWeapon(Weapon newWeapon)
     {
         fireScript.equippedWeapon = weapon;
         fireScript.UpdateParameters(weapon);
-
-        imageSlot.sprite = weapon.icon;
-        imageSlot.enabled = true;
         
     }
 

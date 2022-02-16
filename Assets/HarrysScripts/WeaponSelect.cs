@@ -7,7 +7,11 @@ public class WeaponSelect : MonoBehaviour
 {
     public GameObject slotContainer;
     public UIWeaponSlot[] weaponSlots;
+    public WeaponPickup weaponPickup;
+    public KeyCode dropKey;
     [SerializeField]int currentSlot;
+
+    public Transform dropPosition;
 
     void Start()
     {
@@ -22,7 +26,7 @@ public class WeaponSelect : MonoBehaviour
     }
     
     void Update()
-    {
+    {       
         #region Select Slot
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // forward
@@ -70,6 +74,13 @@ public class WeaponSelect : MonoBehaviour
         else
         {
             weaponSlots[currentSlot].ResetParameters();
+        }
+
+        if (Input.GetKeyDown(dropKey) && currentSlot != 0 && weaponSlots[currentSlot].weapon != null)
+        {
+            Instantiate(weaponSlots[currentSlot].weapon.prefab, dropPosition.position, dropPosition.rotation);
+            weaponSlots[currentSlot].weapon = null;
+            weaponPickup.InventoryNotFull();
         }
     }
 }
