@@ -32,13 +32,23 @@ public class Weapon : ScriptableObject
     [Header("Weapon Prefab")]
     public GameObject prefab;
 
-    private void OnEnable()
+    /* private void OnEnable()
     {
         currentAmmo = maxAmmo;
-    }
+    } */
 
     public void ChangeAmmo(int ammoVal)
     {
         currentAmmo += ammoVal;
+
+        if (currentAmmo > maxAmmo)
+        {
+            currentAmmo = maxAmmo;
+        }
+        
+        if (currentAmmo < 0)
+        {
+            currentAmmo = 0;
+        }
     }
 }

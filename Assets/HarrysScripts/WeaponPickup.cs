@@ -12,14 +12,18 @@ public class WeaponPickup : MonoBehaviour
     public UIWeaponSlot[] weaponSlots;
     public KeyCode pickupKey;
 
+    ProjectileFire fireScript;
+
     public TextMeshProUGUI pickupText;
 
     [SerializeField]bool canPickUp;
     [SerializeField]bool isInventoryFull;
+    [SerializeField]bool isDuplicate;
 
     void Start()
     {
         weaponSlots = slotContainer.GetComponentsInChildren<UIWeaponSlot>();
+        fireScript = FindObjectOfType<ProjectileFire>();
     }
 
     void Update()
@@ -45,7 +49,16 @@ public class WeaponPickup : MonoBehaviour
         
         if (Input.GetKeyDown(pickupKey) && canPickUp && !isInventoryFull)
         {
-            AddToInventory(weaponSlots, weaponPickup, pickUpObject);
+            CheckForMultipleWeapons(weaponSlots, weaponPickup);
+            
+            if(!isDuplicate)
+            {
+                AddToInventory(weaponSlots, weaponPickup, pickUpObject);
+            }
+            else
+            {
+                AddAmmoToDuplicate(weaponSlots, weaponPickup, pickUpObject);
+            }
         }
     }
 
@@ -63,9 +76,58 @@ public class WeaponPickup : MonoBehaviour
         canPickUp = false;
     }
 
+    public bool CheckForMultipleWeapons(UIWeaponSlot[] slots, Weapon weapon)
+    {
+        var listA = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon != null);
+        if (listA.Any())
+        {
+            var listB = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.name == weapon.name);
+            
+            if (listB.Any())
+            {
+                var selected = listB.First();
+                var index = selected.Index;
+
+                Debug.Log("Found already existing item @ " + index);
+                SetIsDuplicate(true);
+                return true; 
+            }
+            else
+            {
+                return false;
+            }            
+        }
+        else
+        {
+            SetIsDuplicate(false);
+            return false;
+        }            
+    }
+
+    public bool AddAmmoToDuplicate(UIWeaponSlot[] slots, Weapon weapon, GameObject prefab)
+    {
+        var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.name == weapon.name);
+        if (list.Any())
+        {
+            var selected = list.First();
+            var index = selected.Index;
+
+            slots[index].weapon.ChangeAmmo(prefab.GetComponent<WeaponObject>().currentAmmo);
+            canPickUp = false;
+            Destroy(prefab);
+
+            return true; 
+        }
+        else
+        {
+            return false;
+        }  
+    }
+
     public bool AddToInventory(UIWeaponSlot[] slots, Weapon weapon, GameObject prefab)
     {
         var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon == null);
+
         if (list.Any())
         {
             var selected = list.First();
@@ -76,24 +138,25 @@ public class WeaponPickup : MonoBehaviour
             if (slots[index].weapon == null)
             {
                 slots[index].weapon = weapon;
+                fireScript.UpdateParameters(prefab.GetComponent<WeaponObject>().weapon);
                 canPickUp = false;
                 Destroy(prefab);
-            }
+            }            
 
             return true;
         }
         else
-            InventoryIsFull();
+            SetInventoryIsFull(true);
             return false;
     }
 
-    public void InventoryNotFull()
+    public void SetInventoryIsFull(bool value)
     {
-        isInventoryFull = false;
+        isInventoryFull = value;
     }
 
-    public void InventoryIsFull()
+    public void SetIsDuplicate(bool value)
     {
-        isInventoryFull = true;
+        isDuplicate = value;
     }
 }
