@@ -239,14 +239,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 0
+  seed: 508314
   minDungeonSize: {x: 25, y: 25}
   maxDungeonSize: {x: 75, y: 75}
   minRoomSize: {x: 5, y: 10}
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 10
   rooms: []
-  test: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+  prefabs:
+  - prefab: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+    angle: 0
+    type: 0
+  - prefab: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+    angle: 0
+    type: 1
+  - prefab: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+    angle: 0
+    type: 2
+  - prefab: {fileID: 7964915621940505317, guid: c6cd158cef4a46b499a8efeca690f54a, type: 3}
+    angle: 0
+    type: 3
   navAgent: {fileID: 1226544331}
 --- !u!4 &1226544329
 Transform:
@@ -279,6 +291,7 @@ MonoBehaviour:
   drawWalkable: 0
   drawWalls: 1
   drawOccupied: 1
+  drawBlocks: 1
   drawHallways: 1
   drawDistances: 0
   drawAllPaths: 0

@@ -108,6 +108,13 @@ public class Grid : MonoBehaviour
                                 Gizmos.color = Color.magenta;
                                 Gizmos.DrawCube(grid[x, y, z].position, cellSize);
                             }
+                        } else if (grid[x, y, z].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            if (drawWalls)
+                            {
+                                Gizmos.color = Color.blue;
+                                Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            }
                         }
                         if (drawDistances)
                         {
@@ -125,7 +132,7 @@ public class Grid : MonoBehaviour
 public class GridCell
 {
     public enum GridFlag {
-        WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY, WALL
+        WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY, WALL, CORNER
     }
 
     public GridFlag flag = GridFlag.WALKABLE;
