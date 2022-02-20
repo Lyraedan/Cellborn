@@ -28,6 +28,7 @@ public class Grid : MonoBehaviour
     public bool drawHallways = true;
     public bool drawDistances = true;
     public bool drawAllPaths = false;
+    public bool drawEntitySpawns = false;
 
     [HideInInspector] public bool ready = false;
 
@@ -121,6 +122,11 @@ public class Grid : MonoBehaviour
                             Gizmos.color = Color.white;
                             Handles.Label(grid[x, y, z].position, $"{grid[x, y, z].distance}");
                         }
+                        if(drawEntitySpawns)
+                        {
+                            Gizmos.color = Color.cyan;
+                            Gizmos.DrawSphere(grid[x, y, z].position, 0.25f);
+                        }
                     }
                 }
             }
@@ -138,6 +144,7 @@ public class GridCell
     public GridFlag flag = GridFlag.WALKABLE;
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;
+    public bool hasEntity = false;
     [HideInInspector] public float score = 0;
     [HideInInspector] public float distance = 0;
     public float scoredDistance => score + distance;

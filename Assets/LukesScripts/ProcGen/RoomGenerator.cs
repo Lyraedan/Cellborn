@@ -63,10 +63,17 @@ public class RoomGenerator : MonoBehaviour
 
         PlaceFloors();
         PlaceWalls();
+        PlaceCorners();
+        PlaceEntities();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
         end = sorted[sorted.Count - 1];
+
+        Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
+        GridCell spawnPoint = navAgent.GetGridCellAt((int) spawnCoords.x, (int) spawnCoords.y, (int) spawnCoords.z);
+        var player = SpawnPlayer(spawnPoint);
+        Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
@@ -106,6 +113,23 @@ public class RoomGenerator : MonoBehaviour
         int index = Random.Range(0, corners.Count);
         return corners[index].Spawn(cell.position, cell.rotation);
     }
+
+    public GameObject SpawnRandomEntity(GridCell cell)
+    {
+        var entities = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.ENTITY)).ToList();
+        int index = Random.Range(0, entities.Count);
+        var pos = cell.position;
+        pos.y += 0.5f;
+        return entities[index].Spawn(pos, Vector3.zero);
+    }
+    
+    public GameObject SpawnPlayer(GridCell cell)
+    {
+        var player = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PLAYER)).ToList()[0];
+        var pos = cell.position;
+        pos.y += 0.5f;
+        return player.Spawn(pos, Vector3.zero);
+    }
     #endregion
 
     #region Population
@@ -144,6 +168,19 @@ public class RoomGenerator : MonoBehaviour
                 var cell = grid.grid[x, 0, z];
                 if (cell.flag.Equals(GridCell.GridFlag.CORNER))
                     SpawnRandomCorner(cell);
+            }
+        }
+    }
+
+    void PlaceEntities()
+    {
+        for(int x = 0; x < grid.cells.x; x++)
+        {
+            for(int z = 0; z < grid.cells.z; z++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.hasEntity)
+                    SpawnRandomEntity(cell);
             }
         }
     }
@@ -341,32 +378,40 @@ public class RoomGenerator : MonoBehaviour
                             }
                         }
                         // Flag corners
-                        if(downValid && rightValid)
+                        if (downValid && rightValid)
                         {
+                            // Top left
                             if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 180, 0);
                             }
                         }
-                        if(downValid && leftValid)
+                        if (downValid && leftValid)
                         {
+                            // Top right
                             if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 270, 0);
                             }
                         }
-                        if(upValid && rightValid)
+                        if (upValid && rightValid)
                         {
+                            // Bottom left
                             if (adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 90, 0);
                             }
                         }
-                        if(upValid && leftValid)
+                        if (upValid && leftValid)
                         {
+                            // Bottom right
                             if (adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = Vector3.zero;
                             }
                         }
                     }
@@ -406,6 +451,51 @@ public class RoomGenerator : MonoBehaviour
                             {
                                 current.flag = GridCell.GridFlag.WALL;
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Fix corridor corner rotations
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if (current.flag.Equals(GridCell.GridFlag.HALLWAY))
+                {
+                    var adjacent = GetAdjacentCells(current);
+                    var upValid = adjacent[0] != null;
+                    var downValid = adjacent[1] != null;
+                    var leftValid = adjacent[2] != null;
+                    var rightValid = adjacent[3] != null;
+
+                    if (downValid && rightValid)
+                    {
+                        if (adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                            current.rotation = new Vector3(0, 270, 0);
+                        }
+                        if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[3].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+
+                    if (leftValid && downValid)
+                    {
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                            current.rotation = new Vector3(0, 180, 0);
+                        }
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                            current.rotation = Vector3.zero;
                         }
                     }
                 }
@@ -459,6 +549,9 @@ public class RoomGenerator : MonoBehaviour
                 } else
                 {
                     grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    bool spawnEntity = (Random.Range(0, 20) == 0);
+                    Debug.Log("Spawn entity: " + spawnEntity);
+                    grid.grid[x, 0, z].hasEntity = spawnEntity;
                     room.occupied.Add(grid.grid[x, 0, z]);
                 }
             }
@@ -516,6 +609,14 @@ public class RoomGenerator : MonoBehaviour
         var x = Mathf.RoundToInt(Random.Range(minX, maxX));
         var y = Mathf.RoundToInt(Random.Range(minY, maxY));
         var z = Mathf.RoundToInt(Random.Range(minZ, maxZ));
+        return new Vector3(x, y, z);
+    }
+
+    public Vector3 PositionAsGridCoordinates(Vector3 position)
+    {
+        var x = Mathf.RoundToInt(position.x / grid.cellSize.x);
+        var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
+        var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
         return new Vector3(x, y, z);
     }
 

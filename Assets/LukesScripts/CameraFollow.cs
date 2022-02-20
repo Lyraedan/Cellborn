@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
-    public Vector3 distanceFrom = new Vector3(1.5f, -5f, 10f);
+    public Vector3 distanceFrom = new Vector3(0.5f, -2.5f, 4.5f);
 
     void Update()
     {
