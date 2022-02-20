@@ -81,7 +81,7 @@ public class WeaponSelect : MonoBehaviour
             //weaponSlots[currentSlot].weapon.prefab.GetComponent<WeaponObject>().CreateUniqueInstance(weaponSlots[currentSlot].weapon.currentAmmo);
             Instantiate(weaponSlots[currentSlot].weapon.prefab, dropPosition.position, dropPosition.rotation);
             weaponSlots[currentSlot].weapon = null;
-            weaponPickup.SetInventoryIsFull(false);
+            weaponPickup.isInventoryFull = false;
         }
     }
 }
