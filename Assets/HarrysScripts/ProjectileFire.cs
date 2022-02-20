@@ -34,6 +34,9 @@ public class ProjectileFire : MonoBehaviour
     [Range(0.0f, 360.0f)]
     public float fireAngle = 90f;
 
+    [Header("Weapon Prefab")]
+    public GameObject prefab;
+
     void Start()
     {
         if (equippedWeapon != null)
@@ -195,6 +198,8 @@ public class ProjectileFire : MonoBehaviour
         cooldownTime = weapon.cooldownTime;
 
         fireAngle = weapon.fireAngle;
+
+        prefab = weapon.prefab;
     }
 
     public void SetParametersToNull()

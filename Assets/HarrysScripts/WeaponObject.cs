@@ -2,33 +2,42 @@ using UnityEngine;
 
 public class WeaponObject : MonoBehaviour
 {
-    public Weapon weaponAsset;
-    public Weapon weapon;   
+    public GameObject weaponAsset;
+    public GameObject weapon;   
+    public Weapon weaponScript;
     public ProjectileFire fireScript; 
 
-    public int currentAmmo;
+    [SerializeField]int currentAmmoValue;
 
     void Awake()
     {
-        weapon = Object.Instantiate(weaponAsset);
         fireScript = FindObjectOfType<ProjectileFire>();
-        InitialiseAmmo();
-    }
+
+        if (fireScript.equippedWeapon == null)
+        {
+            weapon = Object.Instantiate(weaponAsset);
+            weaponScript = weapon.GetComponent<Weapon>();
+        }
+        else
+        {
+            weaponScript = fireScript.equippedWeapon;
+            currentAmmoValue = fireScript.equippedWeapon.currentAmmo;
+        }              
+    }        
 
     void Start()
-    {
-        CreateUniqueInstance(currentAmmo);
-    }
-
-    void InitialiseAmmo()
-    {
-        weapon.currentAmmo = weapon.maxAmmo;
+    {        
+        //CreateUniqueInstance(currentAmmoValue);
     }
 
     public void CreateUniqueInstance(int ammo)
     {
-        weapon = Object.Instantiate(weaponAsset);
-        weapon.currentAmmo = ammo;
-        currentAmmo = weapon.currentAmmo;
+        //weapon = Object.Instantiate(weaponAsset);
+        //fireScript.equippedWeapon.currentAmmo = ammo;
+    }
+
+    public void DestroyPrefab()
+    {
+        Destroy(weapon);
     }
 }

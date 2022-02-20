@@ -7,7 +7,7 @@ using System;
 
 public class WeaponPickup : MonoBehaviour
 {
-    public GameObject slotContainer, pickUpObject;
+    public GameObject slotContainer, pickUpWeapon, pickUpPrefab;
     public Weapon weaponPickup;
     public UIWeaponSlot[] weaponSlots;
     public KeyCode pickupKey;
@@ -23,7 +23,7 @@ public class WeaponPickup : MonoBehaviour
     void Start()
     {
         weaponSlots = slotContainer.GetComponentsInChildren<UIWeaponSlot>();
-        fireScript = FindObjectOfType<ProjectileFire>();
+        fireScript = gameObject.GetComponentInChildren<ProjectileFire>();
     }
 
     void Update()
@@ -37,8 +37,11 @@ public class WeaponPickup : MonoBehaviour
             }
             else
             {
-                pickupText.enabled = true;
-                pickupText.text = pickupKey.ToString() + " - Pick up " + weaponPickup.name.ToString();
+                if (weaponPickup != null)
+                {
+                    pickupText.enabled = true;
+                    pickupText.text = pickupKey.ToString() + " - Pick up " + weaponPickup.name.ToString();
+                }
             }
         }
         else
@@ -49,54 +52,54 @@ public class WeaponPickup : MonoBehaviour
         
         if (Input.GetKeyDown(pickupKey) && canPickUp && !isInventoryFull)
         {
-            CheckForMultipleWeapons(weaponSlots, weaponPickup);
+            //CheckForMultipleWeapons(weaponSlots, weaponPickup, pickUpWeapon, pickUpPrefab);
             
             if(!isDuplicate)
             {
-                AddToInventory(weaponSlots, weaponPickup, pickUpObject);
+                AddToInventory(weaponSlots, weaponPickup, pickUpWeapon, pickUpPrefab);
             }
             else
             {
-                AddAmmoToDuplicate(weaponSlots, weaponPickup, pickUpObject);
+                //AddAmmoToDuplicate(weaponSlots, weaponPickup, pickUpWeapon, pickUpPrefab);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        pickUpObject = other.gameObject;
-        weaponPickup = pickUpObject.GetComponent<WeaponObject>().weapon;
+        pickUpPrefab = other.gameObject;
+        pickUpWeapon = other.gameObject.GetComponent<WeaponObject>().weaponAsset;
+        weaponPickup = other.gameObject.GetComponent<WeaponObject>().weaponScript;
         canPickUp = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        pickUpObject = null;
+        pickUpWeapon = null;
+        pickUpPrefab = null;
         weaponPickup = null;
         canPickUp = false;
     }
 
-    public bool CheckForMultipleWeapons(UIWeaponSlot[] slots, Weapon weapon)
+    public bool CheckForMultipleWeapons(UIWeaponSlot[] slots, Weapon weapon, GameObject weaponPrefab, GameObject pickupPrefab)
     {
-        var listA = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon != null);
-        if (listA.Any())
+        Debug.Log("No slots: " + slots.Length);
+        foreach(UIWeaponSlot slot in slots) 
         {
-            var listB = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.name == weapon.name);
-            
-            if (listB.Any())
-            {
-                var selected = listB.First();
-                var index = selected.Index;
-
-                Debug.Log("Found already existing item @ " + index);
-                SetIsDuplicate(true);
-                return true; 
-            }
-            else
-            {
-                return false;
-            }            
+            Debug.Log("Weapon is null ? " + (slot.weapon == null));
         }
+        
+        var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.Equals(weapon) && w.Weapon.weapon != null);
+            
+        if (list.Any())
+        {
+            var selected = list.First();
+            var index = selected.Index;
+
+            Debug.Log("Found already existing item @ " + index);
+            SetIsDuplicate(true);
+            return true; 
+        } 
         else
         {
             SetIsDuplicate(false);
@@ -104,17 +107,18 @@ public class WeaponPickup : MonoBehaviour
         }            
     }
 
-    public bool AddAmmoToDuplicate(UIWeaponSlot[] slots, Weapon weapon, GameObject prefab)
+    public bool AddAmmoToDuplicate(UIWeaponSlot[] slots, Weapon weapon, GameObject weaponPrefab, GameObject pickupPrefab)
     {
-        var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.name == weapon.name);
+        var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon.Equals(weapon) && w.Weapon.weapon != null);
         if (list.Any())
         {
             var selected = list.First();
             var index = selected.Index;
 
-            slots[index].weapon.ChangeAmmo(prefab.GetComponent<WeaponObject>().currentAmmo);
+            slots[index].weapon.ChangeAmmo(weapon.currentAmmo);
             canPickUp = false;
-            Destroy(prefab);
+            weaponPickup = null;
+            Destroy(pickupPrefab);
 
             return true; 
         }
@@ -124,7 +128,7 @@ public class WeaponPickup : MonoBehaviour
         }  
     }
 
-    public bool AddToInventory(UIWeaponSlot[] slots, Weapon weapon, GameObject prefab)
+    public bool AddToInventory(UIWeaponSlot[] slots, Weapon weapon, GameObject weaponPrefab, GameObject pickupPrefab)
     {
         var list = slots.Select((weapon, index) => new { Weapon = weapon, Index = index }).Where(w => w.Weapon.weapon == null);
 
@@ -138,9 +142,10 @@ public class WeaponPickup : MonoBehaviour
             if (slots[index].weapon == null)
             {
                 slots[index].weapon = weapon;
-                fireScript.UpdateParameters(prefab.GetComponent<WeaponObject>().weapon);
+                fireScript.UpdateParameters(weapon);
                 canPickUp = false;
-                Destroy(prefab);
+                weaponPickup = null;
+                Destroy(pickupPrefab);
             }            
 
             return true;
