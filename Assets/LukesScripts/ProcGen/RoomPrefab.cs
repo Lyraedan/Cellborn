@@ -8,15 +8,14 @@ public class RoomPrefab
 
     public enum RoomPropType
     {
-        FLOOR, WALL, PROP, DOOR
+        FLOOR, WALL, PROP, DOOR, CORNER
     }
 
     public GameObject prefab;
-    public float angle = 0;
     public RoomPropType type = RoomPropType.PROP;
 
-    public GameObject Spawn(Vector3 position)
+    public GameObject Spawn(Vector3 position, Vector3 rotation)
     {
-        return RoomGenerator.instance.SpawnPrefab(prefab, position, new Vector3(angle, 0, 0));
+        return RoomGenerator.instance.SpawnPrefab(prefab, position, rotation);
     }
 }

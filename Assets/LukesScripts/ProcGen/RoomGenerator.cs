@@ -79,25 +79,32 @@ public class RoomGenerator : MonoBehaviour
     }
 
     #region Prefab Grabbers
-    public GameObject SpawnRandomFloor(Vector3 position)
+    public GameObject SpawnRandomFloor(GridCell cell)
     {
         var floors = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.FLOOR)).ToList();
         int index = Random.Range(0, floors.Count);
-        return floors[index].Spawn(position);
+        return floors[index].Spawn(cell.position, cell.rotation);
     }
 
-    public GameObject SpawnRandomWall(Vector3 position)
+    public GameObject SpawnRandomWall(GridCell cell)
     {
         var walls = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL)).ToList();
         int index = Random.Range(0, walls.Count);
-        return walls[index].Spawn(position);
+        return walls[index].Spawn(cell.position, cell.rotation);
     }
 
-    public GameObject SpawnRandomProp(Vector3 position)
+    public GameObject SpawnRandomProp(GridCell cell)
     {
         var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PROP)).ToList();
         int index = Random.Range(0, prop.Count);
-        return prop[index].Spawn(position);
+        return prop[index].Spawn(cell.position, cell.rotation);
+    }
+    
+    public GameObject SpawnRandomCorner(GridCell cell)
+    {
+        var corners = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CORNER)).ToList();
+        int index = Random.Range(0, corners.Count);
+        return corners[index].Spawn(cell.position, cell.rotation);
     }
     #endregion
 
@@ -110,7 +117,7 @@ public class RoomGenerator : MonoBehaviour
             {
                 var cell = grid.grid[x, 0, z];
                 if(cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.HALLWAY))
-                    SpawnRandomFloor(cell.position);
+                    SpawnRandomFloor(cell);
             }
         }
     }
@@ -123,7 +130,20 @@ public class RoomGenerator : MonoBehaviour
             {
                 var cell = grid.grid[x, 0, z];
                 if (cell.flag.Equals(GridCell.GridFlag.WALL))
-                    SpawnRandomWall(cell.position);
+                    SpawnRandomWall(cell);
+            }
+        }
+    }
+    
+    void PlaceCorners()
+    {
+        for (int x = 0; x < grid.cells.x; x++)
+        {
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.CORNER))
+                    SpawnRandomCorner(cell);
             }
         }
     }
@@ -275,6 +295,7 @@ public class RoomGenerator : MonoBehaviour
                             {
                                 // Bottom walls
                                 //current.flag = GridCell.GridFlag.NONWALKABLE;
+                                current.rotation = new Vector3(0, 90, 0);
                             }
                         }
                         if (downValid)
@@ -283,6 +304,7 @@ public class RoomGenerator : MonoBehaviour
                             {
                                 // Top walls
                                 //current.flag = GridCell.GridFlag.NONWALKABLE;
+                                current.rotation = new Vector3(0, 270, 0);
                             }
                         }
                         if (leftValid)
@@ -291,6 +313,7 @@ public class RoomGenerator : MonoBehaviour
                             {
                                 // left walls
                                 //current.flag = GridCell.GridFlag.NONWALKABLE;
+                                current.rotation = new Vector3(0, 0, 0);
                             }
                         }
                         if (rightValid)
@@ -299,6 +322,7 @@ public class RoomGenerator : MonoBehaviour
                             {
                                 // right walls
                                 //current.flag = GridCell.GridFlag.NONWALKABLE;
+                                current.rotation = new Vector3(0, 180, 0);
                             }
                         }
 
