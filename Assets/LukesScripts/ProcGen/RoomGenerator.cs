@@ -63,6 +63,7 @@ public class RoomGenerator : MonoBehaviour
 
         PlaceFloors();
         PlaceWalls();
+        PlaceCorners();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
@@ -165,6 +166,12 @@ public class RoomGenerator : MonoBehaviour
                     rooms[i].hallways.Add(cell);
                 }
             }
+
+            // Order hallway tiles
+            rooms[i].hallways.Sort((a, b) =>
+            {
+                return (int) Vector3.Distance(a.position, b.position);
+            });
         }
     }
 
@@ -191,43 +198,52 @@ public class RoomGenerator : MonoBehaviour
                     // Diagonals
                     if(nx > cx)
                     {
-                        if(adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
-                            adjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                        if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            // Top right corner
+                            adjacent[3].flag = GridCell.GridFlag.WALL;
+                        }
                     }
                     if(nx < cx)
                     {
                         if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
-                            adjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                        {
+                            adjacent[2].flag = GridCell.GridFlag.WALL;
+                        }
                     }
-                    if(nz < cz)
+                    if (nz < cz)
                     {
                         if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
-                            adjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                        {
+                            adjacent[1].flag = GridCell.GridFlag.WALL;
+                        }
                     }
-                    if(nz > cz)
+                    if (nz > cz)
                     {
                         if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
-                            adjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                        {
+                            adjacent[0].flag = GridCell.GridFlag.WALL;
+                        }
                     }
                     // Straight up, down, left, right
                     if(adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
                     {
-                        adjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                        adjacent[0].flag = GridCell.GridFlag.WALL;
                     }
 
                     if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
                     {
-                        adjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                        adjacent[1].flag = GridCell.GridFlag.WALL;
                     }
 
                     if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                     {
-                        adjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                        adjacent[2].flag = GridCell.GridFlag.WALL;
                     }
 
                     if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                     {
-                        adjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                        adjacent[3].flag = GridCell.GridFlag.WALL;
                     }
                 }
 
@@ -236,22 +252,22 @@ public class RoomGenerator : MonoBehaviour
                 var finalAdjacent = GetAdjacentCells(last);
                 if (finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    finalAdjacent[0].flag = GridCell.GridFlag.HALLWAY;
+                    finalAdjacent[0].flag = GridCell.GridFlag.WALL;
                 }
 
                 if (finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    finalAdjacent[1].flag = GridCell.GridFlag.HALLWAY;
+                    finalAdjacent[1].flag = GridCell.GridFlag.WALL;
                 }
 
                 if (finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    finalAdjacent[2].flag = GridCell.GridFlag.HALLWAY;
+                    finalAdjacent[2].flag = GridCell.GridFlag.WALL;
                 }
 
                 if (finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    finalAdjacent[3].flag = GridCell.GridFlag.HALLWAY;
+                    finalAdjacent[3].flag = GridCell.GridFlag.WALL;
                 }
             }
         }
@@ -273,6 +289,8 @@ public class RoomGenerator : MonoBehaviour
             }
         }
 
+        // This is bad... Too bad
+
         for(int x = 0; x < grid.cells.x; x++)
         {
             for(int z = 0; z < grid.cells.z; z++)
@@ -286,6 +304,7 @@ public class RoomGenerator : MonoBehaviour
                     var leftValid = adjacent[2] != null;
                     var rightValid = adjacent[3] != null;
 
+                    // Trim walls
                     if (current.flag.Equals(GridCell.GridFlag.WALL))
                     {
                         // Clear walls
@@ -343,44 +362,46 @@ public class RoomGenerator : MonoBehaviour
                         // Flag corners
                         if(downValid && rightValid)
                         {
+                            // Top left
                             if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 180, 0);
                             }
                         }
                         if(downValid && leftValid)
                         {
+                            // Top right
                             if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 270, 0);
                             }
                         }
                         if(upValid && rightValid)
                         {
+                            // Bottom left
                             if (adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = new Vector3(0, 90, 0);
                             }
                         }
                         if(upValid && leftValid)
                         {
+                            // Bottom right
                             if (adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
                             {
                                 current.flag = GridCell.GridFlag.CORNER;
+                                current.rotation = Vector3.zero;
                             }
                         }
                     }
-                    else if(current.flag.Equals(GridCell.GridFlag.HALLWAY))
+
+                    // Trim and handle hallways
+                    if(current.flag.Equals(GridCell.GridFlag.HALLWAY))
                     {
                         //current.flag = GridCell.GridFlag.OCCUPIED;
-                        if(upValid && downValid && leftValid && rightValid)
-                        {
-                            if(adjacent[0].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[2].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].flag.Equals(GridCell.GridFlag.OCCUPIED))
-                            {
-                                //current.flag = GridCell.GridFlag.NONWALKABLE;
-                            }
-                        }
-
                         if (upValid && downValid)
                         {
                             if (adjacent[0].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED))
@@ -396,8 +417,20 @@ public class RoomGenerator : MonoBehaviour
                             }
                         }
                     }
-                    else if(current.flag.Equals(GridCell.GridFlag.CORNER)) {
-                        if(leftValid && rightValid)
+
+                    // Manage corners
+                    if(current.flag.Equals(GridCell.GridFlag.CORNER)) {
+                        if(upValid && downValid && leftValid && rightValid)
+                        {
+                            if(!adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) &&
+                               !adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || 
+                               !adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) &&
+                               !adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            {
+                                current.flag = GridCell.GridFlag.WALL;
+                            }
+                        }
+                        if (leftValid && rightValid)
                         {
                             if(adjacent[2].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.OCCUPIED))
                             {
@@ -408,13 +441,197 @@ public class RoomGenerator : MonoBehaviour
                             }
                         }
                     }
+
+
+                    if (current.flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        if(downValid && rightValid)
+                        {
+                            if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
+                                current.flag = GridCell.GridFlag.OCCUPIED;
+                        }
+                        if (downValid && leftValid)
+                        {
+                            if (adjacent[1].flag.Equals(GridCell.GridFlag.WALL) && adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
+                                current.flag = GridCell.GridFlag.OCCUPIED;
+                        }
+                        if(rightValid && leftValid)
+                        {
+                            if (adjacent[2].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
+                                current.rotation = new Vector3(0, 90, 0);
+                        }
+                        if(leftValid && upValid)
+                        {
+                            if(adjacent[2].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
+                            {
+                                current.flag = GridCell.GridFlag.OCCUPIED;
+                            }
+                        }
+                        if(leftValid && upValid && downValid)
+                        {
+                            if (adjacent[2].flag.Equals(GridCell.GridFlag.WALL) && adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
+                            {
+                                current.flag = GridCell.GridFlag.OCCUPIED;
+                            }
+                        }
+                    }
+
+                    // Remove outside occupied spaces
+                    if(current.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                    {
+                        if(upValid && downValid && leftValid && rightValid)
+                        {
+                            if(adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            {
+                                current.flag = GridCell.GridFlag.WALKABLE;
+                            }
+                        }
+                    }
+
+                    if(current.flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        if(upValid && downValid && leftValid && rightValid)
+                        {
+                            if(adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
+                            {
+                                current.flag = GridCell.GridFlag.WALKABLE;
+                            }
+                            if (adjacent[2].flag.Equals(GridCell.GridFlag.WALL) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            {
+                                current.flag = GridCell.GridFlag.WALKABLE;
+                            }
+                            if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[3].flag.Equals(GridCell.GridFlag.WALL) && adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            {
+                                current.flag = GridCell.GridFlag.WALKABLE;
+                            }
+                            if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            {
+                                current.flag = GridCell.GridFlag.WALKABLE;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            var room = rooms[i];
+            if (room.hallways.Count >= 2)
+            {
+                for (int j = 0; j < room.hallways.Count - 1; j++)
+                {
+                    GridCell current = room.hallways[j];
+                    GridCell next = room.hallways[j + 1];
+
+                    var adjacent = GetAdjacentCells(current);
+
+                    int cx = (int)current.position.x;
+                    int cz = (int)current.position.z;
+                    int nx = (int)next.position.x;
+                    int nz = (int)next.position.z;
+
+                    // Diagonals
+                    if (nx > cx)
+                    {
+                        if (adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[3].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            // Top right corner
+                            adjacent[3].flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+                    if (nx < cx)
+                    {
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[2].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            adjacent[2].flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+                    if (nz < cz)
+                    {
+                        if (adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[1].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            adjacent[1].flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+                    if (nz > cz)
+                    {
+                        if (adjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            adjacent[0].flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+
+                    //Check last square since we miss it off
+                    GridCell last = room.hallways[room.hallways.Count - 1];
+                    var finalAdjacent = GetAdjacentCells(last);
+                    if (finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[0].flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        finalAdjacent[0].flag = GridCell.GridFlag.CORNER;
+                    }
+
+                    if (finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[1].flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        finalAdjacent[1].flag = GridCell.GridFlag.CORNER;
+                    }
+
+                    if (finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[2].flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        finalAdjacent[2].flag = GridCell.GridFlag.CORNER;
+                    }
+
+                    if (finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE) || finalAdjacent[3].flag.Equals(GridCell.GridFlag.WALL))
+                    {
+                        finalAdjacent[3].flag = GridCell.GridFlag.CORNER;
+                    }
+                }
+            }
+        }
+
+        // Fix corridor corner rotations
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if(current.flag.Equals(GridCell.GridFlag.CORNER))
+                {
+                    var adjacent = GetAdjacentCells(current);
+                    var upValid = adjacent[0] != null;
+                    var downValid = adjacent[1] != null;
+                    var leftValid = adjacent[2] != null;
+                    var rightValid = adjacent[3] != null;
+
+                    if(downValid && rightValid)
+                    {
+                        if(adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.rotation = new Vector3(0, 270, 0);
+                        }
+                        if(adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[3].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+
+                    if(leftValid && downValid)
+                    {
+                        if(adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[1].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.rotation = new Vector3(0, 180, 0);
+                        }
+                        if (adjacent[2].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[1].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.rotation = Vector3.zero;
+                        }
+                    }
                 }
             }
         }
     }
 
     /// <summary>
-    /// Returns the cells "up, down, left, right" to the current cell
+    /// Returns the cells "up - 0, down - 1, left - 2, right - 3" to the current cell
     /// </summary>
     /// <param name="current"></param>
     /// <returns></returns>
