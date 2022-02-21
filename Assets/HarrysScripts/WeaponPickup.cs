@@ -90,6 +90,7 @@ public class WeaponPickup : MonoBehaviour
             {
                 if(slot.weapon.name.Equals(weapon.name))
                 {
+                    slot.weapon.ChangeAmmo(weapon.currentAmmo);
                     found = true;
                     break;
                 }
@@ -106,7 +107,9 @@ public class WeaponPickup : MonoBehaviour
         {
             if(slot.weapon != null)
             {
+                Debug.Log("Adding " + weapon.currentAmmo + "To your current weapon");
                 slot.weapon.ChangeAmmo(weapon.currentAmmo);
+                fireScript.UpdateParameters(slot.weapon);
                 canPickUp = false;
                 weaponPickup = null;
                 Destroy(pickupPrefab);

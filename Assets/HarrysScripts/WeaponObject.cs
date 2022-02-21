@@ -21,7 +21,7 @@ public class WeaponObject : MonoBehaviour
         else
         {
             weaponScript = fireScript.equippedWeapon;
-            currentAmmoValue = fireScript.equippedWeapon.currentAmmo;
+            //currentAmmoValue = fireScript.equippedWeapon.currentAmmo;
         }              
     }        
 

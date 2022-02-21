@@ -50,4 +50,9 @@ public class Weapon : MonoBehaviour
             currentAmmo = 0;
         }
     }
+
+    public int GetAmmo()
+    {
+        return currentAmmo;
+    }
 }
