@@ -61,11 +61,14 @@ public class RoomGenerator : MonoBehaviour
         ConnectRooms();
         ShapeHallways();
         Smooth();
+        FlagProps();
+        FlagEntities();
 
         PlaceFloors();
         PlaceWalls();
         PlaceCorners();
         PlaceEntities();
+        PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
@@ -188,6 +191,54 @@ public class RoomGenerator : MonoBehaviour
                 var cell = grid.grid[x, 0, z];
                 if (cell.hasEntity)
                     SpawnRandomEntity(cell);
+            }
+        }
+    }
+    
+    void PlaceProps()
+    {
+        for (int x = 0; x < grid.cells.x; x++)
+        {
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.hasProp)
+                    SpawnRandomProp(cell);
+            }
+        }
+    }
+    
+    void FlagProps()
+    {
+        for(int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                {
+                    bool spawnProp = (Random.Range(0, 10) == 0);
+                    cell.hasProp = spawnProp;
+                }
+            }
+        }
+    }
+
+    void FlagEntities()
+    {
+        for(int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                var cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                {
+                    if (!cell.hasProp)
+                    {
+                        bool spawnEntity = (Random.Range(0, 20) == 0);
+                        grid.grid[x, 0, z].hasEntity = spawnEntity;
+                    }
+                }
             }
         }
     }
@@ -599,8 +650,7 @@ public class RoomGenerator : MonoBehaviour
                 } else
                 {
                     grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-                    bool spawnEntity = (Random.Range(0, 20) == 0);
-                    grid.grid[x, 0, z].hasEntity = spawnEntity;
+ 
                     room.occupied.Add(grid.grid[x, 0, z]);
                 }
             }

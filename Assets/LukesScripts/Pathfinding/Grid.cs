@@ -145,6 +145,7 @@ public class GridCell
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;
     public bool hasEntity = false;
+    public bool hasProp = false;
     [HideInInspector] public float score = 0;
     [HideInInspector] public float distance = 0;
     public float scoredDistance => score + distance;
