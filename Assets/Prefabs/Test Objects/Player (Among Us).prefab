@@ -44,9 +44,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 2089850481414163968, guid: f5b85d6043fbcfb48a525eb66b17ec58, type: 3}
+  equippedWeapon: {fileID: 0}
+  weaponText: {fileID: 0}
   projectileSpawn: {fileID: 4083435388916776019}
   player: {fileID: 6514202043233544843}
   target: {fileID: 0}
+  usesAmmo: 0
+  maxAmmo: 0
+  currentAmmo: 0
+  shotsPerFire: 0
+  ammoText: {fileID: 0}
+  ammoFull: {r: 0, g: 0, b: 0, a: 0}
+  ammoNormal: {r: 0, g: 0, b: 0, a: 0}
+  ammoEmpty: {r: 0, g: 0, b: 0, a: 0}
+  isRapidFire: 0
+  fireRate: 0
+  cooldownTime: 0
+  fireAngle: 90
+  prefab: {fileID: 0}
 --- !u!1 &4083435388971892101
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 6514202043233544844}
   m_LocalRotation: {x: -0, y: -0, z: -0.0000000074505797, w: 1}
   m_LocalPosition: {x: 0, y: 1.142, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4083435388916776019}
   - {fileID: 4083435388971892100}

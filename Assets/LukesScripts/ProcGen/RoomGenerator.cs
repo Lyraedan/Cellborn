@@ -25,6 +25,7 @@ public class RoomGenerator : MonoBehaviour
     private int failedAttempts = 0;
 
     public GradedPath navAgent;
+    public TargetMovement targetAim;
 
     private void Awake()
     {
@@ -76,6 +77,10 @@ public class RoomGenerator : MonoBehaviour
         GridCell spawnPoint = navAgent.GetGridCellAt((int) spawnCoords.x, (int) spawnCoords.y, (int) spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
         Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
+        targetAim.mainCam = Camera.main;
+
+        var projectiles = player.GetComponentInChildren<ProjectileFire>();
+        projectiles.target = targetAim.gameObject.transform;
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
@@ -595,7 +600,6 @@ public class RoomGenerator : MonoBehaviour
                 {
                     grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
                     bool spawnEntity = (Random.Range(0, 20) == 0);
-                    Debug.Log("Spawn entity: " + spawnEntity);
                     grid.grid[x, 0, z].hasEntity = spawnEntity;
                     room.occupied.Add(grid.grid[x, 0, z]);
                 }
