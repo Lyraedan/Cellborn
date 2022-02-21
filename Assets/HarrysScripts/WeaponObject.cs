@@ -9,13 +9,14 @@ public class WeaponObject : MonoBehaviour
 
     [SerializeField]int currentAmmoValue;
 
-    void Awake()
+    // Don't do this in Awake good lord! - Please find a better tutorial :) <3 :*
+    void Start()
     {
         fireScript = FindObjectOfType<ProjectileFire>();
 
         if (fireScript.equippedWeapon == null)
         {
-            weapon = Object.Instantiate(weaponAsset);
+            weapon = Instantiate(weaponAsset);
             weaponScript = weapon.GetComponent<Weapon>();
         }
         else
@@ -25,10 +26,12 @@ public class WeaponObject : MonoBehaviour
         }              
     }        
 
+    /*
     void Start()
     {        
         //CreateUniqueInstance(currentAmmoValue);
     }
+    */
 
     public void CreateUniqueInstance(int ammo)
     {
