@@ -526,13 +526,13 @@ public class RoomGenerator : MonoBehaviour
 
                     if (upValid && downValid)
                     {
-                        if((adjacent[0].flag.Equals(GridCell.GridFlag.HALLWAY) && adjacent[1].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL)) && adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if((adjacent[0].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[1].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL)) && adjacent[2].flag.Equals(GridCell.GridFlag.WALKABLE))
                         {
                             current.flag = GridCell.GridFlag.WALL;
                             current.rotation = new Vector3(0, 180, 0);
                         }
 
-                        if ((adjacent[0].flag.Equals(GridCell.GridFlag.HALLWAY) && adjacent[1].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL)) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if ((adjacent[0].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[1].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[0].flag.Equals(GridCell.GridFlag.WALL) && adjacent[1].flag.Equals(GridCell.GridFlag.WALL)) && adjacent[3].flag.Equals(GridCell.GridFlag.WALKABLE))
                         {
                             current.flag = GridCell.GridFlag.WALL;
                             current.rotation = Vector3.zero;
