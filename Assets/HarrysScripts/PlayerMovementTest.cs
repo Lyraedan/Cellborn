@@ -6,7 +6,7 @@ public class PlayerMovementTest : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
-    public float speed, gravity;
+    public float speed;
 
     float horizontal, vertical;
     Vector3 velocity;
@@ -31,7 +31,7 @@ public class PlayerMovementTest : MonoBehaviour
 
         controller.Move(direction * speed * Time.deltaTime);
 
-        velocity.y += gravity * Time.deltaTime;
+        velocity += Physics.gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
     }
