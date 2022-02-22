@@ -25,8 +25,8 @@ public class PlayerMovementTest : MonoBehaviour
             velocity.y = -2f;
         }
         
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        horizontal = InputManager.horizontal;
+        vertical = InputManager.vertical;
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         controller.Move(direction * speed * Time.deltaTime);
