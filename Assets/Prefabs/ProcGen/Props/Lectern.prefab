@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5708952993307877248}
   - component: {fileID: 8689023770734350373}
   - component: {fileID: 6877395052186510575}
+  - component: {fileID: 201389296849993369}
   m_Layer: 0
   m_Name: Lectern
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &201389296849993369
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931888185341150522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5302568919011541938, guid: 968dec25570905a4a8a54ae2c2d371a5, type: 3}
