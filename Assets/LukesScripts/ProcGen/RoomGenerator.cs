@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -67,8 +68,8 @@ public class RoomGenerator : MonoBehaviour
         PlaceFloors();
         PlaceWalls();
         PlaceCorners();
-        PlaceEntities();
-        PlaceProps();
+        //PlaceEntities();
+        //PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
@@ -601,7 +602,11 @@ public class RoomGenerator : MonoBehaviour
 
     void BakeNavmesh()
     {
-
+        var navmesh = FindObjectsOfType<NavMeshSurface>();
+        foreach(NavMeshSurface surface in navmesh)
+        {
+            surface.BuildNavMesh();
+        }
     }
 
     /// <summary>
