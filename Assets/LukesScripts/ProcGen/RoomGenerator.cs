@@ -376,6 +376,7 @@ public class RoomGenerator : MonoBehaviour
     /// </summary>
     void Smooth()
     {
+        #region Base Smoothing
         for (int i = 0; i < rooms.Count; i++)
         {
             var room = rooms[i];
@@ -608,6 +609,54 @@ public class RoomGenerator : MonoBehaviour
                 }
             }
         }
+        #endregion
+
+        #region Extended Smoothing
+        for(int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                var adjacent = GetAdjacentCells(current);
+                var upValid = adjacent[UP] != null;
+                var downValid = adjacent[DOWN] != null;
+                var leftValid = adjacent[LEFT] != null;
+                var rightValid = adjacent[RIGHT] != null;
+
+                if (current.flag.Equals(GridCell.GridFlag.HALLWAY))
+                {
+                    if(leftValid && rightValid)
+                    {
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[RIGHT].flag.Equals(GridCell.GridFlag.HALLWAY) || adjacent[LEFT].flag.Equals(GridCell.GridFlag.HALLWAY) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                        }
+                    }
+
+                    if(leftValid && rightValid && upValid && downValid)
+                    {
+                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                        }
+                    }
+                }
+            
+                if(current.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    if(upValid && leftValid && rightValid && downValid)
+                    {
+                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.flag = GridCell.GridFlag.NONWALKABLE;
+                            //adjacent[UP].flag = GridCell.GridFlag.WALL;
+                            //adjacent[UP].rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
     }
 
     void BakeNavmesh()
