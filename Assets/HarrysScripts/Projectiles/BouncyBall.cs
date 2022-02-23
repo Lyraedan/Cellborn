@@ -7,6 +7,7 @@ public class BouncyBall : ProjectileBehaviour
     public List<Color> ballColors;
     int colorIndex;
     float t;
+    bool canDamage;
     
     void Awake()
     {
@@ -27,5 +28,10 @@ public class BouncyBall : ProjectileBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        canDamage = true;
     }
 }
