@@ -78,6 +78,7 @@ public class RoomGenerator : MonoBehaviour
         PlaceFloors();
         PlaceWalls();
         PlaceCorners();
+        //grid.Bake();
         //PlaceEntities();
         //PlaceProps();
 
@@ -156,9 +157,9 @@ public class RoomGenerator : MonoBehaviour
     #region Population
     void PlaceFloors()
     {
-        for(int x = 0; x < grid.cells.x; x++)
+        for (int z = 0; z < grid.cells.z; z++)
         {
-            for(int z = 0; z < grid.cells.z; z++)
+            for (int x = 0; x < grid.cells.x; x++)
             {
                 var cell = grid.grid[x, 0, z];
                 if(cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.HALLWAY))
@@ -169,9 +170,9 @@ public class RoomGenerator : MonoBehaviour
 
     void PlaceWalls()
     {
-        for(int x = 0; x < grid.cells.x; x++)
+        for (int z = 0; z < grid.cells.z; z++)
         {
-            for(int z = 0; z < grid.cells.z; z++)
+            for (int x = 0; x < grid.cells.x; x++)
             {
                 var cell = grid.grid[x, 0, z];
                 if (cell.flag.Equals(GridCell.GridFlag.WALL))
@@ -622,6 +623,8 @@ public class RoomGenerator : MonoBehaviour
                 var downValid = adjacent[DOWN] != null;
                 var leftValid = adjacent[LEFT] != null;
                 var rightValid = adjacent[RIGHT] != null;
+                var upRightValid = adjacent[UP_RIGHT] != null;
+                var upLeftValid = adjacent[UP_LEFT] != null;
 
                 if (current.flag.Equals(GridCell.GridFlag.HALLWAY))
                 {
@@ -635,21 +638,20 @@ public class RoomGenerator : MonoBehaviour
 
                     if(leftValid && rightValid && upValid && downValid)
                     {
+                        /*
                         if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) || adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
                         {
                             current.flag = GridCell.GridFlag.OCCUPIED;
-                        }
+                        }*/
                     }
                 }
             
                 if(current.flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    if(upValid && leftValid && rightValid && downValid)
+                    if(upValid && upRightValid)
                     {
-                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED))
                         {
-                            current.flag = GridCell.GridFlag.NONWALKABLE;
-                            //adjacent[UP].flag = GridCell.GridFlag.WALL;
                             //adjacent[UP].rotation = new Vector3(0, 90, 0);
                         }
                     }

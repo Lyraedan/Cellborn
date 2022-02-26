@@ -50,7 +50,7 @@ public class Grid : MonoBehaviour
         ready = true;
     }
 
-    void Bake()
+    public void Bake()
     {
         for(int x = 0; x < cells.x; x++)
         {
