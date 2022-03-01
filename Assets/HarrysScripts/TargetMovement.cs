@@ -13,6 +13,11 @@ public class TargetMovement : MonoBehaviour
 
     void Update()
     {
+       if(mainCam == null)
+        {
+            Debug.Log("Cast point has not been assigned in target.");
+            return;
+        }
         mouse = Input.mousePosition;
         castPoint = mainCam.ScreenPointToRay(mouse);
         RaycastHit hit;

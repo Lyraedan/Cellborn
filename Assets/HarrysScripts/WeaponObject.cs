@@ -16,6 +16,11 @@ public class WeaponObject : MonoBehaviour
 
         if (fireScript.equippedWeapon == null)
         {
+            if(weaponAsset == null)
+            {
+                Debug.LogError("Weapon Asset in " + gameObject.name + " has not been assigned!");
+                return;
+            }
             weapon = Instantiate(weaponAsset);
             weaponScript = weapon.GetComponent<Weapon>();
         }

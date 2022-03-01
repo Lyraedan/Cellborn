@@ -7,13 +7,10 @@ public class BouncyBall : ProjectileBehaviour
     public List<Color> ballColors;
     Light ballLight;
     int colorIndex;
-    float t;
-<<<<<<< Updated upstream
-=======
+    float t; // Time
 
     [HideInInspector]
     public bool canDamage;
->>>>>>> Stashed changes
     
     void Awake()
     {
@@ -37,8 +34,6 @@ public class BouncyBall : ProjectileBehaviour
             Destroy(gameObject);
         }
     }
-<<<<<<< Updated upstream
-=======
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -47,5 +42,4 @@ public class BouncyBall : ProjectileBehaviour
             canDamage = true;
         }
     }
->>>>>>> Stashed changes
 }
