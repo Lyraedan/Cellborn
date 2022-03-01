@@ -9,30 +9,34 @@ public class PlayerMovementTest : MonoBehaviour
     public float speed;
 
     float horizontal, vertical;
-    Vector3 velocity;
 
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
     [SerializeField]bool isGrounded;
 
+    Vector3 forward, right;
+
+    private void Start()
+    {
+        forward = Camera.main.transform.forward;
+        forward.y = 0;
+        forward = Vector3.Normalize(forward);
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+    }
+
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-        
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        controller.Move(direction * speed * Time.deltaTime);
+        Vector3 rightMovement = right * speed * Time.deltaTime * horizontal;
+        Vector3 upMovement = forward * speed * Time.deltaTime * vertical;
 
-        velocity += Physics.gravity * Time.deltaTime;
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(heading * speed * Time.deltaTime);
     }
 }
