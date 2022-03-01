@@ -12,10 +12,13 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public float lifetime;
     float t;
+
+    public int damage;
     
     void Awake()
     {
         projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
+        fireScript = FindObjectOfType<ProjectileFire>();
     }
 
     void Update()

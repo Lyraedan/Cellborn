@@ -22,9 +22,21 @@ public class EnemyScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Projectile")
-        {
-            currentHP -= projectileDamage;
+        var collObj = collision.gameObject;
+
+        if (collObj.tag == "Projectile")
+        {     
+            if (collObj.GetComponent<BouncyBall>())
+            {
+                if (collObj.GetComponent<BouncyBall>().canDamage && collObj.GetComponent<BouncyBall>().canDamage)
+                {
+                    currentHP -= 1; 
+                }     
+            }
+            else
+            {
+                currentHP -= 1; 
+            }
         }
     }
 }

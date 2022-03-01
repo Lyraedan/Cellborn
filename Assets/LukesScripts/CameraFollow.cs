@@ -9,10 +9,13 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        Vector3 pos = player.transform.position;
-        pos.x -= distanceFrom.x;
-        pos.y -= distanceFrom.y;
-        pos.z -= distanceFrom.z;
-        transform.position = pos;
+        if (player != null)
+        {
+            Vector3 pos = player.transform.position;
+            pos.x -= distanceFrom.x;
+            pos.y -= distanceFrom.y;
+            pos.z -= distanceFrom.z;
+            transform.position = pos;
+        }
     }
 }

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5595b3abb2b65784a90cf4fdf9c91d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Bouncy Ball Gun
+  name: Sir Boings-A-Lot
   description: This weapon will fire a small number of bouncy balls that will bounce
     off of everything! Be careful! The bouncy balls will hurt you too!
   icon: {fileID: 21300000, guid: 84c329c5f50af1746b1c20340d3663cf, type: 3}
@@ -51,9 +51,9 @@ MonoBehaviour:
   usesAmmo: 1
   maxAmmo: 100
   currentAmmo: 100
-  shotsPerFire: 5
+  shotsPerFire: 4
   isRapidFire: 1
   fireRate: 0.15
   cooldownTime: 0
-  fireAngle: 90
+  fireAngle: 45
   prefab: {fileID: 6514005691360707819, guid: fd2453e63b61629408354e7a45dfc7d8, type: 3}
