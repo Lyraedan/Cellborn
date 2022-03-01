@@ -67,10 +67,18 @@ public class WeaponPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        pickUpPrefab = other.gameObject;
-        pickUpWeapon = other.gameObject.GetComponent<WeaponObject>().weaponAsset;
-        weaponPickup = other.gameObject.GetComponent<WeaponObject>().weaponScript;
-        canPickUp = true;
+        if (other != null)
+        {
+            pickUpPrefab = other.gameObject;
+            
+            if (other.GetComponent<WeaponObject>())
+            {
+                pickUpWeapon = other.gameObject.GetComponent<WeaponObject>().weaponAsset;
+                weaponPickup = other.gameObject.GetComponent<WeaponObject>().weaponScript;
+            }
+
+            canPickUp = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)

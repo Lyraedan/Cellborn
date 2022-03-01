@@ -5,8 +5,15 @@ using UnityEngine;
 public class BouncyBall : ProjectileBehaviour
 {
     public List<Color> ballColors;
+    Light ballLight;
     int colorIndex;
     float t;
+<<<<<<< Updated upstream
+=======
+
+    [HideInInspector]
+    public bool canDamage;
+>>>>>>> Stashed changes
     
     void Awake()
     {
@@ -17,6 +24,8 @@ public class BouncyBall : ProjectileBehaviour
     {
         colorIndex = Random.Range(0, ballColors.Count);
         gameObject.GetComponent<Renderer>().material.color = ballColors[colorIndex];
+        ballLight = GetComponentInChildren<Light>();
+        ballLight.color = ballColors[colorIndex];
     }
 
     void Update()
@@ -28,4 +37,15 @@ public class BouncyBall : ProjectileBehaviour
             Destroy(gameObject);
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(!collision.gameObject.GetComponent<EnemyScript>())
+        {
+            canDamage = true;
+        }
+    }
+>>>>>>> Stashed changes
 }

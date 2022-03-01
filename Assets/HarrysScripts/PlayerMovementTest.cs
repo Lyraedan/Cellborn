@@ -9,12 +9,17 @@ public class PlayerMovementTest : MonoBehaviour
     public float speed, gravity;
 
     float horizontal, vertical;
-    Vector3 velocity;
+    Vector3 velocity, forward, right;
 
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
     [SerializeField]bool isGrounded;
+
+    void Awake()
+    {
+        cam = Camera.main.transform;
+    }
 
     void Update()
     {
@@ -29,10 +34,19 @@ public class PlayerMovementTest : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        controller.Move(direction * speed * Time.deltaTime);
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
+<<<<<<< Updated upstream
         velocity.y += gravity * Time.deltaTime;
+=======
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+>>>>>>> Stashed changes
 
+        velocity += Physics.gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 }
