@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 713455
+  seed: 355300
   minDungeonSize: {x: 25, y: 25}
   maxDungeonSize: {x: 75, y: 75}
   minRoomSize: {x: 5, y: 10}
@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 1848201146}
   - component: {fileID: 1848201145}
   - component: {fileID: 1848201148}
+  - component: {fileID: 1848201149}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -435,6 +436,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   distanceFrom: {x: 2.6, y: -3.6, z: 2.6}
+--- !u!114 &1848201149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848201144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5672d2fe54b42e94cb7a81faada18aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2139805919
 GameObject:
   m_ObjectHideFlags: 0

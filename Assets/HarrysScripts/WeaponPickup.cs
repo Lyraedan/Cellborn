@@ -115,7 +115,7 @@ public class WeaponPickup : MonoBehaviour
         {
             if(slot.weapon != null)
             {
-                Debug.Log("Adding " + weapon.currentAmmo + "To your current weapon");
+                Debug.Log("Adding " + weapon.currentAmmo + " to your current weapon");
                 slot.weapon.ChangeAmmo(weapon.currentAmmo);
                 fireScript.UpdateParameters(slot.weapon);
                 canPickUp = false;
