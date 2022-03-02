@@ -15,7 +15,7 @@ public class PlayerMovementTest : MonoBehaviour
     public LayerMask groundMask;
     [SerializeField]bool isGrounded;
 
-    Vector3 forward, right;
+    Vector3 forward, right, velocity;
 
     private void Start()
     {
@@ -29,6 +29,11 @@ public class PlayerMovementTest : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
+        if(!isGrounded && velocity.y <= 0)
+        {
+            velocity.y = -2f;
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
@@ -38,5 +43,9 @@ public class PlayerMovementTest : MonoBehaviour
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
         controller.Move(heading * speed * Time.deltaTime);
+
+        velocity += Physics.gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
     }
 }
