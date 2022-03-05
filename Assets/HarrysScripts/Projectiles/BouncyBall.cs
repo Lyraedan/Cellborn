@@ -27,6 +27,17 @@ public class BouncyBall : ProjectileBehaviour
 
     void Update()
     {
+        if (canDamage)
+        {
+            enemyDamage = 1;
+            playerDamage = 1;
+        }
+        else
+        {
+            enemyDamage = 0;
+            playerDamage = 1;
+        }
+        
         t += Time.deltaTime;
 
         if (t >= lifetime)

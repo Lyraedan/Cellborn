@@ -42,8 +42,7 @@ public class BlackHoleGravity : MonoBehaviour
         
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            other.gameObject.GetComponent<PlayerMovementTest>().enabled = false;
+            other.gameObject.GetComponent<PlayerStats>().KillPlayer();
         }
         else
         {
