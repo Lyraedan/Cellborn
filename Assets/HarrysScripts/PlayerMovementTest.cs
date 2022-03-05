@@ -10,6 +10,7 @@ public class PlayerMovementTest : MonoBehaviour
 
     float horizontal, vertical;
 
+    public float gravity;
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
@@ -29,7 +30,7 @@ public class PlayerMovementTest : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(!isGrounded && velocity.y <= 0)
+        if(isGrounded && velocity.y <= 0)
         {
             velocity.y = -2f;
         }
@@ -44,7 +45,7 @@ public class PlayerMovementTest : MonoBehaviour
 
         controller.Move(heading * speed * Time.deltaTime);
 
-        velocity += Physics.gravity * Time.deltaTime;
+        velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
     }
