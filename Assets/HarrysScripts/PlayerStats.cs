@@ -6,8 +6,17 @@ using TMPro;
 public class PlayerStats : MonoBehaviour
 {
     public int maxHP;
-    int currentHP;
+    public int currentHP;
     public TextMeshProUGUI healthText;
+    public GameObject deathEffect;
+
+    #region Player Components
+
+    public MeshRenderer meshRender;
+    public PlayerMovementTest moveScript;
+    public ProjectileFire fireScript;
+
+    #endregion
 
     bool isDead;
     
@@ -22,7 +31,12 @@ public class PlayerStats : MonoBehaviour
         
         if (currentHP <= 0)
         {
-            KillPlayer();
+            currentHP = 0;
+            
+            if(!isDead)
+            {
+                KillPlayer();
+            }
         }
     }
 
@@ -38,8 +52,11 @@ public class PlayerStats : MonoBehaviour
 
     public void KillPlayer()
     {
-        GetComponentInChildren<MeshRenderer>().enabled = false;
-        GetComponent<PlayerMovementTest>().enabled = false;
+        currentHP = 0;
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
+        meshRender.enabled = false;
+        moveScript.enabled = false;
+        fireScript.enabled = false;
         isDead = true;
     }
 }
