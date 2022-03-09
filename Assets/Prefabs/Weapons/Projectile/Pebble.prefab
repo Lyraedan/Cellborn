@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2089850481414163969}
   - component: {fileID: 2089850481414163978}
   m_Layer: 7
-  m_Name: TestProjectile_01
+  m_Name: Pebble
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,3 +131,4 @@ MonoBehaviour:
   arcSize: 2
   shotDirection: 0
   lifetime: 5
+  damage: 1

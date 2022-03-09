@@ -26,17 +26,7 @@ public class EnemyScript : MonoBehaviour
 
         if (collObj.tag == "Projectile")
         {     
-            if (collObj.GetComponent<BouncyBall>())
-            {
-                if (collObj.GetComponent<BouncyBall>().canDamage && collObj.GetComponent<BouncyBall>().canDamage)
-                {
-                    currentHP -= 1; 
-                }     
-            }
-            else
-            {
-                currentHP -= 1; 
-            }
+            currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage; 
         }
     }
 }

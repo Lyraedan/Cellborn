@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 55881995776343719}
   - component: {fileID: 55881995776343717}
   - component: {fileID: 55881995776343716}
+  - component: {fileID: 1663721380439235019}
   m_Layer: 8
   m_Name: Player_NEW
   m_TagString: Untagged
@@ -152,7 +153,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.84
+  m_Height: 1.24
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0
@@ -199,6 +200,20 @@ MonoBehaviour:
   weaponSlots: []
   pickupKey: 101
   pickupText: {fileID: 7064694836755681219}
+--- !u!114 &1663721380439235019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55881995776343736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b042d138e7a7c41b8f3834cd22f887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 10
+  healthText: {fileID: 406965791022919548}
 --- !u!1 &7064694837493150985
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +636,17 @@ MonoBehaviour:
 --- !u!114 &7064694836755681219 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3819618000726868702, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
+  m_PrefabInstance: {fileID: 6271496486238326045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &406965791022919548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5957419980205105761, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
   m_PrefabInstance: {fileID: 6271496486238326045}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
