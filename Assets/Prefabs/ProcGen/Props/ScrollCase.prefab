@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8962130233180605542}
   - component: {fileID: 5109246982448421671}
   - component: {fileID: 214369088151590554}
+  - component: {fileID: 4988888758183564195}
   m_Layer: 0
   m_Name: ScrollCase
   m_TagString: Untagged
@@ -113,3 +114,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4988888758183564195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448704772291128755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 5109246982448421671}
+  meshRenderers:
+  - {fileID: 8962130233180605542}
