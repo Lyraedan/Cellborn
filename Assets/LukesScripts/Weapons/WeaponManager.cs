@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -64,11 +63,11 @@ public class WeaponManager : MonoBehaviour
 
     public void GetWeaponsInLevel()
     {
-        currentlyHeldWeapons[0] = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == 0).GetComponent<WeaponProperties>();
+        currentlyHeldWeapons[0] = FindWeapon(0);
 
         for (int i = 1; i < currentlyHeldWeapons.Count; i++)
         {
-            currentlyHeldWeapons[i] = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == -1).GetComponent<WeaponProperties>();
+            currentlyHeldWeapons[i] = FindWeapon(-1);
         }
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
