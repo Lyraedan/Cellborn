@@ -15,10 +15,11 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public int enemyDamage;
     public int playerDamage;
+
+    public bool canChangeDistance;
     
     void Awake()
     {
-        projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         fireScript = FindObjectOfType<ProjectileFire>();
     }
 
@@ -29,6 +30,18 @@ public class ProjectileBehaviour : MonoBehaviour
         if (t >= lifetime)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void FireProjectile(float horizontalVelocity)
+    {
+        if (canChangeDistance)
+        {
+            projRigidbody.AddForce((transform.forward * horizontalVelocity) + (transform.up * arcSize), ForceMode.Impulse);
+        }
+        else
+        {
+            projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         }
     }
 }

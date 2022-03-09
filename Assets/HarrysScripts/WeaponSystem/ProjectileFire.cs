@@ -37,6 +37,9 @@ public class ProjectileFire : MonoBehaviour
     [Header("Weapon Prefab")]
     public GameObject prefab;
 
+    [Header("Aiming")]
+    public float targetDistance;
+
     void Start()
     {
         if (equippedWeapon != null)
@@ -52,11 +55,14 @@ public class ProjectileFire : MonoBehaviour
     void Update()
     {              
         #region Aiming
+        
         if(target == null)
         {
             Debug.LogError("Aiming target is unassigned!");
             return;
         }
+
+        targetDistance = Vector3.Distance(player.transform.position, target.position);
 
         player.LookAt(target.position);
         player.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
@@ -234,6 +240,7 @@ public class ProjectileFire : MonoBehaviour
             pos.y += -0.1f;
 
             GameObject projInstance = Instantiate(projectile, transform.position, Quaternion.Euler(0, y, 0));
+            projInstance.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
         }        
     }
 
