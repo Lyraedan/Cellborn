@@ -81,7 +81,7 @@ public class RoomGenerator : MonoBehaviour
         PlaceCorners();
         //grid.Bake();
         PlaceEntities();
-        //PlaceProps();
+        PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
