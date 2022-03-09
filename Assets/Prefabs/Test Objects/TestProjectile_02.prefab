@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 941154122441620430}
   - component: {fileID: 941154122441620417}
   - component: {fileID: 941154122441620426}
+  - component: {fileID: 8269671666284123239}
   m_Layer: 7
   m_Name: TestProjectile_02
   m_TagString: Projectile
@@ -126,7 +127,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projRigidbody: {fileID: 941154122441620417}
+  fireScript: {fileID: 0}
   throwStrength: 100
   arcSize: 0
-  lines: 1
+  shotDirection: 0
   lifetime: 5
+  enemyDamage: 0
+  playerDamage: 0
+--- !u!114 &8269671666284123239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941154122441620416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 941154122441620430}
+  meshRenderers:
+  - {fileID: 941154122441620431}
