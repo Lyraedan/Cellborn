@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1663721380439235019}
   m_Layer: 8
   m_Name: Player_NEW
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 10
+  currentHP: 0
   healthText: {fileID: 406965791022919548}
+  deathEffect: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
+  meshRender: {fileID: 7387275194166907822}
+  moveScript: {fileID: 55881995776343718}
+  fireScript: {fileID: 7064694838615943270}
 --- !u!1 &7064694837493150985
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,11 +573,6 @@ PrefabInstance:
       objectReference: {fileID: 7064694838615943270}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
---- !u!224 &7064694837469440743 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3819618000906905594, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
-  m_PrefabInstance: {fileID: 6271496486238326045}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7064694837037418711 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3819618001020143050, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
@@ -655,6 +655,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7064694837469440743 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3819618000906905594, guid: a0b656e0c84f46647b19a08ea825aeb2, type: 3}
+  m_PrefabInstance: {fileID: 6271496486238326045}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8162011296237948714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724,6 +729,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2023b2c56f856064b904ec470819f906, type: 3}
+--- !u!23 &7387275194166907822 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2023b2c56f856064b904ec470819f906, type: 3}
+  m_PrefabInstance: {fileID: 8162011296237948714}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8561329125762033857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2023b2c56f856064b904ec470819f906, type: 3}

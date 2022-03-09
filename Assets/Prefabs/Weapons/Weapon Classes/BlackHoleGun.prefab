@@ -47,7 +47,7 @@ MonoBehaviour:
   description: This technologically advanced weapon will fire a ball of pure star
     energy. This energy will bounce a few times before forming a miniature black
     hole that will attract and instantly kill everything around it.
-  icon: {fileID: 21300000, guid: 9413c7b9954fba2428208e927ba27d75, type: 3}
+  icon: {fileID: 21300000, guid: 16b6f402c97b6764181d09c3d529e7c8, type: 3}
   projectile: {fileID: 5500159748544458815, guid: 81c2980b9abb8524895969f953c6cb07, type: 3}
   usesAmmo: 1
   maxAmmo: 3
@@ -55,6 +55,6 @@ MonoBehaviour:
   shotsPerFire: 1
   isRapidFire: 0
   fireRate: 0
-  cooldownTime: 1
+  cooldownTime: 6
   fireAngle: 0
   prefab: {fileID: 4161291639031290691, guid: 92bb2c93dfa9c8642b3e0616c89838a4, type: 3}

@@ -6,8 +6,8 @@ public class BlackHoleGravity : MonoBehaviour
 {
     public float pullRadius, objectPullForce, playerPullForce;
     public GameObject destroyEffect;
-    public float holeTime;
-    float t;
+    public float holeTime, healthDrainMultiplier;
+    float t, healthDrain;
        
     void FixedUpdate()
     {
@@ -15,17 +15,32 @@ public class BlackHoleGravity : MonoBehaviour
         {
             Vector3 forceDirection = gameObject.transform.position - collider.transform.position;
 
-            var rigidBody = collider.GetComponent<Rigidbody>(); 
+            float holeDistance = pullRadius - Vector3.Distance(gameObject.transform.position, collider.transform.position);
+            float drainDistance = Vector3.Distance(gameObject.transform.position, collider.transform.position) / healthDrainMultiplier;
+            holeDistance = holeDistance / pullRadius;
+
+            var rigidBody = collider.GetComponent<Rigidbody>();
             var characterController = collider.GetComponent<CharacterController>();
+            var playerStats = collider.GetComponent<PlayerStats>();
 
             if (rigidBody != null)
             {
-                rigidBody.AddForce(forceDirection.normalized * objectPullForce * Time.deltaTime); 
+                rigidBody.AddForce(forceDirection.normalized * holeDistance * objectPullForce * Time.deltaTime); 
             }             
 
             if (characterController != null)
             {
-                characterController.Move(forceDirection.normalized * playerPullForce * Time.deltaTime); 
+                characterController.Move(forceDirection.normalized * holeDistance * playerPullForce * Time.deltaTime);
+
+                healthDrain += Time.deltaTime;
+                if (healthDrain >= drainDistance)
+                {
+                    if (playerStats != null)
+                    {
+                        playerStats.currentHP -= 1;
+                    }
+                    healthDrain = 0;
+                }
             }    
         }
 
