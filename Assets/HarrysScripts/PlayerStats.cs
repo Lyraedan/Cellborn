@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
 
     #region Player Components
 
-    public MeshRenderer meshRender;
+    public MeshRenderer[] meshRenderers;
     public PlayerMovementTest moveScript;
     public ProjectileFire fireScript;
 
@@ -54,7 +54,10 @@ public class PlayerStats : MonoBehaviour
     {
         currentHP = 0;
         Instantiate(deathEffect, transform.position, Quaternion.identity);
-        meshRender.enabled = false;
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].enabled = false;
+        }
         moveScript.enabled = false;
         fireScript.enabled = false;
         isDead = true;

@@ -54,6 +54,7 @@ public class RoomGenerator : MonoBehaviour
             seed = Random.Range(0, 1000000);
 
         Random.InitState(seed);
+        Debug.Log("Generating dungeon with seed: " + seed);
         generatedDungeonSize = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
         Debug.Log("Generated dungeon of size: " + generatedDungeonSize.ToString());
 

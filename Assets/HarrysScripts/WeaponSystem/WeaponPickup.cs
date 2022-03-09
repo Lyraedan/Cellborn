@@ -40,7 +40,7 @@ public class WeaponPickup : MonoBehaviour
                 if (weaponPickup != null)
                 {
                     pickupText.enabled = true;
-                    pickupText.text = pickupKey.ToString() + " - Pick up " + weaponPickup.name.ToString();
+                    pickupText.text = pickupKey.ToString() + " - Pick up " + weaponPickup.name;
                 }
             }
         }
