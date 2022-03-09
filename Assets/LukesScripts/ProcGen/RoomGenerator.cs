@@ -27,6 +27,7 @@ public class RoomGenerator : MonoBehaviour
 
     public GradedPath navAgent;
     public TargetMovement targetAim;
+    public bool enableCulling = true;
 
     //Adjacent directions
     private const int UP = 0;

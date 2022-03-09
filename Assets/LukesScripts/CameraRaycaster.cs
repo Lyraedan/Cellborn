@@ -40,4 +40,13 @@ public class CameraRaycaster : MonoBehaviour
             last = hitInfo.transform.gameObject;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Vector2 aspectRatio = new Vector2(1, 1);
+        float ar = aspectRatio.x / aspectRatio.y;
+        Gizmos.matrix = Matrix4x4.TRS(Camera.main.transform.position, Camera.main.transform.rotation, new Vector3(1.0f, ar, 1.0f));
+        Gizmos.DrawFrustum(Vector3.zero, Camera.main.fieldOfView, Camera.main.farClipPlane, Camera.main.nearClipPlane, Camera.main.aspect);
+    }
 }
