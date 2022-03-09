@@ -48,5 +48,12 @@ public class PlayerMovementTest : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        //Rotate player
+        var direction = WeaponManager.instance.target.transform.position - transform.position;
+        direction.y = 0;
+        var rotation = Quaternion.LookRotation(direction);
+        var dampening = 8;
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
     }
 }

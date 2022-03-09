@@ -8,8 +8,6 @@ public abstract class WeaponBase : MonoBehaviour
     public GameObject projectile;
     protected float targetDistance;
 
-    private GameObject player, target;
-
     void Start()
     {
         Init();
@@ -17,22 +15,10 @@ public abstract class WeaponBase : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
-        {
-            target = GameObject.Find("Target");
-            return;
-        }
+        targetDistance = Vector3.Distance(WeaponManager.instance.player.transform.position, WeaponManager.instance.target.transform.position);
 
-        if(player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            return;
-        }
-
-        targetDistance = Vector3.Distance(player.transform.position, target.transform.position);
-
-        player.transform.LookAt(target.transform.position);
-        player.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        //WeaponManager.instance.player.transform.LookAt(WeaponManager.instance.target.transform.position);
+        //WeaponManager.instance.player.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
         Tick();
     }
@@ -43,28 +29,14 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected void SpawnProjectile(int shots, float angle)
     {
-        if (target == null)
-        {
-            target = GameObject.Find("Target");
-            return;
-        }
-
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            return;
-        }
-
         for (int i = 0; i < shots; i++)
         {
-            float y = ((player.transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
+            float y = ((WeaponManager.instance.player.transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
 
-            Vector3 pos = player.transform.position;
-            pos.y += -0.1f;
-
-            GameObject projInstance = Instantiate(projectile, WeaponManager.instance.firepoint.position, Quaternion.Euler(0, y, 0));
-            projInstance.transform.LookAt(target.transform);
-            projInstance.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
+            GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, WeaponManager.instance.player.transform.rotation);
+            //GameObject projInstance = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, y, 0));
+            //projInstance.transform.LookAt(target.transform);
+            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
         }
     }
 }

@@ -138,13 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbe928091fb051499bd35b4414dae97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 55881995776343736}
+  target: {fileID: 0}
   pickupKey: 101
   dropKey: 103
   slotKeys: 310000003200000033000000
   pickupText: {fileID: 7064694836755681219}
   weaponText: {fileID: 2570830402929448049}
   ammoText: {fileID: 3381861685789330963}
-  firepoint: {fileID: 7064694838615943271}
+  firepoint: {fileID: 7064694838615943288}
   possibleWeapons:
   - {fileID: 2179209837598809162}
   - {fileID: 6982378309056642765}
