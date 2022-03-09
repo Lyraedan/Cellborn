@@ -58,7 +58,7 @@ public abstract class WeaponBase : MonoBehaviour
 
             GameObject projInstance = Instantiate(projectile, WeaponManager.instance.firepoint.position, Quaternion.Euler(0, y, 0));
             projInstance.transform.LookAt(target.transform);
-            projInstance.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
+            //projInstance.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
         }
     }
 }

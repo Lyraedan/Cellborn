@@ -9,6 +9,9 @@ public class CameraCulling : MonoBehaviour
 
     private void Update()
     {
+        if (RoomGenerator.instance != null)
+            return;
+
         if (RoomGenerator.instance.enableCulling)
         {
             bool isVisible = ColliderIsInCameraView(collider);

@@ -14,7 +14,7 @@ public class WeaponBlackHole : WeaponBase
     }
     public override void Fire()
     {
-        SpawnProjectile(1, 0);
+        SpawnProjectile(1, 45);
     }
 
 }

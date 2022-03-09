@@ -154,7 +154,17 @@ public class WeaponManager : MonoBehaviour
     public void Drop(WeaponProperties weapon)
     {
         var found = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == weapon.weaponId).GetComponent<WeaponProperties>();
-        currentlyHeldWeapons.Remove(found);
-        Instantiate(found);
+        var empty = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == -1).GetComponent<WeaponProperties>();
+        var index = currentlyHeldWeapons.IndexOf(found);
+        currentlyHeldWeapons[index] = empty;
+
+        var slot = uiSlots[index];
+        var slotHolder = slot.GetComponent<SlotHolder>();
+        slotHolder.image.sprite = currentlyHeldWeapons[index].icon;
+
+        currentWeapon = currentlyHeldWeapons[index];
+
+        var drop = Instantiate(found.gameObject, firepoint.position, firepoint.rotation);
+        drop.SetActive(true);
     }
 }

@@ -7,7 +7,7 @@ public class WeaponPebble : WeaponBase
 
     public override void Init()
     {
-        infiniteAmmo = true;
+        
     }
 
     public override void Tick()
