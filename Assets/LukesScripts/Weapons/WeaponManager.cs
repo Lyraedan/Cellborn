@@ -112,10 +112,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Todo needs work
-    /// </summary>
-    /// <param name="weapon"></param>
     public void Pickup(WeaponProperties weapon)
     {
         WeaponProperties found = FindWeapon(weapon.weaponId);
@@ -169,10 +165,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Todo rotation and position is scuffed - Affects player rotation?
-    /// </summary>
-    /// <param name="weapon"></param>
     public void Drop(WeaponProperties weapon)
     {
         WeaponProperties found = FindWeapon(weapon.weaponId);
