@@ -101,6 +101,10 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Todo needs work
+    /// </summary>
+    /// <param name="weapon"></param>
     public void Pickup(WeaponProperties weapon)
     {
         var found = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == weapon.weaponId).GetComponent<WeaponProperties>();
@@ -151,6 +155,10 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Todo rotation and position is scuffed - Affects player rotation?
+    /// </summary>
+    /// <param name="weapon"></param>
     public void Drop(WeaponProperties weapon)
     {
         var found = possibleWeapons.Find(w => w.gameObject.GetComponent<WeaponProperties>().weaponId == weapon.weaponId).GetComponent<WeaponProperties>();
@@ -164,7 +172,7 @@ public class WeaponManager : MonoBehaviour
 
         currentWeapon = currentlyHeldWeapons[index];
 
-        var drop = Instantiate(found.gameObject, firepoint.position, firepoint.rotation);
+        var drop = Instantiate(found.gameObject, firepoint.position, Quaternion.identity);
         drop.SetActive(true);
     }
 }
