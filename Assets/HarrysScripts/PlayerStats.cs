@@ -14,7 +14,6 @@ public class PlayerStats : MonoBehaviour
 
     public MeshRenderer[] meshRenderers;
     public PlayerMovementTest moveScript;
-    public ProjectileFire fireScript;
 
     #endregion
 
@@ -59,7 +58,6 @@ public class PlayerStats : MonoBehaviour
             meshRenderers[i].enabled = false;
         }
         moveScript.enabled = false;
-        fireScript.enabled = false;
         isDead = true;
     }
 }

@@ -14,13 +14,15 @@ public class CameraCulling : MonoBehaviour
             bool isVisible = ColliderIsInCameraView(collider);
             for (int i = 0; i < meshRenderers.Length; i++)
             {
-                meshRenderers[i].enabled = isVisible;
+                if(meshRenderers[i] != null)
+                    meshRenderers[i].enabled = isVisible;
             }
         } else
         {
             for (int i = 0; i < meshRenderers.Length; i++)
             {
-                meshRenderers[i].enabled = true;
+                if (meshRenderers[i] != null)
+                    meshRenderers[i].enabled = true;
             }
         }
     }

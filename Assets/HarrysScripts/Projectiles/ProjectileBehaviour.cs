@@ -5,7 +5,6 @@ using UnityEngine;
 public class ProjectileBehaviour : MonoBehaviour
 {
     public Rigidbody projRigidbody;
-    public ProjectileFire fireScript;
     public float throwStrength, arcSize;
 
     public float shotDirection;
@@ -20,7 +19,7 @@ public class ProjectileBehaviour : MonoBehaviour
     
     void Awake()
     {
-        fireScript = FindObjectOfType<ProjectileFire>();
+
     }
 
     void Update()

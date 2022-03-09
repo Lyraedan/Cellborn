@@ -96,8 +96,16 @@ public class RoomGenerator : MonoBehaviour
         Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
         targetAim.mainCam = Camera.main;
 
-        var projectiles = player.GetComponentInChildren<ProjectileFire>();
-        projectiles.target = targetAim.gameObject.transform;
+        StartCoroutine(AwaitAssignables());
+    }
+
+    IEnumerator AwaitAssignables()
+    {
+        yield return new WaitUntil(() => WeaponManager.instance != null);
+        //Grab weapons
+        WeaponManager.instance.GetWeaponsInLevel();
+
+        Debug.Log("Got assignables");
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)

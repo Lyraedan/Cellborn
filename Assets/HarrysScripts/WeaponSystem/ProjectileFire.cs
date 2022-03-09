@@ -71,6 +71,7 @@ public class ProjectileFire : MonoBehaviour
 
         #region Ammo Values
 
+        /*
         if (currentAmmo > maxAmmo)
         {
             currentAmmo = maxAmmo;
@@ -93,7 +94,7 @@ public class ProjectileFire : MonoBehaviour
         {
             ammoText.color = ammoNormal;
         }
-
+        */
         #endregion
 
         #region Firing Conditionals (WARNING! LOTS OF COMPOUND IF STATEMENTS! ENTER IF YOU DARE!)
@@ -146,7 +147,7 @@ public class ProjectileFire : MonoBehaviour
         }
         else
         {
-            ammoText.enabled = false;
+            //ammoText.enabled = false;
 
             if (isRapidFire)
             {
@@ -182,6 +183,7 @@ public class ProjectileFire : MonoBehaviour
 
         #endregion
         
+        /*
         if (equippedWeapon != null)
         {
             weaponText.text = "Equipped weapon: " + equippedWeapon.name.ToString();
@@ -192,6 +194,7 @@ public class ProjectileFire : MonoBehaviour
         }
 
         ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
+        */
     }
 
     public void UpdateParameters(Weapon weapon)
