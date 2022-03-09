@@ -141,7 +141,7 @@ public class WeaponManager : MonoBehaviour
             wep.currentAmmo += weapon.currentAmmo;
             Destroy(weapon.gameObject);
 
-            /*
+            /* TODO Figure out the maths
             if(wep.currentAmmo <= 0)
             {
                 wep.currentAmmo += weapon.currentAmmo;

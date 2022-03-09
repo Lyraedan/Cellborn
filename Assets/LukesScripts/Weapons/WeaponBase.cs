@@ -16,10 +16,6 @@ public abstract class WeaponBase : MonoBehaviour
     void Update()
     {
         targetDistance = Vector3.Distance(WeaponManager.instance.player.transform.position, WeaponManager.instance.target.transform.position);
-
-        //WeaponManager.instance.player.transform.LookAt(WeaponManager.instance.target.transform.position);
-        //WeaponManager.instance.player.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
         Tick();
     }
 
