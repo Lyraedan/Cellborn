@@ -49,11 +49,17 @@ public abstract class WeaponBase : MonoBehaviour
             return;
         }
 
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            return;
+        }
+
         for (int i = 0; i < shots; i++)
         {
-            float y = ((transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
+            float y = ((player.transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
 
-            Vector3 pos = transform.position;
+            Vector3 pos = player.transform.position;
             pos.y += -0.1f;
 
             GameObject projInstance = Instantiate(projectile, WeaponManager.instance.firepoint.position, Quaternion.Euler(0, y, 0));
