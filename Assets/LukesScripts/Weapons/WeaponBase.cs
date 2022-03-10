@@ -8,6 +8,14 @@ public abstract class WeaponBase : MonoBehaviour
     public GameObject projectile;
     protected float targetDistance;
 
+    // Shooting
+    public float angle = 0;
+    public float yRot {
+        get {
+            return (WeaponManager.instance.player.transform.eulerAngles.y - (angle / 2));
+        }
+    }
+
     void Start()
     {
         Init();
@@ -22,17 +30,4 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract void Init();
     public abstract void Tick();
     public abstract void Fire();
-
-    protected void SpawnProjectile(int shots, float angle)
-    {
-        for (int i = 0; i < shots; i++)
-        {
-            float y = ((WeaponManager.instance.player.transform.eulerAngles.y - (angle / 2)) + ((angle / ((shots + 1)) * (i + 1))));
-
-            GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, WeaponManager.instance.player.transform.rotation);
-            //GameObject projInstance = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, y, 0));
-            //projInstance.transform.LookAt(target.transform);
-            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
-        }
-    }
 }

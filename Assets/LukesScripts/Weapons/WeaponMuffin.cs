@@ -12,8 +12,10 @@ public class WeaponMuffin : WeaponBase
     public override void Tick()
     {
     }
+
     public override void Fire()
     {
-        SpawnProjectile(1, 0);
+        GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
+        proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
     }
 }

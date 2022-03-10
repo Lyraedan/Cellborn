@@ -16,6 +16,7 @@ public class WeaponManager : MonoBehaviour
     public KeyCode[] slotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3 };
     public TextMeshProUGUI pickupText, weaponText, ammoText;
     public GameObject firepoint;
+    private int currentlySelectedIndex = 0;
 
     public List<GameObject> possibleWeapons = new List<GameObject>();
 
@@ -63,12 +64,13 @@ public class WeaponManager : MonoBehaviour
 
     public void GetWeaponsInLevel()
     {
-        currentlyHeldWeapons[0] = FindWeapon(0);
+        currentlyHeldWeapons[0] = FindWeapon(0); // Pebbles
 
         for (int i = 1; i < currentlyHeldWeapons.Count; i++)
         {
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
+        currentlyHeldWeapons[1] = FindWeapon(1); // Sir boings alot
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
@@ -84,7 +86,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButton("Fire1"))
         {
             currentWeapon.Shoot();
             ammoText.text = "Ammo: " + currentWeapon.currentAmmo + "/" + currentWeapon.maxAmmo;
@@ -108,7 +110,26 @@ public class WeaponManager : MonoBehaviour
             if (Input.GetKeyDown(slotKeys[i]))
             {
                 currentWeapon = currentlyHeldWeapons[i].GetComponent<WeaponProperties>();
+                currentlySelectedIndex = i;
             }
+        }
+
+        var scrollDelta = Input.mouseScrollDelta;
+        if (scrollDelta != Vector2.zero)
+        {
+            if(scrollDelta.y > 0)
+            {
+                currentlySelectedIndex++;
+                if (currentlySelectedIndex >= currentlyHeldWeapons.Count)
+                    currentlySelectedIndex = 0;
+
+            } else if(scrollDelta.y < 0)
+            {
+                currentlySelectedIndex--;
+                if (currentlySelectedIndex < 0)
+                    currentlySelectedIndex = currentlyHeldWeapons.Count - 1;
+            }
+            currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
         }
     }
 
