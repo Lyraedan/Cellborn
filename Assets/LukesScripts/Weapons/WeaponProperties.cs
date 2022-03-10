@@ -10,8 +10,6 @@ public class WeaponProperties : MonoBehaviour
     public int maxAmmo = 30;
     public Sprite icon;
 
-    public float fireRate = 0;
-
     public WeaponBase functionality;
 
     public void Shoot()

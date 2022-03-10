@@ -1313,6 +1313,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7483907030024036441}
     m_Modifications:
+    - target: {fileID: 5606891704754517551, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
+      propertyPath: secondsBetweenShots
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 6514005691360707814, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
       propertyPath: m_RootOrder
       value: 3
