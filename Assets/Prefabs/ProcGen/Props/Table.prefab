@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2221773680744532852}
-  - component: {fileID: 8649358466896129586}
   m_Layer: 0
   m_Name: LootTableA
   m_TagString: Untagged
@@ -31,24 +30,6 @@ Transform:
   m_Father: {fileID: 5175159756700108642}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8649358466896129586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3291636241762961014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007e5edb50ddc0148a966f8d687263ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chancesOfSpawningLoot: 2
-  tables:
-  - spawnpoint: {fileID: 2221773680744532852}
-    possiblePrefabs:
-    - prefab: {fileID: 7448704772291128755, guid: 5e003a75ed3307a4bae10b0313b5d628, type: 3}
-      rotation: {x: 0, y: 90, z: 0}
 --- !u!1 &5519738370868223448
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +44,7 @@ GameObject:
   - component: {fileID: 4212717589293147895}
   - component: {fileID: 8699308199507402517}
   - component: {fileID: 5340731773558994119}
+  - component: {fileID: 6827361793364322354}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -179,3 +161,21 @@ MonoBehaviour:
   collider: {fileID: 8699308199507402517}
   meshRenderers:
   - {fileID: 6312622524502785037}
+--- !u!114 &6827361793364322354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519738370868223448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007e5edb50ddc0148a966f8d687263ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chancesOfSpawningLoot: 2
+  tables:
+  - spawnpoint: {fileID: 2221773680744532852}
+    possiblePrefabs:
+    - prefab: {fileID: 7448704772291128755, guid: 5e003a75ed3307a4bae10b0313b5d628, type: 3}
+      rotation: {x: 0, y: 90, z: 0}

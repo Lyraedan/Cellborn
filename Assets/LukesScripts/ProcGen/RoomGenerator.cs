@@ -679,58 +679,6 @@ public class RoomGenerator : MonoBehaviour
                 var downLeftValid = adjacent[DOWN_LEFT] != null;
                 var downRightValid = adjacent[DOWN_RIGHT] != null;
 
-                if (current.flag.Equals(GridCell.GridFlag.CORNER))
-                {
-                    if (upValid && leftValid && rightValid && downLeftValid && downRightValid)
-                    {
-                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[UP].flag.Equals(GridCell.GridFlag.WALL))
-                        {
-                            current.flag = GridCell.GridFlag.OCCUPIED;
-                        }
-                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL))
-                        {
-                            current.flag = GridCell.GridFlag.WALL;
-                            current.rotation = new Vector3(0, 270, 0);
-                        }
-                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN_LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
-                        {
-                            current.flag = GridCell.GridFlag.WALKABLE;
-                            adjacent[DOWN].flag = GridCell.GridFlag.WALL;
-                            adjacent[DOWN].rotation = new Vector3(0, 270, 0);
-                        }
-                    }
-                    if (upValid && downValid && leftValid && rightValid)
-                    {
-                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
-                        {
-                            current.flag = GridCell.GridFlag.WALL;
-                            current.rotation = new Vector3(0, 180, 0);
-                        }
-                    }
-                    if(upValid && downValid && leftValid && upRightValid)
-                    {
-                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && !adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
-                        {
-                            current.flag = GridCell.GridFlag.OCCUPIED;
-                            current.rotation = Vector3.zero;
-                        }
-                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
-                        {
-                            adjacent[UP].flag = GridCell.GridFlag.WALKABLE;
-                            adjacent[UP_RIGHT].flag = GridCell.GridFlag.WALL;
-                            adjacent[UP_RIGHT].rotation = new Vector3(0, 180, 0);
-                        }
-                    }
-                    if(rightValid && leftValid && upValid)
-                    {
-                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED))
-                        {
-                            current.flag = GridCell.GridFlag.WALL;
-                            current.rotation = new Vector3(0, 90, 0);
-                        }
-                    }
-                }
-
                 if (current.flag.Equals(GridCell.GridFlag.WALL))
                 {
                     if (upValid && downLeftValid)
@@ -760,12 +708,172 @@ public class RoomGenerator : MonoBehaviour
                             current.rotation = Vector3.zero;
                         }
                     }
+                    if(upValid && leftValid && rightValid)
+                    {
+                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+                    if(upValid && upLeftValid)
+                    {
+                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[UP_LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            adjacent[UP].flag = GridCell.GridFlag.WALL;
+                            adjacent[UP].rotation = new Vector3(0, 180, 0);
+                        }
+                    }
+                }
+
+
+                if (current.flag.Equals(GridCell.GridFlag.CORNER))
+                {
+                    if (upValid && leftValid && rightValid && downLeftValid && downRightValid)
+                    {
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[UP].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                        }
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL))
+                        {
+                            current.flag = GridCell.GridFlag.WALL;
+                            current.rotation = new Vector3(0, 270, 0);
+                        }
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN_LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            current.flag = GridCell.GridFlag.WALKABLE;
+                            adjacent[DOWN].flag = GridCell.GridFlag.WALL;
+                            adjacent[DOWN].rotation = new Vector3(0, 270, 0);
+                        }
+                    }
+                    if (upValid && downValid && leftValid && rightValid)
+                    {
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.WALL;
+                            current.rotation = new Vector3(0, 180, 0);
+                        }
+                    }
+                    if (upValid && downValid && leftValid && upRightValid)
+                    {
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && !adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                            current.rotation = Vector3.zero;
+                        }
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            adjacent[UP].flag = GridCell.GridFlag.WALKABLE;
+                            adjacent[UP_RIGHT].flag = GridCell.GridFlag.WALL;
+                            adjacent[UP_RIGHT].rotation = new Vector3(0, 180, 0);
+                        }
+                    }
+                    if (rightValid && leftValid && upValid)
+                    {
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.WALL;
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+                    if (upValid && downValid && leftValid && rightValid)
+                    {
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+                    if (upValid && leftValid && downRightValid)
+                    {
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            current.flag = GridCell.GridFlag.WALL;
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                var adjacent = GetAdjacentCells(current);
+                var upValid = adjacent[UP] != null;
+                var downValid = adjacent[DOWN] != null;
+                var leftValid = adjacent[LEFT] != null;
+                var rightValid = adjacent[RIGHT] != null;
+                var upRightValid = adjacent[UP_RIGHT] != null;
+                var upLeftValid = adjacent[UP_LEFT] != null;
+                var downLeftValid = adjacent[DOWN_LEFT] != null;
+                var downRightValid = adjacent[DOWN_RIGHT] != null;
+
+                if(current.flag.Equals(GridCell.GridFlag.CORNER))
+                {
+                    if (rightValid && leftValid && upValid)
+                    {
+                        if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            adjacent[UP].flag = GridCell.GridFlag.WALL;
+                            adjacent[UP].rotation = Vector3.zero;
+                        }
+                    }
+                    if(upValid && upRightValid && rightValid)
+                    {
+                        if(adjacent[UP].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[UP_RIGHT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                        {
+                            adjacent[UP].flag = GridCell.GridFlag.CORNER;
+                            adjacent[UP].rotation = new Vector3(0, 90, 0);
+                            adjacent[UP_RIGHT].flag = GridCell.GridFlag.OCCUPIED;
+                            adjacent[UP_RIGHT].rotation = Vector3.zero;
+                        }
+                    }
+                }
+
+                if(current.flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    if(downValid && leftValid && rightValid)
+                    {
+                        if(adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            adjacent[DOWN].flag = GridCell.GridFlag.WALL;
+                            adjacent[DOWN].rotation = new Vector3(0, 270, 0);
+                        }
+                    }
+                    if(downValid && leftValid && upLeftValid)
+                    {
+                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[UP_LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            adjacent[LEFT].flag = GridCell.GridFlag.WALL;
+                        }
+                    }
+                    if(leftValid && downValid && downRightValid)
+                    {
+                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            adjacent[DOWN].flag = GridCell.GridFlag.CORNER;
+                            adjacent[DOWN].rotation = new Vector3(0, 270, 0);
+                        }
+                    }
+                }
+
+                if(current.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    if(rightValid && leftValid && downRightValid)
+                    {
+                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
                 }
             }
         }
         #endregion
-
-    }
+}
 
     void BakeNavmesh()
     {
