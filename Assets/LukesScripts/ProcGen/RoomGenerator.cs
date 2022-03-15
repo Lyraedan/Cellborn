@@ -81,14 +81,14 @@ public class RoomGenerator : MonoBehaviour
         PlaceWalls();
         PlaceCorners();
         //grid.Bake();
+        BakeNavmesh();
+
         PlaceEntities();
         PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
         end = sorted[sorted.Count - 1];
-
-        BakeNavmesh();
 
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
         GridCell spawnPoint = navAgent.GetGridCellAt((int) spawnCoords.x, (int) spawnCoords.y, (int) spawnCoords.z);
@@ -689,7 +689,7 @@ public class RoomGenerator : MonoBehaviour
                             current.rotation = new Vector3(0, 180, 0);
                         }
                     }
-                    if (upValid && downRightValid)
+                    if (upValid && downRightValid && leftValid)
                     {
                         if (adjacent[UP].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.WALL) && !adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
                         {
@@ -894,13 +894,13 @@ public class RoomGenerator : MonoBehaviour
 
     void BakeNavmesh()
     {
-        /*
+        Debug.Log("Baking navmesh");
         var navmesh = FindObjectsOfType<NavMeshSurface>();
         foreach(NavMeshSurface surface in navmesh)
         {
             surface.BuildNavMesh();
         }
-        */
+        Debug.Log("Baked navmesh");
     }
 
     /// <summary>

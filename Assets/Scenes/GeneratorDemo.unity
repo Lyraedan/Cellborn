@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.45
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 1226544328}
   - component: {fileID: 1226544330}
   - component: {fileID: 1226544331}
+  - component: {fileID: 1226544332}
   m_Layer: 0
   m_Name: RoomGenerator
   m_TagString: Untagged
@@ -319,7 +320,7 @@ MonoBehaviour:
   cells: {x: 5, y: 5, z: 5}
   drawWalkable: 0
   drawWalls: 1
-  drawOccupied: 1
+  drawOccupied: 0
   drawBlocks: 1
   drawHallways: 1
   drawDistances: 0
@@ -348,6 +349,35 @@ MonoBehaviour:
   drawPath: 0
   drawBlocked: 0
   drawOccupiedSpace: 0
+--- !u!114 &1226544332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226544327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.083333336
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: d858a34ce3d0f2140942d56b2eab62e2, type: 2}
 --- !u!1 &1848201144
 GameObject:
   m_ObjectHideFlags: 0
