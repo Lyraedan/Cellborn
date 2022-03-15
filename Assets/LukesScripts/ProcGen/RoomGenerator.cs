@@ -104,6 +104,7 @@ public class RoomGenerator : MonoBehaviour
         yield return new WaitUntil(() => WeaponManager.instance != null);
         //Grab weapons
         WeaponManager.instance.GetWeaponsInLevel();
+        Minimap.instance.GenerateMinimap(grid);
 
         Debug.Log("Got assignables");
     }
@@ -831,6 +832,14 @@ public class RoomGenerator : MonoBehaviour
                             adjacent[UP_RIGHT].rotation = Vector3.zero;
                         }
                     }
+                    if(leftValid && rightValid && downValid)
+                    {
+                        if (adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.flag = GridCell.GridFlag.WALL;
+                            current.rotation = new Vector3(0, 90, 0);
+                        }
+                    }
                 }
 
                 if(current.flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -867,6 +876,14 @@ public class RoomGenerator : MonoBehaviour
                         if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN_RIGHT].flag.Equals(GridCell.GridFlag.CORNER))
                         {
                             current.flag = GridCell.GridFlag.CORNER;
+                        }
+                    }
+
+                    if(leftValid && rightValid && downValid)
+                    {
+                        if(adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALKABLE))
+                        {
+                            current.rotation = new Vector3(0, 90, 0);
                         }
                     }
                 }

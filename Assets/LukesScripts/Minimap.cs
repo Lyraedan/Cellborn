@@ -1,0 +1,142 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Minimap : MonoBehaviour
+{
+
+    public static Minimap instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+    public MinimapBlip[] blips = new MinimapBlip[4] {
+        new MinimapBlip(GridCell.GridFlag.WALKABLE, Color.clear),
+        new MinimapBlip(GridCell.GridFlag.OCCUPIED, Color.gray),
+        new MinimapBlip(GridCell.GridFlag.WALL, Color.black),
+        new MinimapBlip(GridCell.GridFlag.CORNER, Color.black)
+    };
+
+    public Color playerBlip = Color.white;
+
+    public MinimapBlip[,] map;
+
+    private GridCell playerLast;
+    private Color playerLastBlip = Color.white;
+
+    private bool generated = false;
+
+    [SerializeField] private Image canvas;
+    private Texture2D texture;
+    private Color[] colors;
+
+    private void Update()
+    {
+        if (!generated)
+            return;
+
+        Vector3 playerPosition = PositionAsGridCoordinates(WeaponManager.instance.player.transform);
+        GridCell player = RoomGenerator.instance.navAgent.GetGridCellAt((int) playerPosition.x, (int) playerPosition.y, (int) playerPosition.z);
+
+        if (player == null)
+            return;
+
+        if (playerLast == null)
+        {
+            playerLast = player;
+            playerLastBlip = texture.GetPixel((int)player.position.x, (int)player.position.z);
+            texture.SetPixel((int)player.position.x, (int)player.position.z, playerBlip);
+            texture.Apply();
+            return;
+        }
+
+        if (playerLast.position != player.position)
+        {
+            texture.SetPixel((int)playerLast.position.x, (int)playerLast.position.z, playerLastBlip);
+            playerLastBlip = texture.GetPixel((int)player.position.x, (int)player.position.z);
+            texture.SetPixel((int)player.position.x, (int)player.position.z, playerBlip);
+            texture.Apply();
+        }
+        playerLast = player;
+    }
+
+    public void GenerateMinimap(Grid grid)
+    {
+        int width = (int) grid.cells.x;
+        int height = (int) grid.cells.z;
+
+        Debug.Log($"Minimap: {width} x {height}");
+        map = new MinimapBlip[width, height];
+
+        texture = new Texture2D(width, height);
+
+        for(int y = 0; y < height; y++)
+        {
+            for(int x = 0; x < width; x++)
+            {
+                GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt(x, 0, y);
+                MinimapBlip blip = GetBlip(cell.flag);
+                texture.SetPixel(x, y, blip.color);
+            }
+        }
+        
+        texture.filterMode = FilterMode.Point;
+        texture.Apply();
+        colors = texture.GetPixels();
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), 100.0f);
+        canvas.sprite = sprite;
+
+        int mapScale = 4; // As long as this number is even scaling is fine
+        int mapWidth = width * mapScale;
+        int mapHeight = height * mapScale;
+        canvas.rectTransform.sizeDelta = new Vector2(mapWidth, mapHeight);
+        canvas.rectTransform.anchorMin = new Vector2(1, 1);
+        canvas.rectTransform.anchorMax = new Vector2(1, 1);
+        canvas.rectTransform.anchoredPosition = new Vector2((-mapWidth / 2) - 10, (-mapHeight / 2) - 10);
+        generated = true;
+    }
+
+    MinimapBlip GetBlip(GridCell.GridFlag flag)
+    {
+        switch(flag)
+        {
+            case GridCell.GridFlag.WALKABLE:
+                return blips[0];
+            case GridCell.GridFlag.OCCUPIED:
+                return blips[1];
+            case GridCell.GridFlag.WALL:
+                return blips[2];
+            case GridCell.GridFlag.CORNER:
+                return blips[3];
+            default:
+                return blips[0];
+        }
+    }
+
+    public Vector3 PositionAsGridCoordinates(Transform transform)
+    {
+        var x = Mathf.RoundToInt(transform.position.x / RoomGenerator.instance.grid.cellSize.x);
+        var y = Mathf.RoundToInt(transform.position.y / RoomGenerator.instance.grid.cellSize.y);
+        var z = Mathf.RoundToInt(transform.position.z / RoomGenerator.instance.grid.cellSize.z);
+        return new Vector3(x, y, z);
+    }
+}
+
+[System.Serializable]
+public class MinimapBlip
+{
+    public GridCell.GridFlag flag = GridCell.GridFlag.WALKABLE;
+    public Color color = Color.white;
+
+    public MinimapBlip(GridCell.GridFlag flag, Color color)
+    {
+        this.flag = flag;
+        this.color = color;
+    }
+}
