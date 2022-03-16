@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,11 @@ public abstract class AI : MonoBehaviour
 
     [SerializeField] protected NavMeshAgent agent;
     protected float runTimer = 0;
-    protected int runTimeout = 3;
+    [SerializeField] protected int runTimeout = 3;
+    public Color minimapBlip = Color.red;
+    protected GridCell currentCell, lastCell;
+
+    public Action<AI, GridCell, GridCell> OnMinimapUpdated;
 
     protected bool IsOnNavmesh {
         get {
@@ -41,7 +46,13 @@ public abstract class AI : MonoBehaviour
 
     private void Start()
     {
+        Minimap.instance.AddEntity(this);
         Init();
+    }
+
+    private void OnDestroy()
+    {
+        Minimap.instance.RemoveEntity(this);
     }
 
     private void Update()
@@ -53,7 +64,13 @@ public abstract class AI : MonoBehaviour
         {
             runTimer += 1f * Time.deltaTime;
         }
+        currentCell = RoomGenerator.instance.navAgent.GetGridCellAt((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+        if (lastCell == null)
+            lastCell = currentCell;
+
+        OnMinimapUpdated?.Invoke(this, currentCell, lastCell);
         Tick();
+        lastCell = currentCell;
     }
 
     /// <summary>
@@ -80,7 +97,7 @@ public abstract class AI : MonoBehaviour
 
     public Vector3 RandomNavmeshLocation(float radius)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * radius;
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;

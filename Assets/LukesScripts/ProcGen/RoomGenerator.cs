@@ -83,7 +83,6 @@ public class RoomGenerator : MonoBehaviour
         //grid.Bake();
         BakeNavmesh();
 
-        PlaceEntities();
         PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
@@ -105,6 +104,7 @@ public class RoomGenerator : MonoBehaviour
         //Grab weapons
         WeaponManager.instance.GetWeaponsInLevel();
         Minimap.instance.GenerateMinimap(grid);
+        PlaceEntities();
 
         Debug.Log("Got assignables");
     }

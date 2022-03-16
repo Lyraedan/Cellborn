@@ -28,13 +28,13 @@ public class Minimap : MonoBehaviour
     public MinimapBlip[,] map;
 
     private GridCell playerLast;
-    private Color playerLastBlip = Color.white;
+
+    private List<AI> entities = new List<AI>();
 
     private bool generated = false;
 
     [SerializeField] private Image canvas;
     private Texture2D texture;
-    private Color[] colors;
 
     private void Update()
     {
@@ -50,7 +50,6 @@ public class Minimap : MonoBehaviour
         if (playerLast == null)
         {
             playerLast = player;
-            playerLastBlip = texture.GetPixel((int)player.position.x, (int)player.position.z);
             texture.SetPixel((int)player.position.x, (int)player.position.z, playerBlip);
             texture.Apply();
             return;
@@ -58,12 +57,43 @@ public class Minimap : MonoBehaviour
 
         if (playerLast.position != player.position)
         {
-            texture.SetPixel((int)playerLast.position.x, (int)playerLast.position.z, playerLastBlip);
-            playerLastBlip = texture.GetPixel((int)player.position.x, (int)player.position.z);
+            GridCell last = RoomGenerator.instance.navAgent.GetGridCellAt((int)playerLast.position.x, 0, (int) playerLast.position.z);
+            MinimapBlip blip = GetBlip(last.flag);
+            texture.SetPixel((int)playerLast.position.x, (int)playerLast.position.z, blip.color);
             texture.SetPixel((int)player.position.x, (int)player.position.z, playerBlip);
             texture.Apply();
         }
         playerLast = player;
+    }
+
+    public void AddEntity(AI ai)
+    {
+        ai.OnMinimapUpdated += UpdateEntityOnMinimap;
+        Vector3 position = ai.transform.position;
+        GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int)position.x, 0, (int)position.z);
+        texture.SetPixel((int)cell.position.x, (int)cell.position.z, ai.minimapBlip);
+        entities.Add(ai);
+    }
+
+    public void RemoveEntity(AI ai)
+    {
+        ai.OnMinimapUpdated -= UpdateEntityOnMinimap;
+        Vector3 position = ai.transform.position;
+        GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int) position.x, 0, (int) position.z);
+        MinimapBlip blip = GetBlip(cell.flag);
+        texture.SetPixel((int) cell.position.x, (int) cell.position.z, blip.color);
+        entities.Remove(ai);
+    }
+
+    void UpdateEntityOnMinimap(AI instance, GridCell current, GridCell last)
+    {
+        if (last != current)
+        {
+            MinimapBlip blip = GetBlip(last.flag);
+            texture.SetPixel((int)last.position.x, (int)last.position.z, blip.color);
+            texture.SetPixel((int)current.position.x, (int)current.position.z, instance.minimapBlip);
+            texture.Apply();
+        }
     }
 
     public void GenerateMinimap(Grid grid)
@@ -88,7 +118,6 @@ public class Minimap : MonoBehaviour
         
         texture.filterMode = FilterMode.Point;
         texture.Apply();
-        colors = texture.GetPixels();
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), 100.0f);
         canvas.sprite = sprite;
 
