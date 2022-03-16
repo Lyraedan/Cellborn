@@ -68,8 +68,8 @@ public abstract class AI : MonoBehaviour
         if (lastCell == null)
             lastCell = currentCell;
 
-        OnMinimapUpdated?.Invoke(this, currentCell, lastCell);
         Tick();
+        OnMinimapUpdated?.Invoke(this, currentCell, lastCell);
         lastCell = currentCell;
     }
 
