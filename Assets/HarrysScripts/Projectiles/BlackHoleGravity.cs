@@ -8,6 +8,8 @@ public class BlackHoleGravity : MonoBehaviour
     public GameObject destroyEffect;
     public float holeTime, healthDrainMultiplier;
     float t, healthDrain;
+
+    bool playerIsDead;
        
     void FixedUpdate()
     {
@@ -35,12 +37,14 @@ public class BlackHoleGravity : MonoBehaviour
                 healthDrain += Time.deltaTime;
                 if (healthDrain >= drainDistance)
                 {
-                    if (playerStats != null)
+                    if (playerStats != null && playerStats.currentHP > 0)
                     {
                         playerStats.currentHP -= 1;
                     }
                     healthDrain = 0;
                 }
+
+                playerIsDead = playerStats.isDead;
             }    
         }
 
@@ -53,15 +57,18 @@ public class BlackHoleGravity : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
+        if (!playerIsDead)
+        {
+            Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
         
-        if (other.tag == "Player")
-        {
-            other.gameObject.GetComponent<PlayerStats>().KillPlayer();
-        }
-        else
-        {
-            Destroy(other.gameObject);
+            if (other.tag == "Player")
+            {
+                other.gameObject.GetComponent<PlayerStats>().KillPlayer();
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

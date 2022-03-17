@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour
-{
+{   
+    [Header("Base Values")]    
     public Rigidbody projRigidbody;
     public float throwStrength, arcSize;
 
     public float shotDirection;
 
     public float lifetime;
-    float t;
+    [HideInInspector]public float t;
 
     public int enemyDamage;
     public int playerDamage;
@@ -24,7 +25,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     void Update()
     {
-        t += Time.deltaTime;
+        t += 1f * Time.deltaTime;
 
         if (t >= lifetime)
         {
