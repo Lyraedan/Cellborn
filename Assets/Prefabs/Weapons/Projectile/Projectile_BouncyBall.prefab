@@ -128,13 +128,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projRigidbody: {fileID: 3551906132943474316}
-  fireScript: {fileID: 0}
-  throwStrength: 10
+  throwStrength: 2
   arcSize: 1
   shotDirection: 0
   lifetime: 5
   enemyDamage: 0
   playerDamage: 0
+  canChangeDistance: 0
   ballColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}

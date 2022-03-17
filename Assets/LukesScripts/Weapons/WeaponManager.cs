@@ -11,12 +11,13 @@ public class WeaponManager : MonoBehaviour
 
     public GameObject player, target;
 
-    public KeyCode pickupKey = KeyCode.E;
+    public KeyCode pickupKey = KeyCode.F;
     public KeyCode dropKey = KeyCode.G;
     public KeyCode[] slotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3 };
     public TextMeshProUGUI pickupText, weaponText, ammoText;
     public GameObject firepoint;
-    private int currentlySelectedIndex = 0;
+    public PlayerStats healthScript;
+    public int currentlySelectedIndex = 0;
 
     public List<GameObject> possibleWeapons = new List<GameObject>();
 
@@ -37,8 +38,31 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.Log("Updating current weapon to " + value.weaponName);
             _currentWeapon = value;
-            weaponText.text = "Equipped weapon: " + value.weaponName;
-            ammoText.text = "Ammo: " + value.currentAmmo + "/" + value.maxAmmo;
+            
+            if (value.weaponId != -1)
+            {
+                weaponText.text = "Equipped Weapon: " + value.weaponName;
+            }
+            else
+            {
+                weaponText.text = "";
+            }
+            
+            if (value.functionality != null)
+            {
+                if (value.functionality.infiniteAmmo)
+                {
+                    ammoText.text = "";
+                }
+                else
+                {
+                    ammoText.text = "Ammo: " + value.currentAmmo + " / " + value.maxAmmo;
+                }
+            }
+            else
+            {
+                ammoText.text = "";
+            }
         }
     }
     public WeaponProperties toPickup;
@@ -79,6 +103,7 @@ public class WeaponManager : MonoBehaviour
             slotHolder.number.text = $"{i + 1}";
             slotHolder.image.sprite = currentlyHeldWeapons[i].icon;
             uiSlots.Add(slot);
+            InitializeSlotSelection(slot, i);
         }
 
         currentWeapon = currentlyHeldWeapons[0];
@@ -88,8 +113,14 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
-            currentWeapon.Shoot();
-            ammoText.text = "Ammo: " + currentWeapon.currentAmmo + "/" + currentWeapon.maxAmmo;
+            if (!healthScript.isDead)
+            {
+                currentWeapon.Shoot();
+                if (!currentWeapon.GetComponent<WeaponBase>().infiniteAmmo)
+                {
+                    ammoText.text = "Ammo: " + currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
+                }
+            }
         }
 
         if (Input.GetKeyDown(pickupKey))
@@ -117,17 +148,23 @@ public class WeaponManager : MonoBehaviour
         var scrollDelta = Input.mouseScrollDelta;
         if (scrollDelta != Vector2.zero)
         {
-            if(scrollDelta.y > 0)
+            uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
+            
+            if(scrollDelta.y < 0)
             {
                 currentlySelectedIndex++;
                 if (currentlySelectedIndex >= currentlyHeldWeapons.Count)
                     currentlySelectedIndex = 0;
 
-            } else if(scrollDelta.y < 0)
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
+
+            } else if(scrollDelta.y > 0)
             {
                 currentlySelectedIndex--;
                 if (currentlySelectedIndex < 0)
                     currentlySelectedIndex = currentlyHeldWeapons.Count - 1;
+
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
             }
             currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
         }
@@ -177,7 +214,7 @@ public class WeaponManager : MonoBehaviour
                 Destroy(weapon.gameObject);
             }*/
 
-            ammoText.text = "Ammo: " + wep.currentAmmo + "/" + wep.maxAmmo;
+            ammoText.text = "Ammo: " + wep.currentAmmo + " / " + wep.maxAmmo;
             Debug.Log("Adding ammo!");
         }
         else
@@ -220,7 +257,7 @@ public class WeaponManager : MonoBehaviour
         return result;
     }
 
-    bool HasWeaponInInventory(int weaponId)
+    public bool HasWeaponInInventory(int weaponId)
     {
         bool result = false;
         foreach (WeaponProperties property in currentlyHeldWeapons)
@@ -232,5 +269,17 @@ public class WeaponManager : MonoBehaviour
             }
         }
         return result;
+    }
+
+    void InitializeSlotSelection(GameObject slot, int slotNumber)
+    {
+        if (slotNumber == 0)
+        {
+            slot.GetComponent<SlotHolder>().SelectSlot();
+        }
+        else
+        {
+            slot.GetComponent<SlotHolder>().DeselectSlot();
+        }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 911596265095588901}
   m_Layer: 0
   m_Name: WallAndFloor
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 6139134881751900885}
+  fadeSpeed: 1.5
 --- !u!114 &5496632359787520188
 MonoBehaviour:
   m_ObjectHideFlags: 0

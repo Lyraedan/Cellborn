@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1253304868310947400}
   m_Layer: 0
   m_Name: CornerAndFloor
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -280,3 +280,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 1602370746881176013}
+  fadeSpeed: 1.5

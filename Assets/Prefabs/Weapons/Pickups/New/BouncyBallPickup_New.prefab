@@ -174,11 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a364c1f6c3b6a4685ad200250de35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Sir boings-alot
+  weaponName: Sir Boings-A-Lot
   weaponId: 1
   currentAmmo: 100
   maxAmmo: 100
-  icon: {fileID: 21300000, guid: 0cdf99f165c52304eae861e2eb4b9260, type: 3}
+  icon: {fileID: 21300000, guid: 0580e6c8fabc07b4db3951c1d3c05cb8, type: 3}
   functionality: {fileID: 5606891704754517551}
 --- !u!114 &5606891704754517551
 MonoBehaviour:
@@ -195,8 +195,8 @@ MonoBehaviour:
   infiniteAmmo: 0
   projectile: {fileID: 3551906132943474317, guid: 195a4c950d8762d4eaf523b04d10d6df, type: 3}
   angle: 0
-  secondsBetweenShots: 1
-  coneSize: 1
+  secondsBetweenShots: 2
+  coneSize: 90
 --- !u!1001 &4486164251911147066
 PrefabInstance:
   m_ObjectHideFlags: 0
