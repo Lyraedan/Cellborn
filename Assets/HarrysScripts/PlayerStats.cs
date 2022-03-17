@@ -7,17 +7,19 @@ public class PlayerStats : MonoBehaviour
 {
     public int maxHP;
     public int currentHP;
+
+    #region Player Components
+    
     public TextMeshProUGUI healthText;
     public GameObject deathEffect;
 
-    #region Player Components
-
     public MeshRenderer[] meshRenderers;
     public PlayerMovementTest moveScript;
+    public CapsuleCollider playerCollider;
 
     #endregion
 
-    bool isDead;
+    public bool isDead;
     
     void Start()
     {
@@ -36,6 +38,11 @@ public class PlayerStats : MonoBehaviour
             {
                 KillPlayer();
             }
+        }
+
+        if (currentHP >= 10)
+        {
+            currentHP = maxHP;
         }
     }
 
@@ -58,6 +65,7 @@ public class PlayerStats : MonoBehaviour
             meshRenderers[i].enabled = false;
         }
         moveScript.enabled = false;
+        playerCollider.enabled = false;
         isDead = true;
     }
 }
