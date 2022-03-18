@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class LootTable : MonoBehaviour
 {
-    [Tooltip("The higher this value. The less likely loot is to spawn")] public float chancesOfSpawningLoot = 1;
     public List<Loot> tables = new List<Loot>();
 
     void Start()
     {
-        float spawnChance = Random.Range(0, chancesOfSpawningLoot);
+        int selected = Random.Range(0, tables.Count);
+        var table = tables[selected];
+
+        float spawnChance = Random.Range(0, table.chancesOfSpawningLoot);
         bool doSpawn = Mathf.RoundToInt(spawnChance) == 0;
 
         if (doSpawn)
         {
-            int selected = Random.Range(0, tables.Count);
-            var table = tables[selected];
             table.SpawnRandomPrefab(this);
         }
     }
@@ -37,6 +37,7 @@ public class LootPrefab
 public class Loot
 {
     public Transform spawnpoint;
+    [Tooltip("The higher this value. The less likely loot is to spawn")] public float chancesOfSpawningLoot = 1;
     public List<LootPrefab> possiblePrefabs = new List<LootPrefab>();
 
     public GameObject SpawnPrefab(int index, LootTable table)
