@@ -23,5 +23,4 @@ public class WeaponBlackHole : WeaponBase
             timer = 0;
         }
     }
-
 }
