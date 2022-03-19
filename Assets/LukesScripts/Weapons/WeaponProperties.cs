@@ -30,7 +30,7 @@ public class WeaponProperties : MonoBehaviour
                 functionality.Fire();
             } else
             {
-                Debug.LogError("No ammo!");
+                //Debug.LogError("No ammo!");
             }
         }
     }
@@ -40,7 +40,7 @@ public class WeaponProperties : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             WeaponManager.instance.toPickup = this;
-            WeaponManager.instance.pickupText.text = $"Pick up {weaponName}";
+            WeaponManager.instance.pickupText.text = $"F - Pick Up {weaponName}";
         }        
     }
 

@@ -49,7 +49,6 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 0
   icon: {fileID: 21300000, guid: 197c13fcc1b96294087f062625013e17, type: 3}
-  fireRate: 0
   functionality: {fileID: 0}
 --- !u!114 &7139823406330480160
 MonoBehaviour:
@@ -63,3 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b28fee4d7db5a0458fbc5f1009d9b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteAmmo: 1
+  projectile: {fileID: 0}
+  angle: 0
+  secondsBetweenShots: 0.5
