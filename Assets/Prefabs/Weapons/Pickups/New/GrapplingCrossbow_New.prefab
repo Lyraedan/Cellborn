@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2102713227612576284}
   - component: {fileID: 7248785090433661682}
   - component: {fileID: -5679706573955455556}
+  - component: {fileID: 7200835774901043714}
   m_Layer: 0
   m_Name: GrapplingCrossbow_New
   m_TagString: Untagged
@@ -56,7 +57,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5099940127662423832}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
@@ -89,12 +90,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a364c1f6c3b6a4685ad200250de35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Untitled weapon
+  weaponName: Grappling Crossbow
   weaponId: 4
-  currentAmmo: 0
-  maxAmmo: 30
-  icon: {fileID: 0}
-  functionality: {fileID: 0}
+  currentAmmo: 1
+  maxAmmo: 1
+  icon: {fileID: 21300000, guid: bf65fea2a5db6e144babc409e9da56d5, type: 3}
+  functionality: {fileID: 7200835774901043714}
+--- !u!114 &7200835774901043714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099940127662423832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b5317d1ee15774f8bdf964658c092e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infiniteAmmo: 0
+  projectile: {fileID: 3551906132943474317, guid: 70adb7b6fb200814eb4d59d2964816e1, type: 3}
+  angle: 0
+  secondsBetweenShots: 1
 --- !u!1001 &2905319208450780360
 PrefabInstance:
   m_ObjectHideFlags: 0
