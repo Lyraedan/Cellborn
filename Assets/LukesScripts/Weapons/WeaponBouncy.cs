@@ -17,7 +17,7 @@ public class WeaponBouncy : WeaponBase
 
     public override void Fire()
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 10; i++)
         {
             float xSpread = Random.Range(-1f, 1f) * coneSize;
             float zSpread = Random.Range(-1f, 1f) * coneSize;
