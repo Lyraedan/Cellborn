@@ -112,6 +112,7 @@ MonoBehaviour:
   agent: {fileID: 8500299319616729032}
   runTimeout: 7
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
+  roamRadius: 300
 --- !u!195 &8500299319616729032
 NavMeshAgent:
   m_ObjectHideFlags: 0

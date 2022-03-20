@@ -6,6 +6,7 @@ public class AITest : AI
 {
     Vector3 next;
 
+    [SerializeField] private float roamRadius = 3;
     private int secondsBetweenAttacks = 3;
     private float attackDelay = 0;
 
@@ -46,7 +47,7 @@ public class AITest : AI
 
     void FindNewLocation()
     {
-        next = RandomNavmeshLocation(3);
+        next = RandomNavmeshLocation(roamRadius);
         MoveTo(next);
     }
 
