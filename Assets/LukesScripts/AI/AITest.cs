@@ -20,18 +20,20 @@ public class AITest : AI
         {
             // Reached destination
             FindNewLocation();
-        } else if(DistanceFromPlayer < 3)
+        } else if(DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f)
         {
             // Player is here!
             MoveTo(WeaponManager.instance.player.transform.position);
+            attackDelay = 0;
         } else if(runTimer >= runTimeout)
         {
             // Couldn't reach destination in time
             FindNewLocation();
+            runTimer = 0;
         }
 
         // We are within attacking distance
-        if(DistanceFromPlayer < 1.5f)
+        if(DistanceFromPlayer <= 1.5f)
         {
             attackDelay += 1f * Time.deltaTime;
             if(attackDelay >= secondsBetweenAttacks)

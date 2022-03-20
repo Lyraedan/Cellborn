@@ -90,9 +90,15 @@ public abstract class AI : MonoBehaviour
 
     public abstract void DrawGizmos();
 
-    public void MoveTo(Vector3 position)
+    public bool MoveTo(Vector3 position)
     {
         agent.SetDestination(position);
+        if(agent.path.status != NavMeshPathStatus.PathComplete)
+        {
+            Debug.LogError("Invalid path");
+            return false;
+        }
+        return true;
     }
 
     public Vector3 RandomNavmeshLocation(float radius)
@@ -111,8 +117,20 @@ public abstract class AI : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (agent.pathStatus.Equals(NavMeshPathStatus.PathComplete))
+        {
+            if (agent.path.corners.Length >= 2)
+            {
+                Gizmos.color = Color.yellow;
+                for (int i = 0; i < agent.path.corners.Length - 1; i++)
+                {
+                    Gizmos.DrawLine(agent.path.corners[i], agent.path.corners[i + 1]);
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(agent.path.corners[i], 0.25f);
+                }
+            }
+        }
         DrawGizmos();
     }
 #endif
-
 }
