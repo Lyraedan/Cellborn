@@ -123,14 +123,20 @@ public class RoomGenerator : MonoBehaviour
     {
         var floors = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.FLOOR)).ToList();
         int index = Random.Range(0, floors.Count);
-        return floors[index].Spawn(cell.position, cell.rotation);
+        var spawned = floors[index].Spawn(cell.position, cell.rotation);
+        CellInfo info = spawned.AddComponent<CellInfo>();
+        info.cellRotation = cell.rotation;
+        return spawned;
     }
 
     public GameObject SpawnRandomWall(GridCell cell)
     {
         var walls = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL)).ToList();
         int index = Random.Range(0, walls.Count);
-        return walls[index].Spawn(cell.position, cell.rotation);
+        var spawned = walls[index].Spawn(cell.position, cell.rotation);
+        CellInfo info = spawned.AddComponent<CellInfo>();
+        info.cellRotation = cell.rotation;
+        return spawned;
     }
 
     public GameObject SpawnRandomProp(GridCell cell)
@@ -144,7 +150,10 @@ public class RoomGenerator : MonoBehaviour
     {
         var corners = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CORNER)).ToList();
         int index = Random.Range(0, corners.Count);
-        return corners[index].Spawn(cell.position, cell.rotation);
+        var spawned = corners[index].Spawn(cell.position, cell.rotation);
+        CellInfo info = spawned.AddComponent<CellInfo>();
+        info.cellRotation = cell.rotation;
+        return spawned;
     }
 
     public GameObject SpawnRandomEntity(GridCell cell)
@@ -1054,4 +1063,9 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 #endif
+}
+
+public class CellInfo : MonoBehaviour
+{
+    public Vector3 cellRotation = Vector3.zero;
 }

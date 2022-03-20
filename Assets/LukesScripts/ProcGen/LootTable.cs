@@ -20,9 +20,21 @@ public class LootTable : MonoBehaviour
         }
     }
 
-    public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
+    public GameObject Spawn(GameObject prefab, Vector3 position, Vector3 rotation)
     {
-        return Instantiate(prefab, position, rotation);
+        // This makes no sense but whatever
+        GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
+        Debug.Log("Spawning at cell: " + cell.position.ToString() + " with rotation: " + cell.rotation + " @ rotation: " + rotation.ToString());
+        if(cell.rotation.y == 180)
+        {
+            rotation.y += 180;
+            Debug.Log("SCREAM");
+        }
+        Quaternion rot = Quaternion.Euler(rotation);
+        Quaternion current = Quaternion.Euler(cell.rotation);
+        Quaternion finalRotation = current * rot;
+        var obj = Instantiate(prefab, position, finalRotation);
+        return obj;
     }
 }
 
@@ -43,7 +55,7 @@ public class Loot
     public GameObject SpawnPrefab(int index, LootTable table)
     {
         var loot = possiblePrefabs[index];
-        return table.Spawn(loot.prefab, spawnpoint.position, Quaternion.Euler(loot.rotation));
+        return table.Spawn(loot.prefab, spawnpoint.position, loot.rotation);
     }
 
     public GameObject SpawnRandomPrefab(LootTable table)

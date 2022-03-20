@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: faf4111f31cf9c948b0b7e9358d7872f, type: 3}
+  - {fileID: 2100000, guid: 2e7e71b347ed5be41acbbcca8ff77316, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007e5edb50ddc0148a966f8d687263ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chancesOfSpawningLoot: 2
   tables:
   - spawnpoint: {fileID: 2221773680744532852}
+    chancesOfSpawningLoot: 1
     possiblePrefabs:
     - prefab: {fileID: 7448704772291128755, guid: 5e003a75ed3307a4bae10b0313b5d628, type: 3}
       rotation: {x: 0, y: 90, z: 0}

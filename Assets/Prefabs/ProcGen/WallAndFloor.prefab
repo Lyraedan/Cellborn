@@ -83,11 +83,13 @@ MonoBehaviour:
     possiblePrefabs:
     - prefab: {fileID: 8652509190956171710, guid: d874cec38c562da46b3dab52b2dd0931, type: 3}
       rotation: {x: 0, y: 0, z: 0}
+    - prefab: {fileID: 638609692388642607, guid: 3b0b007a9433bcc45841c779307458e5, type: 3}
+      rotation: {x: 0, y: -90, z: 0}
   - spawnpoint: {fileID: 722691487639321606}
     chancesOfSpawningLoot: 2
     possiblePrefabs:
     - prefab: {fileID: 7304730873011278789, guid: a40b1a4bf8e29df408188300e46e3b44, type: 3}
-      rotation: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 180, z: 0}
 --- !u!1 &3949414861417673426
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5979667897008407171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.893, y: 2.09, z: 0}
+  m_LocalPosition: {x: 0.997, y: 2.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 388174262902325534}
