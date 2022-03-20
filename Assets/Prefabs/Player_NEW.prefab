@@ -152,6 +152,7 @@ MonoBehaviour:
   firepoint: {fileID: 7064694838615943288}
   healthScript: {fileID: 1663721380439235019}
   currentlySelectedIndex: 0
+  laserController: {fileID: 7890704836531507172}
   possibleWeapons:
   - {fileID: 2179209837598809162}
   - {fileID: 6982378309056642765}
@@ -5087,7 +5088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserParticles: {fileID: 7221011997119879511}
-  weaponManager: {fileID: 2975566263661802115}
   warmup: 1
   cooldown: 1
   isFiring: 0
@@ -6610,6 +6610,10 @@ PrefabInstance:
       propertyPath: isInPlayerInventory
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2854230587335798673, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
+      propertyPath: secondsBetweenShots
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1458478901715874218, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -6942,6 +6946,10 @@ PrefabInstance:
     - target: {fileID: 5099940127662423832, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
       propertyPath: m_Name
       value: GrapplingWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200835774901043714, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
+      propertyPath: isInPlayerInventory
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7248785090433661682, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
       propertyPath: m_UseGravity

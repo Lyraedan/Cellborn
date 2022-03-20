@@ -8,61 +8,57 @@ public class WeaponLazer : WeaponBase
     public LayerMask hitLayer;
     public int enemyDamage;
     public float damageInterval;
-    public float fireDistance;    
     float t;
     bool weaponIsFiring;
-    
+
     public override void Init()
     {
         secondsBetweenShots = 0;
     }
 
     public override void Tick()
-    {  
-    }
-
-    public override void Fire()
     {
-        RaycastHit hit;
-        GameObject hitEnemy;
-        EnemyScript enemyScript;
-        LaserControl laserControl = FindObjectOfType<LaserControl>();
-        Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, WeaponManager.instance.firepoint.transform.forward, Color.red);
-        if (laserControl != null)
+        if (WeaponManager.instance.laserController == null)
+            return;
+
+        if (WeaponManager.instance.laserController.isFiring)
         {
-            if (laserControl.isFiring)
+            Debug.Log("FIRING THE LASER");
+            RaycastHit hit;
+            GameObject hitEnemy;
+            Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, WeaponManager.instance.firepoint.transform.forward, Color.green);
+            if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, transform.TransformDirection(WeaponManager.instance.firepoint.transform.forward), out hit, Mathf.Infinity))
             {
-                if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, transform.TransformDirection(WeaponManager.instance.firepoint.transform.forward), out hit, fireDistance))
+                Debug.Log("Laser hit: " + (hit.collider != null ? hit.collider.tag : "nothing"));
+                if (hit.collider.CompareTag("Enemy"))
                 {
-                    if (hit.collider.tag == "Enemy")
-                    {
-                        Debug.Log("Enemy hit!");
-                        hitEnemy = hit.transform.gameObject;
+                    Debug.Log("Enemy hit!");
+                    hitEnemy = hit.transform.gameObject;
 
-                        enemyScript = hitEnemy.GetComponent<EnemyScript>();
+                    var enemyScript = hitEnemy.GetComponent<EnemyScript>();
 
-                        t += 1f * Time.deltaTime;
-                        if (t >= damageInterval)
-                        {
-                            enemyScript.currentHP -= enemyDamage;
-                            t = 0;
-                        }
-                    }  
-                    else
+                    t += 1f * Time.deltaTime;
+                    if (t >= damageInterval)
                     {
-                        Debug.Log("Not an enemy... :(");
+                        enemyScript.currentHP -= enemyDamage;
+                        t = 0;
                     }
                 }
                 else
                 {
-                    hitEnemy = null;
-                    return;
+                    Debug.Log("Not an enemy... :(");
                 }
             }
+            else
+            {
+                hitEnemy = null;
+                return;
+            }
         }
-        else
-        {
-            Debug.LogWarning("No particles found!!!");
-        }
+    }
+
+    public override void Fire()
+    {
+
     }
 }

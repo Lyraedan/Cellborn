@@ -19,6 +19,8 @@ public class WeaponManager : MonoBehaviour
     public PlayerStats healthScript;
     public int currentlySelectedIndex = 0;
 
+    public LaserControl laserController;
+
     public List<GameObject> possibleWeapons = new List<GameObject>();
 
     public List<WeaponProperties> currentlyHeldWeapons = new List<WeaponProperties>();
@@ -102,9 +104,10 @@ public class WeaponManager : MonoBehaviour
             var slotHolder = slot.GetComponent<SlotHolder>();
             slotHolder.number.text = $"{i + 1}";
             slotHolder.image.sprite = currentlyHeldWeapons[i].icon;
+            slot.GetComponent<SlotHolder>().DeselectSlot();
             uiSlots.Add(slot);
-            InitializeSlotSelection(slot, i);
         }
+        uiSlots[0].GetComponent<SlotHolder>().SelectSlot();
 
         currentWeapon = currentlyHeldWeapons[0];
     }
@@ -141,8 +144,10 @@ public class WeaponManager : MonoBehaviour
         {
             if (Input.GetKeyDown(slotKeys[i]))
             {
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
                 currentWeapon = currentlyHeldWeapons[i];
                 currentlySelectedIndex = i;
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
             }
         }
 
@@ -275,17 +280,5 @@ public class WeaponManager : MonoBehaviour
             }
         }
         return result;
-    }
-
-    void InitializeSlotSelection(GameObject slot, int slotNumber)
-    {
-        if (slotNumber == 0)
-        {
-            slot.GetComponent<SlotHolder>().SelectSlot();
-        }
-        else
-        {
-            slot.GetComponent<SlotHolder>().DeselectSlot();
-        }
     }
 }
