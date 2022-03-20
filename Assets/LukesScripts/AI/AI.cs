@@ -17,17 +17,10 @@ public abstract class AI : MonoBehaviour
 
     protected bool IsOnNavmesh {
         get {
-            Vector3 position = transform.position;
-            NavMeshHit hit;
-            float meshThreshold = 3;
-            if(NavMesh.SamplePosition(position, out hit, meshThreshold, NavMesh.AllAreas))
-            {
-                if(Mathf.Approximately(position.x, hit.position.x) && Mathf.Approximately(position.z, hit.position.z))
-                {
-                    return position.y > hit.position.y;
-                }
-            }
-            return false;
+            if (agent == null)
+                return false;
+
+            return agent.isOnNavMesh;
         }
     }
 
@@ -57,6 +50,7 @@ public abstract class AI : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Is on navmesh: " + IsOnNavmesh);
         if (!IsOnNavmesh)
             return;
 
