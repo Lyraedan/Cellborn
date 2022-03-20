@@ -52,7 +52,7 @@ public class WeaponManager : MonoBehaviour
             {
                 if (value.functionality.infiniteAmmo)
                 {
-                    ammoText.text = "";
+                    ammoText.text = string.Empty;
                 }
                 else
                 {
@@ -115,11 +115,12 @@ public class WeaponManager : MonoBehaviour
         {
             if (!healthScript.isDead)
             {
-                currentWeapon.Shoot();
-                if (!currentWeapon.GetComponent<WeaponBase>().infiniteAmmo)
-                {
-                    ammoText.text = "Ammo: " + currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
-                }
+                currentWeapon.Shoot(delayed => {
+                    if (!currentWeapon.functionality.infiniteAmmo)
+                    {
+                        ammoText.text = "Ammo: " + currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
+                    }
+                });
             }
         }
 
@@ -140,7 +141,7 @@ public class WeaponManager : MonoBehaviour
         {
             if (Input.GetKeyDown(slotKeys[i]))
             {
-                currentWeapon = currentlyHeldWeapons[i].GetComponent<WeaponProperties>();
+                currentWeapon = currentlyHeldWeapons[i];
                 currentlySelectedIndex = i;
             }
         }
@@ -238,7 +239,12 @@ public class WeaponManager : MonoBehaviour
 
         currentWeapon = currentlyHeldWeapons[index];
 
-        var drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
+        GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
+        // Turn everything back on
+        drop.GetComponent<BoxCollider>().enabled = true;
+        drop.GetComponent<SphereCollider>().enabled = true;
+        drop.GetComponent<Rigidbody>().useGravity = true;
+        drop.transform.GetChild(0).gameObject.SetActive(true);
         drop.SetActive(true);
     }
 

@@ -8,6 +8,7 @@ public class WeaponBouncy : WeaponBase
 
     public override void Init()
     {
+
     }
 
     public override void Tick()
@@ -16,20 +17,16 @@ public class WeaponBouncy : WeaponBase
 
     public override void Fire()
     {
-        if (canFire)
+        for (int i = 0; i < 1; i++)
         {
-            for (int i = 0; i < 1; i++)
-            {
-                float xSpread = Random.Range(-1f, 1f) * coneSize;
-                float zSpread = Random.Range(-1f, 1f) * coneSize;
-                float x = xSpread * Mathf.Cos(Random.Range(0, 2 * Mathf.PI));
-                float z = zSpread * Mathf.Sin(Random.Range(0, 2 * Mathf.PI));
-                Vector3 direction = new Vector3(x, yRot, z) * (i + 1);
+            float xSpread = Random.Range(-1f, 1f) * coneSize;
+            float zSpread = Random.Range(-1f, 1f) * coneSize;
+            float x = xSpread * Mathf.Cos(Random.Range(0, 2 * Mathf.PI));
+            float z = zSpread * Mathf.Sin(Random.Range(0, 2 * Mathf.PI));
+            Vector3 direction = new Vector3(x, yRot, z) * (i + 1);
 
-                GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(direction));
-                proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
-            }
-            timer = 0;
+            GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(direction));
+            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
         }
     }
 }

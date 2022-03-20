@@ -12,7 +12,7 @@ public class WeaponProperties : MonoBehaviour
 
     public WeaponBase functionality;
 
-    public void Shoot()
+    public void Shoot(System.Action<bool> afterShot)
     {
         if(functionality == null)
         {
@@ -20,14 +20,22 @@ public class WeaponProperties : MonoBehaviour
             return;
         }
 
+        if (!functionality.isInPlayerInventory)
+            return;
+
         if(functionality.infiniteAmmo)
-            functionality.Fire();
+            functionality.Shoot(afterShot);
         else
         {
             if (currentAmmo > 0)
             {
-                currentAmmo--;
-                functionality.Fire();
+                functionality.Shoot(delayed => {
+                    if(delayed)
+                    {
+                        currentAmmo--;
+                    }
+                    afterShot?.Invoke(delayed);
+                });
             } else
             {
                 //Debug.LogError("No ammo!");
@@ -40,7 +48,7 @@ public class WeaponProperties : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             WeaponManager.instance.toPickup = this;
-            WeaponManager.instance.pickupText.text = $"F - Pick Up {weaponName}";
+            WeaponManager.instance.pickupText.text = $"{WeaponManager.instance.pickupKey.ToString()} - Pick Up {weaponName}";
         }        
     }
 

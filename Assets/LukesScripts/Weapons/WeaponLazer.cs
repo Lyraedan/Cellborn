@@ -14,6 +14,7 @@ public class WeaponLazer : WeaponBase
     
     public override void Init()
     {
+        secondsBetweenShots = 0;
     }
 
     public override void Tick()

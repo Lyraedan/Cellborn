@@ -13,14 +13,10 @@ public class WeaponGrapple : WeaponBase
     {
     }
 
-    public override void Fire() 
+    public override void Fire()
     {
-        if (canFire)
-        {
-            GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
-            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
-            proj.GetComponent<GrappleHook>().managerInstance = WeaponManager.instance;
-            timer = 0;
-        }
+        GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
+        proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
+        proj.GetComponent<GrappleHook>().managerInstance = WeaponManager.instance;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour
 {
     public bool infiniteAmmo = false;
+    public bool isInPlayerInventory = false;
     public GameObject projectile;
     protected float targetDistance;
 
@@ -29,11 +30,31 @@ public abstract class WeaponBase : MonoBehaviour
 
     void Update()
     {
+        if (!isInPlayerInventory)
+            return;
+
         targetDistance = Vector3.Distance(WeaponManager.instance.player.transform.position, WeaponManager.instance.target.transform.position);
-        Tick();
         if (!canFire)
+        {
             timer += 1f * Time.deltaTime;
+        }
         canFire = timer > secondsBetweenShots;
+        Tick();
+    }
+
+    public void Shoot(System.Action<bool> afterShot)
+    {
+        if (canFire)
+        {
+            Fire();
+            timer = 0;
+            canFire = false;
+            afterShot?.Invoke(true);
+        } else
+        {
+            Debug.LogError("Halt in the name of the firing law!");
+            afterShot?.Invoke(false);
+        }
     }
 
     public abstract void Init();
