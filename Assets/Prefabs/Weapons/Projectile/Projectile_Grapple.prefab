@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3551906132943474317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3551906132943474317}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 6752722663696791786, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
 --- !u!23 &3551906132943474313
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1638160c24cee6b428781f185fc1df37, type: 2}
+  - {fileID: 5561349426305759274, guid: a7d7b17cc1bb4f94c96446ae526c8a21, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &7319150283532671573
 SphereCollider:
@@ -110,7 +110,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3551906132943474316
 Rigidbody:
@@ -156,17 +156,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projRigidbody: {fileID: 3551906132943474316}
-  throwStrength: 10
+  throwStrength: 100
   arcSize: 0
   shotDirection: 0
   lifetime: 20
   t: 0
   enemyDamage: 0
   playerDamage: 0
-  canChangeDistance: 0
+  canChangeDistance: 1
   playerObject: {fileID: 0}
   managerInstance: {fileID: 0}
-  playerPull: 5
+  playerPull: 7
   enemyPull: 850
   triggerCollider: {fileID: 0}
   forceDirection: {x: 0, y: 0, z: 0}
