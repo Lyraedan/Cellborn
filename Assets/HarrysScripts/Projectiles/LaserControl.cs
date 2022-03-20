@@ -30,7 +30,6 @@ public class LaserControl : MonoBehaviour
             Debug.Log("Agh a laser");
             if (Input.GetButton("Fire1") && WeaponManager.instance.currentWeapon.currentAmmo > 0 && hasCooledDown)
             {
-                Debug.Log("Fire that bitch");
                 hasWarmedUp = false;
                 cooldownTimer = 0f;
                 warmupTimer += 1f * Time.deltaTime;

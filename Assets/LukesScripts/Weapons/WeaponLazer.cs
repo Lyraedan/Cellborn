@@ -23,13 +23,15 @@ public class WeaponLazer : WeaponBase
 
         if (WeaponManager.instance.laserController.isFiring)
         {
-            Debug.Log("FIRING THE LASER");
             RaycastHit hit;
             GameObject hitEnemy;
-            Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, WeaponManager.instance.firepoint.transform.forward, Color.green);
-            if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, transform.TransformDirection(WeaponManager.instance.firepoint.transform.forward), out hit, Mathf.Infinity))
+            Vector3 direction = WeaponManager.instance.firepoint.transform.forward;
+            int layerMask = (1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Default")); // Only collide with entities with Layers Enemy and Default
+            if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, direction, out hit, Mathf.Infinity))
             {
-                Debug.Log("Laser hit: " + (hit.collider != null ? hit.collider.tag : "nothing"));
+                Debug.Log("Laser hit: " + (hit.collider != null ? hit.collider.name : "nothing"));
+                Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, direction * hit.distance, Color.yellow);
+
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit!");
@@ -51,6 +53,7 @@ public class WeaponLazer : WeaponBase
             }
             else
             {
+                Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, direction, Color.green);
                 hitEnemy = null;
                 return;
             }

@@ -96,7 +96,7 @@ public class WeaponManager : MonoBehaviour
         {
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
-        currentlyHeldWeapons[1] = FindWeapon(1); // Sir boings alot
+        currentlyHeldWeapons[1] = FindWeapon(5);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
