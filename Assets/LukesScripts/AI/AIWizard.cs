@@ -5,11 +5,12 @@ using UnityEngine;
 public class AIWizard : AI
 {
 
-    private Vector3 next;
-    public Vector3 bindingPoint = Vector3.zero;
+    Vector3 next;
+    public Vector3 bindingPoint;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float roamRadius = 3;
-    [SerializeField] private float bulletForce = 100.0f;
+    [SerializeField] private float bulletForce = 10.0f;
+    public EnemyScript enemyScript;
 
     [SerializeField] private float secondsBetweenAttacks = 2.5f;
     private float attackDelay = 0;
@@ -21,6 +22,28 @@ public class AIWizard : AI
 
     public override void Tick()
     {
+        if (enemyScript.currentHP == 0)
+        {
+
+            return;
+        }
+
+        if (enemyScript.currentHP <= (enemyScript.maxHP / 3) * 2)
+        {
+            bulletForce = 200;
+            secondsBetweenAttacks = 0.5f;
+        }
+        else if (enemyScript.currentHP <= enemyScript.maxHP / 3)
+        {
+            bulletForce = 300;
+            secondsBetweenAttacks = 0.25f;
+        }
+        else
+        {
+            bulletForce = 100;
+            secondsBetweenAttacks = 1f;
+        }
+
         // To far away from spawn point
         if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
         {
@@ -30,9 +53,6 @@ public class AIWizard : AI
         else if (Vector3.Distance(transform.position, bindingPoint) > 20)
         {
             MoveTo(bindingPoint);
-        } else if(DistanceFromPlayer < 3)
-        {
-            MoveTo(WeaponManager.instance.player.transform.position);
         }
 
         attackDelay += 1f * Time.deltaTime;
@@ -44,13 +64,6 @@ public class AIWizard : AI
                 attackDelay = 0;
             }
         }
-
-        //Rotate ai
-        var direction = (next != WeaponManager.instance.player.transform.position ? next : WeaponManager.instance.player.transform.position) - transform.position;
-        direction.y = 0;
-        var rotation = Quaternion.LookRotation(direction);
-        var dampening = 8;
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
     }
 
     void FindNewLocation()
@@ -81,9 +94,7 @@ public class AIWizard : AI
             for (int j = 0; j < directions.Length; j++)
             {
                 Vector3 dir = directions[j];
-                Vector3 pos = transform.position + dir;
-                pos.y += 0.5f;
-                var bullet = Instantiate(projectile, pos, Quaternion.identity);
+                var bullet = Instantiate(projectile, (transform.position + dir)*(i+1), Quaternion.identity);
                 Rigidbody body = bullet.GetComponent<Rigidbody>();
                 body.AddForce(dir * bulletForce);
             }

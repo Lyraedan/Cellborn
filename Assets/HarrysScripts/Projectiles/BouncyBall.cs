@@ -8,13 +8,17 @@ public class BouncyBall : ProjectileBehaviour
     Light ballLight;
     int colorIndex;
     float t; // Time
+    public bool wizard = false;
 
     [HideInInspector]
     public bool canDamage;
     
     void Awake()
     {
-        projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
+        if (wizard == false)
+        {
+            projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
+        }
     }
 
     void Start()

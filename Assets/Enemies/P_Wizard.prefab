@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5450451903439053208}
-  - component: {fileID: 2112383631040984614}
   - component: {fileID: 8073571031068658478}
   - component: {fileID: 2210861006241590258}
   - component: {fileID: 5993571557050668970}
+  - component: {fileID: 2112383631040984614}
   - component: {fileID: 4983654142262962901}
   - component: {fileID: 6330084364845817153}
   m_Layer: 12
@@ -37,22 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2112383631040984614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8073571031068658479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5b68d1e8eecd8e4abddcc69c5b00ce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 3
-  currentHP: 3
-  projectileDamage: 1
-  deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
 --- !u!54 &8073571031068658478
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -104,6 +88,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.40573078, y: 1.1191082, z: 3.6664813}
   m_Center: {x: -0.03986972, y: 0.5972533, z: -0.8107203}
+--- !u!114 &2112383631040984614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073571031068658479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b68d1e8eecd8e4abddcc69c5b00ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 30
+  currentHP: 30
+  projectileDamage: 1
+  deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
 --- !u!114 &4983654142262962901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,10 +120,11 @@ MonoBehaviour:
   runTimeout: 3
   minimapBlip: {r: 0.5849056, g: 0, b: 0.48703545, a: 1}
   bindingPoint: {x: 0, y: 0, z: 0}
-  projectile: {fileID: 3551906132943474317, guid: 195a4c950d8762d4eaf523b04d10d6df, type: 3}
+  projectile: {fileID: 3551906132943474317, guid: 0e48de19359f0b044af8cfabafc10c25, type: 3}
   roamRadius: 3
-  bulletForce: 10
-  secondsBetweenAttacks: 2.5
+  bulletForce: 100
+  enemyScript: {fileID: 2112383631040984614}
+  secondsBetweenAttacks: 1
 --- !u!114 &6330084364845817153
 MonoBehaviour:
   m_ObjectHideFlags: 0
