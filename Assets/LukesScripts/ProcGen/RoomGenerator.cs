@@ -18,6 +18,7 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 minRoomSize = new Vector2(3, 6);
     [Tooltip("This gets updated at runtime")]public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
+    public GameObject wizard;
     public List<Room> rooms = new List<Room>();
 
     private Room start, end;
@@ -100,6 +101,12 @@ public class RoomGenerator : MonoBehaviour
         var player = SpawnPlayer(spawnPoint);
         Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
         targetAim.mainCam = Camera.main;
+
+        Vector3 wizardSpawn = PositionAsGridCoordinates(end.centre);
+        GridCell spawnPointWizard = navAgent.GetGridCellAt((int)wizardSpawn.x, (int)wizardSpawn.y, (int)wizardSpawn.z);
+        var boss = SpawnWizard(spawnPointWizard);
+        var bossAI = boss.GetComponent<AIWizard>();
+        bossAI.bindingPoint = wizardSpawn;
 
         StartCoroutine(AwaitAssignables());
     }
@@ -210,6 +217,13 @@ public class RoomGenerator : MonoBehaviour
         var pos = cell.position;
         pos.y += 0.5f;
         return player.Spawn(pos, Vector3.zero);
+    }
+
+    public GameObject SpawnWizard(GridCell cell)
+    {
+        var pos = cell.position;
+        pos.y += 0.5f;
+        return Instantiate(wizard, pos, Quaternion.identity);
     }
     #endregion
 

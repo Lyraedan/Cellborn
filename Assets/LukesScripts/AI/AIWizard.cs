@@ -5,8 +5,8 @@ using UnityEngine;
 public class AIWizard : AI
 {
 
-    Vector3 next;
-    [SerializeField] private Vector3 bindingPoint;
+    private Vector3 next;
+    public Vector3 bindingPoint = Vector3.zero;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float roamRadius = 3;
     [SerializeField] private float bulletForce = 10.0f;
