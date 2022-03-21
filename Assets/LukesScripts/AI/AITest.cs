@@ -9,6 +9,8 @@ public class AITest : AI
     [SerializeField] private float roamRadius = 3;
     private int secondsBetweenAttacks = 3;
     private float attackDelay = 0;
+    public PlayerStats playerStats;
+    private int damage = 1;
 
     public override void Init()
     {
@@ -54,6 +56,7 @@ public class AITest : AI
     public override void Attack()
     {
         Debug.Log("Do attack!");
+        //DamagePlayer(damage);
     }
 
     public override void DrawGizmos()
