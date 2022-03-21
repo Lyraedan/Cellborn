@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats instance;
+
     public int maxHP;
     public int currentHP;
 
@@ -20,7 +22,15 @@ public class PlayerStats : MonoBehaviour
     #endregion
 
     public bool isDead;
-    
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     void Start()
     {
         currentHP = maxHP;

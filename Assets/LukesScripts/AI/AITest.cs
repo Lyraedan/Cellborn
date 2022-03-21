@@ -7,7 +7,7 @@ public class AITest : AI
     Vector3 next;
 
     [SerializeField] private float roamRadius = 3;
-    private int secondsBetweenAttacks = 3;
+    private int secondsBetweenAttacks = 1;
     private float attackDelay = 0;
     public PlayerStats playerStats;
     private int damage = 1;
@@ -27,7 +27,6 @@ public class AITest : AI
         {
             // Player is here!
             MoveTo(WeaponManager.instance.player.transform.position);
-            attackDelay = 0;
         } else if(runTimer >= runTimeout)
         {
             // Couldn't reach destination in time
@@ -35,16 +34,18 @@ public class AITest : AI
             runTimer = 0;
         }
 
+        attackDelay += 1f * Time.deltaTime;
+
         // We are within attacking distance
-        if(DistanceFromPlayer <= 1.5f)
+        if (DistanceFromPlayer <= 1.5f)
         {
-            attackDelay += 1f * Time.deltaTime;
-            if(attackDelay >= secondsBetweenAttacks)
+            if (attackDelay >= secondsBetweenAttacks)
             {
                 Attack();
                 attackDelay = 0;
             }
         }
+
     }
 
     void FindNewLocation()
@@ -56,7 +57,7 @@ public class AITest : AI
     public override void Attack()
     {
         Debug.Log("Do attack!");
-        //DamagePlayer(damage);
+        PlayerStats.instance.DamagePlayer(damage);
     }
 
     public override void DrawGizmos()
