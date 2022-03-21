@@ -52,8 +52,14 @@ public class PlayerStats : MonoBehaviour
 
         if (collObj.tag == "Projectile")
         {     
-            currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage; 
+            currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage;
         }
+    }
+
+    //Casual Matilde Function
+    public void DamagePlayer(int damage)
+    {
+        currentHP -= damage;
     }
 
     public void KillPlayer()
