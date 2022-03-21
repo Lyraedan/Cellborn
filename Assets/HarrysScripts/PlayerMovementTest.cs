@@ -28,6 +28,9 @@ public class PlayerMovementTest : MonoBehaviour
 
     void Update()
     {
+        if (WeaponManager.instance == null)
+            return;
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(isGrounded && velocity.y <= 0)

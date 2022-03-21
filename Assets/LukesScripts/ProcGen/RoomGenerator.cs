@@ -111,9 +111,9 @@ public class RoomGenerator : MonoBehaviour
         DeleteAllObjectsWithTag("Enemy");
     }
 
-    void Regenerate()
+    public void Regenerate()
     {
-        ClearDungeon();
+        //ClearDungeon();
         //DeleteAllObjectsWithTag("Environment");
         //DeleteAllObjectsWithTag("Player");
         //Generate(seed);

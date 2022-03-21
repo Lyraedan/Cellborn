@@ -83,5 +83,24 @@ public class PlayerStats : MonoBehaviour
         moveScript.enabled = false;
         playerCollider.enabled = false;
         isDead = true;
+
+        int seconds = 5;
+        Debug.Log($"You are dead. Respawning in {seconds} seconds");
+        StartCoroutine(TimedReset(seconds));
+    }
+
+    IEnumerator TimedReset(int seconds)
+    {
+        if(seconds == 0)
+        {
+            Debug.Log("Resetting!");
+            RoomGenerator.instance.Regenerate();
+            yield break;
+        } else
+        {
+            Debug.Log(seconds);
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(TimedReset(seconds - 1));
+        }
     }
 }
