@@ -7,7 +7,7 @@ public class AITest : AI
     Vector3 next;
 
     [SerializeField] private float roamRadius = 3;
-    private int secondsBetweenAttacks = 1;
+    private float secondsBetweenAttacks = 1f;
     private float attackDelay = 0;
     public PlayerStats playerStats;
     private int damage = 1;
