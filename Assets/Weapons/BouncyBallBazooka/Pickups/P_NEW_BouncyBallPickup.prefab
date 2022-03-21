@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5606891704754517551}
   m_Layer: 0
   m_Name: P_NEW_BouncyBallPickup
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,10 +193,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteAmmo: 0
+  isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 195a4c950d8762d4eaf523b04d10d6df, type: 3}
   angle: 0
   secondsBetweenShots: 2
   coneSize: 90
+  numberOfShots: 10
 --- !u!1001 &4486164251911147066
 PrefabInstance:
   m_ObjectHideFlags: 0

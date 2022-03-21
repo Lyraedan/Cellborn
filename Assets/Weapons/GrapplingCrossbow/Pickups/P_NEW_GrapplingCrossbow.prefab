@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7200835774901043714}
   m_Layer: 0
   m_Name: P_NEW_GrapplingCrossbow
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteAmmo: 0
+  isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 70adb7b6fb200814eb4d59d2964816e1, type: 3}
   angle: 0
   secondsBetweenShots: 1

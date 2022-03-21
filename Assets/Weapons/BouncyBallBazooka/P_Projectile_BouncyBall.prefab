@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9074122352265458141}
   m_Layer: 7
   m_Name: P_Projectile_BouncyBall
-  m_TagString: Projectile
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   arcSize: 1
   shotDirection: 0
   lifetime: 5
+  t: 0
   enemyDamage: 0
   playerDamage: 0
   canChangeDistance: 0

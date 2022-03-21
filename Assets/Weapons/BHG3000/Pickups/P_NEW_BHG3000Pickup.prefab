@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -998470432587108186}
   m_Layer: 0
   m_Name: P_NEW_BHG3000Pickup
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteAmmo: 0
+  isInPlayerInventory: 0
   projectile: {fileID: 5500159748544458815, guid: 81c2980b9abb8524895969f953c6cb07, type: 3}
   angle: 0
   secondsBetweenShots: 2

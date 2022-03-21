@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -50,12 +51,17 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Generate();
+    }
+
+    void Generate()
+    {
         if (seed == 0)
-            seed = Random.Range(0, 1000000);
+            this.seed = Random.Range(0, 1000000);
 
         Random.InitState(seed);
         Debug.Log("Generating dungeon with seed: " + seed);
-        generatedDungeonSize = GenerateRandomVector((int) minDungeonSize.x, 0, (int) minDungeonSize.y, (int) maxDungeonSize.x, 1, (int) maxDungeonSize.y);
+        generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
         Debug.Log("Generated dungeon of size: " + generatedDungeonSize.ToString());
 
         var dimensions = new Vector3(generatedDungeonSize.x, 1, generatedDungeonSize.z);
@@ -83,19 +89,52 @@ public class RoomGenerator : MonoBehaviour
         //grid.Bake();
         BakeNavmesh();
 
-        PlaceProps();
+        //PlaceProps();
 
         var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
         start = sorted[0];
         end = sorted[sorted.Count - 1];
 
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
-        GridCell spawnPoint = navAgent.GetGridCellAt((int) spawnCoords.x, (int) spawnCoords.y, (int) spawnCoords.z);
+        GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
         Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
         targetAim.mainCam = Camera.main;
 
         StartCoroutine(AwaitAssignables());
+    }
+
+    void ClearDungeon()
+    {
+        DeleteAllObjectsWithTag("Weapon");
+        DeleteAllObjectsWithTag("Prop");
+        DeleteAllObjectsWithTag("Enemy");
+    }
+
+    void Regenerate()
+    {
+        ClearDungeon();
+        //DeleteAllObjectsWithTag("Environment");
+        //DeleteAllObjectsWithTag("Player");
+        //Generate(seed);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Regenerate();
+        }
+    }
+
+    void DeleteAllObjectsWithTag(string tag)
+    {
+        var list = GameObject.FindGameObjectsWithTag(tag);
+        for(int i = 0; i< list.Length; i++)
+        {
+            Destroy(list[i]);
+        }
     }
 
     IEnumerator AwaitAssignables()

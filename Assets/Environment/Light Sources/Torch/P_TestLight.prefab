@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5474510929879681198}
   m_Layer: 0
   m_Name: P_TestLight
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,10 @@ PrefabInstance:
     - target: {fileID: 7145994266653057921, guid: cb446f83bf7f9d34ea69c57c7e27bac6, type: 3}
       propertyPath: m_Name
       value: Torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145994266653057921, guid: cb446f83bf7f9d34ea69c57c7e27bac6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7521146893530118459, guid: cb446f83bf7f9d34ea69c57c7e27bac6, type: 3}
       propertyPath: m_RootOrder

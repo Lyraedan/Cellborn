@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2854230587335798673}
   m_Layer: 0
   m_Name: P_NEW_LBRPickup
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteAmmo: 1
+  isInPlayerInventory: 0
   projectile: {fileID: 0}
   angle: 0
   secondsBetweenShots: 0.5
@@ -118,7 +119,6 @@ MonoBehaviour:
     m_Bits: 4096
   enemyDamage: 1
   damageInterval: 0.25
-  fireDistance: 10
 --- !u!1001 &8380270432438470704
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3826894734871327738}
   m_Layer: 0
   m_Name: P_BlackHoleBall
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,13 +127,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projRigidbody: {fileID: 5500159748544458800}
-  fireScript: {fileID: 0}
   throwStrength: 5
   arcSize: 1
   shotDirection: 0
   lifetime: 20
+  t: 0
   enemyDamage: 0
   playerDamage: 0
+  canChangeDistance: 0
   bounces: 3
   holeSpawnYOffset: -0.5
   blackHolePrefab: {fileID: 3137081082924539478, guid: 43032b7fc19614c4c9a59da530475b27, type: 3}
