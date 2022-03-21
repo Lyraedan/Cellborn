@@ -5,13 +5,14 @@ using UnityEngine;
 public class AIWizard : AI
 {
 
-    public Vector3 bindingPoint;
-    public GameObject projectile;
-    public float bulletForce = 10.0f;
+    Vector3 next;
+    [SerializeField] private Vector3 bindingPoint;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float roamRadius = 3;
+    [SerializeField] private float bulletForce = 10.0f;
 
-    private float secondsBetweenAttacks = 2.5f;
+    [SerializeField] private float secondsBetweenAttacks = 2.5f;
     private float attackDelay = 0;
-    private bool returning = false;
 
     public override void Init()
     {
@@ -21,13 +22,18 @@ public class AIWizard : AI
     public override void Tick()
     {
         // To far away from spawn point
-        if (Vector3.Distance(transform.position, bindingPoint) > 20)
+        if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+        {
+            // Reached destination
+            FindNewLocation();
+        }
+        else if (Vector3.Distance(transform.position, bindingPoint) > 20)
         {
             MoveTo(bindingPoint);
         }
 
         attackDelay += 1f * Time.deltaTime;
-        if (Vector3.Distance(WeaponManager.instance.player.transform.position, transform.position) < 10)
+        if (DistanceFromPlayer < 10)
         {
             if (attackDelay >= secondsBetweenAttacks)
             {
@@ -35,6 +41,12 @@ public class AIWizard : AI
                 attackDelay = 0;
             }
         }
+    }
+
+    void FindNewLocation()
+    {
+        next = RandomNavmeshLocation(roamRadius);
+        MoveTo(next);
     }
 
     public override void Attack()
