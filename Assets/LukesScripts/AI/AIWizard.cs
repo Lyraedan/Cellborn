@@ -20,14 +20,13 @@ public class AIWizard : AI
 
     }
 
+    private void OnDestroy()
+    {
+        PlayerStats.instance.win.gameObject.SetActive(true);
+    }
+
     public override void Tick()
     {
-        if (enemyScript.currentHP == 0)
-        {
-
-            return;
-        }
-
         if (enemyScript.currentHP <= (enemyScript.maxHP / 3) * 2)
         {
             bulletForce = 200;

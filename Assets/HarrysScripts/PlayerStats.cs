@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerStats : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
+    public Text win;
 
     #region Player Components
     
