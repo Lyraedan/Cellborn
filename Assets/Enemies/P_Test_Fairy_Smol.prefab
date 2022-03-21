@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 7034860564585011215}
   meshRenderers:
-  - {fileID: 0}
+  - {fileID: 6826545288478285973}
 --- !u!65 &7034860564585011215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -298,5 +298,10 @@ PrefabInstance:
 --- !u!4 &3322296674647288238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3bcc401d2bf191240845a18df745284e, type: 3}
+  m_PrefabInstance: {fileID: 2995336049349971525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6826545288478285973 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8587608580095487696, guid: 3bcc401d2bf191240845a18df745284e, type: 3}
   m_PrefabInstance: {fileID: 2995336049349971525}
   m_PrefabAsset: {fileID: 0}
