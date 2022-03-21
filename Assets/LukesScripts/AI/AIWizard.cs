@@ -9,7 +9,7 @@ public class AIWizard : AI
     public Vector3 bindingPoint = Vector3.zero;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float roamRadius = 3;
-    [SerializeField] private float bulletForce = 10.0f;
+    [SerializeField] private float bulletForce = 100.0f;
 
     [SerializeField] private float secondsBetweenAttacks = 2.5f;
     private float attackDelay = 0;
@@ -30,6 +30,9 @@ public class AIWizard : AI
         else if (Vector3.Distance(transform.position, bindingPoint) > 20)
         {
             MoveTo(bindingPoint);
+        } else if(DistanceFromPlayer < 3)
+        {
+            MoveTo(WeaponManager.instance.player.transform.position);
         }
 
         attackDelay += 1f * Time.deltaTime;
@@ -41,6 +44,13 @@ public class AIWizard : AI
                 attackDelay = 0;
             }
         }
+
+        //Rotate ai
+        var direction = (next != WeaponManager.instance.player.transform.position ? next : WeaponManager.instance.player.transform.position) - transform.position;
+        direction.y = 0;
+        var rotation = Quaternion.LookRotation(direction);
+        var dampening = 8;
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
     }
 
     void FindNewLocation()
@@ -71,7 +81,9 @@ public class AIWizard : AI
             for (int j = 0; j < directions.Length; j++)
             {
                 Vector3 dir = directions[j];
-                var bullet = Instantiate(projectile, transform.position + dir, Quaternion.identity);
+                Vector3 pos = transform.position + dir;
+                pos.y += 0.5f;
+                var bullet = Instantiate(projectile, pos, Quaternion.identity);
                 Rigidbody body = bullet.GetComponent<Rigidbody>();
                 body.AddForce(dir * bulletForce);
             }
