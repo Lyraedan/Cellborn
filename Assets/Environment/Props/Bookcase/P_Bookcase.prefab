@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4755030125293877937}
   - component: {fileID: 4604334373368448982}
   - component: {fileID: 7286612802143848291}
+  - component: {fileID: 6574204442967881006}
   m_Layer: 0
   m_Name: Bookcase_top
   m_TagString: Untagged
@@ -114,6 +115,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6574204442967881006
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738624364249372705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8647692761589068568, guid: 9da9a76412c2a3c40a9645be0ee48429, type: 3}
 --- !u!1 &4269057436554694419
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +140,7 @@ GameObject:
   - component: {fileID: 482435495115548727}
   - component: {fileID: 9208467800470082755}
   - component: {fileID: 4578064772853882567}
+  - component: {fileID: 792099098228943292}
   m_Layer: 0
   m_Name: Bookcase_stand
   m_TagString: Untagged
@@ -195,6 +211,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &792099098228943292
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269057436554694419}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 383237771891086577, guid: 9da9a76412c2a3c40a9645be0ee48429, type: 3}
 --- !u!1 &4996634217464116103
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +236,7 @@ GameObject:
   - component: {fileID: 4490108866601912845}
   - component: {fileID: 1696248574606574877}
   - component: {fileID: 5348228530211182609}
+  - component: {fileID: 4500085928283065358}
   m_Layer: 0
   m_Name: Bookcase
   m_TagString: Untagged
@@ -276,3 +307,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4500085928283065358
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996634217464116103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4437792812970464659, guid: 9da9a76412c2a3c40a9645be0ee48429, type: 3}
