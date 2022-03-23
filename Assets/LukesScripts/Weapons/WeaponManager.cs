@@ -43,7 +43,7 @@ public class WeaponManager : MonoBehaviour
             
             if (value.weaponId != -1)
             {
-                weaponText.text = "Equipped Weapon: " + value.weaponName;
+                weaponText.text = value.weaponName;
             }
             else
             {
