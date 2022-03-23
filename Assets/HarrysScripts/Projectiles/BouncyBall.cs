@@ -31,6 +31,7 @@ public class BouncyBall : ProjectileBehaviour
 
     void Update()
     {
+        /*
         if (canDamage)
         {
             enemyDamage = 1;
@@ -41,6 +42,7 @@ public class BouncyBall : ProjectileBehaviour
             enemyDamage = 0;
             playerDamage = 1;
         }
+        */
         
         t += Time.deltaTime;
 
