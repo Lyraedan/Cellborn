@@ -10,6 +10,8 @@ public class BouncyBall : ProjectileBehaviour
     float t; // Time
     public bool wizard = false;
 
+    Material instMat;
+
     [HideInInspector]
     public bool canDamage;
     
@@ -19,12 +21,16 @@ public class BouncyBall : ProjectileBehaviour
         {
             projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         }
+
+        instMat = gameObject.GetComponent<Renderer>().material;
     }
 
     void Start()
     {
         colorIndex = Random.Range(0, ballColors.Count);
-        gameObject.GetComponent<Renderer>().material.color = ballColors[colorIndex];
+        instMat.EnableKeyword("_EMISSION");
+        instMat.SetColor("_Color", ballColors[colorIndex]);
+        instMat.SetColor("_EmissionColor", ballColors[colorIndex]);
         ballLight = GetComponentInChildren<Light>();
         ballLight.color = ballColors[colorIndex];
     }
