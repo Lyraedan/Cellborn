@@ -22,18 +22,9 @@ public class LootTable : MonoBehaviour
 
     public GameObject Spawn(GameObject prefab, Vector3 position, Vector3 rotation)
     {
-        // This makes no sense but whatever
         GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int)position.x, 0, (int)position.z);
-        Debug.Log("Spawning at cell: " + cell.position.ToString() + " with rotation: " + cell.rotation + " @ rotation: " + rotation.ToString());
-        if(cell.rotation.y == 180)
-        {
-            rotation.y += 180;
-            Debug.Log("SCREAM");
-        }
-        Quaternion rot = Quaternion.Euler(rotation);
-        Quaternion current = Quaternion.Euler(cell.rotation);
-        Quaternion finalRotation = current * rot;
-        var obj = Instantiate(prefab, position, finalRotation);
+        var rot = transform.parent.transform.rotation * Quaternion.Euler(rotation);
+        var obj = Instantiate(prefab, position, rot);
         return obj;
     }
 }
