@@ -37,7 +37,7 @@ public class AITest : AI
         attackDelay += 1f * Time.deltaTime;
 
         // We are within attacking distance
-        if (DistanceFromPlayer <= 1.5f)
+        if (DistanceFromPlayer <= 1f)
         {
             if (attackDelay >= secondsBetweenAttacks)
             {
