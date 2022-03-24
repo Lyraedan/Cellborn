@@ -344,8 +344,8 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -3484807864882865472, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
   m_PrefabInstance: {fileID: 3475108266826757871}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &18620335066500548
-MeshCollider:
+--- !u!65 &8566267721068801925
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -354,7 +354,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.15268046, y: 0.59887534, z: 1.817172}
+  m_Center: {x: 0.009506058, y: 0.26609114, z: -0.7987176}
