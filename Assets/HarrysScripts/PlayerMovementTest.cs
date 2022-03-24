@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerMovementTest : MonoBehaviour
 {
+    public static PlayerMovementTest instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     public CharacterController controller;
     public Transform cam;
     public float speed;
@@ -14,6 +24,7 @@ public class PlayerMovementTest : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
+    public Vector3 movingDirection = Vector3.zero;
     [SerializeField]bool isGrounded;
 
     Vector3 forward, right, velocity;
@@ -46,7 +57,8 @@ public class PlayerMovementTest : MonoBehaviour
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        controller.Move(heading * speed * Time.deltaTime);
+        movingDirection = heading * speed * Time.deltaTime;
+        controller.Move(movingDirection);
 
         velocity.y += gravity * Time.deltaTime;
 

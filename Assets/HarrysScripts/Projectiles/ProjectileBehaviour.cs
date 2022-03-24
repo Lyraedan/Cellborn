@@ -37,11 +37,11 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (canChangeDistance)
         {
-            projRigidbody.AddForce((transform.forward * horizontalVelocity) + (transform.up * arcSize), ForceMode.Impulse);
+            projRigidbody.AddForce(-PlayerMovementTest.instance.movingDirection + (transform.forward * horizontalVelocity) + (transform.up * arcSize), ForceMode.Impulse);
         }
         else
         {
-            projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
+            projRigidbody.AddForce(-PlayerMovementTest.instance.movingDirection + (transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         }
     }
 }
