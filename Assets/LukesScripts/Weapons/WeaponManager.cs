@@ -90,12 +90,12 @@ public class WeaponManager : MonoBehaviour
 
     public void GetWeaponsInLevel()
     {
-        currentlyHeldWeapons[0] = FindWeapon(0); // Pebbles
-
-        for (int i = 1; i < currentlyHeldWeapons.Count; i++)
+        for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
+        currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles
+
         //currentlyHeldWeapons[1] = FindWeapon(5);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
@@ -107,9 +107,9 @@ public class WeaponManager : MonoBehaviour
             slot.GetComponent<SlotHolder>().DeselectSlot();
             uiSlots.Add(slot);
         }
-        uiSlots[0].GetComponent<SlotHolder>().SelectSlot();
 
-        currentWeapon = currentlyHeldWeapons[0];
+        uiSlots[2].GetComponent<SlotHolder>().SelectSlot();
+        currentWeapon = currentlyHeldWeapons[2];
     }
 
     private void Update()
@@ -122,6 +122,19 @@ public class WeaponManager : MonoBehaviour
                     if (!currentWeapon.functionality.infiniteAmmo)
                     {
                         ammoText.text = "Ammo: " + currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
+
+                        if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
+                        {
+                            var empty = FindWeapon(-1);
+                            currentlyHeldWeapons[currentlySelectedIndex] = empty;
+
+                            var slot = uiSlots[currentlySelectedIndex];
+                            var slotHolder = slot.GetComponent<SlotHolder>();
+                            slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
+                            weaponText.text = string.Empty;
+
+                            currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
+                        }
                     }
                 });
             }
