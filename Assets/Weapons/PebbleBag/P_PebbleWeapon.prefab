@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pebble Bag
   weaponId: 0
-  currentAmmo: 0
+  currentAmmo: 1
   maxAmmo: 30
   icon: {fileID: 0}
   functionality: {fileID: -3620807374433043931}
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteAmmo: 1
-  isInPlayerInventory: 0
+  isInPlayerInventory: 1
   projectile: {fileID: 2089850481414163968, guid: f5b85d6043fbcfb48a525eb66b17ec58, type: 3}
   angle: 0
   secondsBetweenShots: 0.5
