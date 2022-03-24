@@ -58,6 +58,7 @@ public class PlayerMovementTest : MonoBehaviour
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
         movingDirection = heading * speed * Time.deltaTime;
+
         controller.Move(movingDirection);
 
         velocity.y += gravity * Time.deltaTime;
