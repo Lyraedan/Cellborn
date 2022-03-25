@@ -53,6 +53,7 @@ MonoBehaviour:
   currentHP: 10
   projectileDamage: 1
   deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
+  functionality: {fileID: 5322957373292102054}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -99,6 +100,8 @@ MonoBehaviour:
   agent: {fileID: 8500299319616729032}
   runTimeout: 7
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
+  showPath: 0
+  rotationDampening: 8
   roamRadius: 300
   playerStats: {fileID: 1663721380439235019, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
 --- !u!195 &8500299319616729032

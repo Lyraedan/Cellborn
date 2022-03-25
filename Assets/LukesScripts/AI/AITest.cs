@@ -12,6 +12,10 @@ public class AITest : AI
     public PlayerStats playerStats;
     private int damage = 1;
 
+    private bool persuePlayerAfterHit = false;
+    private float persueTimer = 0f;
+    private float persueTimeout = 10f;
+
     public override void Init()
     {
         next = RandomNavmeshLocation(3);
@@ -19,19 +23,33 @@ public class AITest : AI
 
     public override void Tick()
     {
-        if(agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+        if (!persuePlayerAfterHit)
         {
-            // Reached destination
-            FindNewLocation();
-        } else if(DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f)
+            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+            {
+                // Reached destination
+                FindNewLocation();
+            }
+            else if (DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f)
+            {
+                // Player is here!
+                MoveTo(WeaponManager.instance.player.transform.position);
+            }
+            else if (runTimer >= runTimeout)
+            {
+                // Couldn't reach destination in time
+                FindNewLocation();
+                runTimer = 0;
+            }
+        } else
         {
-            // Player is here!
+            persueTimer += 1f * Time.deltaTime;
             MoveTo(WeaponManager.instance.player.transform.position);
-        } else if(runTimer >= runTimeout)
-        {
-            // Couldn't reach destination in time
-            FindNewLocation();
-            runTimer = 0;
+            if(persueTimer >= persueTimeout)
+            {
+                persuePlayerAfterHit = false;
+                persueTimer = 0;
+            }
         }
 
         attackDelay += 1f * Time.deltaTime;
@@ -60,9 +78,17 @@ public class AITest : AI
         PlayerStats.instance.DamagePlayer(damage);
     }
 
+    public override void OnHit()
+    {
+        Debug.Log("Notice player");
+        persuePlayerAfterHit = true;
+        persueTimer = 0;
+    }
+
     public override void DrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(next, 0.25f);
     }
+
 }

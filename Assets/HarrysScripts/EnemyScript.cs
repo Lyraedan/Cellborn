@@ -7,6 +7,7 @@ public class EnemyScript : MonoBehaviour
     public float maxHP, currentHP, projectileDamage;
     public GameObject deathSmoke;
     private GameObject lastCollision;
+    public AI functionality;
 
     void Update()
     {
@@ -34,6 +35,8 @@ public class EnemyScript : MonoBehaviour
         if (collObj.tag == "Projectile")
         {
             lastCollision = collObj;
+            if (functionality != null)
+                functionality.OnHit();
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage; 
         }
     }
