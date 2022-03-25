@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7248785090433661682}
   - component: {fileID: -5679706573955455556}
   - component: {fileID: 7200835774901043714}
+  - component: {fileID: 513735314269569515}
   m_Layer: 0
   m_Name: P_NEW_GrapplingCrossbow
   m_TagString: Weapon
@@ -113,6 +114,22 @@ MonoBehaviour:
   projectile: {fileID: 3551906132943474317, guid: 70adb7b6fb200814eb4d59d2964816e1, type: 3}
   angle: 0
   secondsBetweenShots: 1
+--- !u!208 &513735314269569515
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099940127662423832}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.41, y: 0.13, z: 0.65}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &2905319208450780360
 PrefabInstance:
   m_ObjectHideFlags: 0

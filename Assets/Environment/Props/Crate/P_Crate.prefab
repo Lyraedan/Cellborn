@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5394841894375117346}
   - component: {fileID: 5856507868753401393}
   - component: {fileID: 8039502376135765865}
+  - component: {fileID: 8404375408929974737}
   m_Layer: 0
   m_Name: P_Crate
   m_TagString: Prop
@@ -128,3 +129,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5386971, y: 0.52400005, z: 0.5318411}
   m_Center: {x: 0.000000014901161, y: 0.25, z: 0}
+--- !u!208 &8404375408929974737
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370285178795195368}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.26900002, y: 0.26200002, z: 0.266}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.25, z: 0}
+  m_TimeToStationary: 0.5

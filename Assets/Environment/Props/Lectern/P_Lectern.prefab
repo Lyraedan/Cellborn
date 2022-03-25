@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6877395052186510575}
   - component: {fileID: 201389296849993369}
   - component: {fileID: 5364960410165592762}
+  - component: {fileID: 409588016415666156}
   m_Layer: 0
   m_Name: P_Lectern
   m_TagString: Prop
@@ -112,3 +113,19 @@ MonoBehaviour:
   collider: {fileID: 201389296849993369}
   meshRenderers:
   - {fileID: 6877395052186510575}
+--- !u!208 &409588016415666156
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931888185341150522}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.32500002, y: 0.35000002, z: 0.32500002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.25, y: 0.35000002, z: -0.25}
+  m_TimeToStationary: 0.5

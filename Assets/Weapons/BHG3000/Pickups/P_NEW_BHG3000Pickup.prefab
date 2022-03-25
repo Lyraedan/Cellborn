@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4170707339558579696}
   - component: {fileID: 1906114271499375604}
   - component: {fileID: -998470432587108186}
+  - component: {fileID: 8973375812910752683}
   m_Layer: 0
   m_Name: P_NEW_BHG3000Pickup
   m_TagString: Weapon
@@ -140,6 +141,22 @@ MonoBehaviour:
   projectile: {fileID: 5500159748544458815, guid: 81c2980b9abb8524895969f953c6cb07, type: 3}
   angle: 0
   secondsBetweenShots: 2
+--- !u!208 &8973375812910752683
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161291639031290691}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.2, y: 0.23, z: 0.725}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: -0.24}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4161291639418148831
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -320,6 +320,22 @@ MonoBehaviour:
   collider: {fileID: 4652099380725923290}
   meshRenderers:
   - {fileID: 6139134881751900885}
+--- !u!208 &293449465470050057
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953780389872648213}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.05, y: 2, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.0500001, y: 2, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!64 &2858440509000164534
 MeshCollider:
   m_ObjectHideFlags: 0

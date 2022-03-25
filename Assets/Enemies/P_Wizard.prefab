@@ -51,7 +51,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!195 &2210861006241590258
 NavMeshAgent:
@@ -119,6 +119,7 @@ MonoBehaviour:
   agent: {fileID: 2210861006241590258}
   runTimeout: 3
   minimapBlip: {r: 0.5849056, g: 0, b: 0.48703545, a: 1}
+  showPath: 1
   bindingPoint: {x: 0, y: 0, z: 0}
   projectile: {fileID: 3551906132943474317, guid: 0e48de19359f0b044af8cfabafc10c25, type: 3}
   roamRadius: 3

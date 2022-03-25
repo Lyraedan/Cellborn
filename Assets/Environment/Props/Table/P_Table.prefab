@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 2851742789685573530}
   - component: {fileID: 427830683755007654}
   - component: {fileID: 6687498130485287793}
+  - component: {fileID: 489812873702774190}
   m_Layer: 0
   m_Name: P_Table
   m_TagString: Prop
@@ -234,3 +235,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0004122717, y: 0.11857156, z: 0.00092753215}
   m_Center: {x: -0.00018154146, y: 0.05928578, z: 0.00043454053}
+--- !u!208 &489812873702774190
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519738370868223448}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.0050000004, y: 0.059000004, z: 0.006}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0050000004, y: 0.059000004, z: 0.0050000004}
+  m_TimeToStationary: 0.5

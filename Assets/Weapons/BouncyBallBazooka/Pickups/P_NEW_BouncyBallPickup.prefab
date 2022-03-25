@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3813764745368902832}
   - component: {fileID: 5676992050065258711}
   - component: {fileID: 5606891704754517551}
+  - component: {fileID: 5792988858651927260}
   m_Layer: 0
   m_Name: P_NEW_BouncyBallPickup
   m_TagString: Weapon
@@ -199,6 +200,22 @@ MonoBehaviour:
   secondsBetweenShots: 1
   coneSize: 90
   numberOfShots: 6
+--- !u!208 &5792988858651927260
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514005691360707819}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.135, y: 0.275, z: 0.7}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.18, z: 0.03}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4486164251911147066
 PrefabInstance:
   m_ObjectHideFlags: 0

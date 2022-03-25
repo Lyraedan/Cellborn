@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 1817028049274265515}
   - component: {fileID: -8517713694930692489}
   - component: {fileID: -1445588742106804624}
+  - component: {fileID: 7063766023698970800}
   m_Layer: 0
   m_Name: P_NEW_MuffinGunPickup
   m_TagString: Weapon
@@ -591,6 +592,22 @@ MonoBehaviour:
   projectile: {fileID: 3551906132943474317, guid: 2f5187601f5c6314b950006a5488e2f9, type: 3}
   angle: 0
   secondsBetweenShots: 3
+--- !u!208 &7063766023698970800
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925995419130920256}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.11, y: 0.21, z: 0.67}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3310693061812901553
 GameObject:
   m_ObjectHideFlags: 0

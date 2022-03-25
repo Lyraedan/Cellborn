@@ -12,6 +12,8 @@ public abstract class AI : MonoBehaviour
     [SerializeField] protected int runTimeout = 3;
     public Color minimapBlip = Color.red;
     protected GridCell currentCell, lastCell;
+    [SerializeField] protected bool showPath = false;
+    [SerializeField] protected float rotationDampening = 8f;
 
     public Action<AI, GridCell, GridCell> OnMinimapUpdated;
 
@@ -50,7 +52,6 @@ public abstract class AI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Is on navmesh: " + IsOnNavmesh);
         if (!IsOnNavmesh)
             return;
 
@@ -92,6 +93,7 @@ public abstract class AI : MonoBehaviour
             Debug.LogError("Invalid path");
             return false;
         }
+        LookAt(position);
         return true;
     }
 
@@ -108,19 +110,30 @@ public abstract class AI : MonoBehaviour
         return finalPosition;
     }
 
+    public void LookAt(Vector3 point)
+    {
+        var direction = point - transform.position;
+        direction.y = 0;
+        var rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (agent.pathStatus.Equals(NavMeshPathStatus.PathComplete))
+        if (showPath)
         {
-            if (agent.path.corners.Length >= 2)
+            if (agent.pathStatus.Equals(NavMeshPathStatus.PathComplete))
             {
-                Gizmos.color = Color.yellow;
-                for (int i = 0; i < agent.path.corners.Length - 1; i++)
+                if (agent.path.corners.Length >= 2)
                 {
-                    Gizmos.DrawLine(agent.path.corners[i], agent.path.corners[i + 1]);
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(agent.path.corners[i], 0.25f);
+                    Gizmos.color = Color.yellow;
+                    for (int i = 0; i < agent.path.corners.Length - 1; i++)
+                    {
+                        Gizmos.DrawLine(agent.path.corners[i], agent.path.corners[i + 1]);
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawSphere(agent.path.corners[i], 0.1f);
+                    }
                 }
             }
         }
