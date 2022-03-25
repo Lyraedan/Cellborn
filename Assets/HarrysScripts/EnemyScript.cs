@@ -6,6 +6,7 @@ public class EnemyScript : MonoBehaviour
 {
     public float maxHP, currentHP, projectileDamage;
     public GameObject deathSmoke;
+    private GameObject lastCollision;
 
     void Update()
     {
@@ -16,6 +17,11 @@ public class EnemyScript : MonoBehaviour
         if(currentHP <= 0)
         {
             Instantiate(deathSmoke, gameObject.transform.position, Quaternion.identity);
+            if (lastCollision != null)
+            {
+                lastCollision.transform.SetParent(null);
+                lastCollision.GetComponent<Rigidbody>().useGravity = true;
+            }
             Destroy(gameObject);
         }
     }
@@ -25,7 +31,8 @@ public class EnemyScript : MonoBehaviour
         var collObj = collision.gameObject;
 
         if (collObj.tag == "Projectile")
-        {     
+        {
+            lastCollision = collObj;
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage; 
         }
     }

@@ -14,6 +14,7 @@ public class GrappleHook : ProjectileBehaviour
     public SphereCollider triggerCollider;
 
     public Vector3 forceDirection;
+    private Vector3 playerDistance;
 
     [SerializeField]GameObject pulledObject;
     [SerializeField]CharacterController playerController;
@@ -29,6 +30,8 @@ public class GrappleHook : ProjectileBehaviour
 
     void Update()
     {
+        playerDistance = playerObject.transform.position - this.transform.position;
+
         if (!managerInstance.HasWeaponInInventory(4))
         {
             RetrieveHook();
@@ -39,7 +42,12 @@ public class GrappleHook : ProjectileBehaviour
             RetrieveHook();
         }
 
-        if (isPulling && Input.GetButton("Fire2"))
+        if (isPulling && playerDistance.magnitude < 0.9)
+        {
+            RetrieveHook();
+        }
+
+        if (isPulling && Input.GetButton("Fire1"))
         {
             RetrieveHook();
         }
@@ -105,7 +113,7 @@ public class GrappleHook : ProjectileBehaviour
             if (managerInstance.currentlyHeldWeapons[i].weaponId == 4)
             {
                 grappleWeapon = managerInstance.currentlyHeldWeapons[i];
-                grappleWeapon.currentAmmo += 1;
+                grappleWeapon.currentAmmo = 1;
                 managerInstance.ammoText.text = "Ammo: " + grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
                 break;
             }
