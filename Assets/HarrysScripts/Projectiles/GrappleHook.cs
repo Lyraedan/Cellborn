@@ -110,6 +110,12 @@ public class GrappleHook : ProjectileBehaviour
     {
         if (!other.transform.CompareTag("Roof"))
         {
+            if (other.transform.CompareTag("Enemy"))
+            {
+                RetrieveHook();
+                return;
+            }
+
             collisionTag = other.gameObject.tag;
             pulledObject = other.gameObject;
             projRigidbody.useGravity = false;
