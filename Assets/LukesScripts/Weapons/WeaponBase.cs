@@ -52,7 +52,7 @@ public abstract class WeaponBase : MonoBehaviour
             afterShot?.Invoke(true);
         } else
         {
-            Debug.LogError("Halt in the name of the firing law!");
+            //Debug.LogError("Halt in the name of the firing law!");
             afterShot?.Invoke(false);
         }
     }

@@ -170,8 +170,12 @@ MonoBehaviour:
   enemyPull: 1500
   triggerCollider: {fileID: 0}
   forceDirection: {x: 0, y: 0, z: 0}
+  timer: 0
   pulledObject: {fileID: 0}
   playerController: {fileID: 0}
   collisionTag: 
   isPulling: 0
   isPhysObj: 0
+  cordMaterial: {fileID: 2100000, guid: 42a0dd3756e16ba48a2cbdb1d700b167, type: 2}
+  cordWidth: 0.05
+  ropeColor: {r: 0.735849, g: 0.45149127, b: 0.114542544, a: 1}

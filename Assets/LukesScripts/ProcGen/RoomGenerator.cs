@@ -361,6 +361,7 @@ public class RoomGenerator : MonoBehaviour
                     GridCell current = room.hallways[j];
                     GridCell next = room.hallways[j + 1];
 
+                    // TODO DO FUCKING ADJACENT CHECKS YOU MUPPPET - Past and Lazy Luke <3
                     var adjacent = GetAdjacentCells(current);
 
                     int cx = (int) current.position.x;

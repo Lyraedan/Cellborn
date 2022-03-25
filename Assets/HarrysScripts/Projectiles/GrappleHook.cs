@@ -22,12 +22,20 @@ public class GrappleHook : ProjectileBehaviour
     [SerializeField]CharacterController playerController;
     [SerializeField]string collisionTag;
     [SerializeField]bool isPulling, isPhysObj;
+
+    public Material cordMaterial;
+    public float cordWidth = 0.05f;
+    public Color ropeColor = Color.red;
+    private LineRenderer cord;
    
     void Start()
     {
         playerController = FindObjectOfType<PlayerMovementTest>().controller;
         managerInstance = FindObjectOfType<WeaponManager>();
         playerObject = FindObjectOfType<PlayerMovementTest>().gameObject;
+
+        cord = gameObject.AddComponent<LineRenderer>();
+        cord.material = cordMaterial;
     }
 
     void Update()
@@ -35,6 +43,8 @@ public class GrappleHook : ProjectileBehaviour
         timer += 1f * Time.deltaTime;
 
         playerDistance = playerObject.transform.position - this.transform.position;
+
+        DrawLine(playerObject.transform.position, transform.position, ropeColor);
 
         if (!managerInstance.HasWeaponInInventory(4))
         {
@@ -147,5 +157,18 @@ public class GrappleHook : ProjectileBehaviour
 
         PlayerMovementTest.instance.disableMovement = false;
         Destroy(gameObject);
+    }
+
+    void DrawLine(Vector3 start, Vector3 end, Color color)
+    {
+        cord.startColor = color;
+        cord.endColor = color;
+
+        cord.startWidth = cordWidth;
+        cord.endWidth = cordWidth;
+
+        cord.SetPosition(0, start);
+        cord.SetPosition(1, end);
+
     }
 }
