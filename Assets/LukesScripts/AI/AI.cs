@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public abstract class AI : MonoBehaviour
 {
@@ -82,6 +83,8 @@ public abstract class AI : MonoBehaviour
     /// What happens when this AI attacks?
     /// </summary>
     public abstract void Attack();
+
+    public abstract void OnHit();
 
     public abstract void DrawGizmos();
 

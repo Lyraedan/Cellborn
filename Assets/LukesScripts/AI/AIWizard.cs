@@ -15,6 +15,10 @@ public class AIWizard : AI
     [SerializeField] private float secondsBetweenAttacks = 2.5f;
     private float attackDelay = 0;
 
+    private bool persuePlayerAfterHit = false;
+    private float persueTimer = 0f;
+    private float persueTimeout = 10f;
+
     public override void Init()
     {
 
@@ -44,15 +48,27 @@ public class AIWizard : AI
             secondsBetweenAttacks = 1f;
         }
 
-        // To far away from spawn point
-        if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+        if (!persuePlayerAfterHit)
         {
-            // Reached destination
-            FindNewLocation();
-        }
-        else if (Vector3.Distance(transform.position, bindingPoint) > 20)
+            // To far away from spawn point
+            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+            {
+                // Reached destination
+                FindNewLocation();
+            }
+            else if (Vector3.Distance(transform.position, bindingPoint) > 20)
+            {
+                MoveTo(bindingPoint);
+            }
+        } else
         {
-            MoveTo(bindingPoint);
+            persueTimer += 1f * Time.deltaTime;
+            MoveTo(WeaponManager.instance.player.transform.position);
+            if (persueTimer >= persueTimeout)
+            {
+                persuePlayerAfterHit = false;
+                persueTimer = 0;
+            }
         }
 
         attackDelay += 1f * Time.deltaTime;
@@ -99,6 +115,14 @@ public class AIWizard : AI
                 body.AddForce(dir * bulletForce);
             }
         }
+    }
+
+
+    public override void OnHit()
+    {
+        Debug.Log("Notice player");
+        persuePlayerAfterHit = true;
+        persueTimer = 0;
     }
 
     public override void DrawGizmos()
