@@ -27,7 +27,7 @@ public class WeaponLazer : WeaponBase
             GameObject hitEnemy;
             Vector3 direction = WeaponManager.instance.firepoint.transform.forward;
             int layerMask = (1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Default")); // Only collide with entities with Layers Enemy and Default
-            if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, direction, out hit, Mathf.Infinity))
+            if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, direction, out hit, Mathf.Infinity, layerMask))
             {
                 Debug.Log("Laser hit: " + (hit.collider != null ? hit.collider.name : "nothing"));
                 Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, direction * hit.distance, Color.yellow);

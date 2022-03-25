@@ -68,7 +68,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5186543247676668790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +99,8 @@ MonoBehaviour:
   agent: {fileID: 8500299319616729032}
   runTimeout: 7
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
+  showPath: 0
+  rotationDampening: 8
   roamRadius: 300
   playerStats: {fileID: 1663721380439235019, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
 --- !u!195 &8500299319616729032
@@ -134,8 +136,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.40573078, y: 1.1191082, z: 3.6664813}
-  m_Center: {x: -0.03986972, y: 0.5972533, z: -0.8107203}
+  m_Size: {x: 0.40573078, y: 2.082807, z: 3.6664813}
+  m_Center: {x: -0.039869726, y: 1.0791028, z: -0.8107203}
 --- !u!1001 &3475108266826757871
 PrefabInstance:
   m_ObjectHideFlags: 0
