@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AITest : AI
 {
-    Vector3 next;
+    private Vector3 next;
 
     [SerializeField] private float roamRadius = 3;
     private float secondsBetweenAttacks = 1f;
@@ -89,6 +89,8 @@ public class AITest : AI
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(next, 0.25f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, next);
     }
 
 }

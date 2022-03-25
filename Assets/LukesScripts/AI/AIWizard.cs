@@ -19,6 +19,15 @@ public class AIWizard : AI
     private float persueTimer = 0f;
     private float persueTimeout = 10f;
 
+    [SerializeField] private int chanceOfWaiting = 3;
+    [SerializeField] private float waitDuration = 4f;
+    private float waitTimer = 0;
+    private bool returningToRoom = false;
+    private bool wait = false;
+
+    private float minRadius = 3f;
+    private float maxRadius = 20f;
+
     public override void Init()
     {
 
@@ -51,14 +60,19 @@ public class AIWizard : AI
         if (!persuePlayerAfterHit)
         {
             // To far away from spawn point
-            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5 && !returningToRoom && !wait)
             {
                 // Reached destination
+                wait = Random.Range(0, chanceOfWaiting) == 0;
                 FindNewLocation();
             }
-            else if (Vector3.Distance(transform.position, bindingPoint) > 20)
+            else if (Vector3.Distance(transform.position, bindingPoint) > maxRadius && !returningToRoom && !wait)
             {
+                returningToRoom = true;
                 MoveTo(bindingPoint);
+            } else if(Vector3.Distance(transform.position, bindingPoint) <= minRadius && returningToRoom && !wait)
+            {
+                returningToRoom = false;
             }
         } else
         {
@@ -71,9 +85,23 @@ public class AIWizard : AI
             }
         }
 
+        if(wait)
+        {
+            if(agent.remainingDistance <= 1)
+            {
+                waitTimer += 1f * Time.deltaTime;
+                if(waitTimer >= waitDuration)
+                {
+                    wait = false;
+                    waitTimer = 0;
+                }
+            }
+        }
+
         attackDelay += 1f * Time.deltaTime;
         if (DistanceFromPlayer < 10)
         {
+            wait = false;
             if (attackDelay >= secondsBetweenAttacks)
             {
                 Attack();
@@ -127,5 +155,6 @@ public class AIWizard : AI
 
     public override void DrawGizmos()
     {
+
     }
 }
