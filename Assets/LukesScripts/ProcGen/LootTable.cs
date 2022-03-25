@@ -16,7 +16,13 @@ public class LootTable : MonoBehaviour
 
         if (doSpawn)
         {
-            table.SpawnRandomPrefab(this);
+            try
+            {
+                table.SpawnRandomPrefab(this);
+            } catch(System.Exception e)
+            {
+
+            }
         }
     }
 

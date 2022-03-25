@@ -71,7 +71,8 @@ public class Minimap : MonoBehaviour
         ai.OnMinimapUpdated += UpdateEntityOnMinimap;
         Vector3 position = ai.transform.position;
         GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int)position.x, 0, (int)position.z);
-        texture.SetPixel((int)cell.position.x, (int)cell.position.z, ai.minimapBlip);
+        if(texture != null)
+            texture.SetPixel((int)cell.position.x, (int)cell.position.z, ai.minimapBlip);
         entities.Add(ai);
     }
 
@@ -81,7 +82,8 @@ public class Minimap : MonoBehaviour
         Vector3 position = ai.transform.position;
         GridCell cell = RoomGenerator.instance.navAgent.GetGridCellAt((int) position.x, 0, (int) position.z);
         MinimapBlip blip = GetBlip(cell.flag);
-        texture.SetPixel((int) cell.position.x, (int) cell.position.z, blip.color);
+        if (texture != null)
+            texture.SetPixel((int) cell.position.x, (int) cell.position.z, blip.color);
         entities.Remove(ai);
     }
 

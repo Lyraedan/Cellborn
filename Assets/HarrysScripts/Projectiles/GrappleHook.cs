@@ -63,9 +63,18 @@ public class GrappleHook : ProjectileBehaviour
                 //PullEnemy(playerObject, pulledObject);
 
                 forceDirection = playerObject.transform.position - transform.position;
-        
-                Rigidbody rigidBody = pulledObject.GetComponent<Rigidbody>();
-                rigidBody.AddForce(forceDirection.normalized * enemyPull * Time.deltaTime); 
+
+                try
+                {
+                    if (pulledObject != null)
+                    {
+                        Rigidbody rigidBody = pulledObject.GetComponent<Rigidbody>();
+                        rigidBody.AddForce(forceDirection.normalized * enemyPull * Time.deltaTime);
+                    }
+                } catch(System.Exception e)
+                {
+                    pulledObject = null;
+                }
             }
             else
             {
