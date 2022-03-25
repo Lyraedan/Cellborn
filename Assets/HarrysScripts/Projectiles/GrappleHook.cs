@@ -16,6 +16,8 @@ public class GrappleHook : ProjectileBehaviour
     public Vector3 forceDirection;
     private Vector3 playerDistance;
 
+    public float timer = 0;
+
     [SerializeField]GameObject pulledObject;
     [SerializeField]CharacterController playerController;
     [SerializeField]string collisionTag;
@@ -30,6 +32,8 @@ public class GrappleHook : ProjectileBehaviour
 
     void Update()
     {
+        timer += 1f * Time.deltaTime;
+
         playerDistance = playerObject.transform.position - this.transform.position;
 
         if (!managerInstance.HasWeaponInInventory(4))
@@ -51,6 +55,11 @@ public class GrappleHook : ProjectileBehaviour
         {
             RetrieveHook();
         }
+
+        if (timer > 2)
+        {
+            RetrieveHook();
+        }
     }
 
     void FixedUpdate()
@@ -69,7 +78,7 @@ public class GrappleHook : ProjectileBehaviour
                     if (pulledObject != null)
                     {
                         Rigidbody rigidBody = pulledObject.GetComponent<Rigidbody>();
-                        rigidBody.AddForce(forceDirection.normalized * enemyPull * Time.deltaTime);
+                        rigidBody.AddForce(forceDirection * enemyPull * Time.deltaTime);
                     }
                 } catch(System.Exception e)
                 {
@@ -81,24 +90,27 @@ public class GrappleHook : ProjectileBehaviour
                 //PullPlayer(playerObject);
 
                 forceDirection = transform.position - playerObject.transform.position;
-
-                playerController.Move(forceDirection.normalized * playerPull * Time.deltaTime);
+                PlayerMovementTest.instance.disableMovement = true;
+                playerController.Move(forceDirection * playerPull * Time.deltaTime);
             }
         }
     }        
     
     void OnCollisionEnter(Collision other)
     {
-        projRigidbody.isKinematic = true;
-        gameObject.transform.SetParent(other.gameObject.transform);
-
-        collisionTag = other.gameObject.tag;
-        pulledObject = other.gameObject;
-        isPulling = true;
-
-        if (other.gameObject.GetComponent<Rigidbody>())
+        if (!other.transform.CompareTag("Roof"))
         {
-            isPhysObj = true;
+            collisionTag = other.gameObject.tag;
+            pulledObject = other.gameObject;
+            projRigidbody.useGravity = false;
+            projRigidbody.velocity = Vector3.zero;
+            projRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            gameObject.transform.SetParent(other.gameObject.transform);
+            isPulling = true;
+            if (other.gameObject.GetComponent<Rigidbody>())
+            {
+                isPhysObj = true;
+            }
         }
     }
 
@@ -117,6 +129,11 @@ public class GrappleHook : ProjectileBehaviour
     {
         WeaponProperties grappleWeapon;
 
+        timer = 0;
+
+        projRigidbody.GetComponent<Rigidbody>().useGravity = true;
+        projRigidbody.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
         for (int i = 0; i < managerInstance.currentlyHeldWeapons.Count; i++)
         {
             if (managerInstance.currentlyHeldWeapons[i].weaponId == 4)
@@ -128,6 +145,7 @@ public class GrappleHook : ProjectileBehaviour
             }
         }
 
+        PlayerMovementTest.instance.disableMovement = false;
         Destroy(gameObject);
     }
 }
