@@ -141,7 +141,7 @@ public abstract class AI : MonoBehaviour
     {
         NavMeshHit myNavHit;
         Vector3 pos = OurPosition;
-        if (NavMesh.SamplePosition(point, out myNavHit, Mathf.Infinity, -1))
+        if (NavMesh.SamplePosition(point, out myNavHit, 10, -1))
         {
             pos = myNavHit.position;
         }

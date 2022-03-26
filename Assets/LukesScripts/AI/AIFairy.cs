@@ -59,7 +59,7 @@ public class AIFairy : AI
         if (!persuePlayerAfterHit && !flee)
         {
             bool changePatrolArea = patrolTimer >= patrolDurationChosen;
-            bool persuingPlayer = DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f;
+            bool persuingPlayer = DistanceFromPlayer < 3 && DistanceFromPlayer > 0.5f;
 
             if (changePatrolArea && !persuingPlayer)
                 PickNewPatrolPoint();
@@ -119,7 +119,7 @@ public class AIFairy : AI
         attackDelay += 1f * Time.deltaTime;
 
         // We are within attacking distance
-        if (DistanceFromPlayer <= 1f)
+        if (DistanceFromPlayer <= 0.5f)
         {
             agent.isStopped = true;
             if (attackDelay >= secondsBetweenAttacks)
