@@ -71,13 +71,7 @@ public class PotionManager : MonoBehaviour
                 currentlyHeldPotions[0].Consume();
                 if (currentlyHeldPotions[0].functionality != null)
                 {
-                    if (!currentlyHeldPotions[0].functionality.infiniteUses)
-                    {
-                        if (currentlyHeldPotions[0].currentUses <= 0)
-                        {
-                            currentlyHeldPotions[0] = emptyPotion;
-                        }
-                    }
+                    currentlyHeldPotions[0] = emptyPotion;
                 }
             }
         }
@@ -89,13 +83,7 @@ public class PotionManager : MonoBehaviour
                 currentlyHeldPotions[1].Consume();
                 if (currentlyHeldPotions[1].functionality != null)
                 {
-                    if (!currentlyHeldPotions[1].functionality.infiniteUses)
-                    {
-                        if (currentlyHeldPotions[1].currentUses <= 0)
-                        {
-                            currentlyHeldPotions[1] = emptyPotion;
-                        }
-                    }
+                    currentlyHeldPotions[1] = emptyPotion;
                 }
             }
         }
