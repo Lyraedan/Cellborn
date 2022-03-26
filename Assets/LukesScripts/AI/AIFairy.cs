@@ -179,10 +179,7 @@ public class AIFairy : AI
 
     public override void DrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(next, 0.25f);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, next);
+
     }
 
 }

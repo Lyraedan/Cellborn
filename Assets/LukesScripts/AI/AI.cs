@@ -141,7 +141,8 @@ public abstract class AI : MonoBehaviour
     {
         NavMeshHit myNavHit;
         Vector3 pos = OurPosition;
-        if (NavMesh.SamplePosition(point, out myNavHit, 10, -1))
+        float radius = 10; //Mathf.Infinity;
+        if (NavMesh.SamplePosition(point, out myNavHit, radius, -1))
         {
             pos = myNavHit.position;
         }
@@ -173,6 +174,8 @@ public abstract class AI : MonoBehaviour
                         Gizmos.DrawSphere(agent.path.corners[i], 0.1f);
                     }
                 }
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(agent.destination, 0.1f);
             }
         }
         DrawGizmos();
