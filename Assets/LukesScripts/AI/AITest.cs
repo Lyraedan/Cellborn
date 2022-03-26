@@ -6,7 +6,7 @@ public class AITest : AI
 {
     private Vector3 next;
 
-    [SerializeField] private float roamRadius = 3;
+    [SerializeField] private float roamRadius = 3f;
     private float secondsBetweenAttacks = 1f;
     private float attackDelay = 0;
     public PlayerStats playerStats;
@@ -16,6 +16,24 @@ public class AITest : AI
     private float persueTimer = 0f;
     private float persueTimeout = 10f;
 
+    private Vector3 patrolPoint;
+    [SerializeField] private float patrolRadius = 100f;
+    [SerializeField] private float patrolDurationMin = 10;
+    [SerializeField] private float patrolDurationMax = 60;
+    [SerializeField] private float maxRoamFromPatrolPoint = 50f;
+    private float patrolDurationChosen = 0;
+    private float patrolTimer = 0;
+    [SerializeField] private bool returningToPatrolPoint = false;
+
+    private float DistanceFromPatrolPoint { 
+        get
+        {
+            return Vector3.Distance(OurPosition, patrolPoint);
+        }
+    }
+
+    [SerializeField] private float remainingDistance = 0f;
+
     public override void Init()
     {
         next = RandomNavmeshLocation(3);
@@ -23,28 +41,59 @@ public class AITest : AI
 
     public override void Tick()
     {
+        if (!IsOnNavmesh)
+        {
+            var validated = GetNearestNavmeshLocation(OurPosition);
+            OurPosition = validated;
+            return;
+        }
+
+        remainingDistance = agent.remainingDistance;
+
         if (!persuePlayerAfterHit)
         {
-            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5)
+            bool changePatrolArea = patrolTimer >= patrolDurationChosen;
+            bool persuingPlayer = DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f;
+
+            if (changePatrolArea && !persuingPlayer)
+                PickNewPatrolPoint();
+
+            patrolTimer += 1f * Time.deltaTime;
+
+            if(returningToPatrolPoint)
+            {
+                if(remainingDistance <= 1f)
+                {
+                    returningToPatrolPoint = false;
+                }
+            }
+            
+            if (DistanceFromPatrolPoint > maxRoamFromPatrolPoint)
+            {
+                returningToPatrolPoint = true;
+            }
+
+            if (agent.remainingDistance <= 3f && DistanceFromPlayer > 5 && DistanceFromPatrolPoint < maxRoamFromPatrolPoint && !returningToPatrolPoint)
             {
                 // Reached destination
                 FindNewLocation();
             }
-            else if (DistanceFromPlayer < 3 && DistanceFromPlayer > 1.5f)
+            else if (persuingPlayer && !returningToPatrolPoint)
             {
                 // Player is here!
-                MoveTo(WeaponManager.instance.player.transform.position);
+                MoveTo(PlayerPosition);
             }
             else if (runTimer >= runTimeout)
             {
                 // Couldn't reach destination in time
                 FindNewLocation();
+                //returningToPatrolPoint = true;
                 runTimer = 0;
             }
         } else
         {
             persueTimer += 1f * Time.deltaTime;
-            MoveTo(WeaponManager.instance.player.transform.position);
+            MoveTo(PlayerPosition);
             if(persueTimer >= persueTimeout)
             {
                 persuePlayerAfterHit = false;
@@ -57,18 +106,32 @@ public class AITest : AI
         // We are within attacking distance
         if (DistanceFromPlayer <= 1f)
         {
+            agent.isStopped = true;
             if (attackDelay >= secondsBetweenAttacks)
             {
                 Attack();
                 attackDelay = 0;
             }
+        } else
+        {
+            agent.isStopped = false;
         }
 
     }
 
+    void PickNewPatrolPoint()
+    {
+        var point = RandomNavmeshLocation(roamRadius);
+        Vector3 validated = GetNearestNavmeshLocation(point);
+        patrolPoint = validated;
+        patrolTimer = 0;
+        patrolDurationChosen = Random.Range(patrolDurationMin, patrolDurationMax);
+    }
+
     void FindNewLocation()
     {
-        next = RandomNavmeshLocation(roamRadius);
+        var point = RandomNavmeshLocation(patrolRadius);
+        next = GetNearestNavmeshLocation(point);
         MoveTo(next);
     }
 

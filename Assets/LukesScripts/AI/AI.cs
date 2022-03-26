@@ -16,6 +16,30 @@ public abstract class AI : MonoBehaviour
     [SerializeField] protected bool showPath = false;
     [SerializeField] protected float rotationDampening = 8f;
 
+    protected Vector3 OurPosition
+    {
+        get {
+            return transform.position;
+        }
+        set
+        {
+            transform.position = value;
+        }
+    }
+
+    protected Vector3 PlayerPosition
+    {
+        get
+        {
+            if (WeaponManager.instance == null)
+                return Vector3.zero;
+            if (WeaponManager.instance.player == null)
+                return Vector3.zero;
+
+            return WeaponManager.instance.player.transform.position;
+        }
+    }
+
     public Action<AI, GridCell, GridCell> OnMinimapUpdated;
 
     protected bool IsOnNavmesh {
@@ -111,6 +135,17 @@ public abstract class AI : MonoBehaviour
             finalPosition = hit.position;
         }
         return finalPosition;
+    }
+
+    public Vector3 GetNearestNavmeshLocation(Vector3 point)
+    {
+        NavMeshHit myNavHit;
+        Vector3 pos = OurPosition;
+        if (NavMesh.SamplePosition(point, out myNavHit, Mathf.Infinity, -1))
+        {
+            pos = myNavHit.position;
+        }
+        return pos;
     }
 
     public void LookAt(Vector3 point)
