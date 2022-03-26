@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b68d1e8eecd8e4abddcc69c5b00ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
-  currentHP: 10
+  maxHP: 30
+  currentHP: 30
   projectileDamage: 1
   deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
   functionality: {fileID: 4983654142262962901}
@@ -122,6 +122,7 @@ MonoBehaviour:
   minimapBlip: {r: 0.5849056, g: 0, b: 0.48703545, a: 1}
   showPath: 1
   rotationDampening: 8
+  possibleDrops: []
   bindingPoint: {x: 0, y: 0, z: 0}
   projectile: {fileID: 3551906132943474317, guid: 0e48de19359f0b044af8cfabafc10c25, type: 3}
   roamRadius: 3
@@ -130,6 +131,7 @@ MonoBehaviour:
   secondsBetweenAttacks: 1
   chanceOfWaiting: 3
   waitDuration: 4
+  giveUpThreashold: 10
 --- !u!114 &6330084364845817153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +169,10 @@ MonoBehaviour:
   - {fileID: 1862716335144432973}
   - {fileID: 3564979324419901802}
   - {fileID: 481326513777013676}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!1001 &1256388073416388392
 PrefabInstance:
   m_ObjectHideFlags: 0
