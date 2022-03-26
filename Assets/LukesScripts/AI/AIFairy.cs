@@ -177,6 +177,11 @@ public class AIFairy : AI
         }
     }
 
+    public override void OnDeath()
+    {
+
+    }
+
     public override void DrawGizmos()
     {
 

@@ -72,6 +72,7 @@ public abstract class AI : MonoBehaviour
 
     private void OnDestroy()
     {
+        OnDeath();
         Minimap.instance.RemoveEntity(this);
     }
 
@@ -109,6 +110,8 @@ public abstract class AI : MonoBehaviour
     public abstract void Attack();
 
     public abstract void OnHit();
+
+    public abstract void OnDeath();
 
     public abstract void DrawGizmos();
 

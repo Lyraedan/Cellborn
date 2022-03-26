@@ -148,9 +148,13 @@ public class AITest : AI
         persueTimer = 0;
     }
 
-    public override void DrawGizmos()
+    public override void OnDeath()
     {
 
     }
 
+    public override void DrawGizmos()
+    {
+
+    }
 }

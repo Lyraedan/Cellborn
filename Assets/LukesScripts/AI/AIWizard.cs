@@ -164,8 +164,14 @@ public class AIWizard : AI
         travelTime = 0;
     }
 
+    public override void OnDeath()
+    {
+
+    }
+
     public override void DrawGizmos()
     {
 
     }
+
 }
