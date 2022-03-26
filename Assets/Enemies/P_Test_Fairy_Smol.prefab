@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1968839935604444948}
   - component: {fileID: 5186543247676668790}
   - component: {fileID: 7034860564585011215}
-  - component: {fileID: 5322957373292102054}
   - component: {fileID: 8500299319616729032}
+  - component: {fileID: -7825588690380539266}
   m_Layer: 12
   m_Name: P_Test_Fairy_Smol
   m_TagString: Enemy
@@ -54,7 +54,7 @@ MonoBehaviour:
   currentHP: 3
   projectileDamage: 1
   deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
-  functionality: {fileID: 5322957373292102054}
+  functionality: {fileID: -7825588690380539266}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -99,25 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2428217, y: 1.5528219, z: 0.94111216}
   m_Center: {x: 0.00546965, y: 0.7799052, z: -0.17534852}
---- !u!114 &5322957373292102054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968839935604444949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba74ee2b7f541b4397b2e8a09209bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 8500299319616729032}
-  runTimeout: 7
-  minimapBlip: {r: 1, g: 0, b: 0, a: 1}
-  showPath: 0
-  rotationDampening: 8
-  roamRadius: 300
-  playerStats: {fileID: 1663721380439235019, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
 --- !u!195 &8500299319616729032
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -140,6 +121,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-7825588690380539266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadb4513fa7db7f488c0a839f0fe8da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 8500299319616729032}
+  runTimeout: 3
+  minimapBlip: {r: 1, g: 0, b: 0, a: 1}
+  showPath: 0
+  rotationDampening: 8
+  roamRadius: 3
+  playerStats: {fileID: 0}
+  chanceOfAgro: 4
+  patrolRadius: 100
+  patrolDurationMin: 10
+  patrolDurationMax: 60
+  maxRoamFromPatrolPoint: 50
+  returningToPatrolPoint: 0
+  maxFleeDistance: 30
+  remainingDistance: 0
 --- !u!1 &6740784127087936462
 GameObject:
   m_ObjectHideFlags: 0
