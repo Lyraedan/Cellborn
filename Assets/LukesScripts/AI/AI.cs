@@ -41,6 +41,7 @@ public abstract class AI : MonoBehaviour
     }
 
     public Action<AI, GridCell, GridCell> OnMinimapUpdated;
+    public List<GameObject> possibleDrops = new List<GameObject>();
 
     protected bool IsOnNavmesh {
         get {
@@ -72,7 +73,6 @@ public abstract class AI : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnDeath();
         Minimap.instance.RemoveEntity(this);
     }
 
@@ -114,6 +114,22 @@ public abstract class AI : MonoBehaviour
     public abstract void OnDeath();
 
     public abstract void DrawGizmos();
+
+    public void Die()
+    {
+        if (possibleDrops.Count > 0)
+        {
+            int chanceValue = UnityEngine.Random.Range(0, 2);
+            bool chance = chanceValue == 0;
+            if (chance)
+            {
+                int selected = UnityEngine.Random.Range(0, possibleDrops.Count);
+                var position = transform.position;
+                GameObject drop = Instantiate(possibleDrops[selected], position, Quaternion.identity);
+            }
+        }
+        OnDeath();
+    }
 
     public bool MoveTo(Vector3 position)
     {

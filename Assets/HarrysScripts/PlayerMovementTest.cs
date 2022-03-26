@@ -69,6 +69,9 @@ public class PlayerMovementTest : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
+        if (WeaponManager.instance.target == null)
+            return;
+
         //Rotate player
         var direction = WeaponManager.instance.target.transform.position - transform.position;
         direction.y = 0;

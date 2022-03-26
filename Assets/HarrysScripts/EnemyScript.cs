@@ -24,6 +24,8 @@ public class EnemyScript : MonoBehaviour
                 lastCollision.GetComponent<Rigidbody>().useGravity = true;
                 lastCollision.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             }
+            if (functionality != null)
+                functionality.Die();
             Destroy(gameObject);
         }
     }

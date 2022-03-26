@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,12 +90,18 @@ public class Minimap : MonoBehaviour
 
     void UpdateEntityOnMinimap(AI instance, GridCell current, GridCell last)
     {
-        if (last != current)
+        try
         {
-            MinimapBlip blip = GetBlip(last.flag);
-            texture.SetPixel((int)last.position.x, (int)last.position.z, blip.color);
-            texture.SetPixel((int)current.position.x, (int)current.position.z, instance.minimapBlip);
-            texture.Apply();
+            if (last != current)
+            {
+                MinimapBlip blip = GetBlip(last.flag);
+                texture.SetPixel((int)last.position.x, (int)last.position.z, blip.color);
+                texture.SetPixel((int)current.position.x, (int)current.position.z, instance.minimapBlip);
+                texture.Apply();
+            }
+        } catch(Exception e)
+        {
+
         }
     }
 
