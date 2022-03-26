@@ -2001,8 +2001,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 7483907030024036441}
     m_Modifications:
     - target: {fileID: -3890980253790183607, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
+      propertyPath: maxAmmo
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: -3890980253790183607, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
       propertyPath: currentAmmo
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -2854230587335798673, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
       propertyPath: infiniteAmmo
