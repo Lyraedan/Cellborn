@@ -100,7 +100,6 @@ public class RoomGenerator : MonoBehaviour
         GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
         Camera.main.gameObject.GetComponent<CameraFollow>().player = player;
-        targetAim.mainCam = Camera.main;
 
         Vector3 wizardSpawn = PositionAsGridCoordinates(end.centre);
         GridCell spawnPointWizard = navAgent.GetGridCellAt((int)wizardSpawn.x, (int)wizardSpawn.y, (int)wizardSpawn.z);

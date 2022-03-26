@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class TargetMovement : MonoBehaviour
 {
-    public GameObject targetObject;
-    public Camera mainCam;
-    public LayerMask hitLayers;
-    
-    Vector3 mouse;
-    Ray castPoint;
+    public float height = -0.45f;
 
     void Update()
     {
-       if(mainCam == null)
-        {
-            Debug.Log("Cast point has not been assigned in target.");
-            return;
-        }
-        mouse = Input.mousePosition;
-        castPoint = mainCam.ScreenPointToRay(mouse);
-        RaycastHit hit;
+        Plane plane = new Plane(Vector3.up, -height);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, hitLayers))
+        if(plane.Raycast(ray, out float distanceToPlane))
         {
-            targetObject.transform.position = hit.point;
+            transform.position = ray.GetPoint(distanceToPlane);
         }
     }
 }

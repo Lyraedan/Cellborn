@@ -291,6 +291,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 9be4254980656c44dad356404a50271b, type: 2}
     - target: {fileID: 3562971160389472236, guid: fc13efd8f45d1024592ccc8df67f881a, type: 3}
+      propertyPath: height
+      value: -0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562971160389472236, guid: fc13efd8f45d1024592ccc8df67f881a, type: 3}
+      propertyPath: layer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562971160389472236, guid: fc13efd8f45d1024592ccc8df67f881a, type: 3}
       propertyPath: hitLayers.m_Bits
       value: 2048
       objectReference: {fileID: 0}
