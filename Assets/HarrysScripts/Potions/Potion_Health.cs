@@ -17,11 +17,7 @@ public class Potion_Health : PotionBase
 
     public override void Use()
     {
-        if (canDrink)
-        {
-            PlayerStats stats = FindObjectOfType<PlayerStats>();
-            stats.currentHP += healthRefill;
-            timer = 0;
-        }
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+        stats.currentHP += healthRefill;
     }
 }
