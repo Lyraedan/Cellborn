@@ -106,10 +106,11 @@ public class AIFairy : AI
                 persuePlayerAfterHit = false;
                 persueTimer = 0;
             }
-        } else if(flee)
+        } 
+        else if(flee)
         {
             // Fuckin run for it. Put as much distance between you and the player
-            if(agent.remainingDistance < 1f)
+            if(agent.remainingDistance < 1f || DistanceFromPlayer >= 10)
             {
                 flee = false;
             }
