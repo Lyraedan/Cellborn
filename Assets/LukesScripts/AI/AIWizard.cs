@@ -20,10 +20,13 @@ public class AIWizard : AI
     private float persueTimeout = 10f;
 
     [SerializeField] private int chanceOfWaiting = 3;
-    [SerializeField] private float waitDuration = 4f;
+    [Tooltip("How long will the AI wait if it chooses to.")]  [SerializeField] private float waitDuration = 4f;
     private float waitTimer = 0;
     private bool returningToRoom = false;
     private bool wait = false;
+
+    [Tooltip("Threashold on how long the entity will try to reach the destination before giving up.")] [SerializeField] private int giveUpThreashold = 10;
+    private float travelTime = 0f;
 
     private float minRadius = 3f;
     private float maxRadius = 20f;
@@ -59,8 +62,12 @@ public class AIWizard : AI
 
         if (!persuePlayerAfterHit)
         {
+            if(agent.remainingDistance <= 1f)
+            {
+                travelTime += 1f * Time.deltaTime;
+            }
             // To far away from spawn point
-            if (agent.remainingDistance <= 1 && DistanceFromPlayer > 5 && !returningToRoom && !wait)
+            if (agent.remainingDistance <= 1f && DistanceFromPlayer > 5 && !returningToRoom && !wait)
             {
                 // Reached destination
                 wait = Random.Range(0, chanceOfWaiting) == 0;
@@ -89,9 +96,11 @@ public class AIWizard : AI
         {
             if(agent.remainingDistance <= 1)
             {
+                agent.isStopped = true;
                 waitTimer += 1f * Time.deltaTime;
                 if(waitTimer >= waitDuration)
                 {
+                    agent.isStopped = false;
                     wait = false;
                     waitTimer = 0;
                 }
@@ -114,6 +123,7 @@ public class AIWizard : AI
     {
         next = RandomNavmeshLocation(roamRadius);
         MoveTo(next);
+        travelTime = 0f;
     }
 
     public override void Attack()
@@ -151,6 +161,7 @@ public class AIWizard : AI
         Debug.Log("Notice player");
         persuePlayerAfterHit = true;
         persueTimer = 0;
+        travelTime = 0;
     }
 
     public override void DrawGizmos()
