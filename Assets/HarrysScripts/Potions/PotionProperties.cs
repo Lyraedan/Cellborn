@@ -9,7 +9,6 @@ public class PotionProperties : MonoBehaviour
     [TextArea(3, 10)]
     public string description = "";
     public int potionID;
-    public int maxUses, currentUses;
     public Sprite icon;
 
     [Header("Set Functionality")]
@@ -23,19 +22,7 @@ public class PotionProperties : MonoBehaviour
             return;
         }
 
-        if(functionality.infiniteUses)
-            functionality.Use();
-        else
-        {
-            if (currentUses > 0)
-            {
-                currentUses--;
-                functionality.Use();
-            } else
-            {
-                //Debug.LogError("No ammo!");
-            }
-        }
+        functionality.Use();
     }
 
     private void OnTriggerEnter(Collider other)

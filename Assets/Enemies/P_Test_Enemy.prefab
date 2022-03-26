@@ -69,7 +69,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5186543247676668790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +108,8 @@ MonoBehaviour:
   patrolDurationMin: 10
   patrolDurationMax: 60
   maxRoamFromPatrolPoint: 20
-  remainingDistance: {x: 0, y: 0, z: 0}
+  returningToPatrolPoint: 0
+  remainingDistance: 0
 --- !u!195 &8500299319616729032
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -142,8 +143,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.40573078, y: 1.1191082, z: 3.6664813}
-  m_Center: {x: -0.03986972, y: 0.5972533, z: -0.8107203}
+  m_Size: {x: 0.40573078, y: 1.488703, z: 3.6664813}
+  m_Center: {x: -0.039869726, y: 0.7820507, z: -0.8107203}
 --- !u!1001 &3475108266826757871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -342,26 +343,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
   m_PrefabInstance: {fileID: 3475108266826757871}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1726143076210053851 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6355021670847388620, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
-  m_PrefabInstance: {fileID: 3475108266826757871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!137 &9194495817569807407 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -3484807864882865472, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
   m_PrefabInstance: {fileID: 3475108266826757871}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &8566267721068801925
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726143076210053851}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.15268046, y: 0.59887534, z: 1.817172}
-  m_Center: {x: 0.009506058, y: 0.26609114, z: -0.7987176}
