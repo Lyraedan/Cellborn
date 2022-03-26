@@ -6,6 +6,8 @@ public class CameraCullingSkinned : MonoBehaviour
 {
     [SerializeField] private new Collider collider;
     [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
+    [SerializeField] private LightCulling lights;
+    [SerializeField] private ParticleCulling particles;
 
     private void Update()
     {
@@ -14,14 +16,35 @@ public class CameraCullingSkinned : MonoBehaviour
             bool isVisible = ColliderIsInCameraView(collider);
             for (int i = 0; i < meshRenderers.Length; i++)
             {
-                meshRenderers[i].enabled = isVisible;
+                if(meshRenderers[i] != null)
+                    meshRenderers[i].enabled = isVisible;
+            }
+
+            if(lights != null)
+            {
+                lights.Cull(isVisible);
+            }
+
+            if(particles != null)
+            {
+                particles.Cull(isVisible);
             }
         }
         else
         {
             for (int i = 0; i < meshRenderers.Length; i++)
             {
-                meshRenderers[i].enabled = true;
+                if (meshRenderers[i] != null)
+                    meshRenderers[i].enabled = true;
+            }
+            if (lights != null)
+            {
+                lights.Cull(false);
+            }
+
+            if (particles != null)
+            {
+                particles.Cull(false);
             }
         }
     }

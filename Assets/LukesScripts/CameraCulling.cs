@@ -6,6 +6,8 @@ public class CameraCulling : MonoBehaviour
 {
     [SerializeField] private new Collider collider;
     [SerializeField] private MeshRenderer[] meshRenderers;
+    [SerializeField] private LightCulling lights;
+    [SerializeField] private ParticleCulling particles;
 
     private void Update()
     {
@@ -20,12 +22,30 @@ public class CameraCulling : MonoBehaviour
                 if(meshRenderers[i] != null)
                     meshRenderers[i].enabled = isVisible;
             }
+            if (lights != null)
+            {
+                lights.Cull(isVisible);
+            }
+
+            if (particles != null)
+            {
+                particles.Cull(isVisible);
+            }
         } else
         {
             for (int i = 0; i < meshRenderers.Length; i++)
             {
                 if (meshRenderers[i] != null)
                     meshRenderers[i].enabled = true;
+            }
+            if (lights != null)
+            {
+                lights.Cull(true);
+            }
+
+            if (particles != null)
+            {
+                particles.Cull(true);
             }
         }
     }

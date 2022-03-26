@@ -160,6 +160,11 @@ MonoBehaviour:
   collider: {fileID: 3551906132943474318}
   meshRenderers:
   - {fileID: 3551906132943474313}
+  lights:
+    sources:
+    - {fileID: 564221120363019861}
+  particles:
+    emitters: []
 --- !u!1 &5582233009284797892
 GameObject:
   m_ObjectHideFlags: 0
