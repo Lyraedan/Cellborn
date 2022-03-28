@@ -55,7 +55,7 @@ public class CameraCulling : MonoBehaviour
         if (collider == null)
             return false;
 
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(CameraManager.instance.cull);
         return GeometryUtility.TestPlanesAABB(planes, collider.bounds);
     }
 }
