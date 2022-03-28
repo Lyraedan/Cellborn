@@ -149,9 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 0}
+  collider: {fileID: 8942301887037535290}
   meshRenderers:
   - {fileID: 6312622524502785037}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!114 &6827361793364322354
 MonoBehaviour:
   m_ObjectHideFlags: 0

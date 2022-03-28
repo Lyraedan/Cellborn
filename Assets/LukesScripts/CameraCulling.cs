@@ -53,7 +53,10 @@ public class CameraCulling : MonoBehaviour
     public bool ColliderIsInCameraView(Collider collider)
     {
         if (collider == null)
-            return false;
+        {
+            Debug.LogError($"{gameObject.name} does not have a collider assigned to culling. Defaulting to active renderer");
+            return true;
+        }
 
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(CameraManager.instance.cull);
         return GeometryUtility.TestPlanesAABB(planes, collider.bounds);
