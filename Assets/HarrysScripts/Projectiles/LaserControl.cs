@@ -28,11 +28,21 @@ public class LaserControl : MonoBehaviour
         if (WeaponManager.instance.currentWeapon.weaponId == 5)
         {
             Debug.Log("Agh a laser");
-            if (Input.GetButton("Fire1") && WeaponManager.instance.currentWeapon.currentAmmo > 0 && hasCooledDown)
+            if (Input.GetButton("Fire1") && hasCooledDown)
             {
                 hasWarmedUp = false;
                 cooldownTimer = 0f;
                 warmupTimer += 1f * Time.deltaTime;
+
+                if (!laserParticles.isPlaying && WeaponManager.instance.currentWeapon.currentAmmo > 0)
+                {
+                    laserParticles.Play();
+                }
+                
+                if (WeaponManager.instance.currentWeapon.currentAmmo <= 1)
+                {
+                    laserParticles.Stop();
+                }
 
                 if (warmupTimer >= warmup && !hasWarmedUp)
                 {
@@ -43,7 +53,6 @@ public class LaserControl : MonoBehaviour
                 if (hasWarmedUp)
                 {
                     //psMain.simulationSpace = ParticleSystemSimulationSpace.Local;
-                    laserParticles.Play();
                     isFiring = true;
                 }
             }
@@ -60,6 +69,7 @@ public class LaserControl : MonoBehaviour
                     if (cooldownTimer >= cooldown)
                     {
                         hasCooledDown = true;
+                        laserParticles.Clear();
                         cooldownTimer = 0f;
                     }
                 }

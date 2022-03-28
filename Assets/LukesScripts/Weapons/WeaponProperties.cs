@@ -32,7 +32,10 @@ public class WeaponProperties : MonoBehaviour
                 functionality.Shoot(delayed => {
                     if(delayed)
                     {
-                        currentAmmo--;
+                        if(weaponId != 5)
+                        {
+                            currentAmmo--;
+                        }
                     }
                     afterShot?.Invoke(delayed);
                 });
