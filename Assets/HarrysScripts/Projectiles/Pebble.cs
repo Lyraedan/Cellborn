@@ -42,5 +42,12 @@ public class Pebble : ProjectileBehaviour
         {
             enemyDamage = 0;
         }
+
+        t += 1f * Time.deltaTime;
+
+        if (t >= lifetime)
+        {
+            Destroy(gameObject);
+        }
     }
 }
