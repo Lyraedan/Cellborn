@@ -11,7 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public float shotDirection;
 
     public float lifetime;
-    [HideInInspector]public float t;
+    public float t;
 
     public int enemyDamage;
     public int playerDamage;

@@ -20,9 +20,15 @@ public class WeaponLazer : WeaponBase
     {
         if (WeaponManager.instance.laserController == null)
             return;
+    }
 
+    public override void Fire()
+    {
         if (WeaponManager.instance.laserController.isFiring)
         {
+            WeaponProperties weaponProperties = gameObject.GetComponent<WeaponProperties>();
+            weaponProperties.currentAmmo--;
+            
             RaycastHit hit;
             GameObject hitEnemy;
             Vector3 direction = WeaponManager.instance.firepoint.transform.forward;
@@ -58,10 +64,5 @@ public class WeaponLazer : WeaponBase
                 return;
             }
         }
-    }
-
-    public override void Fire()
-    {
-
     }
 }
