@@ -55,6 +55,37 @@ public class RoomGenerator : MonoBehaviour
         Generate();
     }
 
+    public bool IsSealed
+    {
+        get
+        {
+            bool isSealed = false;
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                for (int x = 0; x < grid.cells.x; x++)
+                {
+                    GridCell cell = navAgent.GetGridCellAt(x, 0, z);
+                    if(cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                    {
+                        var adjacent = GetAdjacentCells(cell);
+                        foreach(GridCell c in adjacent)
+                        {
+                            if(c != null)
+                            {
+                                if(c.flag.Equals(GridCell.GridFlag.WALKABLE))
+                                {
+                                    isSealed = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return isSealed;
+        }
+    }
+
     void Generate()
     {
         if (seed == 0)
@@ -79,8 +110,16 @@ public class RoomGenerator : MonoBehaviour
             Debug.LogError("No rooms were generated!");
         }
         ConnectRooms();
-        ShapeHallways();
-        Smooth();
+        try
+        {
+            ShapeHallways();
+            Smooth();
+        } catch(System.Exception e)
+        {
+            Regenerate();
+            return;
+        }
+
         FlagProps();
         FlagEntities();
 
