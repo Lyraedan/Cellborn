@@ -2013,6 +2013,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2854230587335798673, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
+      propertyPath: damageInterval
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -2854230587335798673, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
       propertyPath: isInPlayerInventory
       value: 1
       objectReference: {fileID: 0}
@@ -2404,6 +2408,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7483907030024036441}
     m_Modifications:
+    - target: {fileID: -998470432587108186, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
+      propertyPath: angle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -998470432587108186, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
       propertyPath: isInPlayerInventory
       value: 1

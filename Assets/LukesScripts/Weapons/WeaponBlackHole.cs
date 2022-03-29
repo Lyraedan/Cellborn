@@ -7,7 +7,7 @@ public class WeaponBlackHole : WeaponBase
 
     public override void Init()
     {
-        angle = 45f;
+
     }
 
     public override void Tick()

@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500159748544458815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   enemyDamage: 0
   playerDamage: 0
   canChangeDistance: 1
-  bounces: 3
+  bounces: 2
   holeSpawnYOffset: -0.5
   blackHolePrefab: {fileID: 3137081082924539478, guid: 43032b7fc19614c4c9a59da530475b27, type: 3}
 --- !u!114 &3826894734871327738
@@ -153,3 +153,7 @@ MonoBehaviour:
   collider: {fileID: 5500159748544458801}
   meshRenderers:
   - {fileID: 5500159748544458802}
+  lights:
+    sources: []
+  particles:
+    emitters: []
