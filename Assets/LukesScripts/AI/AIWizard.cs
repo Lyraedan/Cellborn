@@ -44,6 +44,13 @@ public class AIWizard : AI
 
     public override void Tick()
     {
+        if (!IsOnNavmesh)
+        {
+            var validated = GetNearestNavmeshLocation(OurPosition);
+            OurPosition = validated;
+            return;
+        }
+
         if (enemyScript.currentHP <= (enemyScript.maxHP / 3) * 2)
         {
             bulletForce = 200;
