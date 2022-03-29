@@ -27,7 +27,7 @@ public class WeaponLazer : WeaponBase
         if (WeaponManager.instance.laserController.isFiring)
         {
             WeaponProperties weaponProperties = gameObject.GetComponent<WeaponProperties>();
-            weaponProperties.currentAmmo--;
+            weaponProperties.RemoveAmmo(1);
             
             RaycastHit hit;
             GameObject hitEnemy;

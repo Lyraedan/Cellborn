@@ -198,10 +198,13 @@ public class WeaponManager : MonoBehaviour
         {
             var index = currentlyHeldWeapons.IndexOf(FindWeapon(-1));
             currentlyHeldWeapons[index] = found;
+            var wep = currentlyHeldWeapons[index];
 
             var slot = uiSlots[index];
             var slotHolder = slot.GetComponent<SlotHolder>();
             slotHolder.image.sprite = currentlyHeldWeapons[index].icon;
+
+            wep.SetAmmo(weapon.currentAmmo);
 
             Destroy(weapon.gameObject);
             pickupText.text = string.Empty;
@@ -210,31 +213,22 @@ public class WeaponManager : MonoBehaviour
         {
             var index = currentlyHeldWeapons.IndexOf(found);
             var wep = currentlyHeldWeapons[index];
-            wep.currentAmmo += weapon.currentAmmo;
-            Destroy(weapon.gameObject);
 
-            /* TODO Figure out the maths
-            if(wep.currentAmmo <= 0)
+            if (!wep.IsFull)
             {
-                wep.currentAmmo += weapon.currentAmmo;
-            }
-            else
-            {
-                // Math is off here
-                var remaining = weapon.currentAmmo - wep.currentAmmo;
-                wep.currentAmmo += remaining;
-                weapon.currentAmmo -= remaining;
-                // Play sound here
-            }
+                Debug.Log("Adding ammo!");
+                int remaining = wep.AddAmmo(weapon.currentAmmo);
+                Debug.Log("Added -> " + weapon.currentAmmo + " has " + remaining + " left");
+                weapon.SetAmmo(remaining);
 
-            Debug.Log("New weapon ammo: " + weapon.currentAmmo);
-            if(weapon.currentAmmo <= 0)
+                if (weapon.IsEmpty)
+                    Destroy(weapon.gameObject);
+            } else
             {
-                Destroy(weapon.gameObject);
-            }*/
+                Debug.Log("Ammo is full!");
+            }
 
             ammoText.text = "Ammo: " + wep.currentAmmo + " / " + wep.maxAmmo;
-            Debug.Log("Adding ammo!");
         }
         else
         {

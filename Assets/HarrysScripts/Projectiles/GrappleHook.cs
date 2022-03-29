@@ -155,7 +155,7 @@ public class GrappleHook : ProjectileBehaviour
             if (managerInstance.currentlyHeldWeapons[i].weaponId == 4)
             {
                 grappleWeapon = managerInstance.currentlyHeldWeapons[i];
-                grappleWeapon.currentAmmo = 1;
+                grappleWeapon.SetAmmo(1);
                 managerInstance.ammoText.text = "Ammo: " + grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
                 break;
             }
