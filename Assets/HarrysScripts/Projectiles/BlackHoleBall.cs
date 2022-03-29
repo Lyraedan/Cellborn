@@ -21,6 +21,13 @@ public class BlackHoleBall : ProjectileBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+        var collObj = other.gameObject;
+
+        if (collObj.tag == "Enemy")
+        {
+            Instantiate(blackHolePrefab, new Vector3(transform.position.x, holeSpawnYOffset, transform.position.z), Quaternion.identity);
+        }
+
         if (!hasBounced && other.gameObject.layer == 11)
         {
             bounces -= 1;

@@ -39,7 +39,8 @@ public class EnemyScript : MonoBehaviour
             lastCollision = collObj;
             if (functionality != null)
                 functionality.OnHit();
-            currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage; 
+            currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
+            Destroy(collObj);
         }
     }
 }
