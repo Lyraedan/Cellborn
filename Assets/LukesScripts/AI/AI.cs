@@ -123,9 +123,14 @@ public abstract class AI : MonoBehaviour
             bool chance = chanceValue == 0;
             if (chance)
             {
-                int selected = UnityEngine.Random.Range(0, possibleDrops.Count);
+                int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
                 var position = transform.position;
-                GameObject drop = Instantiate(possibleDrops[selected], position, Quaternion.identity);
+                GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
+                WeaponBag.instance.weaponBag.RemoveAt(selected);
+                if (WeaponBag.instance.weaponBag.Count == 0)
+                {
+                    WeaponBag.instance.RefillBag();
+                }
             }
         }
         OnDeath();
