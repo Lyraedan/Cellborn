@@ -192,6 +192,8 @@ public class RoomGenerator : MonoBehaviour
         Minimap.instance.GenerateMinimap(grid);
         PlaceEntities();
 
+        // Matilde if you need to. Start behaviour tree's beyond this point.
+
         Debug.Log("Got assignables");
     }
 

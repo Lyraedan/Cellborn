@@ -17,7 +17,7 @@ public class BouncyBall : ProjectileBehaviour
     
     void Awake()
     {
-        if (wizard == false)
+        if (!wizard)
         {
             projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         }
