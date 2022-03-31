@@ -61,7 +61,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7248785090433661682
 Rigidbody:
@@ -113,7 +113,7 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 70adb7b6fb200814eb4d59d2964816e1, type: 3}
   angle: 0
-  secondsBetweenShots: 1
+  secondsBetweenShots: 0.7
 --- !u!208 &513735314269569515
 NavMeshObstacle:
   m_ObjectHideFlags: 0
