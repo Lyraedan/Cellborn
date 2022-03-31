@@ -26,7 +26,7 @@ public class WeaponBouncy : WeaponBase
             Vector3 direction = new Vector3(x, yRot, z);
 
             GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(direction));
-            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
+            proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance*2);
         }
     }
 }

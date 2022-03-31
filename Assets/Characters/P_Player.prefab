@@ -2215,8 +2215,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5606891704754517551, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
+      propertyPath: coneSize
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606891704754517551, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
       propertyPath: numberOfShots
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5606891704754517551, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
       propertyPath: isInPlayerInventory
@@ -2224,7 +2228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5606891704754517551, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
       propertyPath: secondsBetweenShots
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5676992050065258711, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
       propertyPath: maxAmmo

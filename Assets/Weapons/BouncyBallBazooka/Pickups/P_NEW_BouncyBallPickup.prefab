@@ -163,6 +163,10 @@ MonoBehaviour:
   - {fileID: 97783952991107897}
   - {fileID: 4396985838728670511}
   - {fileID: 2708369075727824632}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!114 &5676992050065258711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +201,7 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 195a4c950d8762d4eaf523b04d10d6df, type: 3}
   angle: 0
-  secondsBetweenShots: 1
+  secondsBetweenShots: 0.7
   coneSize: 90
   numberOfShots: 6
 --- !u!208 &5792988858651927260

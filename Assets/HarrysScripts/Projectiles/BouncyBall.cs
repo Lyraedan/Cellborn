@@ -19,7 +19,7 @@ public class BouncyBall : ProjectileBehaviour
     {
         if (!wizard)
         {
-            projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
+            //projRigidbody.AddForce((transform.forward * throwStrength) + (transform.up * arcSize), ForceMode.Impulse);
         }
 
         instMat = gameObject.GetComponent<Renderer>().material;
@@ -60,9 +60,16 @@ public class BouncyBall : ProjectileBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(!collision.gameObject.GetComponent<EnemyScript>())
+        var collObj = collision.gameObject;
+
+        if (!collision.gameObject.GetComponent<EnemyScript>())
         {
             canDamage = true;
+        }
+
+        if (collObj.tag == "Player")
+        {
+            Destroy(this);
         }
     }
 }
