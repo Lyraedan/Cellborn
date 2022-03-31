@@ -511,7 +511,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2925995419130920262
 Rigidbody:
@@ -557,6 +557,10 @@ MonoBehaviour:
   - {fileID: 5071798927504807509}
   - {fileID: 8573978953399760875}
   - {fileID: 8328221839498727981}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!114 &-8517713694930692489
 MonoBehaviour:
   m_ObjectHideFlags: 0
