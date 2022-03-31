@@ -98,11 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pullRadius: 6
-  objectPullForce: 1500
+  objectPullForce: 2000
   playerPullForce: 5
   destroyEffect: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
-  holeTime: 3
-  healthDrainMultiplier: 1
+  holeTime: 7
+  healthDrainMultiplier: 0.5
 --- !u!135 &2264107669518592796
 SphereCollider:
   m_ObjectHideFlags: 0
