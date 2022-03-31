@@ -55,37 +55,6 @@ public class RoomGenerator : MonoBehaviour
         Generate();
     }
 
-    public bool IsSealed
-    {
-        get
-        {
-            bool isSealed = true;
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                for (int x = 0; x < grid.cells.x; x++)
-                {
-                    GridCell cell = navAgent.GetGridCellAt(x, 0, z);
-                    if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
-                    {
-                        var adjacent = GetAdjacentCells(cell);
-                        foreach (GridCell c in adjacent)
-                        {
-                            if (c != null)
-                            {
-                                if (c.flag.Equals(GridCell.GridFlag.WALKABLE))
-                                {
-                                    isSealed = false;
-                                    cell.flag = GridCell.GridFlag.NONWALKABLE;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return isSealed;
-        }
-    }
-
     void Generate()
     {
         if (seed == 0)
@@ -494,6 +463,9 @@ public class RoomGenerator : MonoBehaviour
     /// Each individual for loop is necessary because there are checks that need to be made after initial changes are made
     void Smooth()
     {
+        List<GridCell> flagged = new List<GridCell>();
+        int[] possibleRotations = new int[] { 270, 90, 180, 0 };
+
         #region Base Smoothing
         for (int i = 0; i < rooms.Count; i++)
         {
@@ -997,8 +969,6 @@ public class RoomGenerator : MonoBehaviour
         #endregion
 
         #region Corner fixing
-        List<GridCell> flagged = new List<GridCell>();
-        int[] possibleRotations = new int[] { 270, 90, 180, 0 };
         for (int z = 0; z < grid.cells.z; z++)
         {
             for (int x = 0; x < grid.cells.x; x++)
@@ -1041,10 +1011,13 @@ public class RoomGenerator : MonoBehaviour
                     {
                         for(int i = 0; i < 4; i++)
                         {
-                            if(adjacent[i].flag.Equals(GridCell.GridFlag.WALKABLE))
+                            if (adjacent[i] != null)
                             {
-                                current.flag = GridCell.GridFlag.WALL;
-                                current.rotation = new Vector3(0, possibleRotations[i], 0);
+                                if (adjacent[i].flag.Equals(GridCell.GridFlag.WALKABLE))
+                                {
+                                    current.flag = GridCell.GridFlag.WALL;
+                                    current.rotation = new Vector3(0, possibleRotations[i], 0);
+                                }
                             }
                         }
                     }
@@ -1079,6 +1052,54 @@ public class RoomGenerator : MonoBehaviour
             }
         }
         flagged.Clear();
+
+        // TODO needs looking at not correct - You get better results without this code
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                var adjacent = GetAdjacentCells(current);
+
+                /*
+                int walkables = 0;
+                if (current.flag.Equals(GridCell.GridFlag.CORNER))
+                {
+                    for (int i = 0; i < adjacent.Length; i++)
+                    {
+                        if (adjacent[i] != null)
+                        {
+                            if (adjacent[i].flag.Equals(GridCell.GridFlag.OCCUPIED))
+                            {
+                                walkables++;
+                            }
+                        }
+                    }
+                    if (walkables > 3)
+                    {
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+
+                    walkables = 0;
+                    for (int i = 0; i < adjacent.Length; i++)
+                    {
+                        if (adjacent[i] != null)
+                        {
+                            if (adjacent[i].flag.Equals(GridCell.GridFlag.WALL))
+                            {
+                                walkables++;
+                            }
+                        }
+                    }
+                    if (walkables > 3)
+                    {
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                    
+                }
+                */
+            }
+        }
         #endregion
     }
 

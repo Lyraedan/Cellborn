@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
     {
         var collObj = collision.gameObject;
 
-        if (collObj.tag == "Projectile" || collObj.tag == "EnemyProjectile")
+        if (/*collObj.tag == "Projectile" || */collObj.tag == "EnemyProjectile")
         {     
             currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage;
         }
