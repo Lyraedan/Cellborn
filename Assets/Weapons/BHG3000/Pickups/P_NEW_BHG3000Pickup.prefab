@@ -106,6 +106,10 @@ MonoBehaviour:
   - {fileID: 3535342431559727259}
   - {fileID: 8746328863911039110}
   - {fileID: 3904051276979949316}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!114 &1906114271499375604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Black Hole Gun 3000
   weaponId: 2
-  currentAmmo: 3
-  maxAmmo: 3
+  currentAmmo: 7
+  maxAmmo: 7
   icon: {fileID: 21300000, guid: b227ac2c985e99042b3fb8c28ffcbf86, type: 3}
   functionality: {fileID: -998470432587108186}
 --- !u!114 &-998470432587108186
@@ -140,7 +144,7 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 5500159748544458815, guid: 81c2980b9abb8524895969f953c6cb07, type: 3}
   angle: 0
-  secondsBetweenShots: 2
+  secondsBetweenShots: 1
 --- !u!208 &8973375812910752683
 NavMeshObstacle:
   m_ObjectHideFlags: 0
