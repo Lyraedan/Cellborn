@@ -61,11 +61,6 @@ public class GrappleHook : ProjectileBehaviour
             RetrieveHook();
         }
 
-        if (isPulling && Input.GetButton("Fire1"))
-        {
-            RetrieveHook();
-        }
-
         if (timer > 2)
         {
             RetrieveHook();
@@ -95,14 +90,9 @@ public class GrappleHook : ProjectileBehaviour
                     pulledObject = null;
                 }
             }
-            else
-            {
-                //PullPlayer(playerObject);
-
-                forceDirection = transform.position - playerObject.transform.position;
-                PlayerMovementTest.instance.disableMovement = true;
-                playerController.Move(forceDirection * playerPull * Time.deltaTime);
-            }
+            forceDirection = transform.position - playerObject.transform.position;
+            PlayerMovementTest.instance.disableMovement = true;
+            playerController.Move(forceDirection * playerPull * Time.deltaTime);
         }
     }        
     
@@ -110,11 +100,12 @@ public class GrappleHook : ProjectileBehaviour
     {
         if (!other.transform.CompareTag("Roof"))
         {
-            if (other.transform.CompareTag("Enemy"))
+            /*if (other.transform.CompareTag("Enemy"))
             {
                 RetrieveHook();
                 return;
             }
+            */
 
             collisionTag = other.gameObject.tag;
             pulledObject = other.gameObject;
