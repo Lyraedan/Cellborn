@@ -57,18 +57,10 @@ public class BlackHoleGravity : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (!playerIsDead)
+        Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
+        if (other.tag == "Pickup" || other.tag == "Prop" || other.tag == "Entity" || other.tag == "Projectile" || other.tag == "EnemyProjectile")
         {
-            Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
-        
-            if (other.tag == "Player")
-            {
-                other.gameObject.GetComponent<PlayerStats>().KillPlayer();
-            }
-            else
-            {
-                Destroy(other.gameObject);
-            }
+            Destroy(other.gameObject);
         }
     }
 }

@@ -102,7 +102,7 @@ MonoBehaviour:
   playerPullForce: 5
   destroyEffect: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
   holeTime: 3
-  healthDrainMultiplier: 0
+  healthDrainMultiplier: 1
 --- !u!135 &2264107669518592796
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -131,6 +131,10 @@ MonoBehaviour:
   collider: {fileID: 2264107669518592796}
   meshRenderers:
   - {fileID: 4841832549647566059}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!1001 &7310083317920663889
 PrefabInstance:
   m_ObjectHideFlags: 0
