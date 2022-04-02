@@ -1054,6 +1054,7 @@ public class RoomGenerator : MonoBehaviour
         flagged.Clear();
 
         // TODO needs looking at not correct - You get better results without this code
+
         for (int z = 0; z < grid.cells.z; z++)
         {
             for (int x = 0; x < grid.cells.x; x++)
@@ -1061,43 +1062,36 @@ public class RoomGenerator : MonoBehaviour
                 var current = grid.grid[x, 0, z];
                 var adjacent = GetAdjacentCells(current);
 
-                /*
-                int walkables = 0;
+                var upValid = adjacent[UP] != null;
+                var leftValid = adjacent[LEFT] != null;
+                var downValid = adjacent[DOWN] != null;
+                var rightValid = adjacent[RIGHT] != null;
+                var upLeftValid = adjacent[UP_LEFT] != null;
+                var upRightValid = adjacent[UP_RIGHT] != null;
+                var downLeftValid = adjacent[DOWN_LEFT] != null;
+                var downRightValid = adjacent[DOWN_RIGHT] != null;
+
                 if (current.flag.Equals(GridCell.GridFlag.CORNER))
                 {
-                    for (int i = 0; i < adjacent.Length; i++)
+                    if(upLeftValid && rightValid)
                     {
-                        if (adjacent[i] != null)
+                        if(adjacent[UP_LEFT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALL))
                         {
-                            if (adjacent[i].flag.Equals(GridCell.GridFlag.OCCUPIED))
-                            {
-                                walkables++;
-                            }
+                            current.rotation = new Vector3(0, 90, 0);
                         }
                     }
-                    if (walkables > 3)
-                    {
-                        current.flag = GridCell.GridFlag.OCCUPIED;
-                    }
-
-                    walkables = 0;
-                    for (int i = 0; i < adjacent.Length; i++)
-                    {
-                        if (adjacent[i] != null)
-                        {
-                            if (adjacent[i].flag.Equals(GridCell.GridFlag.WALL))
-                            {
-                                walkables++;
-                            }
-                        }
-                    }
-                    if (walkables > 3)
-                    {
-                        current.flag = GridCell.GridFlag.OCCUPIED;
-                    }
-                    
                 }
-                */
+                else if (current.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    if (downValid && upRightValid && leftValid && upValid)
+                    {
+                        if (adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[UP_RIGHT].flag.Equals(GridCell.GridFlag.WALL) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && !adjacent[UP].flag.Equals(GridCell.GridFlag.CORNER))
+                        {
+                            current.flag = GridCell.GridFlag.CORNER;
+                            current.rotation = new Vector3(0, 180, 0);
+                        }
+                    }
+                }
             }
         }
         #endregion
