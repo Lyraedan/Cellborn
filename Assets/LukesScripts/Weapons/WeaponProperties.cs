@@ -39,8 +39,6 @@ public class WeaponProperties : MonoBehaviour
         }
     }
 
-    public float d = 0;
-
     private void Start()
     {
         if (functionality != null)
@@ -57,11 +55,6 @@ public class WeaponProperties : MonoBehaviour
             if (!functionality.isInPlayerInventory)
                 PlayerStats.instance.weaponsInScene.Remove(this);
         }
-    }
-
-    private void Update()
-    {
-        d = DistanceFromPlayer;
     }
 
     public void Shoot(System.Action<bool> afterShot)
@@ -97,26 +90,6 @@ public class WeaponProperties : MonoBehaviour
             }
         }
     }
-
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            WeaponManager.instance.toPickup = this;
-            WeaponManager.instance.pickupText.text = $"{WeaponManager.instance.pickupKey.ToString()} - Pick Up {weaponName}";
-        }        
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            WeaponManager.instance.toPickup = null;
-            WeaponManager.instance.pickupText.text = string.Empty;
-        }
-    }
-    */
 
     public int AddAmmo(int amt)
     {
