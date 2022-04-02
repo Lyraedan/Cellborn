@@ -14,6 +14,9 @@ public class Acid : MonoBehaviour
     public float damageDelay = 1f;
     private float timer = 0f;
 
+    public float lifetime;
+    public float t;
+
     private void Start()
     {
         OnPlayerStoodInAcid?.AddListener(() =>
@@ -32,6 +35,13 @@ public class Acid : MonoBehaviour
                 OnPlayerStoodInAcid?.Invoke();
                 timer = 0;
             }
+        }
+
+        t += 1f * Time.deltaTime;
+
+        if (t >= lifetime)
+        {
+            Destroy(gameObject);
         }
     }
 

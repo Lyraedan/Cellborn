@@ -24,6 +24,8 @@ public class AITest : AI
     private float patrolDurationChosen = 0;
     private float patrolTimer = 0;
     [SerializeField] private bool returningToPatrolPoint = false;
+    public GameObject acid;
+    public GameObject acidPoint;
 
     private float DistanceFromPatrolPoint { 
         get
@@ -104,7 +106,7 @@ public class AITest : AI
         attackDelay += 1f * Time.deltaTime;
 
         // We are within attacking distance
-        if (DistanceFromPlayer <= 0.5f)
+        if (DistanceFromPlayer <= 1f)
         {
             agent.isStopped = true;
             if (attackDelay >= secondsBetweenAttacks)
@@ -138,7 +140,7 @@ public class AITest : AI
     public override void Attack()
     {
         Debug.Log("Do attack!");
-        PlayerStats.instance.DamagePlayer(damage);
+        Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
     }
 
     public override void OnHit()
