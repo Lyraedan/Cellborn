@@ -28,6 +28,42 @@ public class WeaponProperties : MonoBehaviour
         }
     }
 
+    public float DistanceFromPlayer
+    {
+        get
+        {
+            if (WeaponManager.instance == null)
+                return Mathf.Infinity;
+
+            return Vector3.Distance(transform.position, WeaponManager.instance.player.transform.position);
+        }
+    }
+
+    public float d = 0;
+
+    private void Start()
+    {
+        if (functionality != null)
+        {
+            if(!functionality.isInPlayerInventory)
+                PlayerStats.instance.weaponsInScene.Add(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (functionality != null)
+        {
+            if (!functionality.isInPlayerInventory)
+                PlayerStats.instance.weaponsInScene.Remove(this);
+        }
+    }
+
+    private void Update()
+    {
+        d = DistanceFromPlayer;
+    }
+
     public void Shoot(System.Action<bool> afterShot)
     {
         if(functionality == null)
@@ -62,6 +98,7 @@ public class WeaponProperties : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -79,6 +116,7 @@ public class WeaponProperties : MonoBehaviour
             WeaponManager.instance.pickupText.text = string.Empty;
         }
     }
+    */
 
     public int AddAmmo(int amt)
     {

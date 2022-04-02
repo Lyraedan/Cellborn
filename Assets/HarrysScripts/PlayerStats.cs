@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class PlayerStats : MonoBehaviour
     public MeshRenderer[] meshRenderers;
     public PlayerMovementTest moveScript;
     public CapsuleCollider playerCollider;
+
+    public List<WeaponProperties> weaponsInScene = new List<WeaponProperties>();
 
     #endregion
 
@@ -55,6 +58,26 @@ public class PlayerStats : MonoBehaviour
         if (currentHP >= 10)
         {
             currentHP = maxHP;
+        }
+
+        weaponsInScene.Sort((x, y) => x.DistanceFromPlayer.CompareTo(y.DistanceFromPlayer));
+
+        if(weaponsInScene.Count > 0)
+        {
+            var closestPickup = weaponsInScene[0];
+            if (closestPickup.DistanceFromPlayer <= 1f)
+            {
+                WeaponManager.instance.toPickup = closestPickup;
+                WeaponManager.instance.pickupText.text = $"{WeaponManager.instance.pickupKey.ToString()} - Pick Up {closestPickup.weaponName}";
+            } else
+            {
+                WeaponManager.instance.toPickup = null;
+                WeaponManager.instance.pickupText.text = string.Empty;
+            }
+        } else
+        {
+            WeaponManager.instance.toPickup = null;
+            WeaponManager.instance.pickupText.text = string.Empty;
         }
     }
 

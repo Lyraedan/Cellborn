@@ -130,6 +130,7 @@ MonoBehaviour:
   - {fileID: 2075845303699328936}
   moveScript: {fileID: 55881995776343718}
   playerCollider: {fileID: 55881995776343738}
+  weaponsInScene: []
   isDead: 0
 --- !u!114 &2975566263661802115
 MonoBehaviour:
@@ -1855,6 +1856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TripleBarreledShotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 6429344869845800613, guid: 111440a37c2975e4b9b06f8ffe474f7f, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6429344869845800614, guid: 111440a37c2975e4b9b06f8ffe474f7f, type: 3}
       propertyPath: m_Radius
       value: 1.07
@@ -2588,6 +2593,10 @@ PrefabInstance:
       propertyPath: functionality
       value: 
       objectReference: {fileID: 4203768893402091747}
+    - target: {fileID: 6447938053381851380, guid: b1e767e6ffa742041bfbbbfc3e73ab16, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6447938053381851381, guid: b1e767e6ffa742041bfbbbfc3e73ab16, type: 3}
       propertyPath: m_Enabled
       value: 0

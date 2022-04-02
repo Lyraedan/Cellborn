@@ -256,6 +256,7 @@ public class WeaponManager : MonoBehaviour
         drop.GetComponent<BoxCollider>().enabled = true;
         drop.GetComponent<SphereCollider>().enabled = true;
         drop.GetComponent<Rigidbody>().useGravity = true;
+        drop.GetComponent<WeaponProperties>().functionality.isInPlayerInventory = false;
         drop.transform.GetChild(0).gameObject.SetActive(true);
         drop.SetActive(true);
     }
