@@ -126,8 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Triple Barreled Shotgun
   weaponId: 6
-  currentAmmo: 30
-  maxAmmo: 30
+  currentAmmo: 7
+  maxAmmo: 7
   icon: {fileID: 21300000, guid: 058ee114bb777bb46815ba84158b3d1e, type: 3}
   functionality: {fileID: 6429344869845800666}
 --- !u!114 &6429344869845800666
@@ -145,8 +145,8 @@ MonoBehaviour:
   infiniteAmmo: 0
   isInPlayerInventory: 1
   projectile: {fileID: 6030195043824729857, guid: a8af50947fbca2046b3da97306f2c46a, type: 3}
-  angle: 5
-  secondsBetweenShots: 1
+  angle: 0
+  secondsBetweenShots: 0.7
   coneSize: 5
   numberOfShots: 3
 --- !u!208 &6429344869845800665
