@@ -146,7 +146,9 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 6030195043824729857, guid: 714df2c2e3584b44888d285edc0b5d2b, type: 3}
   angle: 0
-  secondsBetweenShots: 0.12
+  secondsBetweenShots: 0.06
+  AccuracyRange: 45
+  accuracy: 0
 --- !u!208 &4394802814124739465
 NavMeshObstacle:
   m_ObjectHideFlags: 0
