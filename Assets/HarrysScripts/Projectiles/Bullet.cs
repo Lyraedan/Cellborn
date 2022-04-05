@@ -28,9 +28,6 @@ public class Bullet : ProjectileBehaviour
             canDamage = true;
         }
 
-        if (collObj.tag == "Player")
-        {
-            Destroy(this);
-        }
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 }

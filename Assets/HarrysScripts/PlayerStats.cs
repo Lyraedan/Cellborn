@@ -24,6 +24,8 @@ public class PlayerStats : MonoBehaviour
 
     public List<WeaponProperties> weaponsInScene = new List<WeaponProperties>();
 
+    public LaserControl laserControl;
+
     #endregion
 
     public bool isDead;
@@ -107,6 +109,7 @@ public class PlayerStats : MonoBehaviour
         }
         moveScript.enabled = false;
         playerCollider.enabled = false;
+        laserControl.laserParticles.Stop();
         isDead = true;
 
         int seconds = 5;
