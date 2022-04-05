@@ -6,7 +6,8 @@ public class BlackHoleGravity : MonoBehaviour
 {
     public float pullRadius, objectPullForce, playerPullForce;
     public GameObject destroyEffect;
-    public float holeTime, healthDrainMultiplier;
+    public float holeTime, playerHealthDrainMultiplier, enemyHealthDrainMultiplier;
+    public int playerDamage, enemyDamage;
     float t, healthDrain;
 
     bool playerIsDead;
@@ -17,35 +18,56 @@ public class BlackHoleGravity : MonoBehaviour
         {
             Vector3 forceDirection = gameObject.transform.position - collider.transform.position;
 
-            float holeDistance = pullRadius - Vector3.Distance(gameObject.transform.position, collider.transform.position);
-            float drainDistance = Vector3.Distance(gameObject.transform.position, collider.transform.position) / healthDrainMultiplier;
-            holeDistance = holeDistance / pullRadius;
-
             var rigidBody = collider.GetComponent<Rigidbody>();
             var characterController = collider.GetComponent<CharacterController>();
             var playerStats = collider.GetComponent<PlayerStats>();
+            var enemyStats = collider.GetComponent<EnemyScript>();
 
-            if (rigidBody != null)
+            float holeDistance = pullRadius - Vector3.Distance(gameObject.transform.position, collider.transform.position);
+            holeDistance = holeDistance / pullRadius;
+            float drainDistance = 0f;
+
+            if (playerStats != null)
             {
-                rigidBody.AddForce(forceDirection.normalized * holeDistance * objectPullForce * Time.deltaTime); 
-            }             
+                drainDistance = Vector3.Distance(gameObject.transform.position, collider.transform.position) / playerHealthDrainMultiplier;
 
-            if (characterController != null)
-            {
-                characterController.Move(forceDirection.normalized * holeDistance * playerPullForce * Time.deltaTime);
-
-                healthDrain += Time.deltaTime;
-                if (healthDrain >= drainDistance)
+                if (characterController != null)
                 {
-                    if (playerStats != null && playerStats.currentHP > 0)
-                    {
-                        playerStats.currentHP -= 1;
-                    }
-                    healthDrain = 0;
-                }
+                    characterController.Move(forceDirection.normalized * holeDistance * playerPullForce * Time.deltaTime);
 
-                playerIsDead = playerStats.isDead;
-            }    
+                    healthDrain += Time.deltaTime;
+                    if (healthDrain >= drainDistance)
+                    {
+                        if (playerStats != null && playerStats.currentHP > 0)
+                        {
+                            playerStats.currentHP -= playerDamage;
+                        }
+                        healthDrain = 0;
+                    }
+
+                    playerIsDead = playerStats.isDead;
+                }
+            }
+            
+            if (enemyStats != null)
+            {
+                drainDistance = Vector3.Distance(gameObject.transform.position, collider.transform.position) / enemyHealthDrainMultiplier;
+
+                if (rigidBody != null)
+                {
+                    rigidBody.AddForce(forceDirection.normalized * holeDistance * objectPullForce * Time.deltaTime); 
+
+                    healthDrain += Time.deltaTime;
+                    if (healthDrain >= drainDistance)
+                    {
+                        if (enemyStats != null && enemyStats.currentHP > 0)
+                        {
+                            enemyStats.currentHP -= enemyDamage;
+                        }
+                        healthDrain = 0;
+                    }
+                }  
+            }   
         }
 
         t += Time.deltaTime;
@@ -57,9 +79,9 @@ public class BlackHoleGravity : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
         if (other.tag == "Pickup" || other.tag == "Prop" || other.tag == "Entity" || other.tag == "Projectile" || other.tag == "EnemyProjectile")
         {
+            Instantiate(destroyEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
         }
     }
