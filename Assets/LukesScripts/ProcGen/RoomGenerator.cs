@@ -1142,6 +1142,7 @@ public class RoomGenerator : MonoBehaviour
                     {
                         if (adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[UP_RIGHT].flag.Equals(GridCell.GridFlag.WALL))
                         {
+                            // Better do rotation checks ^^^
                             // WTF was I doing here
                             //adjacent[UP_RIGHT].flag = GridCell.GridFlag.WALL;
                             //adjacent[UP_RIGHT].rotation = new Vector3(0, 90, 0);
@@ -1171,8 +1172,9 @@ public class RoomGenerator : MonoBehaviour
                     {
                         if(adjacent[UP].flag.Equals(GridCell.GridFlag.CORNER) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALL) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.OCCUPIED))
                         {
-                            current.flag = GridCell.GridFlag.CORNER;
-                            current.rotation = new Vector3(0, 180, 0);
+                            // Better do rotation checks ^^^
+                            //current.flag = GridCell.GridFlag.CORNER;
+                            //current.rotation = new Vector3(0, 180, 0);
                         }
                     }
                 }
