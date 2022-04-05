@@ -181,8 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sir Boings-A-Lot
   weaponId: 1
-  currentAmmo: 5
-  maxAmmo: 5
+  currentAmmo: 60
+  maxAmmo: 60
   icon: {fileID: 21300000, guid: 0580e6c8fabc07b4db3951c1d3c05cb8, type: 3}
   functionality: {fileID: 5606891704754517551}
 --- !u!114 &5606891704754517551
@@ -201,9 +201,9 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 195a4c950d8762d4eaf523b04d10d6df, type: 3}
   angle: 0
-  secondsBetweenShots: 0.7
+  secondsBetweenShots: 0.9
   coneSize: 90
-  numberOfShots: 6
+  numberOfShots: 8
 --- !u!208 &5792988858651927260
 NavMeshObstacle:
   m_ObjectHideFlags: 0
