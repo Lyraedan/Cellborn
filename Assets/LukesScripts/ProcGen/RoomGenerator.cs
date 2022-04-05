@@ -1142,7 +1142,9 @@ public class RoomGenerator : MonoBehaviour
                     {
                         if (adjacent[UP].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[LEFT].flag.Equals(GridCell.GridFlag.OCCUPIED) && adjacent[RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[DOWN].flag.Equals(GridCell.GridFlag.WALKABLE) && adjacent[UP_RIGHT].flag.Equals(GridCell.GridFlag.WALL))
                         {
-                            adjacent[UP_RIGHT].flag = GridCell.GridFlag.CORNER;
+                            // WTF was I doing here
+                            //adjacent[UP_RIGHT].flag = GridCell.GridFlag.WALL;
+                            //adjacent[UP_RIGHT].rotation = new Vector3(0, 90, 0);
                         }
                     }
                     if (downValid && leftValid && rightValid)
