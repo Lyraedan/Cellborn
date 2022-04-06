@@ -42,6 +42,7 @@ public abstract class AI : MonoBehaviour
 
     public Action<AI, GridCell, GridCell> OnMinimapUpdated;
     public List<GameObject> possibleDrops = new List<GameObject>();
+    public bool isHit = false;
 
     protected bool IsOnNavmesh {
         get {
@@ -134,6 +135,13 @@ public abstract class AI : MonoBehaviour
             }
         }
         OnDeath();
+    }
+
+    public void Hit()
+    {
+        isHit = true;
+        OnHit();
+        isHit = false;
     }
 
     public bool MoveTo(Vector3 position)
