@@ -132,7 +132,7 @@ MonoBehaviour:
   shotDirection: 0
   lifetime: 10
   t: 0
-  enemyDamage: 0
+  enemyDamage: 4
   playerDamage: 0
   canChangeDistance: 0
 --- !u!114 &3227599078112401671
@@ -150,3 +150,7 @@ MonoBehaviour:
   collider: {fileID: 3551906132943474318}
   meshRenderers:
   - {fileID: 3551906132943474313}
+  lights:
+    sources: []
+  particles:
+    emitters: []
