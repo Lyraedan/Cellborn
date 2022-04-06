@@ -40,6 +40,7 @@ public class RoomGenerator : MonoBehaviour
     private const int UP_RIGHT = 5;
     private const int DOWN_LEFT = 6;
     private const int DOWN_RIGHT = 7;
+    public int spawnrate = 20;
 
     private void Awake()
     {
@@ -331,7 +332,7 @@ public class RoomGenerator : MonoBehaviour
                 {
                     if (!cell.hasProp)
                     {
-                        bool spawnEntity = (Random.Range(0, 20) == 0);
+                        bool spawnEntity = (Random.Range(0, spawnrate) == 0);
                         grid.grid[x, 0, z].hasEntity = spawnEntity;
                     }
                 }
