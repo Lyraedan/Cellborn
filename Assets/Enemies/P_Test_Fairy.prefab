@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 7034860564585011215}
   - component: {fileID: 8500299319616729032}
   - component: {fileID: 8389510986172990888}
+  - component: {fileID: 2808799947874739455}
   m_Layer: 12
   m_Name: P_Test_Fairy
   m_TagString: Enemy
@@ -205,7 +206,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1968839935604444949}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2.85
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -250,6 +251,46 @@ MonoBehaviour:
   returningToPatrolPoint: 0
   maxFleeDistance: 30
   remainingDistance: 0
+--- !u!114 &2808799947874739455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  asynchronousLoad: 0
+  pauseWhenDisabled: 0
+  restartWhenComplete: 1
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 1
+  externalBehavior: {fileID: 11400000, guid: 38c87e6cfa3c27348a33ced6c0ccc19e, type: 2}
+  mBehaviorSource:
+    behaviorName: Fairy Behaviour
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: 
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
 --- !u!1001 &6028654052765864074
 PrefabInstance:
   m_ObjectHideFlags: 0

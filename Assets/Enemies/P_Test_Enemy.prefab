@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 8505363278950117916}
   - component: {fileID: 1968839935604444948}
   - component: {fileID: 5186543247676668790}
-  - component: {fileID: 5322957373292102054}
   - component: {fileID: 8500299319616729032}
   - component: {fileID: 4068121544366674832}
+  - component: {fileID: 5508553866386806718}
+  - component: {fileID: 5700812698526271174}
   m_Layer: 12
   m_Name: P_Test_Enemy
   m_TagString: Enemy
@@ -84,7 +85,7 @@ MonoBehaviour:
   currentHP: 14
   projectileDamage: 1
   deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
-  functionality: {fileID: 5322957373292102054}
+  functionality: {fileID: 5700812698526271174}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -120,38 +121,6 @@ MonoBehaviour:
     sources: []
   particles:
     emitters: []
---- !u!114 &5322957373292102054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968839935604444949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba74ee2b7f541b4397b2e8a09209bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 8500299319616729032}
-  runTimeout: 7
-  minimapBlip: {r: 1, g: 0, b: 0, a: 1}
-  showPath: 0
-  rotationDampening: 8
-  possibleDrops:
-  - {fileID: 4161291639031290691, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
-  - {fileID: 6514005691360707819, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
-  - {fileID: 5099940127662423832, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
-  - {fileID: 7896298103940881703, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
-  roamRadius: 300
-  playerStats: {fileID: 1663721380439235019, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
-  patrolRadius: 30
-  patrolDurationMin: 10
-  patrolDurationMax: 60
-  maxRoamFromPatrolPoint: 20
-  returningToPatrolPoint: 0
-  acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
-  acidPoint: {fileID: 377243591531936383}
-  remainingDistance: 10
 --- !u!195 &8500299319616729032
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -161,7 +130,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1968839935604444949}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2.85
+  m_Radius: 0.55
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -187,6 +156,75 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.40573078, y: 1.488703, z: 3.6664813}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5508553866386806718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  asynchronousLoad: 0
+  pauseWhenDisabled: 0
+  restartWhenComplete: 1
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 1
+  externalBehavior: {fileID: 11400000, guid: 38c87e6cfa3c27348a33ced6c0ccc19e, type: 2}
+  mBehaviorSource:
+    behaviorName: Snake behaviour
+    behaviorDescription: The behaviour of the snake
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(802.5,-357)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(2.5,203)"},"ID":1,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-240,150)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"DistanceFromPlayerGreater","NodeData":{"Offset":"(-145.625366,138.416687)"},"ID":3,"Name":"Distance
+        from player","Instant":true,"Singlethreashold":5},{"Type":"FindRandomPoint","NodeData":{"Offset":"(0,140)"},"ID":4,"Name":"Find
+        Random Point","Instant":true,"SharedFloatradius":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3},"SharedFloatspeed":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3},"SharedFloatarriveDistance":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(212.5,163)"},"ID":5,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"PlayerInRange","NodeData":{"Offset":"(-70,160)"},"ID":6,"Name":"Player
+        In Range","Instant":false,"Singlethreashold":5},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(60,160)"},"ID":7,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-120,140)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"DistanceFromPlayerGreater","NodeData":{"Offset":"(-73.47821,129.565216)"},"ID":9,"Name":"Distance
+        from player","Instant":true,"Singlethreashold":3},{"Type":"FollowPlayer","NodeData":{"Offset":"(63.0434723,125.217407)"},"ID":10,"Name":"Follow
+        Player","Instant":true,"SharedFloatspeed":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(131.5,162)"},"ID":11,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"PlayerInRange","NodeData":{"Offset":"(-60,110)"},"ID":12,"Name":"Player
+        In Range","Instant":true,"Singlethreashold":3},{"Type":"FollowPlayer","NodeData":{"Offset":"(58.6364861,108.636368)"},"ID":13,"Name":"Follow
+        Player","Instant":true,"SharedFloatspeed":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"Attack","NodeData":{"Offset":"(165.9091,110)"},"ID":14,"Name":"Attack","Instant":true}]}]}]}]}}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 1.7.2
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
+--- !u!114 &5700812698526271174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba74ee2b7f541b4397b2e8a09209bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 8500299319616729032}
+  runTimeout: 3
+  minimapBlip: {r: 1, g: 0, b: 0, a: 1}
+  showPath: 0
+  rotationDampening: 8
+  possibleDrops: []
+  playerStats: {fileID: 0}
+  acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
+  acidPoint: {fileID: 377243591531936383}
+  remainingDistance: 0
 --- !u!1001 &3475108266826757871
 PrefabInstance:
   m_ObjectHideFlags: 0

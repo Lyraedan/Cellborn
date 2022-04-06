@@ -52,7 +52,7 @@ public abstract class AI : MonoBehaviour
         }
     }
 
-    protected float DistanceFromPlayer
+    public float DistanceFromPlayer
     {
         get
         {

@@ -42,97 +42,12 @@ public class AIFairy : AI
 
     public override void Init()
     {
-        next = RandomNavmeshLocation(3);
+
     }
 
     public override void Tick()
     {
-        if (!IsOnNavmesh)
-        {
-            var validated = GetNearestNavmeshLocation(OurPosition);
-            OurPosition = validated;
-            return;
-        }
-
-        remainingDistance = agent.remainingDistance;
-
-        if (!persuePlayerAfterHit && !flee)
-        {
-            bool changePatrolArea = patrolTimer >= patrolDurationChosen;
-            bool persuingPlayer = DistanceFromPlayer < 3 && DistanceFromPlayer > 0.5f;
-
-            if (changePatrolArea && !persuingPlayer)
-                PickNewPatrolPoint();
-
-            patrolTimer += 1f * Time.deltaTime;
-
-            if (returningToPatrolPoint)
-            {
-                if (remainingDistance <= 1f)
-                {
-                    returningToPatrolPoint = false;
-                }
-            }
-
-            if (DistanceFromPatrolPoint > maxRoamFromPatrolPoint)
-            {
-                returningToPatrolPoint = true;
-            }
-
-            if (agent.remainingDistance <= 3f && DistanceFromPlayer > 5 && DistanceFromPatrolPoint < maxRoamFromPatrolPoint && !returningToPatrolPoint)
-            {
-                // Reached destination
-                FindNewLocation();
-            }
-            else if (persuingPlayer && !returningToPatrolPoint)
-            {
-                // Player is here!
-                MoveTo(PlayerPosition);
-            }
-            else if (runTimer >= runTimeout)
-            {
-                // Couldn't reach destination in time
-                FindNewLocation();
-                //returningToPatrolPoint = true;
-                runTimer = 0;
-            }
-        }
-        else if(persuePlayerAfterHit && !flee)
-        {
-            persueTimer += 1f * Time.deltaTime;
-            MoveTo(PlayerPosition);
-            if (persueTimer >= persueTimeout)
-            {
-                persuePlayerAfterHit = false;
-                persueTimer = 0;
-            }
-        } 
-        else if(flee)
-        {
-            // Fuckin run for it. Put as much distance between you and the player
-            if(agent.remainingDistance < 1f || DistanceFromPlayer >= 10)
-            {
-                flee = false;
-            }
-        }
-
         attackDelay += 1f * Time.deltaTime;
-
-        // We are within attacking distance
-        if (DistanceFromPlayer <= 0.5f)
-        {
-            agent.isStopped = true;
-            if (attackDelay >= secondsBetweenAttacks)
-            {
-                Attack();
-                attackDelay = 0;
-            }
-        }
-        else
-        {
-            agent.isStopped = false;
-        }
-
     }
 
     void PickNewPatrolPoint()
@@ -153,13 +68,18 @@ public class AIFairy : AI
 
     public override void Attack()
     {
-        Debug.Log("Do attack!");
-        PlayerStats.instance.DamagePlayer(damage);
+        if (attackDelay >= secondsBetweenAttacks)
+        {
+            Debug.Log("Do attack!");
+            PlayerStats.instance.DamagePlayer(damage);
+            attackDelay = 0;
+        }
     }
 
     public override void OnHit()
     {
         Debug.Log("Notice player");
+        /*
         bool getAggressive = Random.Range(0, chanceOfAgro) == 0;
 
         if (getAggressive)
@@ -175,6 +95,7 @@ public class AIFairy : AI
             agent.SetDestination(validate);
             fleeTimer = 0;
         }
+        */
     }
 
     public override void OnDeath()
