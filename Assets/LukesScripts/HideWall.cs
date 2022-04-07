@@ -10,12 +10,10 @@ public class HideWall : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log("Do fade!");
         fadeOut = true;
 
         while(fadeOut)
         {
-            Debug.Log("Fading!");
             Color color = wall.material.color;
             float fadeAmount = color.a - (fadeSpeed * Time.deltaTime);
 
@@ -24,7 +22,6 @@ public class HideWall : MonoBehaviour
 
             if (color.a <= 0)
             {
-                Debug.Log("Faded!");
                 fadeOut = false;
                 break;
             }
@@ -33,11 +30,9 @@ public class HideWall : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("Do reveal!");
         fadeIn = true;
         while(fadeIn)
         {
-            Debug.Log("Revealing!");
             Color color = wall.material.color;
             float fadeAmount = color.a + (fadeSpeed * Time.deltaTime);
 
@@ -46,7 +41,6 @@ public class HideWall : MonoBehaviour
 
             if (color.a >= 1)
             {
-                Debug.Log("Revealed!");
                 fadeIn = false;
                 break;
             }
