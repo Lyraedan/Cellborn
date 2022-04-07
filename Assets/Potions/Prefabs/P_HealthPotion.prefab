@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 542266257490148209}
   - component: {fileID: 7014644175783748129}
   - component: {fileID: 7472478712154000124}
+  - component: {fileID: 1069557220705607317}
   m_Layer: 0
   m_Name: P_HealthPotion
   m_TagString: Pickup
@@ -94,6 +95,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthRefill: 5
+--- !u!114 &1069557220705607317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 8749827791279324977}
+  meshRenderers:
+  - {fileID: 7305690249904450721}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,6 +183,11 @@ GameObject:
 --- !u!4 &8442044022788790222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
+  m_PrefabInstance: {fileID: 8260326513437863973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7305690249904450721 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b23b768276620544d9d20d6f38126afe, type: 3}
   m_PrefabInstance: {fileID: 8260326513437863973}
   m_PrefabAsset: {fileID: 0}
 --- !u!136 &5628186295197993281

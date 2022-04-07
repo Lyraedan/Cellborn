@@ -229,8 +229,9 @@ public class RoomGenerator : MonoBehaviour
         var pos = cell.position;
         pos.y += 0.5f;
         var dungeonCellPosition = pos;
-        dungeonCellPosition.z -= 20;
-        dungeonCellPosition.y += 1;
+        dungeonCellPosition.z -= 19.5f;
+        dungeonCellPosition.y += 1f;
+        dungeonCellPosition.x += 1f;
         Instantiate(prisonCell, dungeonCellPosition, Quaternion.identity);
         return player.Spawn(pos, Vector3.zero);
     }
@@ -316,7 +317,9 @@ public class RoomGenerator : MonoBehaviour
             for (int x = 0; x < grid.cells.x; x++)
             {
                 var cell = grid.grid[x, 0, z];
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                bool isInPrisonCell = CellisInPrisonCell(cell);
+
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
                 {
                     bool spawnProp = (Random.Range(0, 10) == 0);
                     cell.hasProp = spawnProp;
@@ -333,7 +336,17 @@ public class RoomGenerator : MonoBehaviour
             {
                 var cell = grid.grid[x, 0, z];
                 bool isInStart = CellIsInRoom(cell, 0);
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart)
+                bool isInHallway = false;
+                for(int i = 0; i < rooms.Count; i++)
+                {
+                    bool hallwayCheck = CellIsInHallway(cell, rooms[i]);
+                    if(hallwayCheck)
+                    {
+                        isInHallway = true;
+                        break;
+                    }
+                }
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart && !isInHallway)
                 {
                     if (!cell.hasProp)
                     {
@@ -1384,6 +1397,28 @@ public class RoomGenerator : MonoBehaviour
             return false;
 
         return rooms[roomIndex].occupied.Contains(current) || rooms[roomIndex].hallways.Contains(current) || rooms[roomIndex].walls.Contains(current);
+    }
+
+    private bool CellIsInHallway(GridCell current, Room room)
+    {
+        return room.hallways.Contains(current);
+    }
+
+    private bool CellisInPrisonCell(GridCell current)
+    {
+        Vector3 playerCoords = PositionAsGridCoordinates(start.centre);
+        for(int z = -3; z < 4; z++)
+        {
+            for(int x = -3; x < 4; x++)
+            {
+                GridCell cell = navAgent.GetGridCellAt((int)playerCoords.x + x, (int)playerCoords.y, (int)playerCoords.z + z);
+                if(current.position.Equals(cell.position))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 #if UNITY_EDITOR
