@@ -19,6 +19,7 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
     public GameObject wizard;
+    public GameObject prisonCell;
     public List<Room> rooms = new List<Room>();
 
     private Room start, end;
@@ -227,6 +228,10 @@ public class RoomGenerator : MonoBehaviour
         var player = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PLAYER)).ToList()[0];
         var pos = cell.position;
         pos.y += 0.5f;
+        var dungeonCellPosition = pos;
+        dungeonCellPosition.z -= 20;
+        dungeonCellPosition.y += 1;
+        Instantiate(prisonCell, dungeonCellPosition, Quaternion.identity);
         return player.Spawn(pos, Vector3.zero);
     }
 

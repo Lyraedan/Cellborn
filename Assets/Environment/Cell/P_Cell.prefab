@@ -174,7 +174,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3065037206107487161, guid: 491c58c119426974f959e3b802077259, type: 3}
 --- !u!1 &732313142836911903
@@ -302,7 +302,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7079772692446164318, guid: 491c58c119426974f959e3b802077259, type: 3}
 --- !u!1 &3332940571924926340
@@ -398,7 +398,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3790958641902398955, guid: 491c58c119426974f959e3b802077259, type: 3}
 --- !u!1 &3367269602103423415
@@ -410,6 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2734003214967384845}
+  - component: {fileID: 2069307261779059218}
   m_Layer: 0
   m_Name: SM_Dungeon_Cage
   m_TagString: Untagged
@@ -437,6 +438,22 @@ Transform:
   m_Father: {fileID: 1367941957638773994}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &2069307261779059218
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3367269602103423415}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5, y: 1.25, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.25, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5232491289650529547
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +547,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1108167557709096070, guid: 491c58c119426974f959e3b802077259, type: 3}
 --- !u!1 &6458792174756532893
@@ -544,8 +561,9 @@ GameObject:
   - component: {fileID: 5974567995142293543}
   - component: {fileID: 7297580146411751298}
   - component: {fileID: 4801612579409507144}
-  - component: {fileID: 9008952883420859425}
   - component: {fileID: 8575199570070723329}
+  - component: {fileID: 8010702211444581662}
+  - component: {fileID: 4582984128698124931}
   m_Layer: 0
   m_Name: SM_Cage_Door
   m_TagString: Untagged
@@ -617,20 +635,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9008952883420859425
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6458792174756532893}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5060678870759007937, guid: 783138c4403affb4192c1aba5adc1d79, type: 3}
 --- !u!54 &8575199570070723329
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -645,8 +649,34 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &8010702211444581662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458792174756532893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac1316142bbea140b072a9399754495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorRigidbody: {fileID: 8575199570070723329}
+--- !u!65 &4582984128698124931
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458792174756532893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0935384, y: 1.4982328, z: 0.029211422}
+  m_Center: {x: -0.5514509, y: 0, z: -0.0000038291328}
 --- !u!1 &8418282076938188700
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +770,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4891186507862718858, guid: 491c58c119426974f959e3b802077259, type: 3}
 --- !u!1 &8834283506497775146
@@ -836,6 +866,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6274059880062070182, guid: 491c58c119426974f959e3b802077259, type: 3}
