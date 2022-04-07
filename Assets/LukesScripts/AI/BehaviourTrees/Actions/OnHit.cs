@@ -14,6 +14,14 @@ public class OnHit : Composite
         ai = GetComponent<AI>();
     }
 
+    public override TaskStatus OnUpdate()
+    {
+        if (!ai.isHit)
+            return TaskStatus.Failure;
+        else
+            return TaskStatus.Running;
+    }
+
     public override int CurrentChildIndex()
     {
         return currentChildIndex;

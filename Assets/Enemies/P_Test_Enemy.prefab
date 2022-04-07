@@ -171,10 +171,10 @@ MonoBehaviour:
   startWhenEnabled: 1
   asynchronousLoad: 0
   pauseWhenDisabled: 0
-  restartWhenComplete: 1
+  restartWhenComplete: 0
   logTaskChanges: 0
   group: 0
-  resetValuesOnRestart: 1
+  resetValuesOnRestart: 0
   externalBehavior: {fileID: 11400000, guid: 38c87e6cfa3c27348a33ced6c0ccc19e, type: 2}
   mBehaviorSource:
     behaviorName: Snake behaviour
@@ -221,6 +221,7 @@ MonoBehaviour:
   showPath: 0
   rotationDampening: 8
   possibleDrops: []
+  isHit: 0
   playerStats: {fileID: 0}
   acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
   acidPoint: {fileID: 377243591531936383}

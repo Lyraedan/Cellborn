@@ -148,6 +148,7 @@ MonoBehaviour:
   - {fileID: 6514005691360707819, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
   - {fileID: 5099940127662423832, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
   - {fileID: 7896298103940881703, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
+  isHit: 0
   roamRadius: 3
   playerStats: {fileID: 0}
   chanceOfAgro: 4
@@ -173,10 +174,10 @@ MonoBehaviour:
   startWhenEnabled: 1
   asynchronousLoad: 0
   pauseWhenDisabled: 0
-  restartWhenComplete: 1
+  restartWhenComplete: 0
   logTaskChanges: 0
   group: 0
-  resetValuesOnRestart: 1
+  resetValuesOnRestart: 0
   externalBehavior: {fileID: 11400000, guid: 38c87e6cfa3c27348a33ced6c0ccc19e, type: 2}
   mBehaviorSource:
     behaviorName: Fairy Behaviour

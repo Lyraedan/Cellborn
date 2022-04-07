@@ -34,20 +34,26 @@ public class EnemyScript : MonoBehaviour
     {
         var collObj = collision.gameObject;
 
-        if (collObj.tag == "Projectile")
+        if (collObj.CompareTag("Projectile"))
         {
             lastCollision = collObj;
             if (functionality != null)
+            {
+                Debug.Log("Hit by: " + collObj.tag);
                 functionality.Hit();
+            }
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
             Destroy(collObj);
         }
 
-        if (collObj.tag == "Grapple")
+        if (collObj.CompareTag("Grapple"))
         {
             lastCollision = collObj;
             if (functionality != null)
+            {
+                Debug.Log("Hit by: " + collObj.tag);
                 functionality.Hit();
+            }
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
         }
     }
