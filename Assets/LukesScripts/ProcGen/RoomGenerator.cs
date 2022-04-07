@@ -91,6 +91,9 @@ public class RoomGenerator : MonoBehaviour
             return;
         }
 
+        rooms = rooms.OrderBy(room => room.centre.magnitude).ToList();
+        start = rooms[0];
+        end = rooms[rooms.Count - 1];
 
         FlagProps();
         FlagEntities();
@@ -102,10 +105,6 @@ public class RoomGenerator : MonoBehaviour
         BakeNavmesh();
 
         //PlaceProps();
-
-        var sorted = rooms.OrderBy(room => room.centre.magnitude).ToList();
-        start = sorted[0];
-        end = sorted[sorted.Count - 1];
 
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
         GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
@@ -328,7 +327,8 @@ public class RoomGenerator : MonoBehaviour
             for (int x = 0; x < grid.cells.x; x++)
             {
                 var cell = grid.grid[x, 0, z];
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                bool isInStart = CellIsInRoom(cell, 0);
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart)
                 {
                     if (!cell.hasProp)
                     {
@@ -1369,6 +1369,16 @@ public class RoomGenerator : MonoBehaviour
         var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
         var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
         return new Vector3(x, y, z);
+    }
+
+    private bool CellIsInRoom(GridCell current, int roomIndex)
+    {
+        if (roomIndex < 0)
+            return false;
+        else if (roomIndex >= rooms.Count)
+            return false;
+
+        return rooms[roomIndex].occupied.Contains(current) || rooms[roomIndex].hallways.Contains(current) || rooms[roomIndex].walls.Contains(current);
     }
 
 #if UNITY_EDITOR
