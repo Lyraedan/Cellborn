@@ -118,6 +118,12 @@ public class GrappleHook : ProjectileBehaviour
             {
                 isPhysObj = true;
             }
+
+            if (other.transform.CompareTag("Weapon"))
+            {
+                playerObject.GetComponent<WeaponManager>().Pickup(other.gameObject.GetComponent<WeaponProperties>());
+                RetrieveHook();
+            }
         }
     }
 

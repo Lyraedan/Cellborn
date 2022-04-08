@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
-    public Text win;
+    public TextMeshProUGUI win;
 
     #region Player Components
     
