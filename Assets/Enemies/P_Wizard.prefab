@@ -103,7 +103,7 @@ MonoBehaviour:
   maxHP: 140
   currentHP: 140
   projectileDamage: 1
-  deathSmoke: {fileID: 2947352108528838682, guid: a272380dfe5740d4784f1951baaeac61, type: 3}
+  deathSmoke: {fileID: 6853229434069390151, guid: 8158a4a87ae9047419c3cdf38b4bf03d, type: 3}
   functionality: {fileID: 4983654142262962901}
 --- !u!114 &4983654142262962901
 MonoBehaviour:
@@ -123,6 +123,7 @@ MonoBehaviour:
   showPath: 1
   rotationDampening: 8
   possibleDrops: []
+  isHit: 0
   bindingPoint: {x: 0, y: 0, z: 0}
   projectile: {fileID: 3551906132943474317, guid: 0e48de19359f0b044af8cfabafc10c25, type: 3}
   roamRadius: 3
