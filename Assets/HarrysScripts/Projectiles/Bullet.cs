@@ -28,6 +28,7 @@ public class Bullet : ProjectileBehaviour
             canDamage = true;
         }
 
+        Destroy(gameObject);
         gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 }
