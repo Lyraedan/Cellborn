@@ -33,15 +33,17 @@ public class RoomGenerator : MonoBehaviour
     public bool enableCulling = true;
 
     //Adjacent directions
-    private const int UP = 0;
-    private const int DOWN = 1;
-    private const int LEFT = 2;
-    private const int RIGHT = 3;
-    private const int UP_LEFT = 4;
-    private const int UP_RIGHT = 5;
-    private const int DOWN_LEFT = 6;
-    private const int DOWN_RIGHT = 7;
-    public int spawnrate = 20;
+    [HideInInspector] public const int UP = 0;
+    [HideInInspector] public const int DOWN = 1;
+    [HideInInspector] public const int LEFT = 2;
+    [HideInInspector] public const int RIGHT = 3;
+    [HideInInspector] public const int UP_LEFT = 4;
+    [HideInInspector] public const int UP_RIGHT = 5;
+    [HideInInspector] public const int DOWN_LEFT = 6;
+    [HideInInspector] public const int DOWN_RIGHT = 7;
+    [HideInInspector] public int spawnrate = 20;
+
+    public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
     private void Awake()
     {
@@ -71,7 +73,10 @@ public class RoomGenerator : MonoBehaviour
         grid.cells = dimensions;
         grid.Init();
 
-        for (int i = 0; i < maxRoomLimit; i++)
+        int limit = Mathf.RoundToInt(maxDungeonSize.x / minRoomSize.x + maxDungeonSize.y / minRoomSize.y);
+        Debug.Log("Calculated the ability to fit " + limit + " rooms");
+
+        for (int i = 0; i < (maxRoomLimit == 0 ? limit : maxRoomLimit); i++)
         {
             GenerateRandomRoom();
         }
@@ -99,14 +104,20 @@ public class RoomGenerator : MonoBehaviour
         FlagProps();
         FlagEntities();
 
+        floorMesh.GenerateFloor(grid);
+        wallMesh.GenerateWalls(floorMesh);
+        roofMesh.GenerateCeiling(floorMesh);
+
+        /*
         PlaceFloors();
         PlaceWalls();
         PlaceCorners();
+        */
         //grid.Bake();
-        BakeNavmesh();
+        //BakeNavmesh();
 
         //PlaceProps();
-
+        /*
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
         GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
@@ -119,6 +130,7 @@ public class RoomGenerator : MonoBehaviour
         bossAI.bindingPoint = wizardSpawn;
 
         StartCoroutine(AwaitAssignables());
+        */
     }
 
     void ClearDungeon()
@@ -1219,7 +1231,7 @@ public class RoomGenerator : MonoBehaviour
     /// </summary>
     /// <param name="current"></param>
     /// <returns></returns>
-    GridCell[] GetAdjacentCells(GridCell current)
+    public GridCell[] GetAdjacentCells(GridCell current)
     {
         GridCell up = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z + 1);
         GridCell down = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z - 1);
@@ -1239,7 +1251,7 @@ public class RoomGenerator : MonoBehaviour
     /// <param name="flag">What are we looking for</param>
     /// <param name="mode">0 - All, 1 - Plus shape, 2 - Cross shape</param>
     /// <returns></returns>
-    public bool TileIsAdjacent(GridCell current, GridCell.GridFlag flag, int mode)
+    public bool TileIsAdjacent(GridCell current, GridCell.GridFlag flag, int mode = 0)
     {
         var adjacent = GetAdjacentCells(current);
         switch (mode) {
