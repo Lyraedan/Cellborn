@@ -6,6 +6,8 @@ public class GrappleOffence : MonoBehaviour
 {
     public int attackDamage;
     public bool isAttacking;
+    public GameObject fire1;
+    public GameObject fire2;
     
     // Start is called before the first frame update
     void Start()
@@ -16,7 +18,16 @@ public class GrappleOffence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isAttacking && fire1.activeSelf == false)
+        {
+            fire1.SetActive(true);
+            fire2.SetActive(true);
+        }
+        else if (!isAttacking && fire1.activeSelf == true)
+        {
+            fire1.SetActive(false);
+            fire2.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
