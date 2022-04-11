@@ -542,12 +542,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 468873
+  seed: 115158
   minDungeonSize: {x: 50, y: 50}
   maxDungeonSize: {x: 150, y: 150}
   minRoomSize: {x: 8, y: 16}
   generatedDungeonSize: {x: 0, y: 0, z: 0}
-  maxRoomLimit: 10
+  maxRoomLimit: 0
   wizard: {fileID: 8073571031068658479, guid: de957fe8e364779489160a2888d7942c, type: 3}
   prisonCell: {fileID: 732313142836911903, guid: dc73bb5f6e3c0b142ac62fde331d44e6, type: 3}
   rooms: []
