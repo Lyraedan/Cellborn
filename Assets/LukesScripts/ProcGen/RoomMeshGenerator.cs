@@ -290,7 +290,6 @@ public class RoomMeshGenerator : MonoBehaviour
     public int DrawWall(GridCell current, int index)
     {
         var position = current.position;
-        var gridCords = RoomGenerator.instance.PositionAsGridCoordinates(position);
         int i = index;
         var adjacent = RoomGenerator.instance.GetAdjacentCells(current);
 
