@@ -222,7 +222,7 @@ public class RoomMeshGenerator : MonoBehaviour
                 if (current.flag.Equals(GridCell.GridFlag.WALL) ||
                     current.flag.Equals(GridCell.GridFlag.CORNER))
                 {
-                    index = DrawBlock(current, index);
+                    index = DrawWall(current, index);
                 }
             }
         }
@@ -287,7 +287,7 @@ public class RoomMeshGenerator : MonoBehaviour
         meshRenderer.enabled = false; // Hide roof
     }
 
-    public int DrawBlock(GridCell current, int index)
+    public int DrawWall(GridCell current, int index)
     {
         var position = current.position;
         var gridCords = RoomGenerator.instance.PositionAsGridCoordinates(position);
