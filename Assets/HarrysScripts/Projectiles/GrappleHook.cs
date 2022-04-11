@@ -114,6 +114,7 @@ public class GrappleHook : ProjectileBehaviour
             projRigidbody.constraints = RigidbodyConstraints.FreezeAll;
             gameObject.transform.SetParent(other.gameObject.transform);
             isPulling = true;
+            FindObjectOfType<GrappleOffence>().isAttacking = true;
             if (other.gameObject.GetComponent<Rigidbody>())
             {
                 isPhysObj = true;
@@ -159,6 +160,7 @@ public class GrappleHook : ProjectileBehaviour
         }
 
         PlayerMovementTest.instance.disableMovement = false;
+        FindObjectOfType<GrappleOffence>().isAttacking = false;
         Destroy(gameObject);
     }
 
