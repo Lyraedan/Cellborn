@@ -123,6 +123,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &269149473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269149474}
+  - component: {fileID: 269149475}
+  m_Layer: 0
+  m_Name: FloorMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269149474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269149473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1226544329}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &269149475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269149473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13d60c177d5f7643bd69aa62fa4e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSize: 1
+  wallHeight: 1
+  material: {fileID: 2100000, guid: 6f3849bf755f45f42a7d4d263f9cc721, type: 2}
+  vertices: []
+  tris: 
+  normals: []
+  uvs: []
+  edgeVertices: []
+  mesh: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  showVertices: 0
+  showEdges: 0
+  showEdgeDirection: 0
 --- !u!1 &315265087
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +275,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!1 &416463873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416463874}
+  - component: {fileID: 416463875}
+  m_Layer: 0
+  m_Name: CeilingMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &416463874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416463873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1226544329}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &416463875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416463873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13d60c177d5f7643bd69aa62fa4e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSize: 1
+  wallHeight: 1
+  material: {fileID: 2100000, guid: 6f3849bf755f45f42a7d4d263f9cc721, type: 2}
+  vertices: []
+  tris: 
+  normals: []
+  uvs: []
+  edgeVertices: []
+  mesh: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  showVertices: 0
+  showEdges: 0
+  showEdgeDirection: 0
 --- !u!1001 &915354249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -496,7 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 0
+  seed: 839459
   minDungeonSize: {x: 50, y: 50}
   maxDungeonSize: {x: 150, y: 150}
   minRoomSize: {x: 8, y: 16}
@@ -540,6 +652,9 @@ MonoBehaviour:
   targetAim: {fileID: 915354250}
   enableCulling: 1
   spawnrate: 20
+  floorMesh: {fileID: 269149475}
+  wallMesh: {fileID: 2089827450}
+  roofMesh: {fileID: 416463875}
 --- !u!4 &1226544329
 Transform:
   m_ObjectHideFlags: 0
@@ -550,7 +665,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 269149474}
+  - {fileID: 2089827449}
+  - {fileID: 416463874}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -569,10 +687,10 @@ MonoBehaviour:
   cellSize: {x: 1, y: 1, z: 1}
   cells: {x: 5, y: 5, z: 5}
   drawWalkable: 0
-  drawWalls: 1
-  drawOccupied: 1
-  drawBlocks: 1
-  drawHallways: 1
+  drawWalls: 0
+  drawOccupied: 0
+  drawBlocks: 0
+  drawHallways: 0
   drawDistances: 0
   drawAllPaths: 0
   drawEntitySpawns: 0
@@ -840,6 +958,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionMultiplier: 0.3
+--- !u!1 &2089827448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2089827449}
+  - component: {fileID: 2089827450}
+  m_Layer: 0
+  m_Name: WallMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2089827449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089827448}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1226544329}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089827450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089827448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13d60c177d5f7643bd69aa62fa4e431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSize: 1
+  wallHeight: 1
+  material: {fileID: 2100000, guid: 163ca6c52c7fa204b8a301e48c1ccf7c, type: 2}
+  vertices: []
+  tris: 
+  normals: []
+  uvs: []
+  edgeVertices: []
+  mesh: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  showVertices: 0
+  showEdges: 0
+  showEdgeDirection: 0
 --- !u!1 &2139805919
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2139805920
 Light:
   m_ObjectHideFlags: 0

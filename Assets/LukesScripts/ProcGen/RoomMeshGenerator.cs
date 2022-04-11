@@ -37,6 +37,7 @@ public class RoomMeshGenerator : MonoBehaviour
 
         public Vector3 origin;
         public FaceDirection direction;
+        public GridCell cell;
 
         public bool EdgeMatches(Edge edge)
         {
@@ -110,12 +111,14 @@ public class RoomMeshGenerator : MonoBehaviour
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = topRight,
-                                    direction = FaceDirection.SOUTH
+                                    direction = FaceDirection.SOUTH,
+                                    cell = current
                                 });
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = topLeft,
-                                    direction = FaceDirection.SOUTH
+                                    direction = FaceDirection.SOUTH,
+                                    cell = current
                                 });
                             }
                         }
@@ -126,12 +129,14 @@ public class RoomMeshGenerator : MonoBehaviour
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = topLeft,
-                                    direction = FaceDirection.EAST
+                                    direction = FaceDirection.EAST,
+                                    cell = current
                                 });
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = bottomLeft,
-                                    direction = FaceDirection.EAST
+                                    direction = FaceDirection.EAST,
+                                    cell = current
                                 });
                             }
                         }
@@ -142,12 +147,14 @@ public class RoomMeshGenerator : MonoBehaviour
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = topRight,
-                                    direction = FaceDirection.WEST
+                                    direction = FaceDirection.WEST,
+                                    cell = current
                                 });
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = bottomRight,
-                                    direction = FaceDirection.WEST
+                                    direction = FaceDirection.WEST,
+                                    cell = current
                                 });
                             }
                         }
@@ -158,12 +165,14 @@ public class RoomMeshGenerator : MonoBehaviour
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = bottomRight,
-                                    direction = FaceDirection.NORTH
+                                    direction = FaceDirection.NORTH,
+                                    cell = current
                                 });
                                 edgeVertices.Add(new Edge()
                                 {
                                     origin = bottomLeft,
-                                    direction = FaceDirection.NORTH
+                                    direction = FaceDirection.NORTH,
+                                    cell = current
                                 });
                             }
                         }
@@ -201,6 +210,37 @@ public class RoomMeshGenerator : MonoBehaviour
         mesh = new Mesh();
         meshRenderer.sharedMaterial = material;
 
+        edgeVertices = floorMesh.edgeVertices;
+
+        //var extMesh = Extrude(floorMesh.mesh);
+        int index = 0;
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell current = grid.grid[x, 0, z];
+                if (current.flag.Equals(GridCell.GridFlag.WALL) ||
+                    current.flag.Equals(GridCell.GridFlag.CORNER))
+                {
+                    index = DrawBlock(current, index);
+                }
+            }
+        }
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = tris.ToArray();
+        mesh.normals = normals.ToArray();
+        mesh.uv = uvs.ToArray();
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+        mesh.RecalculateTangents();
+
+        meshFilter.mesh = mesh;
+        meshCollider.sharedMesh = mesh;
+
+        #region old
+        /*
         var edges = floorMesh.edgeVertices;
         List<Edge> walls = new List<Edge>();
         for (int i = 0; i < edges.Count; i++)
@@ -233,6 +273,8 @@ public class RoomMeshGenerator : MonoBehaviour
 
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
+        */
+        #endregion
     }
 
     public void GenerateCeiling(RoomMeshGenerator floorMesh)
@@ -276,9 +318,31 @@ public class RoomMeshGenerator : MonoBehaviour
         meshRenderer.enabled = false; // Hide roof
     }
 
+    public Mesh Extrude(Mesh mesh)
+    {
+        Matrix4x4[] matrix = {
+                                new Matrix4x4(
+                                new Vector4(1,0,0,0),
+                                new Vector4(0,1,0,0),
+                                new Vector4(0,0,1,0),
+                                new Vector4(0,0,0,1)),
+
+                                new Matrix4x4(
+                                new Vector4(1,0,0,0),
+                                new Vector4(0,1,0,0),
+                                new Vector4(0,0,1,0),
+                                new Vector4(0,wallHeight,0,1))
+                             };
+
+        Mesh extruded = new Mesh();
+        MeshExtrusion.ExtrudeMesh(mesh, extruded, matrix, false);
+        return extruded;
+    }
+
     public void BuildEdges()
     {
-        for(int i = 0; i < edgeVertices.Count; i++)
+        #region old
+        for (int i = 0; i < edgeVertices.Count; i++)
         {
             Edge edge = edgeVertices[i];
             vertices.Add(edge.origin);
@@ -288,7 +352,7 @@ public class RoomMeshGenerator : MonoBehaviour
         for (int i = 0; i < vertices.Count; i++)
         {
             int mod = i % 4;
-            if(mod == 0)
+            if (mod == 0)
             {
                 int count = vertices.Count;
                 var topRight = vertices[count - 1];
@@ -320,16 +384,7 @@ public class RoomMeshGenerator : MonoBehaviour
                 index += 4;
             }
         }
-    }
-
-    public Vector3 FindNearestPoint(Vector3 origin, Vector3 direction)
-    {
-        direction.Normalize();
-        Vector3 point = edgeVertices[edgeVertices.Count - 1].origin; // replaced parameter
-        Vector3 lhs = point - origin;
-
-        float dot = Vector3.Dot(lhs, direction);
-        return origin + direction * dot;
+        #endregion
     }
 
     Vector3 DirectionAsVector(FaceDirection direction)
@@ -347,6 +402,74 @@ public class RoomMeshGenerator : MonoBehaviour
             default:
                 return Vector3.zero;
         }
+    }
+
+    public int DrawBlock(GridCell current, int index)
+    {
+        var position = current.position;
+        var gridCords = RoomGenerator.instance.PositionAsGridCoordinates(position);
+        int i = index;
+        var adjacent = RoomGenerator.instance.GetAdjacentCells(current);
+
+        Edge forward = new Edge()
+        {
+            origin = position,
+            direction = FaceDirection.SOUTH,
+            cell = current
+        };
+        Edge back = new Edge()
+        {
+            origin = position,
+            direction = FaceDirection.NORTH,
+            cell = current
+        };
+        Edge left = new Edge()
+        {
+            origin = position,
+            direction = FaceDirection.EAST,
+            cell = current
+        };
+        Edge right = new Edge()
+        {
+            origin = position,
+            direction = FaceDirection.WEST,
+            cell = current
+        };
+
+        if(adjacent[RoomGenerator.UP] != null)
+        {
+            if(adjacent[RoomGenerator.UP].flag.Equals(GridCell.GridFlag.WALKABLE))
+            {
+                AddEdge(forward, i);
+                i += 4;
+            }
+        }
+        if (adjacent[RoomGenerator.DOWN] != null)
+        {
+            if (adjacent[RoomGenerator.DOWN].flag.Equals(GridCell.GridFlag.WALKABLE))
+            {
+                AddEdge(back, i);
+                i += 4;
+            }
+        }
+        if (adjacent[RoomGenerator.LEFT] != null)
+        {
+            if (adjacent[RoomGenerator.LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
+            {
+                AddEdge(right, i);
+                i += 4;
+            }
+        }
+        if (adjacent[RoomGenerator.RIGHT] != null)
+        {
+            if (adjacent[RoomGenerator.RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
+            {
+                AddEdge(left, i);
+                i += 4;
+            }
+        }
+
+        return i;
     }
 
     public void AddEdge(Edge edge, int index)
@@ -368,10 +491,10 @@ public class RoomMeshGenerator : MonoBehaviour
                 topRight = new Vector3(x + tileSize, wallHeight, z);
                 break;
             case FaceDirection.SOUTH:
-                bottomLeft = new Vector3(x, 0, z);
-                bottomRight = new Vector3(x - tileSize, 0, z);
-                topLeft = new Vector3(x, wallHeight, z);
-                topRight = new Vector3(x - tileSize, wallHeight, z);
+                bottomLeft = new Vector3(x, 0, z + tileSize);
+                bottomRight = new Vector3(x + tileSize, 0, z + tileSize);
+                topLeft = new Vector3(x, wallHeight, z + tileSize);
+                topRight = new Vector3(x + tileSize, wallHeight, z + tileSize);
                 break;
             case FaceDirection.WEST:
                 bottomLeft = new Vector3(x, 0, z);
@@ -380,10 +503,10 @@ public class RoomMeshGenerator : MonoBehaviour
                 topRight = new Vector3(x, wallHeight, z + tileSize);
                 break;
             case FaceDirection.EAST:
-                bottomLeft = new Vector3(x, 0, z);
-                bottomRight = new Vector3(x, 0, z - tileSize);
-                topLeft = new Vector3(x, wallHeight, z);
-                topRight = new Vector3(x, wallHeight, z - tileSize);
+                bottomLeft = new Vector3(x + tileSize, 0, z);
+                bottomRight = new Vector3(x + tileSize, 0, z + tileSize);
+                topLeft = new Vector3(x + tileSize, wallHeight, z);
+                topRight = new Vector3(x + tileSize, wallHeight, z + tileSize);
                 break;
         }
 
@@ -532,7 +655,8 @@ public class RoomMeshGenerator : MonoBehaviour
                 for (int i = 0; i < vertices.Count; i++)
                 {
                     Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(transform.position + vertices[i], 0.1f);
+                    //Gizmos.DrawSphere(transform.position + vertices[i], 0.1f);
+                    UnityEditor.Handles.Label(vertices[i], i.ToString());
                 }
 
                 for (int i = 0; i < vertices.Count - 1; i++)
