@@ -542,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 115158
+  seed: 0
   minDungeonSize: {x: 50, y: 50}
   maxDungeonSize: {x: 150, y: 150}
   minRoomSize: {x: 8, y: 16}
@@ -584,7 +584,7 @@ MonoBehaviour:
     type: 5
   navAgent: {fileID: 1226544331}
   targetAim: {fileID: 915354250}
-  enableCulling: 1
+  enableCulling: 0
   spawnrate: 20
   navmesh:
   - {fileID: 269149476}

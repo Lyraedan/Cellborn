@@ -165,7 +165,7 @@ public class RoomGenerator : MonoBehaviour
         //Grab weapons
         WeaponManager.instance.GetWeaponsInLevel();
         Minimap.instance.GenerateMinimap(grid);
-        //PlaceEntities();
+        PlaceEntities();
 
         // Matilde if you need to. Start behaviour tree's beyond this point.
 
@@ -182,41 +182,11 @@ public class RoomGenerator : MonoBehaviour
     }
 
     #region Prefab Grabbers
-    public GameObject SpawnRandomFloor(GridCell cell)
-    {
-        var floors = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.FLOOR)).ToList();
-        int index = Random.Range(0, floors.Count);
-        var spawned = floors[index].Spawn(cell.position, cell.rotation);
-        CellInfo info = spawned.AddComponent<CellInfo>();
-        info.cellRotation = cell.rotation;
-        return spawned;
-    }
-
-    public GameObject SpawnRandomWall(GridCell cell)
-    {
-        var walls = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL)).ToList();
-        int index = Random.Range(0, walls.Count);
-        var spawned = walls[index].Spawn(cell.position, cell.rotation);
-        CellInfo info = spawned.AddComponent<CellInfo>();
-        info.cellRotation = cell.rotation;
-        return spawned;
-    }
-
     public GameObject SpawnRandomProp(GridCell cell)
     {
         var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PROP)).ToList();
         int index = Random.Range(0, prop.Count);
         return prop[index].Spawn(cell.position, cell.rotation);
-    }
-
-    public GameObject SpawnRandomCorner(GridCell cell)
-    {
-        var corners = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CORNER)).ToList();
-        int index = Random.Range(0, corners.Count);
-        var spawned = corners[index].Spawn(cell.position, cell.rotation);
-        CellInfo info = spawned.AddComponent<CellInfo>();
-        info.cellRotation = cell.rotation;
-        return spawned;
     }
 
     public GameObject SpawnRandomEntity(GridCell cell)
@@ -250,45 +220,6 @@ public class RoomGenerator : MonoBehaviour
     #endregion
 
     #region Population
-    void PlaceFloors()
-    {
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var cell = grid.grid[x, 0, z];
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.HALLWAY))
-                    SpawnRandomFloor(cell);
-            }
-        }
-    }
-
-    void PlaceWalls()
-    {
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var cell = grid.grid[x, 0, z];
-                if (cell.flag.Equals(GridCell.GridFlag.WALL))
-                    SpawnRandomWall(cell);
-            }
-        }
-    }
-
-    void PlaceCorners()
-    {
-        for (int x = 0; x < grid.cells.x; x++)
-        {
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                var cell = grid.grid[x, 0, z];
-                if (cell.flag.Equals(GridCell.GridFlag.CORNER))
-                    SpawnRandomCorner(cell);
-            }
-        }
-    }
-
     void PlaceEntities()
     {
         for (int x = 0; x < grid.cells.x; x++)
