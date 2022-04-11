@@ -106,15 +106,10 @@ public class RoomGenerator : MonoBehaviour
 
         floorMesh.GenerateFloor(grid);
         wallMesh.GenerateWalls(floorMesh);
-        //roofMesh.GenerateCeiling(floorMesh);
+        roofMesh.GenerateCeiling(floorMesh);
 
-        /*
-        PlaceFloors();
-        PlaceWalls();
-        PlaceCorners();
-        */
         //grid.Bake();
-        //BakeNavmesh();
+        BakeNavmesh();
 
         //PlaceProps();
         /*
