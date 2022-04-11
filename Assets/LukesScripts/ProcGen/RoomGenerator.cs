@@ -43,6 +43,7 @@ public class RoomGenerator : MonoBehaviour
     [HideInInspector] public const int DOWN_RIGHT = 7;
     [HideInInspector] public int spawnrate = 20;
 
+    public NavMeshSurface[] navmesh;
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
     private void Awake()
@@ -111,8 +112,7 @@ public class RoomGenerator : MonoBehaviour
         //grid.Bake();
         BakeNavmesh();
 
-        //PlaceProps();
-        /*
+        PlaceProps();
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
         GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
@@ -125,7 +125,6 @@ public class RoomGenerator : MonoBehaviour
         bossAI.bindingPoint = wizardSpawn;
 
         StartCoroutine(AwaitAssignables());
-        */
     }
 
     void ClearDungeon()
@@ -167,7 +166,7 @@ public class RoomGenerator : MonoBehaviour
         //Grab weapons
         WeaponManager.instance.GetWeaponsInLevel();
         Minimap.instance.GenerateMinimap(grid);
-        PlaceEntities();
+        //PlaceEntities();
 
         // Matilde if you need to. Start behaviour tree's beyond this point.
 
@@ -1213,7 +1212,6 @@ public class RoomGenerator : MonoBehaviour
     void BakeNavmesh()
     {
         Debug.Log("Baking navmesh");
-        var navmesh = FindObjectsOfType<NavMeshSurface>();
         foreach (NavMeshSurface surface in navmesh)
         {
             surface.BuildNavMesh();

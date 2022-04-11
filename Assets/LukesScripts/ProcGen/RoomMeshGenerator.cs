@@ -237,44 +237,13 @@ public class RoomMeshGenerator : MonoBehaviour
         mesh.RecalculateTangents();
 
         meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
 
-        #region old
-        /*
-        var edges = floorMesh.edgeVertices;
-        List<Edge> walls = new List<Edge>();
-        for (int i = 0; i < edges.Count; i++)
+        foreach (MeshFilter meshFilter in GameObject.FindObjectsOfType<MeshFilter>())
         {
-            Edge edge = edges[i];
-            Vector3 raised = edge.origin;
-            raised.y = wallHeight;
-
-            Edge raisedWall = new Edge()
-            {
-                origin = raised,
-                direction = edge.direction
-            };
-            walls.Add(edge);
-            walls.Add(raisedWall);
+            meshFilter.mesh.SetIndices(meshFilter.mesh.GetIndices(0).Concat(meshFilter.mesh.GetIndices(0).Reverse()).ToArray(), MeshTopology.Triangles, 0);
         }
-        edgeVertices = walls;
-        edgeVertices = edgeVertices.Distinct().ToList();
+        meshCollider.sharedMesh = meshFilter.mesh;
 
-        BuildEdges();
-
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = tris.ToArray();
-        mesh.normals = normals.ToArray();
-        mesh.uv = uvs.ToArray();
-
-        mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
-        mesh.RecalculateTangents();
-
-        meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
-        */
-        #endregion
     }
 
     public void GenerateCeiling(RoomMeshGenerator floorMesh)
@@ -316,92 +285,6 @@ public class RoomMeshGenerator : MonoBehaviour
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
         meshRenderer.enabled = false; // Hide roof
-    }
-
-    public Mesh Extrude(Mesh mesh)
-    {
-        Matrix4x4[] matrix = {
-                                new Matrix4x4(
-                                new Vector4(1,0,0,0),
-                                new Vector4(0,1,0,0),
-                                new Vector4(0,0,1,0),
-                                new Vector4(0,0,0,1)),
-
-                                new Matrix4x4(
-                                new Vector4(1,0,0,0),
-                                new Vector4(0,1,0,0),
-                                new Vector4(0,0,1,0),
-                                new Vector4(0,wallHeight,0,1))
-                             };
-
-        Mesh extruded = new Mesh();
-        MeshExtrusion.ExtrudeMesh(mesh, extruded, matrix, false);
-        return extruded;
-    }
-
-    public void BuildEdges()
-    {
-        #region old
-        for (int i = 0; i < edgeVertices.Count; i++)
-        {
-            Edge edge = edgeVertices[i];
-            vertices.Add(edge.origin);
-        }
-
-        int index = 0;
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            int mod = i % 4;
-            if (mod == 0)
-            {
-                int count = vertices.Count;
-                var topRight = vertices[count - 1];
-                var topLeft = vertices[count - 2];
-                var bottomRight = vertices[count - 3];
-                var bottomLeft = vertices[count - 4];
-
-                tris.Add(index);
-                tris.Add(index + 2);
-                tris.Add(index + 1);
-
-                tris.Add(index + 1);
-                tris.Add(index + 2);
-                tris.Add(index + 3);
-
-                Vector3 normalA = CalculateNormal(topLeft, bottomLeft, bottomRight);
-                Vector3 normalB = CalculateNormal(topLeft, bottomRight, topRight);
-
-                normals.Add(normalA);
-                normals.Add(normalA);
-                normals.Add(normalA);
-                normals.Add(normalB);
-
-                uvs.Add(new Vector2(0, 0));
-                uvs.Add(new Vector2(1, 0));
-                uvs.Add(new Vector2(0, 1));
-                uvs.Add(new Vector2(1, 1));
-
-                index += 4;
-            }
-        }
-        #endregion
-    }
-
-    Vector3 DirectionAsVector(FaceDirection direction)
-    {
-        switch (direction)
-        {
-            case FaceDirection.NORTH:
-                return new Vector3(0, 0, 1);
-            case FaceDirection.SOUTH:
-                return new Vector3(0, 0, -1);
-            case FaceDirection.EAST:
-                return new Vector3(1, 0, 0);
-            case FaceDirection.WEST:
-                return new Vector3(-1, 0, 0);
-            default:
-                return Vector3.zero;
-        }
     }
 
     public int DrawBlock(GridCell current, int index)
@@ -625,27 +508,6 @@ public class RoomMeshGenerator : MonoBehaviour
         return normal.normalized;
     }
 
-    public void AddEdgeToList(Edge edge)
-    {
-        bool canAdd = true;
-        if (edgeVertices.Count > 0)
-        {
-            for (int i = 0; i < edgeVertices.Count; i++)
-            {
-                Edge element = edgeVertices[i];
-                if (element.origin.Equals(edge.origin))
-                {
-                    canAdd = false;
-                    break;
-                }
-            }
-        }
-        if (canAdd)
-        {
-            edgeVertices.Add(edge);
-        }
-    }
-
     private void OnDrawGizmos()
     {
         if (showVertices)
@@ -655,37 +517,7 @@ public class RoomMeshGenerator : MonoBehaviour
                 for (int i = 0; i < vertices.Count; i++)
                 {
                     Gizmos.color = Color.green;
-                    //Gizmos.DrawSphere(transform.position + vertices[i], 0.1f);
-                    UnityEditor.Handles.Label(vertices[i], i.ToString());
-                }
-
-                for (int i = 0; i < vertices.Count - 1; i++)
-                {
-                    Vector3 pos = transform.position + vertices[i];
-                    Vector3 pos2 = transform.position + vertices[i + 1];
-                    int mod = i % 6;
-                    switch (mod)
-                    {
-                        case 0:
-                            Gizmos.color = Color.red;
-                            break;
-                        case 1:
-                            Gizmos.color = Color.green;
-                            break;
-                        case 2:
-                            Gizmos.color = Color.blue;
-                            break;
-                        case 3:
-                            Gizmos.color = Color.yellow;
-                            break;
-                        case 4:
-                            Gizmos.color = Color.magenta;
-                            break;
-                        case 5:
-                            Gizmos.color = Color.cyan;
-                            break;
-                    }
-                    Gizmos.DrawLine(pos, pos2);
+                    Gizmos.DrawSphere(transform.position + vertices[i], 0.1f);
                 }
             }
         }
@@ -699,8 +531,6 @@ public class RoomMeshGenerator : MonoBehaviour
 
                     Gizmos.color = Color.cyan;
                     Gizmos.DrawSphere(transform.position + edge.origin, 0.1f);
-                    //UnityEditor.Handles.Label(transform.position + edge.origin, $"{edge.origin}");
-
                     if (showEdgeDirection)
                     {
                         var lineStart = transform.position + edge.origin;
