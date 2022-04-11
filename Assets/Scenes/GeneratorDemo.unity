@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416463874}
   - component: {fileID: 416463875}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CeilingMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 547182
+  seed: 468873
   minDungeonSize: {x: 50, y: 50}
   maxDungeonSize: {x: 150, y: 150}
   minRoomSize: {x: 8, y: 16}
@@ -623,7 +623,7 @@ MonoBehaviour:
   cellSize: {x: 1, y: 1, z: 1}
   cells: {x: 5, y: 5, z: 5}
   drawWalkable: 0
-  drawWalls: 1
+  drawWalls: 0
   drawOccupied: 0
   drawBlocks: 0
   drawHallways: 0

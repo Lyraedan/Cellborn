@@ -94,7 +94,8 @@ public class RoomMeshGenerator : MonoBehaviour
                     index += 4;
 
                     if (current.flag.Equals(GridCell.GridFlag.WALL) ||
-                        current.flag.Equals(GridCell.GridFlag.CORNER))
+                        current.flag.Equals(GridCell.GridFlag.CORNER) ||
+                        current.flag.Equals(GridCell.GridFlag.OCCUPIED))
                     {
                         int count = vertices.Count;
                         var topRight = vertices[count - 1];
@@ -122,6 +123,22 @@ public class RoomMeshGenerator : MonoBehaviour
                                 });
                             }
                         }
+                        else
+                        {
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = topRight,
+                                direction = FaceDirection.SOUTH,
+                                cell = current
+                            });
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = topLeft,
+                                direction = FaceDirection.SOUTH,
+                                cell = current
+                            });
+                        }
+
                         if (adjacent[RoomGenerator.LEFT] != null)
                         {
                             if (adjacent[RoomGenerator.LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -140,6 +157,22 @@ public class RoomMeshGenerator : MonoBehaviour
                                 });
                             }
                         }
+                        else
+                        {
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = topLeft,
+                                direction = FaceDirection.EAST,
+                                cell = current
+                            });
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = bottomLeft,
+                                direction = FaceDirection.EAST,
+                                cell = current
+                            });
+                        }
+
                         if (adjacent[RoomGenerator.RIGHT] != null)
                         {
                             if (adjacent[RoomGenerator.RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -158,6 +191,22 @@ public class RoomMeshGenerator : MonoBehaviour
                                 });
                             }
                         }
+                        else
+                        {
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = topRight,
+                                direction = FaceDirection.WEST,
+                                cell = current
+                            });
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = bottomRight,
+                                direction = FaceDirection.WEST,
+                                cell = current
+                            });
+                        }
+
                         if (adjacent[RoomGenerator.DOWN] != null)
                         {
                             if (adjacent[RoomGenerator.DOWN].flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -175,6 +224,21 @@ public class RoomMeshGenerator : MonoBehaviour
                                     cell = current
                                 });
                             }
+                        }
+                        else
+                        {
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = bottomRight,
+                                direction = FaceDirection.NORTH,
+                                cell = current
+                            });
+                            edgeVertices.Add(new Edge()
+                            {
+                                origin = bottomLeft,
+                                direction = FaceDirection.NORTH,
+                                cell = current
+                            });
                         }
                     }
                 }
@@ -212,7 +276,6 @@ public class RoomMeshGenerator : MonoBehaviour
 
         edgeVertices = floorMesh.edgeVertices;
 
-        //var extMesh = Extrude(floorMesh.mesh);
         int index = 0;
         for (int z = 0; z < grid.cells.z; z++)
         {
@@ -220,7 +283,8 @@ public class RoomMeshGenerator : MonoBehaviour
             {
                 GridCell current = grid.grid[x, 0, z];
                 if (current.flag.Equals(GridCell.GridFlag.WALL) ||
-                    current.flag.Equals(GridCell.GridFlag.CORNER))
+                    current.flag.Equals(GridCell.GridFlag.CORNER) ||
+                    current.flag.Equals(GridCell.GridFlag.OCCUPIED))
                 {
                     index = DrawWall(current, index);
                 }
@@ -283,7 +347,13 @@ public class RoomMeshGenerator : MonoBehaviour
         mesh.RecalculateTangents();
 
         meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
+
+        foreach (MeshFilter meshFilter in GameObject.FindObjectsOfType<MeshFilter>())
+        {
+            meshFilter.mesh.SetIndices(meshFilter.mesh.GetIndices(0).Concat(meshFilter.mesh.GetIndices(0).Reverse()).ToArray(), MeshTopology.Triangles, 0);
+        }
+        meshCollider.sharedMesh = meshFilter.mesh;
+
         meshRenderer.enabled = false; // Hide roof
     }
 
@@ -325,7 +395,8 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(forward, i);
                 i += 4;
             }
-        } else
+        }
+        else
         {
             AddEdge(forward, i);
             i += 4;
@@ -338,7 +409,8 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(back, i);
                 i += 4;
             }
-        } else
+        }
+        else
         {
             AddEdge(back, i);
             i += 4;
@@ -351,7 +423,8 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(left, i);
                 i += 4;
             }
-        } else
+        }
+        else
         {
             AddEdge(left, i);
             i += 4;
@@ -364,7 +437,8 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(right, i);
                 i += 4;
             }
-        } else
+        }
+        else
         {
             AddEdge(right, i);
             i += 4;
