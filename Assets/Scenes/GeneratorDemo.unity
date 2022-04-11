@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
-  wallHeight: 1
+  wallHeight: 2
   material: {fileID: 2100000, guid: 6f3849bf755f45f42a7d4d263f9cc721, type: 2}
   vertices: []
   tris: 
@@ -542,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomParent: {fileID: 1226544329}
   grid: {fileID: 1226544330}
-  seed: 0
+  seed: 547182
   minDungeonSize: {x: 50, y: 50}
   maxDungeonSize: {x: 150, y: 150}
   minRoomSize: {x: 8, y: 16}
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
-  wallHeight: 1
+  wallHeight: 2
   material: {fileID: 2100000, guid: 163ca6c52c7fa204b8a301e48c1ccf7c, type: 2}
   vertices: []
   tris: 

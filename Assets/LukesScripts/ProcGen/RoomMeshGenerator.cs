@@ -309,13 +309,13 @@ public class RoomMeshGenerator : MonoBehaviour
         Edge left = new Edge()
         {
             origin = position,
-            direction = FaceDirection.EAST,
+            direction = FaceDirection.WEST,
             cell = current
         };
         Edge right = new Edge()
         {
             origin = position,
-            direction = FaceDirection.WEST,
+            direction = FaceDirection.EAST,
             cell = current
         };
 
@@ -326,7 +326,12 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(forward, i);
                 i += 4;
             }
+        } else
+        {
+            AddEdge(forward, i);
+            i += 4;
         }
+
         if (adjacent[RoomGenerator.DOWN] != null)
         {
             if (adjacent[RoomGenerator.DOWN].flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -334,22 +339,36 @@ public class RoomMeshGenerator : MonoBehaviour
                 AddEdge(back, i);
                 i += 4;
             }
+        } else
+        {
+            AddEdge(back, i);
+            i += 4;
         }
+
         if (adjacent[RoomGenerator.LEFT] != null)
         {
             if (adjacent[RoomGenerator.LEFT].flag.Equals(GridCell.GridFlag.WALKABLE))
             {
-                AddEdge(right, i);
+                AddEdge(left, i);
                 i += 4;
             }
+        } else
+        {
+            AddEdge(left, i);
+            i += 4;
         }
+
         if (adjacent[RoomGenerator.RIGHT] != null)
         {
             if (adjacent[RoomGenerator.RIGHT].flag.Equals(GridCell.GridFlag.WALKABLE))
             {
-                AddEdge(left, i);
+                AddEdge(right, i);
                 i += 4;
             }
+        } else
+        {
+            AddEdge(right, i);
+            i += 4;
         }
 
         return i;
