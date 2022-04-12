@@ -330,10 +330,11 @@ public class RoomGenerator : MonoBehaviour
                     // TODO DO FUCKING ADJACENT CHECKS YOU MUPPPET - Past and Lazy Luke <3
                     var adjacent = GetAdjacentCells(current);
 
-                    int cx = (int)current.position.x;
-                    int cz = (int)current.position.z;
-                    int nx = (int)next.position.x;
-                    int nz = (int)next.position.z;
+                    int girth = 1;
+                    int cx = (int)current.position.x - girth;
+                    int cz = (int)current.position.z - girth;
+                    int nx = (int)next.position.x + girth;
+                    int nz = (int)next.position.z + girth;
 
                     // Diagonals
                     if (nx > cx)

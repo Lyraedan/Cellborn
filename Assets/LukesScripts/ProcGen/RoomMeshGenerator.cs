@@ -300,6 +300,23 @@ public class RoomMeshGenerator : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
+        /*
+        float floorThickness = 1f;
+        Matrix4x4[] matrix = new Matrix4x4[] {
+            new Matrix4x4(new Vector4(1, 0, 0, 0),
+                          new Vector4(0, 1, 0, 0),
+                          new Vector4(0, 0, 1, 0),
+                          new Vector4(0, 0, 0, 0)),
+
+            new Matrix4x4(new Vector4(1, 0, 0, 0),
+                          new Vector4(0, 1, 0, 0),
+                          new Vector4(0, 0, 1, 0),
+                          new Vector4(0, floorThickness, 0, 0))
+        };
+
+        Mesh extruded = new Mesh();
+        MeshExtrusion.ExtrudeMesh(mesh, extruded, matrix, false);
+        */
         meshFilter.mesh = mesh;
 
         foreach (MeshFilter meshFilter in GameObject.FindObjectsOfType<MeshFilter>())
