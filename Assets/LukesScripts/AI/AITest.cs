@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LukesScripts.AI;
 using UnityEngine;
 
 public class AITest : AI
