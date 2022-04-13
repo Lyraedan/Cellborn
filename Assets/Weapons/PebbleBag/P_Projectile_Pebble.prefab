@@ -131,10 +131,11 @@ MonoBehaviour:
   shotDirection: 0
   lifetime: 5
   t: 0
-  enemyDamage: 1
+  enemyDamage: 3
   playerDamage: 0
   canChangeDistance: 1
   stoppedCheckTime: 0.5
   currentY: 0
   lastY: 0
+  checkTimer: 0
   canDamage: 1
