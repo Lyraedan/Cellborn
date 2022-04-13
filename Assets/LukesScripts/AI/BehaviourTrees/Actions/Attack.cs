@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Attack : Action
+namespace LukesScripts.AI.Actions
 {
-    private AI ai;
-    private NavMeshAgent agent;
-
-    public override void OnStart()
+    public class Attack : Action
     {
-        ai = GetComponent<AI>();
-        agent = GetComponent<NavMeshAgent>();
-    }
+        private AI ai;
+        private NavMeshAgent agent;
 
-    public override TaskStatus OnUpdate()
-    {
-        ai.Attack();
-        return TaskStatus.Success;
-    }
+        public override void OnStart()
+        {
+            ai = GetComponent<AI>();
+            agent = GetComponent<NavMeshAgent>();
+        }
 
+        public override TaskStatus OnUpdate()
+        {
+            ai.Attack();
+            return TaskStatus.Success;
+        }
+
+    }
 }

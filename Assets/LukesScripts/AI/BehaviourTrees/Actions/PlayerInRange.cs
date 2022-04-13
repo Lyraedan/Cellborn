@@ -4,40 +4,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInRange : Conditional
+namespace LukesScripts.AI.Actions
 {
-    public enum Operation
+    public class PlayerInRange : Conditional
     {
-        LessThan,
-        LessThanOrEqualTo,
-        EqualTo,
-        NotEqualTo,
-        GreaterThanOrEqualTo,
-        GreaterThan
-    }
-
-    public Operation operation = Operation.GreaterThanOrEqualTo;
-
-    public float threashold = 5f;
-
-    public override TaskStatus OnUpdate()
-    {
-        float distance = Vector3.Distance(WeaponManager.instance.player.transform.position, transform.position);
-        switch (operation)
+        public enum Operation
         {
-            case Operation.LessThan:
-                return distance < threashold ? TaskStatus.Success : TaskStatus.Failure;
-            case Operation.LessThanOrEqualTo:
-                return distance <= threashold ? TaskStatus.Success : TaskStatus.Failure;
-            case Operation.EqualTo:
-                return distance == threashold ? TaskStatus.Success : TaskStatus.Failure;
-            case Operation.NotEqualTo:
-                return distance != threashold ? TaskStatus.Success : TaskStatus.Failure;
-            case Operation.GreaterThanOrEqualTo:
-                return distance >= threashold ? TaskStatus.Success : TaskStatus.Failure;
-            case Operation.GreaterThan:
-                return distance > threashold ? TaskStatus.Success : TaskStatus.Failure;
+            LessThan,
+            LessThanOrEqualTo,
+            EqualTo,
+            NotEqualTo,
+            GreaterThanOrEqualTo,
+            GreaterThan
         }
-        return TaskStatus.Failure;
+
+        public Operation operation = Operation.GreaterThanOrEqualTo;
+
+        public float threashold = 5f;
+
+        public override TaskStatus OnUpdate()
+        {
+            float distance = Vector3.Distance(WeaponManager.instance.player.transform.position, transform.position);
+            switch (operation)
+            {
+                case Operation.LessThan:
+                    return distance < threashold ? TaskStatus.Success : TaskStatus.Failure;
+                case Operation.LessThanOrEqualTo:
+                    return distance <= threashold ? TaskStatus.Success : TaskStatus.Failure;
+                case Operation.EqualTo:
+                    return distance == threashold ? TaskStatus.Success : TaskStatus.Failure;
+                case Operation.NotEqualTo:
+                    return distance != threashold ? TaskStatus.Success : TaskStatus.Failure;
+                case Operation.GreaterThanOrEqualTo:
+                    return distance >= threashold ? TaskStatus.Success : TaskStatus.Failure;
+                case Operation.GreaterThan:
+                    return distance > threashold ? TaskStatus.Success : TaskStatus.Failure;
+            }
+            return TaskStatus.Failure;
+        }
     }
 }
