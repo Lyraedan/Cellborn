@@ -89,7 +89,14 @@ public class PlayerStats : MonoBehaviour
 
         if (/*collObj.tag == "Projectile" || */collObj.CompareTag("EnemyProjectile"))
         {     
-            currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage;
+            if(collObj.GetComponent<FairyMagic>() != null)
+            {
+                collObj.GetComponent<FairyMagic>().HitPlayer();
+            }
+            else
+            {
+                currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage;
+            }
         }
     }
 

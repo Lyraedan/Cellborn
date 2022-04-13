@@ -31,6 +31,7 @@ public class AITest : AI
         {
             Debug.Log("Do attack!");
             Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
+
             attackDelay = 0;
         }
     }

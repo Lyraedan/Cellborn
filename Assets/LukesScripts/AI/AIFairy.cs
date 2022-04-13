@@ -30,6 +30,9 @@ public class AIFairy : AI
     private float fleeTimer = 0;
     [SerializeField] private float maxFleeDistance = 30f;
 
+    public GameObject projectile;
+    public Transform firePoint;
+
     private float DistanceFromPatrolPoint
     {
         get
@@ -71,7 +74,12 @@ public class AIFairy : AI
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
-            PlayerStats.instance.DamagePlayer(damage);
+            //PlayerStats.instance.DamagePlayer(damage);
+
+            GameObject projInstance = Instantiate(projectile, firePoint.position, firePoint.rotation);
+            var projScript = projInstance.GetComponent<ProjectileBehaviour>();
+            projInstance.GetComponent<Rigidbody>().AddForce((transform.forward * projScript.throwStrength) + (transform.up * projScript.arcSize), ForceMode.Impulse);
+
             attackDelay = 0;
         }
     }
