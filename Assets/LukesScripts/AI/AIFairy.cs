@@ -72,6 +72,11 @@ public class AIFairy : AI
 
     public override void Attack()
     {
+        var direction = PlayerStats.instance.transform.position - transform.position;
+        direction.y = 0;
+        var rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
+
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
