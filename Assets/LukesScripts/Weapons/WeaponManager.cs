@@ -58,7 +58,7 @@ public class WeaponManager : MonoBehaviour
                 }
                 else
                 {
-                    ammoText.text = "Ammo: " + value.currentAmmo + " / " + value.maxAmmo;
+                    ammoText.text = value.currentAmmo + " / " + value.maxAmmo;
                 }
             }
             else
@@ -122,7 +122,7 @@ public class WeaponManager : MonoBehaviour
                 currentWeapon.Shoot(delayed => {
                     if (!currentWeapon.functionality.infiniteAmmo)
                     {
-                        ammoText.text = "Ammo: " + currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
+                        ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
 
                         if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
                         {
@@ -229,7 +229,7 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log("Ammo is full!");
             }
 
-            ammoText.text = "Ammo: " + wep.currentAmmo + " / " + wep.maxAmmo;
+            ammoText.text = wep.currentAmmo + " / " + wep.maxAmmo;
         }
         else
         {

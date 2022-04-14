@@ -45,7 +45,7 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        healthText.text = "HP: " + currentHP + " / " + maxHP;
+        healthText.text = currentHP + " / " + maxHP;
         
         if (currentHP <= 0)
         {
