@@ -43,7 +43,7 @@ public class WeaponManager : MonoBehaviour
             
             if (value.weaponId != -1)
             {
-                weaponText.text = "Equipped Weapon: " + value.weaponName;
+                weaponText.text = value.weaponName;
             }
             else
             {
@@ -94,9 +94,10 @@ public class WeaponManager : MonoBehaviour
         {
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
-        currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles
+        currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
 
-        //currentlyHeldWeapons[1] = FindWeapon(2);
+        currentlyHeldWeapons[0] = FindWeapon(7);
+        currentlyHeldWeapons[1] = FindWeapon(4);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
