@@ -1,7 +1,9 @@
+using Bolt;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using EventHooks = LukesScripts.Blueprints.EventHooks;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -203,6 +205,7 @@ public class WeaponManager : MonoBehaviour
             slotHolder.image.sprite = currentlyHeldWeapons[index].icon;
 
             wep.SetAmmo(weapon.currentAmmo);
+            CustomEvent.Trigger(gameObject, EventHooks.OnWeaponGrabbed);
 
             Destroy(weapon.gameObject);
             pickupText.text = string.Empty;
@@ -217,6 +220,7 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log("Adding ammo!");
                 int remaining = wep.AddAmmo(weapon.currentAmmo);
                 Debug.Log("Added -> " + weapon.currentAmmo + " has " + remaining + " left");
+                CustomEvent.Trigger(gameObject, EventHooks.OnAmmoReplenished, remaining, weapon.IsEmpty);
                 weapon.SetAmmo(remaining);
 
                 if (weapon.IsEmpty)
@@ -224,6 +228,7 @@ public class WeaponManager : MonoBehaviour
             } else
             {
                 Debug.Log("Ammo is full!");
+                CustomEvent.Trigger(gameObject, EventHooks.OnAmmoFull);
             }
 
             ammoText.text = wep.currentAmmo + " / " + wep.maxAmmo;
@@ -231,6 +236,7 @@ public class WeaponManager : MonoBehaviour
         else
         {
             Debug.LogError("Inventory is full!");
+            CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
         }
     }
 
@@ -257,6 +263,7 @@ public class WeaponManager : MonoBehaviour
         drop.GetComponent<WeaponProperties>().functionality.isInPlayerInventory = false;
         drop.transform.GetChild(0).gameObject.SetActive(true);
         drop.SetActive(true);
+        CustomEvent.Trigger(gameObject, EventHooks.OnWeaponDropped);
     }
 
     public WeaponProperties FindWeapon(int weaponId)
