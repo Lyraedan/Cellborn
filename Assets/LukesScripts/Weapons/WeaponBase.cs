@@ -55,6 +55,7 @@ public abstract class WeaponBase : MonoBehaviour
         {
             Fire();
             CustomEvent.Trigger(gameObject, LukesScripts.Blueprints.EventHooks.Fire, secondsBetweenShots,
+                                                                                     WeaponManager.instance.firepoint.transform.position,
                                                                                      yRot,
                                                                                      angle,
                                                                                      infiniteAmmo,

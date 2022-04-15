@@ -18,11 +18,12 @@ namespace LukesScripts.Blueprints
 
         // Weapons
         /// <summary>
-        /// 5 Parameters: 0 = Seconds between shots  - float
-        ///               1 = y rotation             - float
-        ///               2 = angle                  - float
-        ///               3 = uses infinite ammo     - bool
-        ///               4 = is in player inventory - bool
+        /// 6 Parameters: 0 = Seconds between shots  - float
+        ///               1 = Projectile spawn point - Vector3
+        ///               2 = y rotation             - float
+        ///               3 = angle                  - float
+        ///               4 = uses infinite ammo     - bool
+        ///               5 = is in player inventory - bool
         /// </summary>
         public static string Fire = "Fire";
 
