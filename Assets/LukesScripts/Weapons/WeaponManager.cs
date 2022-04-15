@@ -96,7 +96,8 @@ public class WeaponManager : MonoBehaviour
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
 
-        //currentlyHeldWeapons[0] = FindWeapon(7);
+        currentlyHeldWeapons[0] = FindWeapon(5);
+        currentlyHeldWeapons[1] = FindWeapon(5);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
@@ -261,7 +262,7 @@ public class WeaponManager : MonoBehaviour
         drop.SetActive(true);
     }
 
-    WeaponProperties FindWeapon(int weaponId)
+    public WeaponProperties FindWeapon(int weaponId)
     {
         WeaponProperties result = null;
         foreach (GameObject property in possibleWeapons)

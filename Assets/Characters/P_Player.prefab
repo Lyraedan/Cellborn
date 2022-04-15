@@ -376,7 +376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4112267010366010659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668213880628202316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6e-15}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6880401140713355947}
@@ -584,8 +584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -650.83997, y: 463.30414}
-  m_SizeDelta: {x: 537.34, y: 15.6518}
+  m_AnchoredPosition: {x: -651.4947, y: 463.30414}
+  m_SizeDelta: {x: 536.0306, y: 15.6518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5212873085911408261
 MonoBehaviour:
@@ -819,6 +819,7 @@ MonoBehaviour:
   warmup: 1
   cooldown: 1
   isFiring: 0
+  empty: {fileID: 8022353528780596034, guid: a9c25eb74e2295544b440561672b24ae, type: 3}
 --- !u!1 &2897831867456876281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,8 +1674,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294919585
-  m_fontColor: {r: 0.63107735, g: 0.2688679, b: 1, a: 1}
+    rgba: 4286709824
+  m_fontColor: {r: 0.2519781, g: 0, b: 0.509434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4179,6 +4180,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815799736739407579, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815799736739407579, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: CollisionModule.type
       value: 1
       objectReference: {fileID: 0}
@@ -4196,22 +4201,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737061346849, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: NaN
+      value: 1.7835354e-28
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737061346849, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: NaN
+      value: 9.65e-43
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737061346849, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: NaN
+      value: 1.61e-43
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737061346849, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737061346862, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815799737599194185, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
+      propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737599194185, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
@@ -4256,6 +4265,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737725804827, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815799737725804828, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815799737815670595, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
+      propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815799737815670595, guid: dbe4bfcc5d31d234682e5b416e7b5065, type: 3}
@@ -4331,3 +4348,4 @@ MonoBehaviour:
   warmup: 1
   cooldown: 1
   isFiring: 0
+  empty: {fileID: 8022353528780596034, guid: a9c25eb74e2295544b440561672b24ae, type: 3}

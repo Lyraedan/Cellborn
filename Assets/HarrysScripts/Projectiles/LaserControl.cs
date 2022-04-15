@@ -13,6 +13,8 @@ public class LaserControl : MonoBehaviour
     float warmupTimer, cooldownTimer;
     bool hasWarmedUp, hasCooledDown;
 
+    public WeaponProperties empty;
+
     void Start()
     {
         laserParticles.Stop();
@@ -41,7 +43,7 @@ public class LaserControl : MonoBehaviour
                 
                 if (WeaponManager.instance.currentWeapon.currentAmmo <= 1)
                 {
-                    laserParticles.Stop();
+                    EmptyLaser();                   
                 }
 
                 if (warmupTimer >= warmup && !hasWarmedUp)
@@ -82,5 +84,21 @@ public class LaserControl : MonoBehaviour
                 warmupTimer = 0f;
             }
         }
+    }
+
+    void EmptyLaser()
+    {
+        laserParticles.Stop();
+
+        var manInst = WeaponManager.instance;
+        var currentSlot = manInst.uiSlots[manInst.currentlySelectedIndex].GetComponent<SlotHolder>();
+
+        manInst.currentWeapon.SetAmmo(0);
+        currentSlot.image.sprite = empty.icon;
+        manInst.currentlyHeldWeapons[manInst.currentlySelectedIndex] = empty;
+        isFiring = false;
+        hasWarmedUp = false;
+        warmupTimer = 0;
+        hasCooledDown = true; 
     }
 }
