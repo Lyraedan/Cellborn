@@ -1,9 +1,11 @@
+using Bolt;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using EventHooks = LukesScripts.Blueprints.EventHooks;
 
 namespace LukesScripts.AI
 {
@@ -75,6 +77,7 @@ namespace LukesScripts.AI
         {
             Minimap.instance.AddEntity(this);
             Init();
+            CustomEvent.Trigger(gameObject, EventHooks.Init);
         }
 
         private void OnDestroy()
@@ -96,6 +99,7 @@ namespace LukesScripts.AI
                 lastCell = currentCell;
 
             Tick();
+            CustomEvent.Trigger(gameObject, EventHooks.Tick);
             OnMinimapUpdated?.Invoke(this, currentCell, lastCell);
             lastCell = currentCell;
         }
@@ -114,6 +118,12 @@ namespace LukesScripts.AI
         /// What happens when this AI attacks?
         /// </summary>
         public abstract void Attack();
+
+        public void DoAttack()
+        {
+            Attack();
+            CustomEvent.Trigger(gameObject, EventHooks.Attack);
+        }
 
         public abstract void OnHit();
 
@@ -135,12 +145,14 @@ namespace LukesScripts.AI
                 }
             }
             OnDeath();
+            CustomEvent.Trigger(gameObject, EventHooks.OnDeath);
         }
 
         public void Hit()
         {
             isHit = true;
             OnHit();
+            CustomEvent.Trigger(gameObject, EventHooks.OnHit);
             isHit = false;
         }
 
@@ -211,6 +223,7 @@ namespace LukesScripts.AI
                 }
             }
             DrawGizmos();
+            CustomEvent.Trigger(gameObject, EventHooks.DrawGizmos);
         }
 #endif
     }

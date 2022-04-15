@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LukesScripts.Blueprints;
 using Bolt;
+using EventHooks = LukesScripts.Blueprints.EventHooks;
 
 public abstract class WeaponBase : MonoBehaviour
 {
@@ -12,8 +14,10 @@ public abstract class WeaponBase : MonoBehaviour
 
     // Shooting
     public float angle = 0;
-    public float yRot {
-        get {
+    public float yRot
+    {
+        get
+        {
             return (WeaponManager.instance.player.transform.eulerAngles.y - (angle / 2));
         }
     }
@@ -26,6 +30,7 @@ public abstract class WeaponBase : MonoBehaviour
     void Start()
     {
         Init();
+        CustomEvent.Trigger(gameObject, EventHooks.Init);
         timer = secondsBetweenShots;
     }
 
@@ -41,6 +46,7 @@ public abstract class WeaponBase : MonoBehaviour
         }
         canFire = timer > secondsBetweenShots;
         Tick();
+        CustomEvent.Trigger(gameObject, EventHooks.Tick);
     }
 
     public void Shoot(System.Action<bool> afterShot)
@@ -48,10 +54,16 @@ public abstract class WeaponBase : MonoBehaviour
         if (canFire)
         {
             Fire();
+            CustomEvent.Trigger(gameObject, LukesScripts.Blueprints.EventHooks.Fire, secondsBetweenShots,
+                                                                                     yRot,
+                                                                                     angle,
+                                                                                     infiniteAmmo,
+                                                                                     isInPlayerInventory);
             timer = 0;
             canFire = false;
             afterShot?.Invoke(true);
-        } else
+        }
+        else
         {
             //Debug.LogError("Halt in the name of the firing law!");
             afterShot?.Invoke(false);

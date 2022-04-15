@@ -19,7 +19,7 @@ namespace LukesScripts.AI.Actions
 
         public override TaskStatus OnUpdate()
         {
-            ai.Attack();
+            ai.DoAttack();
             return TaskStatus.Success;
         }
 

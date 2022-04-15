@@ -121,7 +121,7 @@ public class AIWizard : AI
             wait = false;
             if (attackDelay >= secondsBetweenAttacks)
             {
-                Attack();
+                DoAttack();
                 attackDelay = 0;
             }
         }
