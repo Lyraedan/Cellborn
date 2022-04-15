@@ -41,7 +41,8 @@ public class RoomGenerator : MonoBehaviour
     [HideInInspector] public const int UP_RIGHT = 5;
     [HideInInspector] public const int DOWN_LEFT = 6;
     [HideInInspector] public const int DOWN_RIGHT = 7;
-    [HideInInspector] public int spawnrate = 20;
+
+    public int entitySpawnRate = 20;
 
     public NavMeshSurface[] navmesh;
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
@@ -286,7 +287,7 @@ public class RoomGenerator : MonoBehaviour
                 {
                     if (!cell.hasProp)
                     {
-                        bool spawnEntity = (Random.Range(0, spawnrate) == 0);
+                        bool spawnEntity = (Random.Range(0, entitySpawnRate) == 0);
                         grid.grid[x, 0, z].hasEntity = spawnEntity;
                     }
                 }
