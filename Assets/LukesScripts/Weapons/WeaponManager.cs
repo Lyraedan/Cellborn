@@ -96,7 +96,7 @@ public class WeaponManager : MonoBehaviour
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
 
-        //currentlyHeldWeapons[0] = FindWeapon(7);
+        currentlyHeldWeapons[0] = FindWeapon(9);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
