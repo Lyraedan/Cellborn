@@ -47,6 +47,14 @@ public class AITest : AI
 
     }
 
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.CompareTag("Player"))
+        {
+            Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
+        }
+    }
+
     public override void DrawGizmos()
     {
 
