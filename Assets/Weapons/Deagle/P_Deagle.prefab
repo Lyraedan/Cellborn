@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3413248498116166570}
   - component: {fileID: 2090894442304447530}
   m_Layer: 0
-  m_Name: p_dagle
+  m_Name: P_Deagle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a364c1f6c3b6a4685ad200250de35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Queen's Gambit
+  weaponName: Deagle
   weaponId: 11
-  currentAmmo: 40
-  maxAmmo: 40
+  currentAmmo: 30
+  maxAmmo: 30
   icon: {fileID: 21300000, guid: 6a740af3930fafd4f898f319f7ef2b6b, type: 3}
   functionality: {fileID: 3131782987125949088}
 --- !u!65 &7136137440427551540
@@ -79,7 +79,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482680456321717923}
   serializedVersion: 2
-  m_Mass: 7
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -157,9 +157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infiniteAmmo: 0
   isInPlayerInventory: 0
-  projectile: {fileID: 0}
+  projectile: {fileID: 6030195043824729857, guid: 449fee15e0d7b774da7c471e4f737471, type: 3}
   angle: 0
-  secondsBetweenShots: 0.5
+  secondsBetweenShots: 0.38
 --- !u!114 &3413248498116166570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,10 +242,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6053830295986193277, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: -5215299815803115452, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: -4748651680908373925, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: -2820481953951466765, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: 236216658851537685, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
     - target: {fileID: 919132149155446097, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
       propertyPath: m_Name
       value: SM_Deagle
       objectReference: {fileID: 0}
+    - target: {fileID: 3090425660323890121, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: 4049309899678812091, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: 4349968602919880093, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
+    - target: {fileID: 5232627393660835655, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc61a8221080a7447b50852189382e56, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56b65cfc6af3582439e6779d0fe4f104, type: 3}
 --- !u!4 &4583329816983041199 stripped
