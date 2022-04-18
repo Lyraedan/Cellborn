@@ -6,7 +6,21 @@ public class WeaponProperties : MonoBehaviour
 {
     public string weaponName = "Untitled weapon";
     public int weaponId = 0;
-    public int currentAmmo = 30;
+    [SerializeField] private int _currentAmmo = 30;
+    public int currentAmmo {
+        get {
+            return _currentAmmo;
+        }
+        set
+        {
+            if (_currentAmmo != value)
+            {
+                UIController.instance.ammoBar.maxValue = maxAmmo;
+                UIController.instance.ammoBar.value = currentAmmo;
+                _currentAmmo = value;
+            }
+        }
+    }
     public int maxAmmo = 30;
     public Sprite icon;
 
@@ -101,6 +115,7 @@ public class WeaponProperties : MonoBehaviour
             added = maxAmmo;
         }
         currentAmmo = added;
+        UIController.instance.ammoBar.value = added;
         return remainder;
     }
 
@@ -111,6 +126,7 @@ public class WeaponProperties : MonoBehaviour
             removed = 0;
         }
         currentAmmo = removed;
+        UIController.instance.ammoBar.value = removed;
     }
 
     public void SetAmmo(int amt)
@@ -124,6 +140,7 @@ public class WeaponProperties : MonoBehaviour
             newAmmo = 0;
         }
         currentAmmo = newAmmo;
+        UIController.instance.ammoBar.value = newAmmo;
     }
 
 }

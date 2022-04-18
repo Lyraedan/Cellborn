@@ -63,6 +63,8 @@ public class WeaponManager : MonoBehaviour
                 {
                     ammoText.text = value.currentAmmo + " / " + value.maxAmmo;
                     UIController.instance.ammoContainer.SetActive(value.currentAmmo > 0);
+                    UIController.instance.ammoBar.maxValue = value.maxAmmo;
+                    UIController.instance.ammoBar.value = value.currentAmmo;
                 }
             }
             else
@@ -100,6 +102,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
+        currentlyHeldWeapons[0] = FindWeapon(8);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {

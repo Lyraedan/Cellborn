@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6680428601153927778}
   - component: {fileID: 2885811274220603714}
   m_Layer: 0
-  m_Name: P_automaticshotgun
+  m_Name: P_AutomaticShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Queen's Gambit
   weaponId: 8
-  currentAmmo: 40
+  _currentAmmo: 40
   maxAmmo: 40
   icon: {fileID: 21300000, guid: 0a4bfa8707b53fb419c6bedf19ede9fd, type: 3}
   functionality: {fileID: 6512820818325292080}
