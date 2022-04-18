@@ -223,7 +223,9 @@ MonoBehaviour:
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
   showPath: 0
   rotationDampening: 8
-  possibleDrops: []
+  skinnedMeshRenderer: {fileID: 9194495817569807407}
+  defaultMaterial: {fileID: 2100000, guid: e1f47b59bc4be834ca74969a04c8cacc, type: 2}
+  damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   isHit: 0
   playerStats: {fileID: 0}
   acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
