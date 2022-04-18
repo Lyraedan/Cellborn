@@ -8,16 +8,6 @@ namespace LukesScripts.AI.Actions
 {
     public class PlayerInRange : Conditional
     {
-        public enum Operation
-        {
-            LessThan,
-            LessThanOrEqualTo,
-            EqualTo,
-            NotEqualTo,
-            GreaterThanOrEqualTo,
-            GreaterThan
-        }
-
         public Operation operation = Operation.GreaterThanOrEqualTo;
 
         public float threashold = 5f;

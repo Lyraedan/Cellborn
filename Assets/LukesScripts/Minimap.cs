@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class Minimap : MonoBehaviour
 {
-
     public static Minimap instance;
 
     private void Awake()
@@ -18,6 +17,7 @@ public class Minimap : MonoBehaviour
         else
             Destroy(this);
     }
+
     public MinimapBlip[] blips = new MinimapBlip[4] {
         new MinimapBlip(GridCell.GridFlag.WALKABLE, Color.clear),
         new MinimapBlip(GridCell.GridFlag.OCCUPIED, Color.gray),
@@ -35,8 +35,10 @@ public class Minimap : MonoBehaviour
 
     private bool generated = false;
 
-    [SerializeField] private Image canvas;
+    [HideInInspector] public Image canvas;
     private Texture2D texture;
+
+    public Action OnMapGenerated;
 
     private void Update()
     {
@@ -138,6 +140,7 @@ public class Minimap : MonoBehaviour
         canvas.rectTransform.anchorMin = new Vector2(1, 1);
         canvas.rectTransform.anchorMax = new Vector2(1, 1);
         canvas.rectTransform.anchoredPosition = new Vector2((-mapWidth / 2) - 10, (-mapHeight / 2) - 10);
+        OnMapGenerated?.Invoke();
         generated = true;
     }
 

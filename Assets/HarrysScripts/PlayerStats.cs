@@ -10,7 +10,19 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats instance;
 
     public int maxHP;
-    public int currentHP;
+    private int _currentHP;
+    public int currentHP { get
+        {
+            return _currentHP;
+        }
+        set {
+            if(currentHP != value)
+            {
+                UIController.instance.healthBar.value = value;
+                _currentHP = value;
+            }
+        }
+    }
     public TextMeshProUGUI win;
 
     #region Player Components
@@ -49,6 +61,8 @@ public class PlayerStats : MonoBehaviour
     {
         currentHP = maxHP;
         damageRed.CrossFadeAlpha(0, 0f, false);
+        UIController.instance.healthBar.maxValue = maxHP;
+
     }
 
     void Update()
