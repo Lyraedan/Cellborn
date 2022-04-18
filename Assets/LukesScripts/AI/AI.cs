@@ -19,6 +19,9 @@ namespace LukesScripts.AI
         protected GridCell currentCell, lastCell;
         [SerializeField] protected bool showPath = false;
         [SerializeField] protected float rotationDampening = 8f;
+        public SkinnedMeshRenderer skinnedMeshRenderer;
+        public Material defaultMaterial;
+        public Material damagedMaterial;
 
         protected Vector3 OurPosition
         {
@@ -150,6 +153,14 @@ namespace LukesScripts.AI
             OnHit();
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
             isHit = false;
+            StartCoroutine(DamageIndicator());
+        }
+
+        IEnumerator DamageIndicator()
+        {
+            skinnedMeshRenderer.material = damagedMaterial;
+            yield return new WaitForSeconds(0.1f);
+            skinnedMeshRenderer.material = defaultMaterial;
         }
 
         public bool MoveTo(Vector3 position)
