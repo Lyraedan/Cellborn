@@ -46,7 +46,6 @@ namespace LukesScripts.AI
         }
 
         public Action<AI, GridCell, GridCell> OnMinimapUpdated;
-        public List<GameObject> possibleDrops = new List<GameObject>();
         public bool isHit = false;
 
         protected bool IsOnNavmesh
@@ -133,16 +132,13 @@ namespace LukesScripts.AI
 
         public void Die()
         {
-            if (possibleDrops.Count > 0)
+            int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
+            var position = transform.position;
+            GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
+            WeaponBag.instance.weaponBag.RemoveAt(selected);
+            if (WeaponBag.instance.weaponBag.Count == 0)
             {
-                int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
-                var position = transform.position;
-                GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
-                WeaponBag.instance.weaponBag.RemoveAt(selected);
-                if (WeaponBag.instance.weaponBag.Count == 0)
-                {
-                    WeaponBag.instance.RefillBag();
-                }
+                WeaponBag.instance.RefillBag();
             }
             OnDeath();
             CustomEvent.Trigger(gameObject, EventHooks.OnDeath);
