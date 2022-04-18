@@ -28,6 +28,13 @@ public class PlayerStats : MonoBehaviour
 
     #endregion
 
+    #region UI
+
+    public Image damageRed;
+    public float indicFadeTime;
+
+    #endregion
+
     public bool isDead;
 
     void Awake()
@@ -81,6 +88,8 @@ public class PlayerStats : MonoBehaviour
             WeaponManager.instance.toPickup = null;
             WeaponManager.instance.pickupText.text = string.Empty;
         }
+
+        damageRed.CrossFadeAlpha(0f, indicFadeTime, false);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -95,7 +104,7 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
-                currentHP -= collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage;
+                DamagePlayer(collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage);
             }
         }
     }
@@ -103,7 +112,11 @@ public class PlayerStats : MonoBehaviour
     //Casual Matilde Function
     public void DamagePlayer(int damage)
     {
-        currentHP -= damage;
+        if (!isDead)
+        {
+            damageRed.CrossFadeAlpha(1, 0f, false);
+            currentHP -= damage;
+        }
     }
 
     public void KillPlayer()

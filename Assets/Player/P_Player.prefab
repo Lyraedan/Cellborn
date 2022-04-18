@@ -134,6 +134,8 @@ MonoBehaviour:
   playerCollider: {fileID: 55881995776343738}
   weaponsInScene: []
   laserControl: {fileID: 8450604390101531240}
+  damageRed: {fileID: 7964829696965962490}
+  indicFadeTime: 0.5
   isDead: 0
 --- !u!114 &2975566263661802115
 MonoBehaviour:
@@ -485,7 +487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4397165933931993155
 RectTransform:
   m_ObjectHideFlags: 0
