@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using LukesScripts.AI;
 using UnityEngine;
 
@@ -57,6 +58,30 @@ public class AITest : AI
 
     public override void DrawGizmos()
     {
+        if(Application.isPlaying)
+        {
+            var nearest = GetNearestMuffin();
+            if(nearest != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(transform.position, nearest.transform.position);
+                UnityEditor.Handles.Label(transform.position + (nearest.transform.position / 2), $"{Vector3.Distance(transform.position, nearest.transform.position)}");
+            }
+        }
+    }
 
+    public GameObject GetNearestMuffin()
+    {
+        var muffins = GameObject.FindObjectsOfType<Muffin>().ToList();
+        if (muffins.Count > 0)
+        {
+            muffins.Sort((a, b) =>
+            {
+                return a.DistanceFrom(transform.position).CompareTo(b.DistanceFrom(transform.position));
+            });
+            return muffins[0].gameObject;
+        }
+        else
+            return null;
     }
 }

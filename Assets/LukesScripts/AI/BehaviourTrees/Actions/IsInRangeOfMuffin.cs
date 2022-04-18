@@ -17,6 +17,7 @@ namespace LukesScripts.AI
             if(nearest != null)
             {
                 float distance = Vector3.Distance(nearest.transform.position, transform.position);
+                Debug.Log("Distance to nearest muffin: " + Mathf.RoundToInt(distance));
                 switch (operation)
                 {
                     case Operation.LessThan:
@@ -43,7 +44,7 @@ namespace LukesScripts.AI
             {
                 muffins.Sort((a, b) =>
                 {
-                    return (int)Vector3.Distance(a.transform.position, transform.position);
+                    return a.DistanceFrom(transform.position).CompareTo(b.DistanceFrom(transform.position));
                 });
                 return muffins[0].gameObject;
             }

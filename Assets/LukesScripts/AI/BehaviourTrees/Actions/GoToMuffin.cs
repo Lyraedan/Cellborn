@@ -128,7 +128,7 @@ namespace LukesScripts.AI.Actions
             {
                 muffins.Sort((a, b) =>
                 {
-                    return (int)Vector3.Distance(a.transform.position, transform.position);
+                    return a.DistanceFrom(transform.position).CompareTo(b.DistanceFrom(transform.position));
                 });
                 return muffins[0].gameObject;
             }
