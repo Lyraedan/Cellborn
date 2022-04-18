@@ -2,6 +2,7 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,7 @@ namespace LukesScripts.AI.Actions
     public class FollowPlayer : Action
     {
         public SharedFloat speed = 3f;
+        public float muffinThreashold = 20f;
 
         protected NavMeshAgent agent;
         private AI ai;
@@ -51,6 +53,17 @@ namespace LukesScripts.AI.Actions
             {
                 Stop();
                 return TaskStatus.Success;
+            }
+
+            var nearestMuffin = GetNearestMuffin();
+            if(nearestMuffin != null)
+            {
+                float distance = Vector3.Distance(transform.position, nearestMuffin.transform.position);
+                if(distance <= muffinThreashold)
+                {
+                    Stop();
+                    return TaskStatus.Failure;
+                }
             }
 
             ai.LookAt(WeaponManager.instance.player.transform.position);
@@ -105,6 +118,21 @@ namespace LukesScripts.AI.Actions
                 agent.isStopped = true;
 #endif
             }
+        }
+
+        public GameObject GetNearestMuffin()
+        {
+            var muffins = GameObject.FindObjectsOfType<Muffin>().ToList();
+            if (muffins.Count > 0)
+            {
+                muffins.Sort((a, b) =>
+                {
+                    return a.DistanceFrom(transform.position).CompareTo(b.DistanceFrom(transform.position));
+                });
+                return muffins[0].gameObject;
+            }
+            else
+                return null;
         }
     }
 }
