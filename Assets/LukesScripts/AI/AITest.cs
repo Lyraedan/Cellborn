@@ -56,9 +56,11 @@ public class AITest : AI
         }
     }
 
+
     public override void DrawGizmos()
     {
-        if(Application.isPlaying)
+#if UNITY_EDITOR
+        if (Application.isPlaying)
         {
             var nearest = GetNearestMuffin();
             if(nearest != null)
@@ -68,7 +70,9 @@ public class AITest : AI
                 UnityEditor.Handles.Label(transform.position + (nearest.transform.position / 2), $"{Vector3.Distance(transform.position, nearest.transform.position)}");
             }
         }
+#endif
     }
+
 
     public GameObject GetNearestMuffin()
     {
