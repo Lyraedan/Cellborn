@@ -48,6 +48,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        damageRed.CrossFadeAlpha(0, 0f, false);
     }
 
     void Update()
