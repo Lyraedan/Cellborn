@@ -15,6 +15,7 @@ namespace LukesScripts.AI.Actions
 
         protected NavMeshAgent agent;
         private AI ai;
+        public float playerThreashold;
 
         public override void OnStart()
         {
@@ -64,6 +65,13 @@ namespace LukesScripts.AI.Actions
                     Stop();
                     return TaskStatus.Failure;
                 }
+            }
+
+            float playerDistance = Vector3.Distance(transform.position, WeaponManager.instance.player.transform.position);
+            if (playerDistance <= playerThreashold)
+            {
+                Stop();
+                return TaskStatus.Failure;
             }
 
             ai.LookAt(WeaponManager.instance.player.transform.position);
