@@ -79,7 +79,7 @@ public class PlayerStats : MonoBehaviour
             }
         }
 
-        if (currentHP >= 10)
+        if (currentHP >= maxHP)
         {
             currentHP = maxHP;
         }
