@@ -285,6 +285,10 @@ MonoBehaviour:
   collider: {fileID: 4577669301704560248}
   meshRenderers:
   - {fileID: 2996809931346297048}
+  lights:
+    sources: []
+  particles:
+    emitters: []
 --- !u!208 &4727809546798690811
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -295,7 +299,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.075, y: 0.115, z: 0.075}
+  m_Extents: {x: 0.2, y: 0.2, z: 0.2}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
