@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject deathSmoke;
     private GameObject lastCollision;
     public AI functionality;
+    public string colour;
 
     void Update()
     {
