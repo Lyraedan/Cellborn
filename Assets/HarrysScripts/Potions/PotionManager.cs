@@ -47,6 +47,9 @@ public class PotionManager : MonoBehaviour
         {
             currentlyHeldPotions[i] = emptyPotion;
         }
+
+        //currentlyHeldPotions[0] = FindPotion(4);
+        //urrentlyHeldPotions[1] = FindPotion(4);
     }
 
     void Update()

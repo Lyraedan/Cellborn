@@ -25,6 +25,10 @@ public class PlayerStats : MonoBehaviour
     }
     public TextMeshProUGUI win;
 
+    [HideInInspector] public int defenseMultiplier = 1;
+    [HideInInspector] public float defenseTime;
+    float defenseTimer;
+
     #region Player Components
     
     public TextMeshProUGUI healthText;
@@ -105,6 +109,18 @@ public class PlayerStats : MonoBehaviour
         }
 
         damageRed.CrossFadeAlpha(0f, indicFadeTime, false);
+
+        if (defenseMultiplier != 1)
+        {
+            defenseTimer += 1f * Time.deltaTime;
+
+            if (defenseTimer >= defenseTime)
+            {
+                defenseTime = 0f;
+                defenseTimer = 0f;
+                defenseMultiplier = 1;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -130,7 +146,7 @@ public class PlayerStats : MonoBehaviour
         if (!isDead)
         {
             damageRed.CrossFadeAlpha(1, 0f, false);
-            currentHP -= damage;
+            currentHP -= damage / defenseMultiplier;
         }
     }
 

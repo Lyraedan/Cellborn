@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class Potion_Health : PotionBase
+public class Potion_Defence : PotionBase
 {
     [Header("Potion Settings")]
-    public int healthRefill;
+    public int defenseMultiplier;
+    public float defenseTime;
     
     public override void Init()
     {
@@ -17,6 +19,7 @@ public class Potion_Health : PotionBase
 
     public override void Use()
     {
-        PlayerStats.instance.currentHP += healthRefill;
+        PlayerStats.instance.defenseMultiplier = defenseMultiplier;
+        PlayerStats.instance.defenseTime = defenseTime;
     }
 }
