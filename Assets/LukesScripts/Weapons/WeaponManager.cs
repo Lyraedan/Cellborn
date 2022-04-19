@@ -215,6 +215,10 @@ public class WeaponManager : MonoBehaviour
 
             Destroy(weapon.gameObject);
             pickupText.text = string.Empty;
+
+            // Update current weapon
+            if(index == currentlySelectedIndex)
+                currentWeapon = wep;
         }
         else if (hasWeapon)
         {
@@ -241,8 +245,14 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Inventory is full!");
-            CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
+            // Swap weapon
+            if (currentWeapon.weaponId != 0)
+            {
+                Drop(currentWeapon);
+                Pickup(weapon);
+                Debug.LogError("Inventory is full!");
+                CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
+            }
         }
     }
 
