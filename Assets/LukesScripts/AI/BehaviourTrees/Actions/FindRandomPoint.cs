@@ -12,6 +12,7 @@ namespace LukesScripts.AI.Actions
         public SharedFloat radius = 3f;
         public SharedFloat speed = 3f;
         public SharedFloat arriveDistance = 1f;
+        public float playerThreashold;
 
         protected NavMeshAgent agent;
 
@@ -50,6 +51,13 @@ namespace LukesScripts.AI.Actions
             {
                 agent.isStopped = true;
                 return TaskStatus.Success;
+            }
+
+            float distance = Vector3.Distance(transform.position, WeaponManager.instance.player.transform.position);
+            if (distance <= playerThreashold)
+            {
+                Stop();
+                return TaskStatus.Failure;
             }
 
             return TaskStatus.Running;
