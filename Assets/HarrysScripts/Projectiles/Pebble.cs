@@ -10,6 +10,8 @@ public class Pebble : ProjectileBehaviour
     //[HideInInspector]
     public bool canDamage = true;
 
+    public GameObject destroyEffect;
+
     void Update()
     {
         currentY = gameObject.transform.position.y;
@@ -47,6 +49,8 @@ public class Pebble : ProjectileBehaviour
 
         if (t >= lifetime)
         {
+            GameObject destEff = Instantiate(destroyEffect, transform.position, transform.rotation);
+            destEff.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             Destroy(gameObject);
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public float maxHP, currentHP, projectileDamage;
-    public GameObject deathSmoke;
+    public GameObject deathSmoke, hitEffect;
     private GameObject lastCollision;
     public AI functionality;
     public string colour;
@@ -45,6 +45,7 @@ public class EnemyScript : MonoBehaviour
                 functionality.Hit();
             }
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
+            Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
         }
 
@@ -56,6 +57,7 @@ public class EnemyScript : MonoBehaviour
                 Debug.Log("Hit by: " + collObj.tag);
                 functionality.Hit();
             }
+            Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
         }
     }
