@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class PotionBase : MonoBehaviour
 {
+    public bool isInPlayerInventory = false;
+    
     void Start()
     {
         Init();
