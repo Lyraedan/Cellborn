@@ -36,11 +36,7 @@ public class Pebble : ProjectileBehaviour
             canDamage = false;
         }
 
-        if (canDamage)
-        {
-            enemyDamage = 1;
-        }
-        else
+        if (!canDamage)
         {
             enemyDamage = 0;
         }

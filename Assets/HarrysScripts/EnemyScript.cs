@@ -19,6 +19,7 @@ public class EnemyScript : MonoBehaviour
         }
         if(currentHP <= 0)
         {
+            AudioManager.instance.Play("EnemyDeath");
             Instantiate(deathSmoke, gameObject.transform.position, Quaternion.identity);
             if (lastCollision != null)
             {
@@ -44,6 +45,7 @@ public class EnemyScript : MonoBehaviour
                 Debug.Log("Hit by: " + collObj.tag);
                 functionality.Hit();
             }
+            AudioManager.instance.Play("EnemyHit");
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
@@ -58,6 +60,7 @@ public class EnemyScript : MonoBehaviour
                 functionality.Hit();
             }
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
+            AudioManager.instance.Play("EnemyHit");
             currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
         }
     }
