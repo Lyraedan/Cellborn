@@ -20,6 +20,11 @@ public class PlayerMovementTest : MonoBehaviour
     public Transform cam;
     public float speed;
 
+    [HideInInspector] public float potionSpeedMultiplier;
+    [HideInInspector] public bool isSpedUp;
+    [HideInInspector] public float speedUpTime;
+    float speedUpTimer;
+
     float horizontal, vertical;
 
     public float gravity;
@@ -37,6 +42,8 @@ public class PlayerMovementTest : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        potionSpeedMultiplier = 1f;
     }
 
     void Update()
@@ -59,9 +66,22 @@ public class PlayerMovementTest : MonoBehaviour
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
+        if (isSpedUp)
+        {
+            speedUpTimer += 1f * Time.deltaTime;
+
+            if (speedUpTimer >= speedUpTime)
+            {
+                potionSpeedMultiplier = 1f;
+                speedUpTime = 0f;
+                speedUpTimer = 0f;
+                isSpedUp = false;
+            }
+        }
+
         if (!disableMovement)
         {
-            movingDirection = heading * speed * Time.deltaTime;
+            movingDirection = heading * speed * potionSpeedMultiplier * Time.deltaTime;
             controller.Move(movingDirection);
         }
 

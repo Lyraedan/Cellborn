@@ -102,7 +102,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(3);
+        // currentlyHeldWeapons[0] = FindWeapon(12);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
@@ -216,6 +216,10 @@ public class WeaponManager : MonoBehaviour
 
             Destroy(weapon.gameObject);
             pickupText.text = string.Empty;
+
+            // Update current weapon
+            if(index == currentlySelectedIndex)
+                currentWeapon = wep;
         }
         else if (hasWeapon)
         {
@@ -242,8 +246,14 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Inventory is full!");
-            CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
+            // Swap weapon
+            if (currentWeapon.weaponId != 0)
+            {
+                Drop(currentWeapon);
+                Pickup(weapon);
+                Debug.LogError("Inventory is full!");
+                CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
+            }
         }
     }
 
