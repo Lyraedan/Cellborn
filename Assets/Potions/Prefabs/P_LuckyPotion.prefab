@@ -95,12 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001c3519673dc7445ba34c270e863287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInPlayerInventory: 0
   maxHPVariance: 50
   maxAmmoVariance: 50
-  maxSpeedVariance: 2
-  maxSpeedTimeVariance: 10
-  maxDefenseVariance: 10
-  maxDefenseTimeVariance: 10
+  maxSpeedVariance: 4
+  maxSpeedTimeVariance: 5
+  maxDefenseVariance: 0.1
+  maxDefenseTimeVariance: 6
 --- !u!114 &1069557220705607317
 MonoBehaviour:
   m_ObjectHideFlags: 0

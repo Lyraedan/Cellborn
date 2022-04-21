@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     }
     public TextMeshProUGUI win;
 
-    [HideInInspector] public int defenseMultiplier = 1;
+    [HideInInspector] public float defenseMultiplier = 1;
     [HideInInspector] public float defenseTime;
     float defenseTimer;
 
@@ -167,7 +167,7 @@ public class PlayerStats : MonoBehaviour
         if (!isDead)
         {
             damageRed.CrossFadeAlpha(1, 0f, false);
-            currentHP -= damage / defenseMultiplier;
+            currentHP -= (int)(damage * defenseMultiplier);
         }
     }
 

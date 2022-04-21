@@ -6,7 +6,7 @@ using TMPro;
 public class Potion_Defence : PotionBase
 {
     [Header("Potion Settings")]
-    public int defenseMultiplier;
+    public float defenseMultiplier;
     public float defenseTime;
     
     public override void Init()

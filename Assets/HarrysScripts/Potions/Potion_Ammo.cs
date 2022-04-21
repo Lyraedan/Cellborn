@@ -6,7 +6,7 @@ using TMPro;
 public class Potion_Ammo : PotionBase
 {
     [Header("Potion Settings")]
-    public int ammoRefill;
+    public float ammoRefill;
     
     public override void Init()
     {
@@ -20,7 +20,8 @@ public class Potion_Ammo : PotionBase
     {
         if (!WeaponManager.instance.currentWeapon.functionality.infiniteAmmo || WeaponManager.instance.currentWeapon.weaponId != 5)
         {
-            WeaponManager.instance.currentWeapon.AddAmmo(ammoRefill);
+            float maxAmmo = WeaponManager.instance.currentWeapon.maxAmmo;
+            WeaponManager.instance.currentWeapon.AddAmmo((int)(maxAmmo * ammoRefill));
             WeaponManager.instance.ammoText.text = WeaponManager.instance.currentWeapon.currentAmmo + " / " + WeaponManager.instance.currentWeapon.maxAmmo;
         }
     }

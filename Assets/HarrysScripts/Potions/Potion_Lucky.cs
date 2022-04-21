@@ -10,7 +10,7 @@ public class Potion_Lucky : PotionBase
     public int maxAmmoVariance;
     public float maxSpeedVariance;
     public float maxSpeedTimeVariance;
-    public int maxDefenseVariance;
+    public float maxDefenseVariance;
     public float maxDefenseTimeVariance;
 
     int effect;
@@ -18,8 +18,6 @@ public class Potion_Lucky : PotionBase
     int ammoMod;
     float speedMod;
     float speedTimeMod;
-    int defMod;
-    float defTimeMod;
     
     public override void Init()
     {
@@ -31,12 +29,12 @@ public class Potion_Lucky : PotionBase
 
     public override void Use()
     {
-        effect = Random.Range(0, 4);
+        effect = Random.Range(0, 3);
 
         switch (effect)
         {
             case 0:
-                healthMod = Random.Range(-maxHPVariance, maxHPVariance + 1);
+                healthMod = Random.Range(-maxHPVariance, maxHPVariance * 2);
 
                 if (healthMod >= 0)
                 {
@@ -50,13 +48,44 @@ public class Potion_Lucky : PotionBase
                 Debug.Log("Added " + healthMod + " HP");
                 break;
             case 1:
-                ammoMod = Random.Range(-maxAmmoVariance, maxAmmoVariance + 1);
+                ammoMod = Random.Range(-maxAmmoVariance, maxAmmoVariance * 2);
 
                 if (!WeaponManager.instance.currentWeapon.functionality.infiniteAmmo || WeaponManager.instance.currentWeapon.weaponId != 5)
                 {
                     WeaponManager.instance.currentWeapon.AddAmmo(ammoMod);
                     WeaponManager.instance.ammoText.text = WeaponManager.instance.currentWeapon.currentAmmo + " / " + WeaponManager.instance.currentWeapon.maxAmmo;
                     Debug.Log("Adding " + ammoMod + " Ammo");
+                }
+                else
+                {
+                    effect = Random.Range(0, 2);
+                    switch (effect)
+                    {
+                        case 0:
+                            healthMod = Random.Range(-maxHPVariance, maxHPVariance * 2);
+
+                            if (healthMod >= 0)
+                            {
+                                PlayerStats.instance.currentHP += healthMod;
+                            }
+                            else if (healthMod < 0)
+                            {
+                                PlayerStats.instance.DamagePlayer(-healthMod);
+                            }
+
+                            Debug.Log("Added " + healthMod + " HP");
+                            break;
+
+                        case 1:
+                            speedMod = Random.Range(1f, maxSpeedVariance);
+                            speedTimeMod = Random.Range(1f, maxSpeedTimeVariance);
+
+                            PlayerMovementTest.instance.potionSpeedMultiplier = maxSpeedVariance;
+                            PlayerMovementTest.instance.speedUpTime = maxSpeedTimeVariance;
+                            PlayerMovementTest.instance.isSpedUp = true;
+                            Debug.Log("Sped up by " + speedMod + "x for " + speedTimeMod + " seconds");
+                            break;
+                    }
                 }
                 break;
             case 2:
@@ -67,16 +96,6 @@ public class Potion_Lucky : PotionBase
                 PlayerMovementTest.instance.speedUpTime = maxSpeedTimeVariance;
                 PlayerMovementTest.instance.isSpedUp = true;
                 Debug.Log("Sped up by " + speedMod + "x for " + speedTimeMod + " seconds");
-                break;
-            case 3:
-                defMod = Random.Range(1, maxDefenseVariance + 1);
-                defTimeMod = Random.Range(1f, maxDefenseTimeVariance);
-
-                PlayerStats.instance.defenseMultiplier = defMod;
-                PlayerStats.instance.defenseTime = defTimeMod;
-
-                Debug.Log("Defense up by " + defMod + "x for " + defTimeMod + " seconds");
-
                 break;
         }
     }
