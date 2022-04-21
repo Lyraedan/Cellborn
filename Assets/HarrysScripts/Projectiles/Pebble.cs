@@ -34,14 +34,14 @@ public class Pebble : ProjectileBehaviour
             canDamage = false;
         }
 
-        if (canDamage)
+        /*if (canDamage)
         {
             enemyDamage = 1;
         }
         else
         {
             enemyDamage = 0;
-        }
+        }*/
 
         t += 1f * Time.deltaTime;
 
