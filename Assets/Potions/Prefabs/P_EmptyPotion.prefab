@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7014644175783748129}
   m_Layer: 0
   m_Name: P_EmptyPotion
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,5 @@ MonoBehaviour:
 
 '
   potionID: -1
-  maxUses: 0
-  currentUses: 0
   icon: {fileID: 21300000, guid: 197c13fcc1b96294087f062625013e17, type: 3}
   functionality: {fileID: 0}

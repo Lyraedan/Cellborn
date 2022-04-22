@@ -17,7 +17,6 @@ public class Potion_Health : PotionBase
 
     public override void Use()
     {
-        PlayerStats stats = FindObjectOfType<PlayerStats>();
-        stats.currentHP += healthRefill;
+        PlayerStats.instance.currentHP += healthRefill;
     }
 }

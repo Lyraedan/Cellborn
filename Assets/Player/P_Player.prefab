@@ -73,6 +73,9 @@ MonoBehaviour:
   controller: {fileID: 55881995776343719}
   cam: {fileID: 0}
   speed: 4
+  potionSpeedMultiplier: 0
+  isSpedUp: 0
+  speedUpTime: 0
   gravity: -9.81
   groundCheck: {fileID: 7064694837749625576}
   groundDistance: 0.2
@@ -113,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   win: {fileID: 17368941286825981}
+  defenseMultiplier: 0
+  defenseTime: 0
   healthText: {fileID: 406965791022919548}
   deathEffect: {fileID: 6853229434069390151, guid: 39ebc61876653784288743ac5d11c456, type: 3}
   meshRenderers:
@@ -206,10 +211,14 @@ MonoBehaviour:
   possiblePotions:
   - {fileID: 4489515831532256452, guid: 8729a6f5bf399e94d9d204b89b6caeec, type: 3}
   - {fileID: 4489515831532256452, guid: 131ccd10a102e5644af64916428f8dc7, type: 3}
+  - {fileID: 4489515831532256452, guid: 0347a30c0936abf49b9a4040125fb1e9, type: 3}
+  - {fileID: 4489515831532256452, guid: ff9d9dbebf17dd34080dac661eedf43b, type: 3}
+  - {fileID: 4489515831532256452, guid: b630544239f99a0448f50f440d13ae96, type: 3}
+  - {fileID: 4489515831532256452, guid: 8911fe49adbc84248a0a5aa178eaea28, type: 3}
   emptyPotion: {fileID: 7014644175783748129, guid: 131ccd10a102e5644af64916428f8dc7, type: 3}
   currentlyHeldPotions:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7014644175783748129, guid: 131ccd10a102e5644af64916428f8dc7, type: 3}
+  - {fileID: 7014644175783748129, guid: 131ccd10a102e5644af64916428f8dc7, type: 3}
   potionSlots:
   - {fileID: 2419945810652826073}
   - {fileID: 2896461549859819702}

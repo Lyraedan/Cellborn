@@ -13,7 +13,36 @@ public class PotionProperties : MonoBehaviour
 
     [Header("Set Functionality")]
     public PotionBase functionality;
+
+    public float DistanceFromPlayer
+    {
+        get
+        {
+            if (PotionManager.instance == null)
+                return Mathf.Infinity;
+
+            return Vector3.Distance(transform.position, PotionManager.instance.player.transform.position);
+        }
+    }
     
+    private void Start()
+    {
+        if (functionality != null)
+        {
+            if(!functionality.isInPlayerInventory)
+                PlayerStats.instance.potionsInScene.Add(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (functionality != null)
+        {
+            if (!functionality.isInPlayerInventory)
+                PlayerStats.instance.potionsInScene.Remove(this);
+        }
+    }
+
     public void Consume()
     {
         if(functionality == null)

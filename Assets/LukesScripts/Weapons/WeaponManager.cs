@@ -199,6 +199,7 @@ public class WeaponManager : MonoBehaviour
     {
         WeaponProperties found = FindWeapon(weapon.weaponId);
         bool hasWeapon = HasWeaponInInventory(weapon.weaponId);
+        found.colour = weapon.colour;
 
         if (!isInventoryFull && !hasWeapon)
         {
@@ -259,6 +260,7 @@ public class WeaponManager : MonoBehaviour
     public void Drop(WeaponProperties weapon)
     {
         WeaponProperties found = FindWeapon(weapon.weaponId);
+        found.colour = weapon.colour;
         bool hasWeapon = HasWeaponInInventory(weapon.weaponId);
         WeaponProperties empty = FindWeapon(-1);
 
