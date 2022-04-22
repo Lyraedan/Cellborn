@@ -3429,6 +3429,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8312521369559068552, guid: 9c3117d3eb1dbbe469ba625b04509eee, type: 3}
+      propertyPath: _data._json
+      value: '{"declarations":{"collection":{"$content":[{"name":"prefab number","value":{"$content":0,"$type":"System.Int32"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+      objectReference: {fileID: 0}
     - target: {fileID: 9158831559189998144, guid: 9c3117d3eb1dbbe469ba625b04509eee, type: 3}
       propertyPath: m_RootOrder
       value: 12
