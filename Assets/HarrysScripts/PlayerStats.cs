@@ -167,6 +167,7 @@ public class PlayerStats : MonoBehaviour
         if (!isDead)
         {
             damageRed.CrossFadeAlpha(1, 0f, false);
+            AudioManager.instance.Play("PlayerHurt");
             currentHP -= (int)(damage * defenseMultiplier);
         }
     }
