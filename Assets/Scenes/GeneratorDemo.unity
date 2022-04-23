@@ -351,14 +351,26 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: EnemyDeath
-    clip: {fileID: 8300000, guid: b6ab0217dd787594185bb434264cca92, type: 3}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: 933b414bc9acb4647a15946eba1aa655, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: PlayerHurt
-    clip: {fileID: 8300000, guid: 933b414bc9acb4647a15946eba1aa655, type: 3}
+  - name: SnakeDeath
+    clip: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SnakeAttack
+    clip: {fileID: 8300000, guid: 697c1a8722adc5641abbf2c6be809a8d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FairyDeath
+    clip: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
     volume: 1
     pitch: 1
     loop: 0

@@ -32,6 +32,7 @@ public class AITest : AI
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
+            //AudioManager.instance.Play("SnakeAttack");
             Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
 
             attackDelay = 0;
@@ -45,7 +46,7 @@ public class AITest : AI
 
     public override void OnDeath()
     {
-
+        AudioManager.instance.Play("SnakeDeath");
     }
 
     void OnCollisionEnter(Collision other)
