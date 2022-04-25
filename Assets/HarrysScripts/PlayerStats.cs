@@ -178,7 +178,8 @@ public class PlayerStats : MonoBehaviour
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].enabled = false;
+            if(meshRenderers[i] != null)
+                meshRenderers[i].enabled = false;
         }
         moveScript.enabled = false;
         playerCollider.enabled = false;

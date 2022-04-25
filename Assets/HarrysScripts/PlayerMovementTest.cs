@@ -6,6 +6,19 @@ public class PlayerMovementTest : MonoBehaviour
 {
     public static PlayerMovementTest instance;
 
+    [System.Serializable]
+    public class PlayerAnimation
+    {
+        public enum PlayerAnimationState
+        {
+            IDLE, WALK, WEAPON
+        }
+        public PlayerAnimationState state = PlayerAnimationState.IDLE;
+        public AnimationClip clip;
+        public bool isPlaying = false;
+    }
+    public List<PlayerAnimation> animations = new List<PlayerAnimation>();
+
     private void Awake()
     {
         if (instance == null)
@@ -35,6 +48,8 @@ public class PlayerMovementTest : MonoBehaviour
     [SerializeField]bool isGrounded;
 
     Vector3 forward, right, velocity;
+
+    public Vector3 test;
 
     private void Start()
     {
@@ -98,5 +113,6 @@ public class PlayerMovementTest : MonoBehaviour
         var rotation = Quaternion.LookRotation(direction);
         var dampening = 8;
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
+        test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
     }
 }
