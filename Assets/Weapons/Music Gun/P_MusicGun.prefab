@@ -61,8 +61,8 @@ MonoBehaviour:
   redRing: {fileID: 3220424527277341266}
   yellowRing: {fileID: 2724144860727651448}
   blueRing: {fileID: 5358679294958439982}
-  _currentAmmo: 40
-  maxAmmo: 40
+  _currentAmmo: 120
+  maxAmmo: 120
   icon: {fileID: 21300000, guid: dc2d347e774b29a4f865d4e62fc1ef84, type: 3}
   functionality: {fileID: 4684211471939641043}
 --- !u!65 &7612239085541188469
@@ -175,7 +175,7 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 6030195043824729857, guid: 2a64c64cd8f78144bac809df2bf3076f, type: 3}
   angle: 0
-  secondsBetweenShots: 0.5
+  secondsBetweenShots: 0.09
 --- !u!114 &8312521369559068552
 MonoBehaviour:
   m_ObjectHideFlags: 0
