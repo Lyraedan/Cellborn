@@ -7,6 +7,9 @@ public class WeaponProperties : MonoBehaviour
     public string weaponName = "Untitled weapon";
     public int weaponId = 0;
     public string colour = "";
+    public GameObject redRing;
+    public GameObject yellowRing;
+    public GameObject blueRing;
     [SerializeField] private int _currentAmmo = 30;
     public int currentAmmo {
         get {
@@ -56,20 +59,27 @@ public class WeaponProperties : MonoBehaviour
 
     private void Start()
     {
-        if (colour == "")
+
+        if (!functionality.isInPlayerInventory)
         {
-            int colourID = Random.Range(0, 3);
-            if (colourID == 0)
+            if (colour == "")
             {
-                colour = "Red";
-            }
-            else if (colourID == 1)
-            {
-                colour = "Blue";
-            }
-            else if (colourID == 2)
-            {
-                colour = "Yellow";
+                int colourID = Random.Range(0, 3);
+                if (colourID == 0)
+                {
+                    colour = "Red";
+                    redRing.SetActive(true);
+                }
+                else if (colourID == 1)
+                {
+                    colour = "Blue";
+                    blueRing.SetActive(true);
+                }
+                else if (colourID == 2)
+                {
+                    colour = "Yellow";
+                    yellowRing.SetActive(true);
+                }
             }
         }
 

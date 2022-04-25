@@ -275,6 +275,19 @@ public class WeaponManager : MonoBehaviour
 
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
         // Turn everything back on
+        if (drop.GetComponent<WeaponProperties>().colour == "Red")
+        {
+
+            drop.GetComponent<WeaponProperties>().redRing.SetActive(true);
+        }
+        else if (drop.GetComponent<WeaponProperties>().colour == "Blue")
+        {
+            drop.GetComponent<WeaponProperties>().blueRing.SetActive(true);
+        }
+        else if (drop.GetComponent<WeaponProperties>().colour == "Yellow")
+        {
+            drop.GetComponent<WeaponProperties>().yellowRing.SetActive(true);
+        }
         drop.GetComponent<BoxCollider>().enabled = true;
         drop.GetComponent<SphereCollider>().enabled = true;
         drop.GetComponent<Rigidbody>().useGravity = true;
