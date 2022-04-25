@@ -63,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 1968839935604444949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.727, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children:
   - {fileID: 2251839053879483497}
   - {fileID: 3322296674647288238}
@@ -84,9 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b68d1e8eecd8e4abddcc69c5b00ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 70
-  currentHP: 70
-  projectileDamage: 13
+  maxHP: 50
+  currentHP: 50
+  projectileDamage: 14
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: -7825588690380539266}
