@@ -27,6 +27,10 @@ public class WeaponProperties : MonoBehaviour
     }
     public int maxAmmo = 30;
     public Sprite icon;
+    public Sprite redIcon;
+    public Sprite blueIcon;
+    public Sprite yellowIcon;
+
 
     public WeaponBase functionality;
 
@@ -69,16 +73,19 @@ public class WeaponProperties : MonoBehaviour
                 {
                     colour = "Red";
                     redRing.SetActive(true);
+                    icon = redIcon;
                 }
                 else if (colourID == 1)
                 {
                     colour = "Blue";
                     blueRing.SetActive(true);
+                    icon = blueIcon;
                 }
                 else if (colourID == 2)
                 {
                     colour = "Yellow";
                     yellowRing.SetActive(true);
+                    icon = yellowIcon;
                 }
             }
         }

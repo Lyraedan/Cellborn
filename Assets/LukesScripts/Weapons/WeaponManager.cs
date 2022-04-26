@@ -201,6 +201,20 @@ public class WeaponManager : MonoBehaviour
         bool hasWeapon = HasWeaponInInventory(weapon.weaponId);
         found.colour = weapon.colour;
 
+        //Turn on Ring
+        if (weapon.GetComponent<WeaponProperties>().colour == "Red")
+        {
+            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().redIcon;
+        }
+        else if (weapon.GetComponent<WeaponProperties>().colour == "Blue")
+        {
+            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().blueIcon;
+        }
+        else if (weapon.GetComponent<WeaponProperties>().colour == "Yellow")
+        {
+            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().yellowIcon;
+        }
+
         if (!isInventoryFull && !hasWeapon)
         {
             var index = currentlyHeldWeapons.IndexOf(FindWeapon(-1));
@@ -274,10 +288,10 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = currentlyHeldWeapons[index];
 
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
-        // Turn everything back on
+        
+        //Turn on Ring
         if (drop.GetComponent<WeaponProperties>().colour == "Red")
         {
-
             drop.GetComponent<WeaponProperties>().redRing.SetActive(true);
         }
         else if (drop.GetComponent<WeaponProperties>().colour == "Blue")
@@ -288,6 +302,8 @@ public class WeaponManager : MonoBehaviour
         {
             drop.GetComponent<WeaponProperties>().yellowRing.SetActive(true);
         }
+
+        //Turn on Everything Else
         drop.GetComponent<BoxCollider>().enabled = true;
         drop.GetComponent<SphereCollider>().enabled = true;
         drop.GetComponent<Rigidbody>().useGravity = true;
