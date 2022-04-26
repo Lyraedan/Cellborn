@@ -345,6 +345,24 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: CellMusic
+    clip: {fileID: 8300000, guid: a0d710727af339a4ab17a910011117b9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: MusicGun
+    clip: {fileID: 8300000, guid: 22831aebe106762458cb41a823d314d1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: LevelMusic
+    clip: {fileID: 8300000, guid: af65ba6e01aacbb4394c3adf2e44855e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!1001 &915354249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -892,7 +910,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848201144}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1848201146
 Camera:
   m_ObjectHideFlags: 0
