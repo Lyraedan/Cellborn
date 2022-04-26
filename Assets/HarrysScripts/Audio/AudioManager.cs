@@ -45,4 +45,45 @@ public class AudioManager : MonoBehaviour
             
         s.source.Play();
     }
+
+    public void Stop (string name)
+    {
+        Sound s = sounds.Find(sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("No sound with name " + name);
+            return;
+        }
+            
+        s.source.Stop();
+    }
+
+    public void Pause (string name)
+    {
+        Sound s = sounds.Find(sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("No sound with name " + name);
+            return;
+        }
+            
+        s.source.Pause();
+    }
+
+    public bool IsPlaying (string name)
+    {
+        Sound s = sounds.Find(sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("No sound with name " + name);
+            return false;
+        }
+
+        if (s.source.isPlaying)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

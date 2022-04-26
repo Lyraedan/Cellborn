@@ -40,7 +40,7 @@ public class BlackHoleGravity : MonoBehaviour
                     {
                         if (playerStats != null && playerStats.currentHP > 0)
                         {
-                            playerStats.currentHP -= playerDamage;
+                            playerStats.DamagePlayer(playerDamage);
                         }
                         healthDrain = 0;
                     }
@@ -62,7 +62,7 @@ public class BlackHoleGravity : MonoBehaviour
                     {
                         if (enemyStats != null && enemyStats.currentHP > 0)
                         {
-                            enemyStats.currentHP -= enemyDamage;
+                            enemyStats.DamageEnemy(enemyDamage);
                         }
                         healthDrain = 0;
                     }

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98897cf13edde2d43bd4170542299845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInPlayerInventory: 0
   healthRefill: 25
 --- !u!114 &1069557220705607317
 MonoBehaviour:
@@ -165,6 +166,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b23b768276620544d9d20d6f38126afe, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5294a4e3159add44f99bd22de1a6b555, type: 2}
     - target: {fileID: -7511558181221131132, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 

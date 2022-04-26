@@ -46,7 +46,7 @@ public class EnemyScript : MonoBehaviour
                 functionality.Hit();
             }
             AudioManager.instance.Play("EnemyHit");
-            currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
+            DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
         }
@@ -61,7 +61,12 @@ public class EnemyScript : MonoBehaviour
             }
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             AudioManager.instance.Play("EnemyHit");
-            currentHP -= collObj.GetComponent<ProjectileBehaviour>().enemyDamage;
+            DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
         }
+    }
+
+    public void DamageEnemy(float damage)
+    {
+        currentHP -= damage;
     }
 }
