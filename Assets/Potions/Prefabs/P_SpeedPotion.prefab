@@ -81,7 +81,7 @@ MonoBehaviour:
   description: 'This light blue potion will put a bit of pep in your step and double
     your speed for a while! '
   potionID: 2
-  icon: {fileID: 21300000, guid: 5fec48de68dc4c647b77b5c62a9b2aaa, type: 3}
+  icon: {fileID: 21300000, guid: 6f24bf25884fef745b7a2eef96ce38f8, type: 3}
   functionality: {fileID: 664052441411608585}
 --- !u!114 &664052441411608585
 MonoBehaviour:
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b305a15eb59a154898e2767b4aa6442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInPlayerInventory: 0
   speedMultiplier: 2
   speedUpTime: 10
 --- !u!114 &1069557220705607317
@@ -174,7 +175,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 6329061820e3a6f4d9aa9d9f01cce5eb, type: 2}
+      objectReference: {fileID: 2100000, guid: 5bf26cf5313f2dd4cad17a07166f3610, type: 2}
     - target: {fileID: 919132149155446097, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_Name
       value: SM_Bottle_One
