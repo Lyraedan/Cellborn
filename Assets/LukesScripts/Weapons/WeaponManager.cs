@@ -269,6 +269,8 @@ public class WeaponManager : MonoBehaviour
                 CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
             }
         }
+
+        AudioManager.instance.Play("WeaponPickup");
     }
 
     public void Drop(WeaponProperties weapon)

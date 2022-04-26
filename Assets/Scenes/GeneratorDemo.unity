@@ -369,6 +369,78 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: PistolFire
+    clip: {fileID: 8300000, guid: 8add8dfeff3fb8f4faef7177c8a55b07, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MachineGunFire
+    clip: {fileID: 8300000, guid: 4e32b032b01ddce47949e3a556053ee8, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: AssaultRifleFire
+    clip: {fileID: 8300000, guid: a8a0c9c90fb0b8643b817297c723e9a9, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SniperRifleFire
+    clip: {fileID: 8300000, guid: 0d5155fbc3c16e946a697f477690ee85, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WeaponPickup
+    clip: {fileID: 8300000, guid: c931485ce61b33f49921a146f89bf8c1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SirBoingsFire
+    clip: {fileID: 8300000, guid: 16f55de11ca750c458a4f6b642379be2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BlackHoleFire
+    clip: {fileID: 8300000, guid: 1122412ee776ddd42aa25eef36e101e3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SilencedFire
+    clip: {fileID: 8300000, guid: beb4c9b88d1945d45bb1ed30b917f09d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ThrowFire
+    clip: {fileID: 8300000, guid: ac07595f16ad4f44f97c1fe8b9c1a8a5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PotionPickup
+    clip: {fileID: 8300000, guid: 44d79e25ba6b28048bc98a1fa8845348, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PotionUse
+    clip: {fileID: 8300000, guid: 722de16d2c253fd46a5300dd0d72f8cc, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DefenseOn
+    clip: {fileID: 8300000, guid: 2f3c2d6dac5ff8940981827a13b880cb, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1001 &915354249
 PrefabInstance:
   m_ObjectHideFlags: 0

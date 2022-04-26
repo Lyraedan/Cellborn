@@ -112,6 +112,8 @@ public class PotionManager : MonoBehaviour
 
             Destroy(potion.gameObject);
             pickupText.text = string.Empty;
+
+            AudioManager.instance.Play("PotionPickup");
         }
         else
         {

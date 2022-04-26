@@ -21,5 +21,6 @@ public class Potion_Defence : PotionBase
     {
         PlayerStats.instance.defenseMultiplier = defenseMultiplier;
         PlayerStats.instance.defenseTime = defenseTime;
+        AudioManager.instance.Play("DefenseOn");
     }
 }
