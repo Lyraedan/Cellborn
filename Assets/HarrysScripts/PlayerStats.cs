@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI healthText;
     public GameObject deathEffect;
 
-    public MeshRenderer[] meshRenderers;
+    public SkinnedMeshRenderer[] meshRenderers;
     public PlayerMovementTest moveScript;
     public CapsuleCollider playerCollider;
 
