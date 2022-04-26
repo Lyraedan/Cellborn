@@ -49,6 +49,18 @@ public class WeaponLazer : WeaponBase
                     if (t >= damageInterval)
                     {
                         enemyScript.currentHP -= enemyDamage;
+                        if (hitEnemy.GetComponent<AITest>() != null)
+                        {
+                            hitEnemy.GetComponent<AITest>().Hit();
+                        }
+                        else if (hitEnemy.GetComponent<AIFairy>() != null)
+                        {
+                            hitEnemy.GetComponent<AIFairy>().Hit();
+                        }
+                        else if (hitEnemy.GetComponent<AIWizard>() != null)
+                        {
+                            hitEnemy.GetComponent<AIWizard>().Hit();
+                        }
                         t = 0;
                     }
                 }
