@@ -20,7 +20,7 @@ public class WeaponBananaBren : WeaponBase
     {
         accuracy = (random.Next(0, AccuracyRange));
         accuracy = accuracy - (AccuracyRange / 2);
-        angle += accuracy;
+        angle = accuracy;
         GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
         proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
     }

@@ -3096,6 +3096,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2001261585454648842, guid: f50825b4b7f60fa47a455603da102967, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3548296398526241908, guid: f50825b4b7f60fa47a455603da102967, type: 3}
       propertyPath: m_Name
       value: P_BananaBrenWeapon
@@ -3106,39 +3110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4118225890682266294, guid: f50825b4b7f60fa47a455603da102967, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
       propertyPath: m_RootOrder
       value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6832519164932987680, guid: f50825b4b7f60fa47a455603da102967, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3384,6 +3360,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7483907030024036441}
     m_Modifications:
+    - target: {fileID: 140335547240790337, guid: 9c3117d3eb1dbbe469ba625b04509eee, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2179520291715292898, guid: 9c3117d3eb1dbbe469ba625b04509eee, type: 3}
       propertyPath: m_Name
       value: P_MusicGun
@@ -4134,6 +4114,10 @@ PrefabInstance:
     - target: {fileID: 3513772977888366652, guid: ea4ac96d4e69fb54e829ceec5c367f52, type: 3}
       propertyPath: isInPlayerInventory
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785582343900512747, guid: ea4ac96d4e69fb54e829ceec5c367f52, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234463852146623832, guid: ea4ac96d4e69fb54e829ceec5c367f52, type: 3}
       propertyPath: m_IsActive
