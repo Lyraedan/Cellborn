@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 535181506469579727}
   - component: {fileID: 535181506469579724}
   - component: {fileID: 535181506469579725}
-  - component: {fileID: 7396951990220752838}
-  - component: {fileID: 1620659603702195453}
+  - component: {fileID: 2834166439525900301}
+  - component: {fileID: 6159968963900256685}
   m_Layer: 7
-  m_Name: P_Fairy_Projectile_Red
+  m_Name: P_LargeFairy_Projectile_Yellow
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 535181506469579714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 535181507627775310}
   - {fileID: 535181507083592477}
@@ -54,7 +54,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -3735,7 +3735,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4837,7 +4837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projRigidbody: {fileID: 535181506469579725}
-  throwStrength: 8
+  throwStrength: 5
   arcSize: 0
   shotDirection: 0
   lifetime: 5
@@ -4845,7 +4845,7 @@ MonoBehaviour:
   enemyDamage: 0
   playerDamage: 10
   canChangeDistance: 0
-  destroyEffect: {fileID: 4781498731490086021, guid: 8f84a99a73b2412419deed1fb7d2090c, type: 3}
+  destroyEffect: {fileID: 2364194774723484448, guid: 60acbd44c3956ee4e9ea9c8e57e35099, type: 3}
   canDamage: 1
 --- !u!54 &535181506469579725
 Rigidbody:
@@ -4863,7 +4863,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!82 &7396951990220752838
+--- !u!82 &2834166439525900301
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4876,7 +4876,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 2d72b8d1b244a104fa76bbe29629fb51, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
-  m_Pitch: 1.5
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -4959,7 +4959,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &1620659603702195453
+--- !u!82 &6159968963900256685
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6535,7 +6535,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 538ea6eeea9f67442b82b385a6a66089, type: 3}
+    - sprite: {fileID: 21300000, guid: 18a9a181db1f69c488d648566caaee15, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -11163,7 +11163,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.24355698, g: 0, b: 1, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -11340,7 +11340,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 538ea6eeea9f67442b82b385a6a66089, type: 3}
+    - sprite: {fileID: 21300000, guid: 18a9a181db1f69c488d648566caaee15, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -14706,7 +14706,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -14752,7 +14752,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -1.0209715e-13, z: 4.5904e-41, w: 1e-45}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

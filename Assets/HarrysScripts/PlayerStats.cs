@@ -50,6 +50,8 @@ public class PlayerStats : MonoBehaviour
     public Image damageRed;
     public float indicFadeTime;
 
+    public Image armourBlue;
+
     #endregion
 
     public bool isDead;
@@ -66,6 +68,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHP = maxHP;
         damageRed.CrossFadeAlpha(0, 0f, false);
+        armourBlue.CrossFadeAlpha(0, 0f, false);
         UIController.instance.healthBar.maxValue = maxHP;
 
     }
@@ -90,6 +93,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         weaponsInScene.Sort((x, y) => x.DistanceFromPlayer.CompareTo(y.DistanceFromPlayer));
+        potionsInScene.Sort((x, y) => x.DistanceFromPlayer.CompareTo(y.DistanceFromPlayer));
 
         if(weaponsInScene.Count > 0)
         {
@@ -103,14 +107,8 @@ public class PlayerStats : MonoBehaviour
                 WeaponManager.instance.toPickup = null;
                 WeaponManager.instance.pickupText.text = string.Empty;
             }
-        } else
-        {
-            WeaponManager.instance.toPickup = null;
-            WeaponManager.instance.pickupText.text = string.Empty;
-        }
-
-        potionsInScene.Sort((x, y) => x.DistanceFromPlayer.CompareTo(y.DistanceFromPlayer));
-
+        } 
+        
         if(potionsInScene.Count > 0)
         {
             var closestPickup = potionsInScene[0];
@@ -123,16 +121,13 @@ public class PlayerStats : MonoBehaviour
                 PotionManager.instance.toPickup = null;
                 PotionManager.instance.pickupText.text = string.Empty;
             }
-        } else
-        {
-            PotionManager.instance.toPickup = null;
-            PotionManager.instance.pickupText.text = string.Empty;
-        }
+        } 
 
-        damageRed.CrossFadeAlpha(0f, indicFadeTime, false);
+        damageRed.CrossFadeAlpha(0f, indicFadeTime, false);        
 
         if (defenseMultiplier != 1)
         {
+            armourBlue.CrossFadeAlpha(1f, 0.25f, false);
             defenseTimer += 1f * Time.deltaTime;
 
             if (defenseTimer >= defenseTime)
@@ -140,6 +135,7 @@ public class PlayerStats : MonoBehaviour
                 defenseTime = 0f;
                 defenseTimer = 0f;
                 defenseMultiplier = 1;
+                armourBlue.CrossFadeAlpha(0f, 2f, false);
             }
         }
     }

@@ -226,7 +226,7 @@ MonoBehaviour:
   showPath: 0
   rotationDampening: 8
   skinnedMeshRenderer: {fileID: 9194495817569807407}
-  defaultMaterial: {fileID: 2100000, guid: e1f47b59bc4be834ca74969a04c8cacc, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 3c36804e7d967574b9790e67abf48167, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   isHit: 0
   playerStats: {fileID: 0}
@@ -294,6 +294,10 @@ PrefabInstance:
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: ObjectColor_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316669, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_RootOrder
@@ -456,7 +460,7 @@ PrefabInstance:
     - target: {fileID: -3484807864882865472, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e1f47b59bc4be834ca74969a04c8cacc, type: 2}
+      objectReference: {fileID: 2100000, guid: 3c36804e7d967574b9790e67abf48167, type: 2}
     - target: {fileID: -3477727105418794534, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
       propertyPath: m_Layer
       value: 12

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7396951990220752838}
   - component: {fileID: 1620659603702195453}
   m_Layer: 7
-  m_Name: P_Fairy_Projectile_Red
+  m_Name: P_Fairy_Projectile_Blue
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4845,7 +4845,7 @@ MonoBehaviour:
   enemyDamage: 0
   playerDamage: 10
   canChangeDistance: 0
-  destroyEffect: {fileID: 4781498731490086021, guid: 8f84a99a73b2412419deed1fb7d2090c, type: 3}
+  destroyEffect: {fileID: 4781498731490086021, guid: 93aa5550198c2334682dc1ed8e02aeba, type: 3}
   canDamage: 1
 --- !u!54 &535181506469579725
 Rigidbody:
@@ -6535,7 +6535,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 538ea6eeea9f67442b82b385a6a66089, type: 3}
+    - sprite: {fileID: 21300000, guid: 28c102514c83ddb4885ffa34520464d3, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -11340,7 +11340,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 538ea6eeea9f67442b82b385a6a66089, type: 3}
+    - sprite: {fileID: 21300000, guid: 28c102514c83ddb4885ffa34520464d3, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -14706,7 +14706,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -14752,7 +14752,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -1.0209715e-13, z: 4.5904e-41, w: 1e-45}
+  m_BoundingSphereOverride: {x: NaN, y: 0, z: Infinity, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

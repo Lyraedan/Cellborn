@@ -179,7 +179,7 @@ MonoBehaviour:
   showPath: 0
   rotationDampening: 8
   skinnedMeshRenderer: {fileID: 6826545288478285973}
-  defaultMaterial: {fileID: 2100000, guid: 38586f60aea48da449c0ce28299b4221, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   isHit: 0
   roamRadius: 3
@@ -191,7 +191,7 @@ MonoBehaviour:
   maxRoamFromPatrolPoint: 50
   returningToPatrolPoint: 0
   maxFleeDistance: 30
-  projectile: {fileID: 535181506469579714, guid: 1211f402ce3acb14786b18ed76e995f8, type: 3}
+  projectile: {fileID: 535181506469579714, guid: f9c298a6201458840a185db32a574a86, type: 3}
   firePoint: {fileID: 4895736231511726152}
   remainingDistance: 0
 --- !u!114 &3434470127644330833
@@ -404,7 +404,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 3
   m_SpotAngle: 30
@@ -521,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 8587608580095487696, guid: 3bcc401d2bf191240845a18df745284e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 38586f60aea48da449c0ce28299b4221, type: 2}
+      objectReference: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
     - target: {fileID: 8587608580095487696, guid: 3bcc401d2bf191240845a18df745284e, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -572,6 +572,10 @@ PrefabInstance:
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: ObjectColor_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316669, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_RootOrder
