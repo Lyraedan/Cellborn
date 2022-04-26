@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5495529958148428717}
   - component: {fileID: 8113651653203476433}
-  - component: {fileID: 5601030998060531289}
   - component: {fileID: 8366587692707883289}
   m_Layer: 0
   m_Name: P_Altar
@@ -49,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 5601030998060531289}
+  collider: {fileID: 3002853487533951637}
   meshRenderers:
   - {fileID: 6728006867051316834}
   - {fileID: 2081554023703056020}
@@ -59,20 +58,6 @@ MonoBehaviour:
     sources: []
   particles:
     emitters: []
---- !u!64 &5601030998060531289
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5120552978167892247}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!208 &8366587692707883289
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -100,6 +85,7 @@ GameObject:
   - component: {fileID: 5089894015759741627}
   - component: {fileID: 3779413670063884892}
   - component: {fileID: 5243409427489574143}
+  - component: {fileID: 7056743393280504514}
   m_Layer: 0
   m_Name: Candle
   m_TagString: Untagged
@@ -170,6 +156,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7056743393280504514
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366450458962401116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3033996063522644917, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
 --- !u!1 &6949448502010718574
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 6298385439322078358}
   - component: {fileID: 3086707733380048279}
   - component: {fileID: 2081554023703056020}
+  - component: {fileID: 8540233726892688263}
   m_Layer: 0
   m_Name: Book
   m_TagString: Untagged
@@ -251,6 +252,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8540233726892688263
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949448502010718574}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -66333826979096818, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
 --- !u!1 &7749409213360491174
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +277,7 @@ GameObject:
   - component: {fileID: 3310342713081253040}
   - component: {fileID: 402400918626223784}
   - component: {fileID: 6728006867051316834}
+  - component: {fileID: 3002853487533951637}
   m_Layer: 0
   m_Name: Altar
   m_TagString: Untagged
@@ -332,6 +348,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3002853487533951637
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749409213360491174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6646180667514570177, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
 --- !u!1 &8805474626186583834
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +373,7 @@ GameObject:
   - component: {fileID: 7034624060775372234}
   - component: {fileID: 1056468449994785678}
   - component: {fileID: 6070617746241015472}
+  - component: {fileID: 378495309049460654}
   m_Layer: 0
   m_Name: Candle1
   m_TagString: Untagged
@@ -413,3 +444,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &378495309049460654
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805474626186583834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5359771393718946927, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
