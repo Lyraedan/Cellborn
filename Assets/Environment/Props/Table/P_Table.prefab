@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &775122890635071706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6827237666102945012}
+  m_Layer: 0
+  m_Name: LootTableC
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6827237666102945012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775122890635071706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00899, y: 0.16, z: 0.00614}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5175159756700108642}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3291636241762961014
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,6 +101,8 @@ Transform:
   m_LocalScale: {x: 121.40122, y: 4.192762, z: 64.769135}
   m_Children:
   - {fileID: 2221773680744532852}
+  - {fileID: 8204351621162670517}
+  - {fileID: 6827237666102945012}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -178,6 +210,16 @@ MonoBehaviour:
       rotation: {x: 0, y: 90, z: 0}
     - prefab: {fileID: 8408250930399280810, guid: 26398c116b740ed4a94a519e57b54af2, type: 3}
       rotation: {x: 0, y: 90, z: 0}
+  - spawnpoint: {fileID: 8204351621162670517}
+    chancesOfSpawningLoot: 1
+    possiblePrefabs:
+    - prefab: {fileID: 2173869165374577015, guid: 8ea407eba7c752b4ead8e0804c199b8e, type: 3}
+      rotation: {x: 0, y: 90, z: 0}
+  - spawnpoint: {fileID: 6827237666102945012}
+    chancesOfSpawningLoot: 1
+    possiblePrefabs:
+    - prefab: {fileID: 2173869165374577015, guid: 8ea407eba7c752b4ead8e0804c199b8e, type: 3}
+      rotation: {x: 0, y: 0, z: 0}
 --- !u!65 &8942301887037535290
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -368,3 +410,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &6926717090639449213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8204351621162670517}
+  m_Layer: 0
+  m_Name: LootTableB
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8204351621162670517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926717090639449213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00117, y: 0.16, z: 0.00195}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5175159756700108642}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
