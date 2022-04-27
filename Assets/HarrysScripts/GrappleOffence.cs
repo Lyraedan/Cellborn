@@ -58,6 +58,19 @@ public class GrappleOffence : MonoBehaviour
                 {
                     enemy.currentHP -= attackDamage;
                 }
+
+                if (other.gameObject.GetComponent<AITest>() != null)
+                {
+                    other.gameObject.GetComponent<AITest>().Hit();
+                }
+                else if (other.gameObject.GetComponent<AIFairy>() != null)
+                {
+                    other.gameObject.GetComponent<AIFairy>().Hit();
+                }
+                else if (other.gameObject.GetComponent<AIWizard>() != null)
+                {
+                    other.gameObject.GetComponent<AIWizard>().Hit();
+                }
             }
         }
     }
