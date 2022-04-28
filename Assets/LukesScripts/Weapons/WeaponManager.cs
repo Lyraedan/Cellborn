@@ -120,29 +120,32 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1"))
+        if (!PauseMenu.isPaused)
         {
-            if (!healthScript.isDead)
+            if (Input.GetButton("Fire1"))
             {
-                currentWeapon.Shoot(delayed => {
-                    if (!currentWeapon.functionality.infiniteAmmo)
-                    {
-                        ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
-
-                        if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
+                if (!healthScript.isDead)
+                {
+                    currentWeapon.Shoot(delayed => {
+                        if (!currentWeapon.functionality.infiniteAmmo)
                         {
-                            var empty = FindWeapon(-1);
-                            currentlyHeldWeapons[currentlySelectedIndex] = empty;
+                            ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
 
-                            var slot = uiSlots[currentlySelectedIndex];
-                            var slotHolder = slot.GetComponent<SlotHolder>();
-                            slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
-                            weaponText.text = string.Empty;
+                            if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
+                            {
+                                var empty = FindWeapon(-1);
+                                currentlyHeldWeapons[currentlySelectedIndex] = empty;
 
-                            currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
+                                var slot = uiSlots[currentlySelectedIndex];
+                                var slotHolder = slot.GetComponent<SlotHolder>();
+                                slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
+                                weaponText.text = string.Empty;
+
+                                currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
 

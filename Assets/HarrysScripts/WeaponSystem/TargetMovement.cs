@@ -8,12 +8,15 @@ public class TargetMovement : MonoBehaviour
 
     void Update()
     {
-        Plane plane = new Plane(Vector3.up, -height);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(plane.Raycast(ray, out float distanceToPlane))
+        if (!PauseMenu.isPaused)
         {
-            transform.position = ray.GetPoint(distanceToPlane);
+            Plane plane = new Plane(Vector3.up, -height);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(plane.Raycast(ray, out float distanceToPlane))
+            {
+                transform.position = ray.GetPoint(distanceToPlane);
+            }
         }
     }
 }
