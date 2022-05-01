@@ -8,7 +8,7 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainMenuGroup, creditsGroup, loadingGroup;
+    public GameObject mainMenuGroup, creditsGroup, loadingGroup, optionsGroup, logo;
 
     public Slider loadBar;
     public TextMeshProUGUI loadBarText;
@@ -37,7 +37,16 @@ public class MainMenu : MonoBehaviour
     public void OpenMainMenu()
     {
         mainMenuGroup.SetActive(true);
+        logo.SetActive(true);
         creditsGroup.SetActive(false);
+        optionsGroup.SetActive(false);
+    }
+
+    public void OpenOptions()
+    {
+        mainMenuGroup.SetActive(false);
+        optionsGroup.SetActive(true);
+        logo.SetActive(false);
     }
 
     public void CloseGame()
