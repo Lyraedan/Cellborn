@@ -1163,7 +1163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &793862246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1203,10 +1203,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start Game
+  m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
-  m_sharedMaterial: {fileID: 1086764092819552536, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
+  m_sharedMaterial: {fileID: 2237451124805428626, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1236,7 +1236,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1349,7 +1349,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: b537a64dd87d6164d84f9abcee6be884, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 2ee5cb94799514746804aae8c189f29d, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1723665c47e3c264787574f52181cee1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7438978e79b4ec4f8c15ce034047a1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1554,7 +1554,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: f7530c8f0c8eee6409fc1dc0583512e5, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 2ee5cb94799514746804aae8c189f29d, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6f748287245b89f4680f965cb581c5d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7438978e79b4ec4f8c15ce034047a1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2758,7 +2758,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: 70fac90849379244c97181655945c52d, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 2ee5cb94799514746804aae8c189f29d, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -2804,7 +2804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7e3c88483f6a40f4ea7cf1b3db35cd7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7438978e79b4ec4f8c15ce034047a1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2973,7 +2973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1671938734
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3013,12 +3013,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Exit Game
-
-'
+  m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
-  m_sharedMaterial: {fileID: 1086764092819552536, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
+  m_sharedMaterial: {fileID: 2237451124805428626, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3048,7 +3046,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3508,7 +3506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2146867427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3548,12 +3546,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Return to Menu
-
-'
+  m_text: Back
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
-  m_sharedMaterial: {fileID: 1086764092819552536, guid: 66df476c100358a4ebe80f04b2867bae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
+  m_sharedMaterial: {fileID: 2237451124805428626, guid: 01ed0538568da8a40884ee35f50bebf3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3577,13 +3573,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3616,7 +3612,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2146867429
