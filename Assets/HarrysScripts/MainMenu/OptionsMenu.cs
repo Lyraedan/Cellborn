@@ -1,18 +1,32 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
+    [Header("Groups")]
+    public GameObject graphicsGroup, audioGroup, controlsGroup, otherGroup;
+
+    [Header("Graphics")]
     public List<Resolution> resolutions;
     public List<string> resolutionStr;
     public TMP_Dropdown resolutionDropdown;
+
+    [Header("Audio")]
+    public AudioMixer audioMixer;
+    public TextMeshProUGUI masterVolText;
+    public TextMeshProUGUI musicVolText;
+    public TextMeshProUGUI soundVolText;
     
     void Start()
     {
+        OpenGraphics();
+        
         resolutions = Screen.resolutions.ToList();
 
         resolutionDropdown.ClearOptions();
@@ -20,7 +34,7 @@ public class OptionsMenu : MonoBehaviour
         int currentResolutionIndex = 0;        
         for(int i = 0; i < resolutions.Count; i++)
         {
-            string resString = resolutions[i].width + " x " + resolutions[i].height;
+            string resString = resolutions[i].width + " x " + resolutions[i].height + " " + resolutions[i].refreshRate + "Hz";
             resolutionStr.Add(resString);
 
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
@@ -44,4 +58,69 @@ public class OptionsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
+
+    public void SetQuality (int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        Debug.Log(QualitySettings.GetQualityLevel());
+    }
+
+    public void SetVSync (bool isVSync)
+    {
+        QualitySettings.vSyncCount = Convert.ToInt32(isVSync);
+    }
+
+    public void SetMasterVolume (float volume)
+    {
+        audioMixer.SetFloat("MasterVol", volume);
+        masterVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+    }
+    
+    public void SetMusicVolume (float volume)
+    {
+        audioMixer.SetFloat("MusicVol", volume);
+        musicVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+    }
+
+    public void SetSoundVolume (float volume)
+    {
+        audioMixer.SetFloat("SFXVol", volume);
+        soundVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+    }
+
+    #region Section Swapping
+
+    public void OpenGraphics()
+    {
+        graphicsGroup.SetActive(true);
+        audioGroup.SetActive(false);
+        controlsGroup.SetActive(false);
+        otherGroup.SetActive(false);
+    }
+
+    public void OpenAudio()
+    {
+        graphicsGroup.SetActive(false);
+        audioGroup.SetActive(true);
+        controlsGroup.SetActive(false);
+        otherGroup.SetActive(false);
+    }
+
+    public void OpenControls()
+    {
+        graphicsGroup.SetActive(false);
+        audioGroup.SetActive(false);
+        controlsGroup.SetActive(true);
+        otherGroup.SetActive(false);
+    }
+
+    public void OpenOther()
+    {
+        graphicsGroup.SetActive(false);
+        audioGroup.SetActive(false);
+        controlsGroup.SetActive(false);
+        otherGroup.SetActive(true);
+    }
+
+    #endregion
 }

@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    public AudioMixerGroup audioMixer, musicAudioMixer, sfxAudioMixer;
     public List<Sound> sounds;
 
     void Awake()
@@ -31,6 +32,15 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
 
             s.source.loop = s.loop;
+
+            if (s.soundType == Sound.SoundType.SFX)
+            {
+                s.source.outputAudioMixerGroup = sfxAudioMixer;
+            }
+            else if (s.soundType == Sound.SoundType.MUSIC)
+            {
+                s.source.outputAudioMixerGroup = musicAudioMixer;
+            }
         }
     }
     

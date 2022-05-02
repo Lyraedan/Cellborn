@@ -16,5 +16,12 @@ public class Sound
 
     public bool loop;
 
+    public enum SoundType
+    {
+        MUSIC, SFX
+    }
+
+    public SoundType soundType = SoundType.SFX;
+
     [HideInInspector] public AudioSource source;
 }

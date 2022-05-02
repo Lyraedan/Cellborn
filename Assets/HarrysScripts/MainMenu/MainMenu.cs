@@ -76,4 +76,10 @@ public class MainMenu : MonoBehaviour
             yield return null;
         }
     }
+
+    public void RefreshBackground()
+    {
+        chosenBackground = Random.Range(0, backgroundRenders.Count);
+        videoPlayer.clip = backgroundRenders[chosenBackground];
+    }
 }
