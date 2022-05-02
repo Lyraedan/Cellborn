@@ -3351,6 +3351,8 @@ MonoBehaviour:
   ammoContainer: {fileID: 1668213880628202316}
   ammoBar: {fileID: 5212873085911408261}
   minimapBG: {fileID: 6629563180449232841}
+  damageIndicator: {fileID: 7964829696965962490}
+  defenseIndicator: {fileID: 3347661089078597139}
 --- !u!114 &1176747095731750034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3667,10 +3669,10 @@ RectTransform:
   m_Father: {fileID: 7064694837469440743}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -650.84, y: 483.78003}
-  m_SizeDelta: {x: -1382.6599, y: -1054.706}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -650.8401, y: 483.78003}
+  m_SizeDelta: {x: 537.3401, y: 25.293945}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6173361761599827101
 MonoBehaviour:
