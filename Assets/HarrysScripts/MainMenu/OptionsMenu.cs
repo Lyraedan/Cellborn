@@ -17,6 +17,9 @@ public class OptionsMenu : MonoBehaviour
     public List<string> resolutionStr;
     public TMP_Dropdown resolutionDropdown;
 
+    public Toggle fullscreenToggle;
+    public TMP_Dropdown qualityDropdown;
+
     [Header("Audio")]
     public AudioMixer audioMixer;
     public TextMeshProUGUI masterVolText;
@@ -46,6 +49,10 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(resolutionStr);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        fullscreenToggle.isOn = Screen.fullScreen;
+
+        qualityDropdown.value = QualitySettings.GetQualityLevel();
     }
 
     public void SetResolution (int resIndex)
