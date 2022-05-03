@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
 
     public string mainMenuSceneName = "MainMenu";
+
+    public LoadingTips tipsScript;
     
     void Update()
     {
@@ -29,6 +31,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.instance.Play("MenuClick");
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
         isPaused = false;
@@ -38,11 +41,13 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
+        tipsScript.SetTip();
         isPaused = true;
     }
 
     public void ReturnToMenu()
     {
+        AudioManager.instance.Play("MenuClick");
         Resume();
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
@@ -50,6 +55,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        AudioManager.instance.Play("MenuClick");
         Resume();
         Debug.Log("Quitting game...");
         Application.Quit();

@@ -29,7 +29,7 @@ public class LoadingTips : MonoBehaviour
         }
     }
 
-    void SetTip()
+    public void SetTip()
     {
         tipNumber = Random.Range(0, tips.Count);
         tipText.text = "Tip: " + tips[tipNumber];

@@ -44,6 +44,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenOptions()
     {
+        
         mainMenuGroup.SetActive(false);
         optionsGroup.SetActive(true);
         logo.SetActive(false);
@@ -81,5 +82,10 @@ public class MainMenu : MonoBehaviour
     {
         chosenBackground = Random.Range(0, backgroundRenders.Count);
         videoPlayer.clip = backgroundRenders[chosenBackground];
+    }
+
+    public void ClickSound()
+    {
+        AudioManager.instance.Play("MenuClick");
     }
 }

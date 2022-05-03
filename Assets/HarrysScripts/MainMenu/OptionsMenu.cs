@@ -99,6 +99,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenGraphics()
     {
+        AudioManager.instance.Play("MenuClick");
         graphicsGroup.SetActive(true);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
@@ -107,6 +108,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenAudio()
     {
+        AudioManager.instance.Play("MenuClick");
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(true);
         controlsGroup.SetActive(false);
@@ -115,6 +117,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenControls()
     {
+        AudioManager.instance.Play("MenuClick");
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(true);
@@ -123,10 +126,16 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenOther()
     {
+        AudioManager.instance.Play("MenuClick");
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
         otherGroup.SetActive(true);
+    }
+
+    public void NoFunction()
+    {
+        AudioManager.instance.Play("MenuError");
     }
 
     #endregion
