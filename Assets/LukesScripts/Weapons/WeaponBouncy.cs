@@ -34,7 +34,7 @@ public class WeaponBouncy : WeaponBase
 
             GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
             proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance*2);
-            proj.GetComponent<ProjectileBehaviour>().colour = proj.GetComponent<WeaponProperties>().colour;
+            proj.GetComponent<ProjectileBehaviour>().colour = WeaponManager.instance.currentWeapon.colour;
         }
         AudioManager.instance.Play("SirBoingsFire");
     }

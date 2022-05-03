@@ -9,7 +9,7 @@ public class BlackHoleGravity : MonoBehaviour
     public float holeTime, playerHealthDrainMultiplier, enemyHealthDrainMultiplier;
     public int playerDamage, enemyDamage;
     float t, healthDrain;
-    public string colour;
+    public Color colour = Color.white;
 
     bool playerIsDead;
        
@@ -67,7 +67,7 @@ public class BlackHoleGravity : MonoBehaviour
                             {
                                 enemyStats.DamageEnemy(enemyDamage*2);
                             }
-                            else if (colour == "Grey")
+                            else if (colour == Color.grey)
                             {
                                 enemyStats.DamageEnemy(enemyDamage);
                             }

@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject deathSmoke, hitEffect;
     private GameObject lastCollision;
     public AI functionality;
-    public string colour;
+    public Color colour;
 
     void Update()
     {
@@ -50,7 +50,7 @@ public class EnemyScript : MonoBehaviour
             {
                 DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage * 2);
             }
-            else if (collObj.GetComponent<ProjectileBehaviour>().colour == "Grey")
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.grey)
             {
                 DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
             }

@@ -24,6 +24,7 @@ namespace LukesScripts.Blueprints
             {
                 var targetDistance = Vector3.Distance(WeaponManager.instance.player.transform.position, WeaponManager.instance.target.transform.position);
                 result = flow.GetValue<GameObject>(projectile);
+                result.GetComponent<ProjectileBehaviour>().colour = WeaponManager.instance.currentWeapon.colour;
                 result.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 2);
                 return outTrigger;
             });

@@ -52,7 +52,7 @@ public class WeaponLazer : WeaponBase
                         {
                             enemyScript.currentHP -= (enemyDamage*2);
                         }
-                        else if (weaponProperties.colour == "Grey")
+                        else if (weaponProperties.colour == Color.grey)
                         {
                             enemyScript.currentHP -= enemyDamage;
                         }

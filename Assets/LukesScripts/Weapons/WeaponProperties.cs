@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WeaponProperties : MonoBehaviour
 {
     public string weaponName = "Untitled weapon";
     public int weaponId = 0;
-    public string colour = "";
+    public Color colour = Color.white;
     public GameObject redRing;
     public GameObject yellowRing;
     public GameObject blueRing;
@@ -66,28 +68,36 @@ public class WeaponProperties : MonoBehaviour
 
         if (!functionality.isInPlayerInventory)
         {
-            if (colour == "")
+            try
             {
-                int colourID = Random.Range(0, 3);
-                if (colourID == 0)
+                if (colour == Color.white)
                 {
-                    colour = "Red";
-                    redRing.SetActive(true);
-                    icon = redIcon;
-                }
-                else if (colourID == 1)
-                {
-                    colour = "Blue";
-                    blueRing.SetActive(true);
-                    icon = blueIcon;
-                }
-                else if (colourID == 2)
-                {
-                    colour = "Yellow";
-                    yellowRing.SetActive(true);
-                    icon = yellowIcon;
+                    int colourID = Random.Range(0, 3);
+                    if (colourID == 0)
+                    {
+                        colour = Color.red;
+                        redRing.SetActive(true);
+                        icon = redIcon;
+                    }
+                    else if (colourID == 1)
+                    {
+                        colour = Color.blue;
+                        blueRing.SetActive(true);
+                        icon = blueIcon;
+                    }
+                    else if (colourID == 2)
+                    {
+                        colour = Color.yellow;
+                        yellowRing.SetActive(true);
+                        icon = yellowIcon;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Debug.LogError($"Exception triggered by {gameObject.name} | {e.Message} : {e.StackTrace}");
+            }
+            
         }
 
         if (functionality != null)

@@ -102,7 +102,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        // currentlyHeldWeapons[0] = FindWeapon(12);
+        //currentlyHeldWeapons[0] = FindWeapon(7);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
@@ -205,15 +205,15 @@ public class WeaponManager : MonoBehaviour
         found.colour = weapon.colour;
 
         //Turn on Ring
-        if (weapon.GetComponent<WeaponProperties>().colour == "Red")
+        if (weapon.GetComponent<WeaponProperties>().colour == Color.red)
         {
             found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().redIcon;
         }
-        else if (weapon.GetComponent<WeaponProperties>().colour == "Blue")
+        else if (weapon.GetComponent<WeaponProperties>().colour == Color.blue)
         {
             found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().blueIcon;
         }
-        else if (weapon.GetComponent<WeaponProperties>().colour == "Yellow")
+        else if (weapon.GetComponent<WeaponProperties>().colour == Color.yellow)
         {
             found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().yellowIcon;
         }
@@ -295,15 +295,15 @@ public class WeaponManager : MonoBehaviour
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
         
         //Turn on Ring
-        if (drop.GetComponent<WeaponProperties>().colour == "Red")
+        if (drop.GetComponent<WeaponProperties>().colour == Color.red)
         {
             drop.GetComponent<WeaponProperties>().redRing.SetActive(true);
         }
-        else if (drop.GetComponent<WeaponProperties>().colour == "Blue")
+        else if (drop.GetComponent<WeaponProperties>().colour == Color.blue)
         {
             drop.GetComponent<WeaponProperties>().blueRing.SetActive(true);
         }
-        else if (drop.GetComponent<WeaponProperties>().colour == "Yellow")
+        else if (drop.GetComponent<WeaponProperties>().colour == Color.yellow)
         {
             drop.GetComponent<WeaponProperties>().yellowRing.SetActive(true);
         }
