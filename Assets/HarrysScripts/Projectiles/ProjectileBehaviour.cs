@@ -16,6 +16,8 @@ public class ProjectileBehaviour : MonoBehaviour
     public int enemyDamage;
     public int playerDamage;
 
+    public string colour;
+
     public bool canChangeDistance;
     
     void Awake()

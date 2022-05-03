@@ -10,6 +10,11 @@ public class BlackHoleBall : ProjectileBehaviour
 
     bool hasBounced;
 
+    private void Start()
+    {
+        blackHolePrefab.GetComponent<BlackHoleGravity>().colour = colour;
+    }
+
     void Update()
     {
         if (bounces <= 0)

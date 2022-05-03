@@ -48,7 +48,19 @@ public class WeaponLazer : WeaponBase
                     t += 1f * Time.deltaTime;
                     if (t >= damageInterval)
                     {
-                        enemyScript.currentHP -= enemyDamage;
+                        if (weaponProperties.colour == enemyScript.colour)
+                        {
+                            enemyScript.currentHP -= (enemyDamage*2);
+                        }
+                        else if (weaponProperties.colour == "Grey")
+                        {
+                            enemyScript.currentHP -= enemyDamage;
+                        }
+                        else
+                        {
+                            enemyScript.currentHP -= (enemyDamage/2);
+                        }
+
                         if (hitEnemy.GetComponent<AITest>() != null)
                         {
                             hitEnemy.GetComponent<AITest>().Hit();

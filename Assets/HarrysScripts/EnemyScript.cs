@@ -46,7 +46,18 @@ public class EnemyScript : MonoBehaviour
                 functionality.Hit();
             }
             AudioManager.instance.Play("EnemyHit");
-            DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
+            if (collObj.GetComponent<ProjectileBehaviour>().colour == colour)
+            {
+                DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage * 2);
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == "Grey")
+            {
+                DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
+            }
+            else
+            {
+                DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage / 2);
+            }
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
         }
