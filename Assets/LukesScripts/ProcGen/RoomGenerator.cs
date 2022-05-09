@@ -132,6 +132,7 @@ public class RoomGenerator : MonoBehaviour
 
     private void PlaceLighting(List<RoomMeshGenerator.Edge> edgeVertices)
     {
+        // Wall lights
         for(int i = 0; i < edgeVertices.Count; i++)
         {
             var spawn = i % 10 == 0;
@@ -144,10 +145,24 @@ public class RoomGenerator : MonoBehaviour
                     break;
                 }
                 var position = floorMesh.transform.position + edgeVertices[i].origin;
-                position.y += (wallMesh.wallHeight / 2);
+                position.y += (wallMesh.wallHeight / 2) + 0.5f;
                 var direction = edgeVertices[i].DirectionAsVector3();
                 SpawnPrefab(light, position, direction);
             }
+        }
+
+        // Room center lights here
+        for(int i = 0; i < rooms.Count; i++)
+        {
+            var light = GetRandomCeilingLight();
+            if (light == null)
+            {
+                Debug.LogError("No light prefab found!");
+                break;
+            }
+            var position = rooms[i].centre;
+            position.y = wallMesh.wallHeight - 0.5f;
+            SpawnPrefab(light, position, Vector3.zero);
         }
     }
 
@@ -216,8 +231,18 @@ public class RoomGenerator : MonoBehaviour
 
     public GameObject GetRandomLight()
     {
-        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.LIGHT)).ToList();
+        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_LIGHT)).ToList();
         if(prop.Count <= 0)
+            return null;
+
+        int index = Random.Range(0, prop.Count);
+        return prop[index].prefab;
+    }
+
+    public GameObject GetRandomCeilingLight()
+    {
+        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CEILING_LIGHT)).ToList();
+        if (prop.Count <= 0)
             return null;
 
         int index = Random.Range(0, prop.Count);
