@@ -27,6 +27,9 @@ public class OptionsMenu : MonoBehaviour
     public TextMeshProUGUI masterVolText;
     public TextMeshProUGUI musicVolText;
     public TextMeshProUGUI soundVolText;
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public Slider soundSlider;
     
     void Start()
     {
@@ -58,6 +61,13 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.AddOptions(qualitySettings);
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.RefreshShownValue();
+
+        /* masterSlider.value = Mathf.Pow(10, GetMasterVolume()) / 20;
+        musicSlider.value = Mathf.Pow(10, GetMusicVolume()) / 20;
+        soundSlider.value = Mathf.Pow(10, GetSFXVolume()) / 20;
+        masterVolText.text = (int)(Mathf.Pow(10, GetMasterVolume()) / 20) + "%";
+        musicVolText.text = (int)(Mathf.Pow(10, GetMusicVolume()) / 20) + "%";
+        soundVolText.text = (int)(Mathf.Pow(10, GetSFXVolume()) / 20) + "%"; */
     }
 
     public void SetResolution (int resIndex)
@@ -98,6 +108,45 @@ public class OptionsMenu : MonoBehaviour
     {
         audioMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
         soundVolText.text = (int)(volume * 100) + "%";
+    }
+
+    public float GetMasterVolume()
+    {
+        float value;
+        if(audioMixer.GetFloat("MasterVol", out value))
+        {
+            return value;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
+    public float GetMusicVolume()
+    {
+        float value;
+        if(audioMixer.GetFloat("MusicVol", out value))
+        {
+            return value;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
+    public float GetSFXVolume()
+    {
+        float value;
+        if(audioMixer.GetFloat("SFXVol", out value))
+        {
+            return value;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 
     #region Section Swapping
