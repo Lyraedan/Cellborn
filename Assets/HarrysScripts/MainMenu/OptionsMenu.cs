@@ -18,6 +18,8 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
 
     public Toggle fullscreenToggle;
+
+    public List<string> qualitySettings;
     public TMP_Dropdown qualityDropdown;
 
     [Header("Audio")]
@@ -52,7 +54,10 @@ public class OptionsMenu : MonoBehaviour
 
         fullscreenToggle.isOn = Screen.fullScreen;
 
+        qualityDropdown.ClearOptions();
+        qualityDropdown.AddOptions(qualitySettings);
         qualityDropdown.value = QualitySettings.GetQualityLevel();
+        qualityDropdown.RefreshShownValue();
     }
 
     public void SetResolution (int resIndex)
