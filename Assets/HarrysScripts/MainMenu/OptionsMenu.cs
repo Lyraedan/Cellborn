@@ -84,20 +84,20 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetMasterVolume (float volume)
     {
-        audioMixer.SetFloat("MasterVol", volume);
-        masterVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+        audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);
+        masterVolText.text = (int)(volume * 100) + "%";
     }
     
     public void SetMusicVolume (float volume)
     {
-        audioMixer.SetFloat("MusicVol", volume);
-        musicVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+        audioMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
+        musicVolText.text = (int)(volume * 100) + "%";
     }
 
     public void SetSoundVolume (float volume)
     {
-        audioMixer.SetFloat("SFXVol", volume);
-        soundVolText.text = (int)(100f - ((volume / -80) * 100f)) + "%";
+        audioMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
+        soundVolText.text = (int)(volume * 100) + "%";
     }
 
     #region Section Swapping
