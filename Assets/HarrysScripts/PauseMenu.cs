@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        tipsScript.SetTip();
+        //tipsScript.SetTip();
         isPaused = true;
     }
 
