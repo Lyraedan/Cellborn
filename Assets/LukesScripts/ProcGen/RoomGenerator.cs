@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -109,10 +111,11 @@ public class RoomGenerator : MonoBehaviour
         floorMesh.GenerateFloor(grid);
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
+        PlaceLighting(floorMesh.edgeVertices);
 
         BakeNavmesh();
 
-        PlaceProps();
+        //PlaceProps();
         Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
         GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
         var player = SpawnPlayer(spawnPoint);
@@ -125,6 +128,27 @@ public class RoomGenerator : MonoBehaviour
         bossAI.bindingPoint = wizardSpawn;
 
         StartCoroutine(AwaitAssignables());
+    }
+
+    private void PlaceLighting(List<RoomMeshGenerator.Edge> edgeVertices)
+    {
+        for(int i = 0; i < edgeVertices.Count; i++)
+        {
+            var spawn = i % 10 == 0;
+            if (spawn)
+            {
+                var light = GetRandomLight();
+                if (light == null)
+                {
+                    Debug.LogError("No light prefab found!");
+                    break;
+                }
+                var position = floorMesh.transform.position + edgeVertices[i].origin;
+                position.y += (wallMesh.wallHeight / 2);
+                var direction = edgeVertices[i].DirectionAsVector3();
+                SpawnPrefab(light, position, direction);
+            }
+        }
     }
 
     void ClearDungeon()
@@ -188,6 +212,16 @@ public class RoomGenerator : MonoBehaviour
         var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PROP)).ToList();
         int index = Random.Range(0, prop.Count);
         return prop[index].Spawn(cell.position, cell.rotation);
+    }
+
+    public GameObject GetRandomLight()
+    {
+        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.LIGHT)).ToList();
+        if(prop.Count <= 0)
+            return null;
+
+        int index = Random.Range(0, prop.Count);
+        return prop[index].prefab;
     }
 
     public GameObject SpawnRandomEntity(GridCell cell)
