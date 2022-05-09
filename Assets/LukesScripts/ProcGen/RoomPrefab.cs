@@ -9,7 +9,7 @@ public class RoomPrefab
 
     public enum RoomPropType
     {
-        FLOOR, WALL, PROP, DOOR, CORNER, ENTITY, BOSS, PLAYER, LIGHT
+        FLOOR, WALL, PROP, DOOR, CORNER, ENTITY, BOSS, PLAYER, WALL_LIGHT, CEILING_LIGHT
     }
 
     public GameObject prefab;
