@@ -43,6 +43,23 @@ public class RoomMeshGenerator : MonoBehaviour
         {
             return this.origin.Equals(edge.origin);
         }
+
+        public Vector3 DirectionAsVector3()
+        {
+            switch(direction)
+            {
+                case FaceDirection.NORTH:
+                    return new Vector3(0, 0, 0);
+                case FaceDirection.SOUTH:
+                    return new Vector3(0, 180, 0);
+                case FaceDirection.EAST:
+                    return new Vector3(0, 90, 0);
+                case FaceDirection.WEST:
+                    return new Vector3(0, -90, 0);
+                default:
+                    return new Vector3(0, 0, 0);
+            }
+        }
     }
 
     private Grid grid;
