@@ -91,7 +91,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: CellMusic
     clip: {fileID: 8300000, guid: 9b558683088393e4bbfebeaa504aa858, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 1
     soundType: 0
@@ -112,14 +112,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShotgunFire
     clip: {fileID: 8300000, guid: 3c34d0eec77553242ba646a3f95b583f, type: 3}
-    volume: 0.502
+    volume: 0.25
     pitch: 1
     loop: 0
     soundType: 1
     source: {fileID: 0}
   - name: PistolFire
     clip: {fileID: 8300000, guid: b1069522fe45e024c9aa8d449b639422, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     loop: 0
     soundType: 1
@@ -217,6 +217,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PageTurn
     clip: {fileID: 8300000, guid: 407406d60f244b64db85d36d3f404cd6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    soundType: 1
+    source: {fileID: 0}
+  - name: EnemyDeathBurst
+    clip: {fileID: 8300000, guid: b6ab0217dd787594185bb434264cca92, type: 3}
     volume: 1
     pitch: 1
     loop: 0
