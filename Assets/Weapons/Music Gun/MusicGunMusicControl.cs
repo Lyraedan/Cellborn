@@ -5,6 +5,7 @@ using UnityEngine;
 public class MusicGunMusicControl : MonoBehaviour
 {
     public string songName;
+    public GameObject discoLights;
     
     void Update()
     {
@@ -19,26 +20,31 @@ public class MusicGunMusicControl : MonoBehaviour
                         if (!AudioManager.instance.IsPlaying(songName))
                         {
                             AudioManager.instance.Play(songName);
+                            discoLights.SetActive(true);
                         }
                     }
                     else
                     {
                         AudioManager.instance.Stop(songName);
+                        discoLights.SetActive(false);
                     }
                 }
                 else
                 {
                     AudioManager.instance.Stop(songName);
+                    discoLights.SetActive(false);
                 }
             }
             else
             {
                 AudioManager.instance.Stop(songName);
+                discoLights.SetActive(false);
             }
         }
         else
         {
             AudioManager.instance.Stop(songName);
+            discoLights.SetActive(false);
         }
     }
 }
