@@ -41,7 +41,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 19fc00ce1dbd977428e1fe6e781c0f7b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f390b1c587c83064c8e21fb8991abf25, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -234,6 +234,7 @@ MonoBehaviour:
   enemyHealthDrainMultiplier: 16
   playerDamage: 1
   enemyDamage: 1
+  colour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!135 &2264107669518592796
 SphereCollider:
   m_ObjectHideFlags: 0
