@@ -8,7 +8,7 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject mainMenuGroup, creditsGroup, loadingGroup, optionsGroup, logo;
+    public GameObject mainMenuGroup, creditsGroup, loadingGroup, optionsGroup, startGameGroup, logo;
 
     public Slider loadBar;
     public TextMeshProUGUI loadBarText;
@@ -40,6 +40,7 @@ public class MainMenu : MonoBehaviour
         logo.SetActive(true);
         creditsGroup.SetActive(false);
         optionsGroup.SetActive(false);
+        startGameGroup.SetActive(false);
     }
 
     public void OpenOptions()
@@ -54,6 +55,12 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OpenStartOptions()
+    {
+        mainMenuGroup.SetActive(false);
+        startGameGroup.SetActive(true);
+    }
     
     public void StartGame(string sceneName)
     {
@@ -65,6 +72,7 @@ public class MainMenu : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
         mainMenuGroup.SetActive(false);
+        startGameGroup.SetActive(false);
         loadingGroup.SetActive(true);
 
         while (!operation.isDone)
