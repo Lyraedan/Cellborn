@@ -8,6 +8,7 @@ public class SlotHolder : MonoBehaviour
 {
     public Image image;
     public TextMeshProUGUI number;
+    public Image identifier;
     public bool isSelected;
 
     public void SelectSlot()

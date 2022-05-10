@@ -64,6 +64,11 @@ public class PotionManager : MonoBehaviour
                 {
                     potionSlots[i].image.sprite = currentlyHeldPotions[i].icon;
                 }
+
+                if (potionSlots[i].identifier.sprite != null)
+                {
+                    potionSlots[i].identifier.sprite = currentlyHeldPotions[i].identifier;
+                }
             }
         }
 
@@ -109,6 +114,7 @@ public class PotionManager : MonoBehaviour
 
             var slot = potionSlots[index];
             slot.image.sprite = currentlyHeldPotions[index].icon;
+            slot.identifier.sprite = currentlyHeldPotions[index].identifier;
 
             Destroy(potion.gameObject);
             pickupText.text = string.Empty;

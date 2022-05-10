@@ -10,6 +10,7 @@ public class PotionProperties : MonoBehaviour
     public string description = "";
     public int potionID;
     public Sprite icon;
+    public Sprite identifier;
 
     [Header("Set Functionality")]
     public PotionBase functionality;
