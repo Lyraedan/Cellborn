@@ -45,6 +45,12 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
     }
 
+    public void RegenLevel()
+    {
+        Resume();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ReturnToMenu()
     {
         AudioManager.instance.Play("MenuClick");
