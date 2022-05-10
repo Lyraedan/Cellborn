@@ -7,7 +7,7 @@ public class BouncyBall : ProjectileBehaviour
     public List<Color> ballColors;
     Light ballLight;
     int colorIndex;
-    float t; // Time
+    float timer; // Time
     public bool wizard = false;
 
     Material instMat;
