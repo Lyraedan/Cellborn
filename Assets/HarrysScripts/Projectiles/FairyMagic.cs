@@ -32,7 +32,7 @@ public class FairyMagic : ProjectileBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "Prop")
+        if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "Prop" || other.gameObject.tag == "Environment")
         {
             Instantiate(destroyEffect, transform.position, transform.rotation);
             Destroy(gameObject);
