@@ -46,8 +46,7 @@ public class AITest : AI
 
     public override void OnDeath()
     {
-        audioSource.clip = deathSound;
-        audioSource.Play();
+        
     }
 
     void OnCollisionEnter(Collision other)

@@ -10,9 +10,6 @@ public class EnemyScript : MonoBehaviour
     private GameObject lastCollision;
     public AI functionality;
     public Color colour;
-    public AudioSource source;
-    public AudioClip hitSound;
-    public AudioClip deathSound;
 
     void Update()
     {
@@ -22,8 +19,6 @@ public class EnemyScript : MonoBehaviour
         }
         if(currentHP <= 0)
         {
-            source.clip = deathSound;
-            source.Play();
             Instantiate(deathSmoke, gameObject.transform.position, Quaternion.identity);
             if (lastCollision != null)
             {
@@ -49,8 +44,6 @@ public class EnemyScript : MonoBehaviour
                 Debug.Log("Hit by: " + collObj.tag);
                 functionality.Hit();
             }
-            source.clip = hitSound;
-            source.Play();
             if (collObj.GetComponent<ProjectileBehaviour>().colour == colour)
             {
                 DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage * 2);
@@ -66,8 +59,7 @@ public class EnemyScript : MonoBehaviour
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
         }
-
-        if (collObj.CompareTag("Grapple"))
+        else if (collObj.CompareTag("Grapple"))
         {
             lastCollision = collObj;
             if (functionality != null)
@@ -76,8 +68,6 @@ public class EnemyScript : MonoBehaviour
                 functionality.Hit();
             }
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
-            source.clip = hitSound;
-            source.Play();
             DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage);
         }
     }

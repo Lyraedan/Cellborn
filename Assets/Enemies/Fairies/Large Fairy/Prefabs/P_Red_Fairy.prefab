@@ -155,9 +155,6 @@ MonoBehaviour:
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: 8389510986172990888}
   colour: {r: 0, g: 0, b: 0, a: 0}
-  source: {fileID: 1711068431675966393}
-  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
-  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -249,6 +246,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 38586f60aea48da449c0ce28299b4221, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   audioSource: {fileID: 1711068431675966393}
+  idleSound: {fileID: 8300000, guid: 7db76156cd9b6c844b55fa7f9afefda9, type: 3}
   hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
   deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
   isHit: 0

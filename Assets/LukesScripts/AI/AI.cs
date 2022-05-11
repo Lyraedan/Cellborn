@@ -23,7 +23,7 @@ namespace LukesScripts.AI
         public Material defaultMaterial;
         public Material damagedMaterial;
         public AudioSource audioSource;
-        public AudioClip hitSound, deathSound;
+        public AudioClip idleSound, hitSound, deathSound;
 
         protected Vector3 OurPosition
         {
@@ -145,6 +145,8 @@ namespace LukesScripts.AI
             {
                 WeaponBag.instance.RefillBag();
             }
+            audioSource.clip = deathSound;
+            audioSource.Play();
             OnDeath();
             CustomEvent.Trigger(gameObject, EventHooks.OnDeath);
         }
@@ -152,10 +154,17 @@ namespace LukesScripts.AI
         public void Hit()
         {
             isHit = true;
+            audioSource.clip = hitSound;
+            audioSource.Play();
             OnHit();
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
             isHit = false;
             StartCoroutine(DamageIndicator());
+            if (idleSound != null)
+            {
+                audioSource.clip = idleSound;
+                audioSource.Play();
+            }
         }
 
         IEnumerator DamageIndicator()

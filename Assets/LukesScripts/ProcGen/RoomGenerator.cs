@@ -17,6 +17,7 @@ public class RoomGenerator : MonoBehaviour
     public int seed = 0;
     public int levelIndex = 0;
     public int numberOfLevels = 3;
+    public Transform lightRoot;
     [SerializeField] private int[] levels;
     public Vector2 minDungeonSize = new Vector2(10, 10);
     public Vector2 maxDungeonSize = new Vector2(25, 25);
@@ -37,6 +38,8 @@ public class RoomGenerator : MonoBehaviour
     public GradedPath navAgent;
     public TargetMovement targetAim;
     public bool enableCulling = true;
+
+    private GameObject player;
 
     //Adjacent directions
     [HideInInspector] public const int UP = 0;
@@ -125,16 +128,21 @@ public class RoomGenerator : MonoBehaviour
 
         BakeNavmesh();
 
+        Vector3 startCoords = PositionAsGridCoordinates(start.centre);
+        GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
+
         //PlaceProps();
+        Debug.Log("Loading level: " + levelIndex);
         if (levelIndex == 0)
         {
-            Vector3 startCoords = PositionAsGridCoordinates(start.centre);
-            GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
-            var player = SpawnPlayer(startPoint);
+            player = SpawnPlayer(startPoint);
             CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
         } else
         {
             // Spawn teleporter back?
+            var position = startPoint.position;
+            position.y += 0.5f;
+            player.transform.position = position;
         }
 
         Vector3 endCords = PositionAsGridCoordinates(end.centre);
@@ -147,7 +155,7 @@ public class RoomGenerator : MonoBehaviour
         } else
         {
             // Generate teleporter
-            var teleporter = SpawnTeleporter(levelIndex + 1, endPoint);
+            var teleporter = SpawnTeleporter(endPoint);
         }
 
         StartCoroutine(AwaitAssignables());
@@ -170,7 +178,8 @@ public class RoomGenerator : MonoBehaviour
                 var position = floorMesh.transform.position + edgeVertices[i].origin;
                 position.y += (wallMesh.wallHeight / 2) + 0.5f;
                 var direction = edgeVertices[i].DirectionAsVector3();
-                SpawnPrefab(light, position, direction);
+                var l = SpawnPrefab(light, position, direction);
+                l.transform.SetParent(lightRoot);
             }
         }
 
@@ -185,7 +194,8 @@ public class RoomGenerator : MonoBehaviour
             }
             var position = rooms[i].centre;
             position.y = wallMesh.wallHeight - 0.5f;
-            SpawnPrefab(light, position, Vector3.zero);
+            var l = SpawnPrefab(light, position, Vector3.zero);
+            l.transform.SetParent(lightRoot);
         }
     }
 
@@ -194,6 +204,16 @@ public class RoomGenerator : MonoBehaviour
         DeleteAllObjectsWithTag("Weapon");
         DeleteAllObjectsWithTag("Prop");
         DeleteAllObjectsWithTag("Enemy");
+        // Reset grid
+        for(int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                current.rotation = Vector3.zero;
+                current.flag = GridCell.GridFlag.WALKABLE;
+            }
+        }
     }
 
     public void Regenerate()
@@ -301,18 +321,20 @@ public class RoomGenerator : MonoBehaviour
         return Instantiate(wizard, pos, Quaternion.identity);
     }
 
-    public GameObject SpawnTeleporter(int nextLevelIndex, GridCell cell)
+    public GameObject SpawnTeleporter(GridCell cell)
     {
         var pos = cell.position;
         pos.y += -0.5f;
         var teleporterObject = Instantiate(teleporter, pos, Quaternion.identity);
-        var teleport = teleporterObject.GetComponent<Teleporter>();
+        var teleport = teleporterObject.transform.Find("Collider").gameObject.GetComponent<Teleporter>();
         teleport.OnTriggered += () =>
         {
-            Debug.Log("Do teleport!");
+            int next = levelIndex + 1;
+            Debug.Log("Do teleport! from " + levelIndex + " to " + next);
+            levelIndex = next;
             ClearDungeon();
             DeleteAllObjectsWithTag("Environment");
-            Generate(levels[nextLevelIndex]);
+            Generate(levels[levelIndex]);
         };
         return teleporterObject;
     }

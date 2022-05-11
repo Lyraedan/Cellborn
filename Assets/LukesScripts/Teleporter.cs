@@ -10,6 +10,7 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Teleporter triggered by " + other.tag + " -> " + other.name);
         if(other.CompareTag("Player"))
             OnTriggered?.Invoke();
     }

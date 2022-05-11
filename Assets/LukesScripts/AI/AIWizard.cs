@@ -174,8 +174,7 @@ public class AIWizard : AI
 
     public override void OnDeath()
     {
-        audioSource.clip = deathSound;
-        audioSource.Play();
+        
     }
 
     public override void DrawGizmos()
