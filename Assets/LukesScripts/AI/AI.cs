@@ -22,6 +22,8 @@ namespace LukesScripts.AI
         public SkinnedMeshRenderer skinnedMeshRenderer;
         public Material defaultMaterial;
         public Material damagedMaterial;
+        public AudioSource audioSource;
+        public AudioClip hitSound, deathSound;
 
         protected Vector3 OurPosition
         {

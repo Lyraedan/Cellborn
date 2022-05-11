@@ -27,6 +27,9 @@ public class PotionManager : MonoBehaviour
     public PotionProperties currentPotion;
     public PotionProperties toPickup;
 
+    public AudioSource source;
+    public AudioClip pickupSound;
+
     void Awake()
     {
         if (instance == null)
@@ -119,7 +122,8 @@ public class PotionManager : MonoBehaviour
             Destroy(potion.gameObject);
             pickupText.text = string.Empty;
 
-            AudioManager.instance.Play("PotionPickup");
+            source.clip = pickupSound;
+            source.Play();
         }
         else
         {

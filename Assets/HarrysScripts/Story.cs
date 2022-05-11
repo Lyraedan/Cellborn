@@ -19,18 +19,25 @@ public class Story : MonoBehaviour
 
     bool isLoading = false;
 
+    public AudioSource source, snake, fairy;
+    public AudioClip pageTurn, enemyDeathBurst, snakeDeath, fairyDeath;
+
     void Update()
     {
         if (Input.anyKeyDown && chosenPic <= storyPictures.Count && !isLoading)
         {
-            AudioManager.instance.Play("PageTurn");
+            source.clip = pageTurn;
+            source.Play();
             chosenPic++;
 
             if(chosenPic == 3)
             {
-                AudioManager.instance.Play("EnemyDeathBurst");
-                AudioManager.instance.Play("SnakeDeath");
-                AudioManager.instance.Play("FairyDeath");
+                source.clip = enemyDeathBurst;
+                source.Play();
+                snake.clip = snakeDeath;
+                snake.Play();
+                fairy.clip = fairyDeath;
+                fairy.Play();
             }
         }
 
@@ -60,6 +67,7 @@ public class Story : MonoBehaviour
 
         while (!operation.isDone)
         {
+            // Dude this is not how you calculate progress! (value * 100) / MaxValue - For the love of god its basic maths
             float progress = Mathf.Clamp01(operation.progress / .9f);            
             
             loadBar.value = progress;

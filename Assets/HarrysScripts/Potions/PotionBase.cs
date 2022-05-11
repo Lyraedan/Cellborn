@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class PotionBase : MonoBehaviour
 {
     public bool isInPlayerInventory = false;
+    public AudioSource source;
+    public AudioClip useSound;
     
     void Start()
     {
@@ -18,5 +20,13 @@ public abstract class PotionBase : MonoBehaviour
 
     public abstract void Init();
     public abstract void Tick();
+
+    public void UsePotion()
+    {
+        Use();
+        source.clip = useSound;
+        source.Play();
+    }
+
     public abstract void Use();
 }

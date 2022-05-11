@@ -31,7 +31,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject slotPrefab;
     public List<GameObject> uiSlots = new List<GameObject>();
 
-    public WeaponProperties _currentWeapon;
+    private WeaponProperties _currentWeapon;
     public WeaponProperties currentWeapon
     {
         get
@@ -76,6 +76,9 @@ public class WeaponManager : MonoBehaviour
     }
     public WeaponProperties toPickup;
 
+    public AudioSource source;
+    public AudioClip pickupSound, pickupAmmoSound;
+
     private void Awake()
     {
         if (instance == null)
@@ -102,7 +105,8 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(7);
+        currentlyHeldWeapons[0] = FindWeapon(1);
+        currentlyHeldWeapons[1] = FindWeapon(2);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
         {
@@ -237,6 +241,9 @@ public class WeaponManager : MonoBehaviour
             // Update current weapon
             if(index == currentlySelectedIndex)
                 currentWeapon = wep;
+
+            source.clip = pickupSound;
+            source.Play();
         }
         else if (hasWeapon)
         {
@@ -250,6 +257,9 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log("Added -> " + weapon.currentAmmo + " has " + remaining + " left");
                 CustomEvent.Trigger(gameObject, EventHooks.OnAmmoReplenished, remaining, weapon.IsEmpty);
                 weapon.SetAmmo(remaining);
+
+                source.clip = pickupAmmoSound;
+                source.Play();
 
                 if (weapon.IsEmpty)
                     Destroy(weapon.gameObject);
@@ -272,8 +282,6 @@ public class WeaponManager : MonoBehaviour
                 CustomEvent.Trigger(gameObject, EventHooks.InventoryFull);
             }
         }
-
-        AudioManager.instance.Play("WeaponPickup");
     }
 
     public void Drop(WeaponProperties weapon)

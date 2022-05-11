@@ -37,7 +37,6 @@ public class weapon_automaticshotgun : WeaponBase
             proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance);
             proj.GetComponent<ProjectileBehaviour>().colour = WeaponManager.instance.currentWeapon.colour;
         }
-        AudioManager.instance.Play("ShotgunFire");
     }
 }
 

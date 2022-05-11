@@ -114,7 +114,8 @@ public class AIFairy : AI
 
     public override void OnDeath()
     {
-        AudioManager.instance.Play("FairyDeath");
+        audioSource.clip = deathSound;
+        audioSource.Play();
     }
 
     public override void DrawGizmos()

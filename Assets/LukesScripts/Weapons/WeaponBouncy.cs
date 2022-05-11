@@ -36,6 +36,5 @@ public class WeaponBouncy : WeaponBase
             proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance*2);
             proj.GetComponent<ProjectileBehaviour>().colour = WeaponManager.instance.currentWeapon.colour;
         }
-        AudioManager.instance.Play("SirBoingsFire");
     }
 }

@@ -43,6 +43,9 @@ public class PlayerStats : MonoBehaviour
 
     public LaserControl laserControl;
 
+    public AudioSource source;
+    public AudioClip hurtSound;
+
     #endregion
 
     #region UI
@@ -163,7 +166,8 @@ public class PlayerStats : MonoBehaviour
         if (!isDead)
         {
             damageRed.CrossFadeAlpha(1, 0f, false);
-            AudioManager.instance.Play("PlayerHurt");
+            source.clip = hurtSound;
+            source.Play();
             currentHP -= (int)(damage * defenseMultiplier);
         }
     }

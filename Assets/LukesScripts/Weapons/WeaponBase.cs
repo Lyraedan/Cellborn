@@ -27,6 +27,9 @@ public abstract class WeaponBase : MonoBehaviour
     protected bool canFire = true;
     protected float timer = 0;
 
+    public AudioSource source;
+    public AudioClip fireSound;
+
     void Start()
     {
         Init();
@@ -53,6 +56,15 @@ public abstract class WeaponBase : MonoBehaviour
     {
         if (canFire)
         {
+            // Has sound assigned
+            if (source != null)
+            {
+                source.clip = fireSound;
+                source.Play();
+            } else
+            {
+                Debug.LogError($"{gameObject.name} does not have sound assigned to it!");
+            }
             Fire();
             CustomEvent.Trigger(gameObject, LukesScripts.Blueprints.EventHooks.Fire, secondsBetweenShots,
                                                                                      WeaponManager.instance.firepoint.transform.position,

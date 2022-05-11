@@ -15,12 +15,16 @@ public class RoomGenerator : MonoBehaviour
     public Grid grid;
     [Header("Dungeon settings")]
     public int seed = 0;
+    public int levelIndex = 0;
+    public int numberOfLevels = 3;
+    [SerializeField] private int[] levels;
     public Vector2 minDungeonSize = new Vector2(10, 10);
     public Vector2 maxDungeonSize = new Vector2(25, 25);
     public Vector2 minRoomSize = new Vector2(3, 6);
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
     public GameObject wizard;
+    public GameObject teleporter;
     public GameObject prisonCell;
     public List<Room> rooms = new List<Room>();
 
@@ -60,14 +64,20 @@ public class RoomGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Generate();
+        levels = new int[numberOfLevels];
+        for(int i = 0; i < numberOfLevels; i++)
+        {
+            if (seed == 0)
+                levels[i] = Random.Range(0, 1000000);
+            else
+                levels[i] = seed + i;
+        }
+
+        Generate(levels[levelIndex]);
     }
 
-    void Generate()
+    void Generate(int seed)
     {
-        if (seed == 0)
-            this.seed = Random.Range(0, 1000000);
-
         Random.InitState(seed);
         Debug.Log("Generating dungeon with seed: " + seed);
         generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
@@ -116,16 +126,29 @@ public class RoomGenerator : MonoBehaviour
         BakeNavmesh();
 
         //PlaceProps();
-        Vector3 spawnCoords = PositionAsGridCoordinates(start.centre);
-        GridCell spawnPoint = navAgent.GetGridCellAt((int)spawnCoords.x, (int)spawnCoords.y, (int)spawnCoords.z);
-        var player = SpawnPlayer(spawnPoint);
-        CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
+        if (levelIndex == 0)
+        {
+            Vector3 startCoords = PositionAsGridCoordinates(start.centre);
+            GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
+            var player = SpawnPlayer(startPoint);
+            CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
+        } else
+        {
+            // Spawn teleporter back?
+        }
 
-        Vector3 wizardSpawn = PositionAsGridCoordinates(end.centre);
-        GridCell spawnPointWizard = navAgent.GetGridCellAt((int)wizardSpawn.x, (int)wizardSpawn.y, (int)wizardSpawn.z);
-        var boss = SpawnWizard(spawnPointWizard);
-        var bossAI = boss.GetComponent<AIWizard>();
-        bossAI.bindingPoint = wizardSpawn;
+        Vector3 endCords = PositionAsGridCoordinates(end.centre);
+        GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
+        if (levelIndex == numberOfLevels - 1)
+        {
+            var boss = SpawnWizard(endPoint);
+            var bossAI = boss.GetComponent<AIWizard>();
+            bossAI.bindingPoint = endCords;
+        } else
+        {
+            // Generate teleporter
+            var teleporter = SpawnTeleporter(levelIndex + 1, endPoint);
+        }
 
         StartCoroutine(AwaitAssignables());
     }
@@ -276,6 +299,21 @@ public class RoomGenerator : MonoBehaviour
         var pos = cell.position;
         pos.y += 0.5f;
         return Instantiate(wizard, pos, Quaternion.identity);
+    }
+
+    public GameObject SpawnTeleporter(int nextLevelIndex, GridCell cell)
+    {
+        var pos = cell.position;
+        pos.y += 0.5f;
+        var teleporterObject = Instantiate(teleporter, pos, Quaternion.identity);
+        var teleport = teleporterObject.GetComponent<Teleporter>();
+        teleport.OnTriggered += () =>
+        {
+            ClearDungeon();
+            DeleteAllObjectsWithTag("Environment");
+            Generate(levels[nextLevelIndex]);
+        };
+        return teleporterObject;
     }
     #endregion
 

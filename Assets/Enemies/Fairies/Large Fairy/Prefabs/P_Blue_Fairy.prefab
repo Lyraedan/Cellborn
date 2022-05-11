@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 8389510986172990888}
   - component: {fileID: 2808799947874739455}
   - component: {fileID: 5631607724436351440}
+  - component: {fileID: 1766318695443686779}
   m_Layer: 12
   m_Name: P_Blue_Fairy
   m_TagString: Enemy
@@ -153,7 +154,10 @@ MonoBehaviour:
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: 8389510986172990888}
-  colour: Blue
+  colour: {r: 0, g: 0, b: 0, a: 0}
+  source: {fileID: 5631607724436351440}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,6 +248,9 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 3026028849074251486}
   defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  audioSource: {fileID: 5631607724436351440}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
   isHit: 0
   roamRadius: 3
   playerStats: {fileID: 0}
@@ -425,6 +432,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1766318695443686779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3475676250369947049
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,46 +4,43 @@ using UnityEngine;
 
 public class MusicGunMusicControl : MonoBehaviour
 {
-    public string songName;
     public GameObject discoLights;
-    
+
+    public AudioSource source;
+    public AudioClip song;
+
     void Update()
     {
-        if (!PlayerStats.instance.isDead)
+        if (PlayerStats.instance == null)
+            return;
+
+        if (WeaponManager.instance == null)
+            return;
+
+        if (PlayerStats.instance.isDead)
+            return;
+
+        if (WeaponManager.instance.currentWeapon == null)
+            return;
+
+        if (WeaponManager.instance.currentWeapon.weaponId != 12)
+            return;
+
+        if (WeaponManager.instance.currentWeapon.currentAmmo <= 0)
+            return;
+
+        if (Input.GetButton("Fire1"))
         {
-            if (WeaponManager.instance.currentWeapon.weaponId == 12)
+            if (!source.isPlaying)
             {
-                if (WeaponManager.instance.currentWeapon.currentAmmo > 0)
-                {
-                    if (Input.GetButton("Fire1"))
-                    {
-                        if (!AudioManager.instance.IsPlaying(songName))
-                        {
-                            AudioManager.instance.Play(songName);
-                            discoLights.SetActive(true);
-                        }
-                    }
-                    else
-                    {
-                        AudioManager.instance.Stop(songName);
-                        discoLights.SetActive(false);
-                    }
-                }
-                else
-                {
-                    AudioManager.instance.Stop(songName);
-                    discoLights.SetActive(false);
-                }
-            }
-            else
-            {
-                AudioManager.instance.Stop(songName);
-                discoLights.SetActive(false);
+                source.clip = song;
+                source.Play();
+                discoLights.SetActive(true);
             }
         }
         else
         {
-            AudioManager.instance.Stop(songName);
+            source.Stop();
             discoLights.SetActive(false);
         }
     }

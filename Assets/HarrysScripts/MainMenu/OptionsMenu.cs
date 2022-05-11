@@ -22,15 +22,9 @@ public class OptionsMenu : MonoBehaviour
     public List<string> qualitySettings;
     public TMP_Dropdown qualityDropdown;
 
-    [Header("Audio")]
-    public AudioMixer audioMixer;
-    public TextMeshProUGUI masterVolText;
-    public TextMeshProUGUI musicVolText;
-    public TextMeshProUGUI soundVolText;
-    public Slider masterSlider;
-    public Slider musicSlider;
-    public Slider soundSlider;
-    
+    public AudioSource source;
+    public AudioClip click, error;
+
     void Start()
     {
         OpenGraphics();
@@ -62,6 +56,8 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.RefreshShownValue();
 
+        // This is a very complicated way of doing "(value * 100) / MaxValue" - Luke
+
         /* masterSlider.value = Mathf.Pow(10, GetMasterVolume()) / 20;
         musicSlider.value = Mathf.Pow(10, GetMusicVolume()) / 20;
         soundSlider.value = Mathf.Pow(10, GetSFXVolume()) / 20;
@@ -92,68 +88,12 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.vSyncCount = Convert.ToInt32(isVSync);
     }
 
-    public void SetMasterVolume (float volume)
-    {
-        audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);
-        masterVolText.text = (int)(volume * 100) + "%";
-    }
-    
-    public void SetMusicVolume (float volume)
-    {
-        audioMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
-        musicVolText.text = (int)(volume * 100) + "%";
-    }
-
-    public void SetSoundVolume (float volume)
-    {
-        audioMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
-        soundVolText.text = (int)(volume * 100) + "%";
-    }
-
-    public float GetMasterVolume()
-    {
-        float value;
-        if(audioMixer.GetFloat("MasterVol", out value))
-        {
-            return value;
-        }
-        else
-        {
-            return 0f;
-        }
-    }
-
-    public float GetMusicVolume()
-    {
-        float value;
-        if(audioMixer.GetFloat("MusicVol", out value))
-        {
-            return value;
-        }
-        else
-        {
-            return 0f;
-        }
-    }
-
-    public float GetSFXVolume()
-    {
-        float value;
-        if(audioMixer.GetFloat("SFXVol", out value))
-        {
-            return value;
-        }
-        else
-        {
-            return 0f;
-        }
-    }
-
     #region Section Swapping
 
     public void OpenGraphics()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(true);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
@@ -162,7 +102,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenAudio()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(true);
         controlsGroup.SetActive(false);
@@ -171,7 +112,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenControls()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(true);
@@ -180,16 +122,19 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenOther()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
         otherGroup.SetActive(true);
     }
 
+    // Why the fuck does this exist...
     public void NoFunction()
     {
-        AudioManager.instance.Play("MenuError");
+        source.clip = error;
+        source.Play();
     }
 
     #endregion

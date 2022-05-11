@@ -52,8 +52,7 @@ public class PotionProperties : MonoBehaviour
             return;
         }
 
-        AudioManager.instance.Play("PotionUse");
-        functionality.Use();
+        functionality.UsePotion();
     }
 
     private void OnTriggerEnter(Collider other)

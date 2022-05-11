@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: -7825588690380539266}
   - component: {fileID: 3434470127644330833}
   - component: {fileID: 2801961722139971591}
+  - component: {fileID: 7395919532104074739}
   m_Layer: 12
   m_Name: P_Yellow_SmallFairy
   m_TagString: Enemy
@@ -90,7 +91,10 @@ MonoBehaviour:
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: -7825588690380539266}
-  colour: Yellow
+  colour: {r: 0, g: 0, b: 0, a: 0}
+  source: {fileID: 2801961722139971591}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,6 +185,9 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 6826545288478285973}
   defaultMaterial: {fileID: 2100000, guid: a18c5d294b73ddd4e9579966ac32c0e6, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  audioSource: {fileID: 2801961722139971591}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
   isHit: 0
   roamRadius: 3
   playerStats: {fileID: 0}
@@ -362,6 +369,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7395919532104074739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6740784127087936462
 GameObject:
   m_ObjectHideFlags: 0

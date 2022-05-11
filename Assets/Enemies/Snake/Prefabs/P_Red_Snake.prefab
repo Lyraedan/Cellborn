@@ -48,6 +48,8 @@ GameObject:
   - component: {fileID: 5700812698526271174}
   - component: {fileID: 5941180864853082108}
   - component: {fileID: 408256024329251856}
+  - component: {fileID: -783565093179534380}
+  - component: {fileID: -5923961250628601086}
   m_Layer: 12
   m_Name: P_Red_Snake
   m_TagString: Enemy
@@ -90,7 +92,10 @@ MonoBehaviour:
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: 5700812698526271174}
-  colour: Red
+  colour: {r: 0, g: 0, b: 0, a: 0}
+  source: {fileID: -783565093179534380}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -228,6 +233,9 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 9194495817569807407}
   defaultMaterial: {fileID: 2100000, guid: 1accda8494f82ea4e9d015049449b017, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  audioSource: {fileID: -783565093179534380}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
   isHit: 0
   playerStats: {fileID: 0}
   acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
@@ -264,6 +272,114 @@ MonoBehaviour:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
     - {fileID: 11400000, guid: 0acf5f56a7f5284439f364ecc59011aa, type: 2}
+--- !u!82 &-783565093179534380
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &-5923961250628601086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2840305823283328933
 PrefabInstance:
   m_ObjectHideFlags: 0
