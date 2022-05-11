@@ -309,6 +309,7 @@ public class RoomGenerator : MonoBehaviour
         var teleport = teleporterObject.GetComponent<Teleporter>();
         teleport.OnTriggered += () =>
         {
+            Debug.Log("Do teleport!");
             ClearDungeon();
             DeleteAllObjectsWithTag("Environment");
             Generate(levels[nextLevelIndex]);
