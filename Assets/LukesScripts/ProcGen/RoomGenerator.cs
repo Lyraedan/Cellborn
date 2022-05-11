@@ -304,6 +304,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject SpawnTeleporter(int nextLevelIndex, GridCell cell)
     {
         var pos = cell.position;
+        pos.y += -0.5f;
         var teleporterObject = Instantiate(teleporter, pos, Quaternion.identity);
         var teleport = teleporterObject.GetComponent<Teleporter>();
         teleport.OnTriggered += () =>
