@@ -451,15 +451,15 @@ public class RoomGenerator : MonoBehaviour
             var dot = Vector3.Dot(heading, next.centre);
 
             Vector3[] axisA = new Vector3[] {
-                current.centre + transform.forward,
                 current.centre + transform.right,
-                current.centre + transform.up
+                current.centre + transform.up,
+                current.centre + transform.forward
             };
 
             Vector3[] axisB = new Vector3[] {
-                next.centre + transform.forward,
                 next.centre + transform.right,
-                next.centre + transform.up
+                next.centre + transform.up,
+                next.centre + transform.forward
             };
 
             Vector3[] allAxis = new Vector3[] {
