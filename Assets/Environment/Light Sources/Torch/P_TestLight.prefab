@@ -50,7 +50,8 @@ MonoBehaviour:
   meshRenderers:
   - {fileID: 4089217984750952529}
   lights:
-    sources: []
+    sources:
+    - {fileID: 6308939681689034579}
   particles:
     emitters:
     - {fileID: 4559716147835732581}
@@ -277,5 +278,10 @@ Transform:
 --- !u!23 &4089217984750952529 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8659111038500389460, guid: cb446f83bf7f9d34ea69c57c7e27bac6, type: 3}
+  m_PrefabInstance: {fileID: 4653491151293309445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &6308939681689034579 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1664465703705656662, guid: cb446f83bf7f9d34ea69c57c7e27bac6, type: 3}
   m_PrefabInstance: {fileID: 4653491151293309445}
   m_PrefabAsset: {fileID: 0}

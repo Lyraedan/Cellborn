@@ -1117,48 +1117,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855c24b21068ca6449a4680af0c5645e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateGI: 1
+  updateGI: 0
   giCullingMask:
     serializedVersion: 2
-    m_Bits: 7296
-  shadowSpaceSize: 50
+    m_Bits: 0
+  shadowSpaceSize: 1
   sun: {fileID: 2139805920}
   skyColor: {r: 0, g: 0, b: 0, a: 0}
-  voxelSpaceSize: 25
-  useBilateralFiltering: 1
-  innerOcclusionLayers: 1
-  temporalBlendWeight: 0.1
+  voxelSpaceSize: 1
+  useBilateralFiltering: 0
+  innerOcclusionLayers: 0
+  temporalBlendWeight: 0.02
   voxelResolution: 128
   visualizeSunDepthTexture: 0
   visualizeGI: 0
   visualizeVoxels: 0
   halfResolution: 0
-  stochasticSampling: 1
-  infiniteBounces: 1
+  stochasticSampling: 0
+  infiniteBounces: 0
   followTransform: {fileID: 0}
-  cones: 6
-  coneTraceSteps: 14
-  coneLength: 1
-  coneWidth: 5.5
-  occlusionStrength: 1
-  nearOcclusionStrength: 0.5
-  occlusionPower: 1.5
-  coneTraceBias: 1
-  nearLightGain: 1
-  giGain: 1
-  secondaryBounceGain: 1
+  cones: 1
+  coneTraceSteps: 1
+  coneLength: 0.1
+  coneWidth: 0.5
+  occlusionStrength: 0
+  nearOcclusionStrength: 0
+  occlusionPower: 0.001
+  coneTraceBias: 0
+  nearLightGain: 0
+  giGain: 0
+  secondaryBounceGain: 0
   softSunlight: 0
-  skyIntensity: 1
+  skyIntensity: 0
   doReflections: 0
-  reflectionSteps: 64
-  reflectionOcclusionPower: 1
-  skyReflectionIntensity: 1
+  reflectionSteps: 12
+  reflectionOcclusionPower: 0.001
+  skyReflectionIntensity: 0
   voxelAA: 0
   gaussianMipFilter: 0
-  farOcclusionStrength: 1
-  farthestOcclusionStrength: 1
-  secondaryCones: 6
-  secondaryOcclusionStrength: 1
+  farOcclusionStrength: 0.1
+  farthestOcclusionStrength: 0.1
+  secondaryCones: 3
+  secondaryOcclusionStrength: 0.1
   sphericalSkylight: 0
 --- !u!1 &2089827448
 GameObject:
