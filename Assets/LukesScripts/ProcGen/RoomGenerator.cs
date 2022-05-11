@@ -450,8 +450,51 @@ public class RoomGenerator : MonoBehaviour
             var heading = current.centre - next.centre;
             var dot = Vector3.Dot(heading, next.centre);
 
-            var cross = Vector3.Cross(current.centre, next.centre);
-            Debug.Log("Cross: " + cross.ToString());
+            Vector3[] axisA = new Vector3[] {
+                current.centre + transform.forward,
+                current.centre + transform.right,
+                current.centre + transform.up
+            };
+
+            Vector3[] axisB = new Vector3[] {
+                next.centre + transform.forward,
+                next.centre + transform.right,
+                next.centre + transform.up
+            };
+
+            Vector3[] allAxis = new Vector3[] {
+                axisA[0],
+                axisA[1],
+                axisA[2],
+                axisB[0],
+                axisB[1],
+                axisB[2],
+                Vector3.Cross(axisA[0], axisB[0]),
+                Vector3.Cross(axisA[0], axisB[1]),
+                Vector3.Cross(axisA[0], axisB[2]),
+                Vector3.Cross(axisA[1], axisB[0]),
+                Vector3.Cross(axisA[1], axisB[1]),
+                Vector3.Cross(axisA[1], axisB[2]),
+                Vector3.Cross(axisA[2], axisB[0]),
+                Vector3.Cross(axisA[2], axisB[1]),
+                Vector3.Cross(axisA[2], axisB[2])
+                //The cross product will give you a zero vector {0,0,0} when any two axes between the objects point in the same direction.
+            };
+
+            Vector3[] pointsA = new Vector3[] {
+                current.centre
+            };
+
+            Vector3[] pointsB = new Vector3[]
+            {
+                next.centre
+            };
+
+            bool overlap = ProjectionHasOverlap(pointsA, pointsB, allAxis);
+            if(overlap)
+            {
+                Debug.Log("We have an overlap!");
+            }
         }
     }
 
@@ -466,6 +509,96 @@ public class RoomGenerator : MonoBehaviour
         Debug.Log("Baked navmesh");
     }
 
+    bool ProjectionHasOverlap(Vector3[] pointsA, Vector3[] pointsB, Vector3[] allAxis)
+    {
+        float minOverlap = float.PositiveInfinity;
+        Vector3 minOverlapAxis = Vector3.zero;
+
+        for(int i = 0; i < allAxis.Length; i++)
+        {
+            float projBMin = float.MaxValue, projAMin = float.MinValue;
+
+            float projBMax = float.MinValue, projAMax = float.MaxValue;
+
+            Vector3 axis = allAxis[i];
+
+            // If axis is zero return true
+            if(axis.Equals(Vector3.zero))
+            {
+                return true;
+            }
+
+            for(int j = 0; j < pointsB.Length; j++)
+            {
+                float val = GetScalarProjection(pointsB[j], axis);
+                if(val < projBMin)
+                {
+                    projBMin = val;
+                }
+                if(val > projBMax)
+                {
+                    projBMax = val;
+                }
+            }
+
+            for(int j = 0; j < pointsA.Length; j++)
+            {
+                float val = GetScalarProjection(pointsA[j], axis);
+                if(val < projAMin)
+                {
+                    projAMin = val;
+                }
+                if(val > projAMax)
+                {
+                    projAMax = val;
+                }
+            }
+
+            // Check projection lines and look for an overlap
+            float overlap = FindOverlap(projAMin, projAMax, projBMin, projBMax);
+
+            // There was no overlap
+            if(overlap <= 0)
+            {
+                return false;
+            }
+
+            // We found an overlap
+            if(overlap < minOverlap)
+            {
+                minOverlap = overlap;
+                minOverlapAxis = axis;
+            }
+        }
+        return true;
+
+    }
+
+    float GetScalarProjection(Vector3 point, Vector3 axis)
+    {
+        return Vector3.Dot(point, axis);
+    }
+
+    float FindOverlap(float aStart, float aEnd, float bStart, float bEnd)
+    {
+        if (aStart < bStart)
+        {
+            if (aEnd < bStart)
+            {
+                return 0f;
+            }
+
+            return aEnd - bStart;
+        }
+
+        if (bEnd < aStart)
+        {
+            return 0f;
+        }
+
+        return bEnd - aStart;
+    }
+    
     /// <summary>
     /// Returns the cells "up, down, left, right, upLeft, upRight, downLeft, downRight" to the current cell
     /// </summary>
