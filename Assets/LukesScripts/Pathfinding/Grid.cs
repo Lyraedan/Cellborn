@@ -46,7 +46,19 @@ public class Grid : MonoBehaviour
                 }
             }
         }
-        Bake();
+
+        for (int x = 0; x < cells.x; x++)
+        {
+            for (int y = 0; y < cells.y; y++)
+            {
+                for (int z = 0; z < cells.z; z++)
+                {
+                    grid[x, y, z].flag = GridCell.GridFlag.WALKABLE;
+                }
+            }
+        }
+
+        //Bake();
         ready = true;
     }
 
@@ -62,6 +74,50 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+    }
+
+    public GridRay RayCastX(int colum, int startx, int endx, bool inverse = false)
+    {
+        GridRay ray = new GridRay();
+        if(!inverse)
+        {
+            for(int x = startx; x < endx; x++)
+            {
+                GridCell current = grid[x, 0, colum];
+                ray.cells.Add(current);
+            }
+        } else
+        {
+            for(int x = endx; x > startx; x--)
+            {
+                GridCell current = grid[x, 0, colum];
+                ray.cells.Add(current);
+            }
+        }
+        return ray;
+    }
+
+    // Row = x colum = z
+    public GridRay RayCastZ(int row, int startz, int endz, bool inverse = false)
+    {
+        GridRay ray = new GridRay();
+        if (!inverse)
+        {
+            for (int z = startz; z < endz; z++)
+            {
+                GridCell current = grid[row, 0, z];
+                ray.cells.Add(current);
+            }
+        }
+        else
+        {
+            for (int z = endz; z > startz; z--)
+            {
+                GridCell current = grid[row, 0, z];
+                ray.cells.Add(current);
+            }
+        }
+        return ray;
     }
 
 #if UNITY_EDITOR
@@ -156,4 +212,9 @@ public class GridCell
     {
         this.distance = Mathf.Abs(target.x - position.x) + Mathf.Abs(target.y - position.y) + Mathf.Abs(target.z - position.z);
     }
+}
+
+public class GridRay
+{
+    public List<GridCell> cells = new List<GridCell>();
 }
