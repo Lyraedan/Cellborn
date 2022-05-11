@@ -447,9 +447,6 @@ public class RoomGenerator : MonoBehaviour
             var current = rooms[i];
             var next = rooms[i + 1];
 
-            var heading = current.centre - next.centre;
-            var dot = Vector3.Dot(heading, next.centre);
-
             Vector3[] axisA = new Vector3[] {
                 current.centre + transform.right,
                 current.centre + transform.up,
@@ -493,7 +490,7 @@ public class RoomGenerator : MonoBehaviour
             bool overlap = ProjectionHasOverlap(pointsA, pointsB, allAxis);
             if(overlap)
             {
-                Debug.Log("We have an overlap!");
+                Debug.Log("Overlap found! -> Carve");
             }
         }
     }
@@ -525,6 +522,7 @@ public class RoomGenerator : MonoBehaviour
             // If axis is zero return true
             if(axis.Equals(Vector3.zero))
             {
+                Debug.Log("Axis is zero");
                 return true;
             }
 
@@ -560,12 +558,14 @@ public class RoomGenerator : MonoBehaviour
             // There was no overlap
             if(overlap <= 0)
             {
+                Debug.Log("There was no overlap");
                 return false;
             }
 
             // We found an overlap
             if(overlap < minOverlap)
             {
+                Debug.Log("We have an overlap! -> " + overlap + " at " + axis.ToString());
                 minOverlap = overlap;
                 minOverlapAxis = axis;
             }
@@ -777,6 +777,23 @@ public class RoomGenerator : MonoBehaviour
             }
         }
         return false;
+    }
+
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.name = "Line";
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Standard"));
+        lr.startColor = color;
+        lr.endColor = color;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        //Destroy(myLine, duration);
     }
 
 #if UNITY_EDITOR
