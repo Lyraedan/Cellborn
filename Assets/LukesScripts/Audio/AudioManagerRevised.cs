@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AudioManagerRevised : MonoBehaviour
@@ -56,6 +58,17 @@ public class AudioManagerRevised : MonoBehaviour
             sfx = sfxSlider.value;
             sfxVolText.text = $"{Mathf.RoundToInt((sfx * 100) / masterSlider.maxValue)}%";
         });
+
+        SceneManager.sceneLoaded += LoadedScene;
+    }
+
+    private void LoadedScene(Scene scene, LoadSceneMode mode)
+    {
+        // is first scene aka menu
+        if(scene.buildIndex == 0)
+        {
+            
+        }
     }
 
     public float GetSfxVolume()
