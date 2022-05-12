@@ -50,6 +50,7 @@ public class PlayerMovementTest : MonoBehaviour
     Vector3 forward, right, velocity;
 
     public Vector3 test;
+    Animator animator;
 
     private void Start()
     {
@@ -59,6 +60,7 @@ public class PlayerMovementTest : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
         potionSpeedMultiplier = 1f;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -114,5 +116,8 @@ public class PlayerMovementTest : MonoBehaviour
         var dampening = 8;
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
         test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
+
+        animator.SetFloat("Velocity Z", movingDirection.z);
+        animator.SetFloat("Velocity X", movingDirection.x);
     }
 }
