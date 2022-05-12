@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 2808799947874739455}
   - component: {fileID: 1711068431675966393}
   - component: {fileID: -3675708166525491426}
+  - component: {fileID: -3940346499519262915}
   m_Layer: 12
   m_Name: P_Red_Fairy
   m_TagString: Enemy
@@ -245,6 +246,7 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 3026028849074251486}
   defaultMaterial: {fileID: 2100000, guid: 38586f60aea48da449c0ce28299b4221, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  animController: {fileID: -3940346499519262915}
   audioSource: {fileID: 1711068431675966393}
   idleSound: {fileID: 8300000, guid: 7db76156cd9b6c844b55fa7f9afefda9, type: 3}
   hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
@@ -305,8 +307,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.2
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!82 &1711068431675966393
 AudioSource:
   m_ObjectHideFlags: 0
@@ -442,6 +444,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-3940346499519262915
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9c10df3f8a971e444962b815995177ca, type: 3}
+  m_Controller: {fileID: 9100000, guid: f9b78d19377e925498f19e94995dda9f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3475676250369947049
 GameObject:
   m_ObjectHideFlags: 0

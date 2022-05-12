@@ -22,6 +22,7 @@ namespace LukesScripts.AI
         public SkinnedMeshRenderer skinnedMeshRenderer;
         public Material defaultMaterial;
         public Material damagedMaterial;
+        public Animator animController;
         public AudioSource audioSource;
         public AudioClip idleSound, hitSound, deathSound;
 
@@ -125,8 +126,18 @@ namespace LukesScripts.AI
 
         public void DoAttack()
         {
+            if (animController != null)
+            {
+                animController.SetBool("IsAttacking", true);
+            }
             Attack();
             CustomEvent.Trigger(gameObject, EventHooks.Attack);
+            /*
+            if (animController != null)
+            {
+                animController.SetBool("IsAttacking", false);
+            }
+            */
         }
 
         public abstract void OnHit();

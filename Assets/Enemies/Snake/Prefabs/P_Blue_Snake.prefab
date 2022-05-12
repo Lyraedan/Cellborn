@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 408256024329251856}
   - component: {fileID: 9111478797360766016}
   - component: {fileID: 37191828400892093}
+  - component: {fileID: -172652356501322566}
   m_Layer: 12
   m_Name: P_Blue_Snake
   m_TagString: Enemy
@@ -93,9 +94,6 @@ MonoBehaviour:
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: 5700812698526271174}
   colour: {r: 0, g: 0, b: 0, a: 0}
-  source: {fileID: 9111478797360766016}
-  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
-  deathSound: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,8 +209,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.2
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!114 &5700812698526271174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +231,9 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 9194495817569807407}
   defaultMaterial: {fileID: 2100000, guid: 3c36804e7d967574b9790e67abf48167, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  animController: {fileID: -172652356501322566}
   audioSource: {fileID: 9111478797360766016}
+  idleSound: {fileID: 0}
   hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
   deathSound: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
   isHit: 0
@@ -380,6 +380,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-172652356501322566
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 990783a95fc621545bf6d5dda1c983cd, type: 3}
+  m_Controller: {fileID: 9100000, guid: b3b91d810ea159a42a0563a4ee6c4377, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2840305823283328933
 PrefabInstance:
   m_ObjectHideFlags: 0
