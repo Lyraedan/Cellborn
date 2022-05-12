@@ -9,6 +9,7 @@ public class SfxController : MonoBehaviour
     void Start()
     {
         source = GetComponent<AudioSource>();
+
     }
 
     void Update()
