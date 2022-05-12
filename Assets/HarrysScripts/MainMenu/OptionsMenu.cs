@@ -18,7 +18,12 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
 
     public Toggle fullscreenToggle;
+    public Toggle anisotropicToggle;
 
+    public TMP_Dropdown antiAliasingDropdown;
+    public TMP_Dropdown shadowsDropdown;
+    public TMP_Dropdown shadowResDropdown;
+    public TMP_Dropdown textureResDropdown;
     public List<string> qualitySettings;
     public TMP_Dropdown qualityDropdown;
 
@@ -28,7 +33,9 @@ public class OptionsMenu : MonoBehaviour
     void Start()
     {
         OpenGraphics();
-        
+
+        #region Set Resolution Dropdown
+
         resolutions = Screen.resolutions.ToList();
 
         resolutionDropdown.ClearOptions();
@@ -49,21 +56,59 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        fullscreenToggle.isOn = Screen.fullScreen;
+        #endregion
+
+        #region Set Other Dropdowns
+
+        switch(QualitySettings.antiAliasing)
+        {
+            case 0: antiAliasingDropdown.value = 0; break;
+            case 2: antiAliasingDropdown.value = 1; break;
+            case 4: antiAliasingDropdown.value = 2; break;
+            case 8: antiAliasingDropdown.value = 3; break;
+        } 
+        antiAliasingDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadows)
+        {
+            case ShadowQuality.Disable: shadowsDropdown.value = 0; break;
+            case ShadowQuality.HardOnly: shadowsDropdown.value = 1; break;
+            case ShadowQuality.All: shadowsDropdown.value = 2; break;
+        }
+        shadowsDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadowResolution)
+        {
+            case ShadowResolution.Low: shadowResDropdown.value = 0; break;
+            case ShadowResolution.Medium: shadowResDropdown.value = 1; break;
+            case ShadowResolution.High: shadowResDropdown.value = 2; break;
+            case ShadowResolution.VeryHigh: shadowResDropdown.value = 3; break;
+        }
+        shadowResDropdown.RefreshShownValue();
+
+        textureResDropdown.value = QualitySettings.masterTextureLimit;
+        textureResDropdown.RefreshShownValue();
 
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(qualitySettings);
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.RefreshShownValue();
 
-        // This is a very complicated way of doing "(value * 100) / MaxValue" - Luke
+        #endregion
 
-        /* masterSlider.value = Mathf.Pow(10, GetMasterVolume()) / 20;
-        musicSlider.value = Mathf.Pow(10, GetMusicVolume()) / 20;
-        soundSlider.value = Mathf.Pow(10, GetSFXVolume()) / 20;
-        masterVolText.text = (int)(Mathf.Pow(10, GetMasterVolume()) / 20) + "%";
-        musicVolText.text = (int)(Mathf.Pow(10, GetMusicVolume()) / 20) + "%";
-        soundVolText.text = (int)(Mathf.Pow(10, GetSFXVolume()) / 20) + "%"; */
+        #region Set Toggles
+
+        fullscreenToggle.isOn = Screen.fullScreen;
+        if (QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable)
+        {
+            anisotropicToggle.isOn = true;
+        }
+        else
+        {
+            anisotropicToggle.isOn = false;
+        }
+
+        #endregion
     }
 
     public void SetResolution (int resIndex)
@@ -80,12 +125,106 @@ public class OptionsMenu : MonoBehaviour
     public void SetQuality (int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
-        Debug.Log(QualitySettings.GetQualityLevel());
+        RefreshValues();
     }
 
-    public void SetVSync (bool isVSync)
+    public void SetAnisotropic (bool usesAnisotropic)
     {
-        QualitySettings.vSyncCount = Convert.ToInt32(isVSync);
+        if (usesAnisotropic)
+        {
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+        }
+        else
+        {
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+        }
+    }
+
+    public void SetAntiAliasing (int antiAliasingIndex)
+    {
+        switch(antiAliasingIndex)
+        {
+            case 0: QualitySettings.antiAliasing = 0; break;
+            case 1: QualitySettings.antiAliasing = 2; break;
+            case 2: QualitySettings.antiAliasing = 4; break;
+            case 3: QualitySettings.antiAliasing = 8; break;
+        }
+    }
+
+    public void SetShadows (int shadowIndex)
+    {
+        switch (shadowIndex)
+        {
+            case 0: QualitySettings.shadows = ShadowQuality.Disable; break;
+            case 1: QualitySettings.shadows = ShadowQuality.HardOnly; break;
+            case 2: QualitySettings.shadows = ShadowQuality.All; break;
+        }
+    }
+
+    public void SetShadowResolution (int shadowResIndex)
+    {
+        switch (shadowResIndex)
+        {
+            case 0: QualitySettings.shadowResolution = ShadowResolution.Low; break;
+            case 1: QualitySettings.shadowResolution = ShadowResolution.Medium; break;
+            case 2: QualitySettings.shadowResolution = ShadowResolution.High; break;
+            case 3: QualitySettings.shadowResolution = ShadowResolution.VeryHigh; break;
+        }
+    }
+
+    public void SetTextureResolution (int textureResIndex)
+    {
+        QualitySettings.masterTextureLimit = textureResIndex;
+    }
+
+    public void RefreshValues()
+    {
+        #region Set Other Dropdowns
+
+        switch(QualitySettings.antiAliasing)
+        {
+            case 0: antiAliasingDropdown.value = 0; break;
+            case 2: antiAliasingDropdown.value = 1; break;
+            case 4: antiAliasingDropdown.value = 2; break;
+            case 8: antiAliasingDropdown.value = 3; break;
+        }        
+        antiAliasingDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadows)
+        {
+            case ShadowQuality.Disable: shadowsDropdown.value = 0; break;
+            case ShadowQuality.HardOnly: shadowsDropdown.value = 1; break;
+            case ShadowQuality.All: shadowsDropdown.value = 2; break;
+        }
+        shadowsDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadowResolution)
+        {
+            case ShadowResolution.Low: shadowResDropdown.value = 0; break;
+            case ShadowResolution.Medium: shadowResDropdown.value = 1; break;
+            case ShadowResolution.High: shadowResDropdown.value = 2; break;
+            case ShadowResolution.VeryHigh: shadowResDropdown.value = 3; break;
+        }
+        shadowResDropdown.RefreshShownValue();
+
+        textureResDropdown.value = QualitySettings.masterTextureLimit;
+        textureResDropdown.RefreshShownValue();
+
+        #endregion
+
+        #region Set Toggles
+
+        fullscreenToggle.isOn = Screen.fullScreen;
+        if (QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable)
+        {
+            anisotropicToggle.isOn = true;
+        }
+        else
+        {
+            anisotropicToggle.isOn = false;
+        }
+
+        #endregion
     }
 
     #region Section Swapping
