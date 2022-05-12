@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
+    
     public static bool isPaused = false;
     public KeyCode pauseButton;
 
@@ -16,6 +18,14 @@ public class PauseMenu : MonoBehaviour
 
     public AudioSource source;
     public AudioClip menuClickSound;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
     
     void Update()
     {

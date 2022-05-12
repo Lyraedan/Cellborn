@@ -20,6 +20,9 @@ public class MusicGunMusicControl : MonoBehaviour
         if (PlayerStats.instance.isDead)
             return;
 
+        if (PauseMenu.isPaused)
+            return;
+
         if (WeaponManager.instance.currentWeapon == null)
             return;
 
