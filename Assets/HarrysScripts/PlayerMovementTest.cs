@@ -93,8 +93,11 @@ public class PlayerMovementTest : MonoBehaviour
             bool movingUp = movingDirection.x > 0 && movingDirection.z > 0;
             bool movingDown = movingDirection.x < 0 && movingDirection.z < 0;
 
-            animController.SetFloat("VelocityX", movingDirection.x);
-            animController.SetFloat("VelocityZ", movingDirection.z);
+            float velocityX = Vector3.Dot(movingDirection, transform.right);
+            float velocityZ = Vector3.Dot(movingDirection, transform.forward);
+
+            animController.SetFloat("VelocityX", velocityX);
+            animController.SetFloat("VelocityZ", velocityZ);
 
             controller.Move(movingDirection);
         }
