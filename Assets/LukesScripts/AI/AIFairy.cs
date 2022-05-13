@@ -34,6 +34,8 @@ public class AIFairy : AI
     public GameObject projectile;
     public Transform firePoint;
 
+    public Animator animController;
+
     private float DistanceFromPatrolPoint
     {
         get
@@ -81,6 +83,8 @@ public class AIFairy : AI
         {
             Debug.Log("Do attack!");
             //PlayerStats.instance.DamagePlayer(damage);
+
+            animController.SetTrigger("Attack");
 
             GameObject projInstance = Instantiate(projectile, firePoint.position, firePoint.rotation);
             var projScript = projInstance.GetComponent<ProjectileBehaviour>();

@@ -14,8 +14,12 @@ public class AITest : AI
 
     public GameObject acid;
     public GameObject acidPoint;
+    
+    public Animator animController;
 
     [SerializeField] private float remainingDistance = 0f;
+
+    float velocity;
 
     public override void Init()
     {
@@ -25,6 +29,17 @@ public class AITest : AI
     public override void Tick()
     {
         attackDelay += 1f * Time.deltaTime;
+
+        velocity = agent.velocity.magnitude;
+
+        if (velocity > 0)
+        {
+            animController.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animController.SetBool("IsMoving", false);
+        }
     }
 
     public override void Attack()
@@ -33,6 +48,7 @@ public class AITest : AI
         {
             Debug.Log("Do attack!");
             //AudioManager.instance.Play("SnakeAttack");
+            animController.SetTrigger("Attack");
             Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
 
             attackDelay = 0;
