@@ -125,7 +125,8 @@ MonoBehaviour:
   meshRenderers:
   - {fileID: 6826545288478285973}
   lights:
-    sources: []
+    sources:
+    - {fileID: 7817134785961906585}
   particles:
     emitters: []
 --- !u!65 &7034860564585011215
@@ -200,6 +201,7 @@ MonoBehaviour:
   maxFleeDistance: 30
   projectile: {fileID: 535181506469579714, guid: 1211f402ce3acb14786b18ed76e995f8, type: 3}
   firePoint: {fileID: 4895736231511726152}
+  animController: {fileID: -3866625135187540462}
   remainingDistance: 0
 --- !u!114 &3434470127644330833
 MonoBehaviour:
@@ -244,8 +246,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.2
-  gizmoViewMode: 0
-  showBehaviorDesignerGizmo: 0
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
 --- !u!82 &1235991732430248595
 AudioSource:
   m_ObjectHideFlags: 0
