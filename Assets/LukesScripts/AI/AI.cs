@@ -171,11 +171,6 @@ namespace LukesScripts.AI
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
             isHit = false;
             StartCoroutine(DamageIndicator());
-            if (idleSound != null)
-            {
-                audioSource.clip = idleSound;
-                audioSource.Play();
-            }
         }
 
         IEnumerator DamageIndicator()
@@ -183,6 +178,12 @@ namespace LukesScripts.AI
             skinnedMeshRenderer.material = damagedMaterial;
             yield return new WaitForSeconds(0.1f);
             skinnedMeshRenderer.material = defaultMaterial;
+            yield return new WaitUntil(() => !audioSource.isPlaying);
+            if (idleSound != null)
+            {
+                audioSource.clip = idleSound;
+                audioSource.Play();
+            }
         }
 
         public bool MoveTo(Vector3 position)

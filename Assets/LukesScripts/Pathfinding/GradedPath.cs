@@ -182,6 +182,14 @@ public class GradedPath : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    public Vector3 PositionAsGridCoordinates(Vector3 pos)
+    {
+        var x = Mathf.RoundToInt(pos.x / grid.cellSize.x);
+        var y = Mathf.RoundToInt(pos.y / grid.cellSize.y);
+        var z = Mathf.RoundToInt(pos.z / grid.cellSize.z);
+        return new Vector3(x, y, z);
+    }
+
     private void OnDrawGizmos()
     {
         if(grid.drawAllPaths)
