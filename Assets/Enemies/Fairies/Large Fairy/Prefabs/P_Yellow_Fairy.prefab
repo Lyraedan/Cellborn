@@ -188,7 +188,8 @@ MonoBehaviour:
   meshRenderers:
   - {fileID: 3026028849074251486}
   lights:
-    sources: []
+    sources:
+    - {fileID: 7264273187049743046}
   particles:
     emitters: []
 --- !u!65 &7034860564585011215
@@ -263,7 +264,7 @@ MonoBehaviour:
   maxFleeDistance: 30
   projectile: {fileID: 535181506469579714, guid: 4afd415c070ee9a42abe77dc0f4976f7, type: 3}
   firePoint: {fileID: 6119012404734578802}
-  animController: {fileID: -3940346499519262915, guid: 7d20d1bf95a93114c8fe07bce8dbead6, type: 3}
+  animController: {fileID: 4543939341458192957}
   remainingDistance: 0
 --- !u!114 &2808799947874739455
 MonoBehaviour:

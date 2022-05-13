@@ -30,6 +30,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject wizard;
     public GameObject teleporter;
     public GameObject prisonCell;
+    private GameObject spawnCell;
 
     private Room start, end;
 
@@ -109,6 +110,7 @@ public class RoomGenerator : MonoBehaviour
 
         CleanupRooms();
         CarveHallways();
+        CleanupHallways();
 
         rooms = rooms.OrderBy(room => room.centres[0].magnitude).ToList();
         start = rooms[0];
@@ -228,25 +230,27 @@ public class RoomGenerator : MonoBehaviour
                 current.flag = GridCell.GridFlag.WALKABLE;
             }
         }
+
+        if(spawnCell != null)
+        {
+            Destroy(spawnCell);
+        }
+    }
+
+    void OnTeleport()
+    {
+        int next = levelIndex + 1;
+        Debug.Log("Do teleport! from " + levelIndex + " to " + next);
+        levelIndex = next;
+        ClearDungeon();
+        DeleteAllObjectsWithTag("Environment");
+        Generate(levels[levelIndex]);
+        Minimap.instance.GenerateMinimap(grid);
     }
 
     public void Regenerate()
     {
-        /*
-        ClearDungeon();
-        DeleteAllObjectsWithTag("Environment");
-        DeleteAllObjectsWithTag("Player");
-        levelIndex = 0;
-        levels = new int[numberOfLevels];
-        for (int i = 0; i < numberOfLevels; i++)
-        {
-            if (seed == 0)
-                levels[i] = Random.Range(0, 1000000);
-            else
-                levels[i] = seed + i;
-        }
-        Generate(levels[levelIndex]);
-        */
+        // Reloads scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -335,7 +339,7 @@ public class RoomGenerator : MonoBehaviour
         dungeonCellPosition.z -= 19.5f;
         dungeonCellPosition.y += 1f;
         dungeonCellPosition.x += 1f;
-        Instantiate(prisonCell, dungeonCellPosition, Quaternion.identity);
+        spawnCell = Instantiate(prisonCell, dungeonCellPosition, Quaternion.identity);
         return player.Spawn(pos, Vector3.zero);
     }
 
@@ -352,15 +356,7 @@ public class RoomGenerator : MonoBehaviour
         pos.y += -0.5f;
         var teleporterObject = Instantiate(teleporter, pos, Quaternion.identity);
         var teleport = teleporterObject.transform.Find("Collider").gameObject.GetComponent<Teleporter>();
-        teleport.OnTriggered += () =>
-        {
-            int next = levelIndex + 1;
-            Debug.Log("Do teleport! from " + levelIndex + " to " + next);
-            levelIndex = next;
-            ClearDungeon();
-            DeleteAllObjectsWithTag("Environment");
-            Generate(levels[levelIndex]);
-        };
+        teleport.OnTriggered += OnTeleport;
         return teleporterObject;
     }
     #endregion
@@ -468,6 +464,26 @@ public class RoomGenerator : MonoBehaviour
 
         Debug.Log("Had " + rooms.Count + " before combining");
         StartCoroutine(Combine(0));
+    }
+
+    void CleanupHallways()
+    {
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell cell = grid.grid[x, 0, z];
+                // Clean up walls that overlap
+                if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE, 1);
+                    if (!isAgainstVoid)
+                    {
+                        cell.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
     }
 
     void CarveHallways()
@@ -802,23 +818,6 @@ public class RoomGenerator : MonoBehaviour
             }
         }
         return false;
-    }
-
-    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
-    {
-        GameObject myLine = new GameObject();
-        myLine.name = "Line";
-        myLine.transform.position = start;
-        myLine.AddComponent<LineRenderer>();
-        LineRenderer lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Standard"));
-        lr.startColor = color;
-        lr.endColor = color;
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
-        //Destroy(myLine, duration);
     }
 
 #if UNITY_EDITOR
