@@ -86,7 +86,8 @@ public class RoomGenerator : MonoBehaviour
     {
         Random.InitState(seed);
         Debug.Log("Generating dungeon with seed: " + seed);
-        generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
+        //generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
+        generatedDungeonSize = new Vector3(76, 0, 76);
         Debug.Log("Generated dungeon of size: " + generatedDungeonSize.ToString());
 
         var dimensions = new Vector3(generatedDungeonSize.x, 1, generatedDungeonSize.z);
@@ -106,9 +107,10 @@ public class RoomGenerator : MonoBehaviour
             Debug.LogError("No rooms were generated!");
         }
 
+        CleanupRooms();
         CarveHallways();
 
-        rooms = rooms.OrderBy(room => room.centre.magnitude).ToList();
+        rooms = rooms.OrderBy(room => room.centres[0].magnitude).ToList();
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
@@ -135,7 +137,7 @@ public class RoomGenerator : MonoBehaviour
 
         BakeNavmesh();
 
-        Vector3 startCoords = PositionAsGridCoordinates(start.centre);
+        Vector3 startCoords = PositionAsGridCoordinates(start.centres[0]);
         GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
 
         //PlaceProps();
@@ -153,7 +155,7 @@ public class RoomGenerator : MonoBehaviour
             player.transform.position = position;
         }
 
-        Vector3 endCords = PositionAsGridCoordinates(end.centre);
+        Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
         GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
         if (levelIndex == numberOfLevels - 1)
         {
@@ -195,16 +197,19 @@ public class RoomGenerator : MonoBehaviour
         // Room center lights here
         for (int i = 0; i < rooms.Count; i++)
         {
-            var light = GetRandomCeilingLight();
-            if (light == null)
+            for (int j = 0; j < rooms[i].centres.Count; j++)
             {
-                Debug.LogError("No light prefab found!");
-                break;
+                var light = GetRandomCeilingLight();
+                if (light == null)
+                {
+                    Debug.LogError("No light prefab found!");
+                    break;
+                }
+                var position = rooms[i].centres[j];
+                position.y = wallMesh.wallHeight - 0.5f;
+                var l = SpawnPrefab(light, position, Vector3.zero);
+                l.transform.SetParent(environment.transform);
             }
-            var position = rooms[i].centre;
-            position.y = wallMesh.wallHeight - 0.5f;
-            var l = SpawnPrefab(light, position, Vector3.zero);
-            l.transform.SetParent(environment.transform);
         }
     }
 
@@ -227,6 +232,7 @@ public class RoomGenerator : MonoBehaviour
 
     public void Regenerate()
     {
+        /*
         ClearDungeon();
         DeleteAllObjectsWithTag("Environment");
         DeleteAllObjectsWithTag("Player");
@@ -240,8 +246,8 @@ public class RoomGenerator : MonoBehaviour
                 levels[i] = seed + i;
         }
         Generate(levels[levelIndex]);
-
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        */
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void Update()
@@ -440,61 +446,167 @@ public class RoomGenerator : MonoBehaviour
 
     #region Proc gen
 
+    void CleanupRooms()
+    {
+        // Cleanup overlaps
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell cell = grid.grid[x, 0, z];
+                // Clean up walls that overlap
+                if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE, 1);
+                    if (!isAgainstVoid)
+                    {
+                        cell.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
+
+        Debug.Log("Had " + rooms.Count + " before combining");
+        StartCoroutine(Combine(0));
+    }
+
     void CarveHallways()
     {
-        for(int i = 0; i < rooms.Count - 1; i++)
+
+        for (int i = 0; i < rooms.Count - 1; i++)
         {
             var current = rooms[i];
             var next = rooms[i + 1];
 
-            Vector3[] axisA = new Vector3[] {
-                current.centre + transform.right,
-                current.centre + transform.up,
-                current.centre + transform.forward
-            };
+            var gridCurrent = navAgent.PositionAsGridCoordinates(current.centres[0]);
+            var gridNext = navAgent.PositionAsGridCoordinates(next.centres[0]);
 
-            Vector3[] axisB = new Vector3[] {
-                next.centre + transform.right,
-                next.centre + transform.up,
-                next.centre + transform.forward
-            };
+            var pointsX = new int[] { (int)gridCurrent.x, (int)gridNext.x };
+            var pointsZ = new int[] { (int)gridCurrent.z, (int)gridNext.z };
 
-            Vector3[] allAxis = new Vector3[] {
-                axisA[0],
-                axisA[1],
-                axisA[2],
-                axisB[0],
-                axisB[1],
-                axisB[2],
-                Vector3.Cross(axisA[0], axisB[0]),
-                Vector3.Cross(axisA[0], axisB[1]),
-                Vector3.Cross(axisA[0], axisB[2]),
-                Vector3.Cross(axisA[1], axisB[0]),
-                Vector3.Cross(axisA[1], axisB[1]),
-                Vector3.Cross(axisA[1], axisB[2]),
-                Vector3.Cross(axisA[2], axisB[0]),
-                Vector3.Cross(axisA[2], axisB[1]),
-                Vector3.Cross(axisA[2], axisB[2])
-                //The cross product will give you a zero vector {0,0,0} when any two axes between the objects point in the same direction.
-            };
-
-            Vector3[] pointsA = new Vector3[] {
-                current.centre
-            };
-
-            Vector3[] pointsB = new Vector3[]
+            int difX = pointsX[1] - pointsX[0];
+            int x = pointsX[0];
+            if(difX > 0)
             {
-                next.centre
-            };
-
-            bool overlap = ProjectionHasOverlap(pointsA, pointsB, allAxis);
-            if(overlap)
+                while(x < pointsX[1])
+                {
+                    grid.grid[x, 0, (int)gridCurrent.z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x, 0, (int)gridCurrent.z + 1].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x, 0, (int)gridCurrent.z - 1].flag = GridCell.GridFlag.OCCUPIED;
+                    x++;
+                }
+            } else if(difX < 0)
             {
-                Debug.Log("Overlap found! -> Carve");
+                while (x > pointsX[1])
+                {
+                    grid.grid[x, 0, (int)gridCurrent.z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x, 0, (int)gridCurrent.z + 1].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x, 0, (int)gridCurrent.z - 1].flag = GridCell.GridFlag.OCCUPIED;
+                    x--;
+                }
             }
+
+            int difZ = pointsZ[1] - pointsZ[0];
+            int z = pointsZ[0];
+            if (difZ > 0)
+            {
+                while (z < pointsZ[1])
+                {
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x + 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x - 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    z++;
+                }
+            }
+            else if (difZ < 0)
+            {
+                while (z > pointsZ[1])
+                {
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x + 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    grid.grid[x - 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    z--;
+                }
+            }
+        }
+
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                {
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
+                    if (isAgainstVoid)
+                    {
+                        cell.flag = GridCell.GridFlag.WALL;
+                    }
+                }
+            }
+        }
+
+    }
+
+    void CombineRooms(Room root, List<Room> rooms)
+    {
+        List<Room> toCombine = new List<Room>();
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            var current = rooms[i];
+            if (current != root)
+            {
+                bool overlap = RoomOverlaps(root, current);
+                if (overlap)
+                {
+                    toCombine.Add(current);
+                }
+            }
+        }
+
+        if (toCombine.Count > 0)
+        {
+            for (int i = 0; i < toCombine.Count; i++)
+            {
+                var room = toCombine[i];
+                rooms.Remove(room);
+                Debug.Log("Removed overlapping room!");
+                root.occupied.AddRange(room.occupied);
+                root.walls.AddRange(room.walls);
+                root.hallways.AddRange(room.hallways);
+                root.centres.AddRange(room.centres);
+            }
+            root.indicatorColor = Random.ColorHSV();
+            Debug.Log("Combined " + toCombine.Count + " Rooms");
         }
     }
 
+    private int combineCheckCounter = 0;
+    IEnumerator Combine(int index)
+    {
+        if (index >= rooms.Count)
+        {
+            Debug.Log("Finished Combining rooms!");
+            Debug.Log("Have " + rooms.Count + " after combining");
+            if (combineCheckCounter < 5)
+            {
+                combineCheckCounter++;
+                Debug.Log("Combining again");
+                StartCoroutine(Combine(0));
+            }
+            yield return null;
+        }
+
+        var current = rooms[index];
+        CombineRooms(current, rooms);
+        StartCoroutine(Combine(index + 1));
+        yield return null;
+    }
+
+    bool RoomOverlaps(Room a, Room b)
+    {
+        return a.Intersects(b);
+    }
 
     void BakeNavmesh()
     {
@@ -506,99 +618,6 @@ public class RoomGenerator : MonoBehaviour
         Debug.Log("Baked navmesh");
     }
 
-    bool ProjectionHasOverlap(Vector3[] pointsA, Vector3[] pointsB, Vector3[] allAxis)
-    {
-        float minOverlap = float.PositiveInfinity;
-        Vector3 minOverlapAxis = Vector3.zero;
-
-        for(int i = 0; i < allAxis.Length; i++)
-        {
-            float projBMin = float.MaxValue, projAMin = float.MinValue;
-
-            float projBMax = float.MinValue, projAMax = float.MaxValue;
-
-            Vector3 axis = allAxis[i];
-
-            // If axis is zero return true
-            if(axis.Equals(Vector3.zero))
-            {
-                Debug.Log("Axis is zero");
-                return true;
-            }
-
-            for(int j = 0; j < pointsB.Length; j++)
-            {
-                float val = GetScalarProjection(pointsB[j], axis);
-                if(val < projBMin)
-                {
-                    projBMin = val;
-                }
-                if(val > projBMax)
-                {
-                    projBMax = val;
-                }
-            }
-
-            for(int j = 0; j < pointsA.Length; j++)
-            {
-                float val = GetScalarProjection(pointsA[j], axis);
-                if(val < projAMin)
-                {
-                    projAMin = val;
-                }
-                if(val > projAMax)
-                {
-                    projAMax = val;
-                }
-            }
-
-            // Check projection lines and look for an overlap
-            float overlap = FindOverlap(projAMin, projAMax, projBMin, projBMax);
-
-            // There was no overlap
-            if(overlap <= 0)
-            {
-                Debug.Log("There was no overlap");
-                return false;
-            }
-
-            // We found an overlap
-            if(overlap < minOverlap)
-            {
-                Debug.Log("We have an overlap! -> " + overlap + " at " + axis.ToString());
-                minOverlap = overlap;
-                minOverlapAxis = axis;
-            }
-        }
-        return true;
-
-    }
-
-    float GetScalarProjection(Vector3 point, Vector3 axis)
-    {
-        return Vector3.Dot(point, axis);
-    }
-
-    float FindOverlap(float aStart, float aEnd, float bStart, float bEnd)
-    {
-        if (aStart < bStart)
-        {
-            if (aEnd < bStart)
-            {
-                return 0f;
-            }
-
-            return aEnd - bStart;
-        }
-
-        if (bEnd < aStart)
-        {
-            return 0f;
-        }
-
-        return bEnd - aStart;
-    }
-    
     /// <summary>
     /// Returns the cells "up, down, left, right, upLeft, upRight, downLeft, downRight" to the current cell
     /// </summary>
@@ -711,7 +730,13 @@ public class RoomGenerator : MonoBehaviour
                 }
             }
         }
-        room.centre = new Vector3(pos.x + (roomDimensions.x / 2), 0, pos.z + (roomDimensions.z / 2));
+        room.start = new Vector3(pos.x, 0f, pos.z);
+        room.end = new Vector3(pos.x + roomDimensions.x, 0f, pos.z + roomDimensions.z);
+        room.centres.Add(new Vector3(pos.x + (roomDimensions.x / 2), 0, pos.z + (roomDimensions.z / 2)));
+
+        var gridCentreX = Mathf.RoundToInt((pos.x + roomDimensions.x) / 2);
+        var gridCentreZ = Mathf.RoundToInt((pos.z + roomDimensions.z) / 2);
+        room.gridCentre = new Vector3Int(gridCentreX, 0, gridCentreZ);
 
         rooms.Add(room);
         return true;
@@ -764,7 +789,7 @@ public class RoomGenerator : MonoBehaviour
 
     private bool CellisInPrisonCell(GridCell current)
     {
-        Vector3 playerCoords = PositionAsGridCoordinates(start.centre);
+        Vector3 playerCoords = PositionAsGridCoordinates(start.centres[0]);
         for (int z = -3; z < 4; z++)
         {
             for (int x = -3; x < 4; x++)
@@ -803,13 +828,14 @@ public class RoomGenerator : MonoBehaviour
             return;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(start.centre, 0.25f);
+        Gizmos.DrawSphere(start.centres[0], 0.25f);
         Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(end.centre, 0.25f);
+        Gizmos.DrawSphere(end.centres[0], 0.25f);
 
         for (int i = 0; i < rooms.Count; i++)
         {
             var room = rooms[i];
+            room.DrawGizmos();
             if (room.drawHallwayPath)
             {
                 Gizmos.color = Color.black;

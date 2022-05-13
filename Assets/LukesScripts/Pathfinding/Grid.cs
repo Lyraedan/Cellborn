@@ -42,6 +42,9 @@ public class Grid : MonoBehaviour
                 for (int z = 0; z < cells.z; z++)
                 {
                     grid[x, y, z] = new GridCell();
+                    grid[x, y, z].x = x;
+                    grid[x, y, z].x = y;
+                    grid[x, y, z].z = z;
                     grid[x, y, z].position = new Vector3(transform.position.x + (x * cellSize.x), transform.position.y + (y * cellSize.y), transform.position.z + (z * cellSize.z));
                 }
             }
@@ -76,45 +79,69 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public GridRay RayCastX(int colum, int startx, int endx, bool inverse = false)
+    public GridRay RayCastX(int colum, int startx, int endx, GridCell.GridFlag flag, bool inverse = false)
     {
         GridRay ray = new GridRay();
         if(!inverse)
         {
             for(int x = startx; x < endx; x++)
             {
+                if (x < 0 || x >= cells.z)
+                    break;
+
                 GridCell current = grid[x, 0, colum];
                 ray.cells.Add(current);
+
+                if (current.flag.Equals(flag))
+                    break;
             }
         } else
         {
-            for(int x = endx; x > startx; x--)
+            for(int x = endx; x < startx; x++)
             {
+                if (x < 0 || x >= cells.z)
+                    break;
+
                 GridCell current = grid[x, 0, colum];
                 ray.cells.Add(current);
+
+                if (current.flag.Equals(flag))
+                    break;
             }
         }
         return ray;
     }
 
     // Row = x colum = z
-    public GridRay RayCastZ(int row, int startz, int endz, bool inverse = false)
+    public GridRay RayCastZ(int row, int startz, int endz, GridCell.GridFlag flag, bool inverse = false)
     {
         GridRay ray = new GridRay();
         if (!inverse)
         {
             for (int z = startz; z < endz; z++)
             {
+                if (z < 0 || z >= cells.z)
+                    break;
+
                 GridCell current = grid[row, 0, z];
                 ray.cells.Add(current);
+
+                if (current.flag.Equals(flag))
+                    break;
             }
         }
         else
         {
-            for (int z = endz; z > startz; z--)
+            for (int z = endz; z < startz; z++)
             {
+                if (z < 0 || z >= cells.z)
+                    break;
+
                 GridCell current = grid[row, 0, z];
                 ray.cells.Add(current);
+
+                if (current.flag.Equals(flag))
+                    break;
             }
         }
         return ray;
@@ -199,6 +226,7 @@ public class GridCell
         WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY, WALL, CORNER
     }
 
+    public int x, y, z;
     public GridFlag flag = GridFlag.WALKABLE;
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;

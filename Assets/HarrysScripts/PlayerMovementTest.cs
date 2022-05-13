@@ -6,19 +6,6 @@ public class PlayerMovementTest : MonoBehaviour
 {
     public static PlayerMovementTest instance;
 
-    [System.Serializable]
-    public class PlayerAnimation
-    {
-        public enum PlayerAnimationState
-        {
-            IDLE, WALK, WEAPON
-        }
-        public PlayerAnimationState state = PlayerAnimationState.IDLE;
-        public AnimationClip clip;
-        public bool isPlaying = false;
-    }
-    public List<PlayerAnimation> animations = new List<PlayerAnimation>();
-
     private void Awake()
     {
         if (instance == null)
@@ -30,6 +17,7 @@ public class PlayerMovementTest : MonoBehaviour
     [HideInInspector] public bool disableMovement = false;
 
     public CharacterController controller;
+    public Animator animController;
     public Transform cam;
     public float speed;
 
@@ -97,6 +85,17 @@ public class PlayerMovementTest : MonoBehaviour
         if (!disableMovement)
         {
             movingDirection = heading * speed * potionSpeedMultiplier * Time.deltaTime;
+
+            // Moving states if we need them
+            bool standingStill = movingDirection.Equals(Vector3.zero);
+            bool movingLeft = movingDirection.x < 0 && movingDirection.z > 0;
+            bool movingRight = movingDirection.x > 0 && movingDirection.z < 0;
+            bool movingUp = movingDirection.x > 0 && movingDirection.z > 0;
+            bool movingDown = movingDirection.x < 0 && movingDirection.z < 0;
+
+            //animController.SetFloat("VelocityX", movingDirection.x);
+            //animController.SetFloat("VelocityZ", movingDirection.z);
+
             controller.Move(movingDirection);
         }
 
@@ -112,7 +111,8 @@ public class PlayerMovementTest : MonoBehaviour
         direction.y = 0;
         var rotation = Quaternion.LookRotation(direction);
         var dampening = 8;
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
+        var newRotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
+        transform.rotation = newRotation;
         test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
     }
 }
