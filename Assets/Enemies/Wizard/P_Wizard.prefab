@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6330084364845817153}
   - component: {fileID: 7466885605644124666}
   - component: {fileID: 8702519796393636821}
+  - component: {fileID: -3992671418977229483}
+  - component: {fileID: 3602027700827866517}
   m_Layer: 12
   m_Name: P_Wizard
   m_TagString: Enemy
@@ -109,9 +111,6 @@ MonoBehaviour:
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: 4983654142262962901}
   colour: {r: 0, g: 0, b: 0, a: 0}
-  source: {fileID: 0}
-  hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
 --- !u!114 &4983654142262962901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +132,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 0}
   damagedMaterial: {fileID: 0}
   audioSource: {fileID: 7466885605644124666}
+  idleSound: {fileID: 0}
   hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
   deathSound: {fileID: 8300000, guid: 7af36d3f625e0484ab27d502f5825b28, type: 3}
   isHit: 0
@@ -294,6 +294,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3992671418977229483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073571031068658479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[{"name":"projectile","value":{"$content":[null,null,null],"$type":"System.Collections.Generic.List`1[[System.Object,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!114 &3602027700827866517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073571031068658479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -57143145, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: cad1e81ae2fc4534a8556fce56346763, type: 2}
 --- !u!1001 &8794593059678290174
 PrefabInstance:
   m_ObjectHideFlags: 0
