@@ -459,7 +459,7 @@ public class RoomGenerator : MonoBehaviour
                 // Clean up walls that overlap
                 if (cell.flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE, 1);
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
                     if (!isAgainstVoid)
                     {
                         cell.flag = GridCell.GridFlag.OCCUPIED;
@@ -482,7 +482,7 @@ public class RoomGenerator : MonoBehaviour
                 // Clean up walls that overlap
                 if (cell.flag.Equals(GridCell.GridFlag.WALL))
                 {
-                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE, 1);
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
                     if (!isAgainstVoid)
                     {
                         cell.flag = GridCell.GridFlag.OCCUPIED;
