@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class OptionsMenu : MonoBehaviour
@@ -27,12 +28,41 @@ public class OptionsMenu : MonoBehaviour
     public List<string> qualitySettings;
     public TMP_Dropdown qualityDropdown;
 
+    public TextMeshProUGUI pageText;
+    public List<GameObject> pages;
+    public GameObject page01Button;
+    public GameObject page02Button;
+
+    public PostProcessProfile profile;
+    private AmbientOcclusion _ambientOcclusion;
+    private Vignette _vignette;
+    private Bloom _bloom;
+    private ChromaticAberration _chromaticAberration;
+    private DepthOfField _depthOfField;
+
+    public Toggle ambientOcclusionToggle;
+    public Toggle vignetteToggle;
+    public Toggle bloomToggle;
+    public Toggle chromaticAberrationToggle;
+    public Toggle depthOfFieldToggle;
+
+    [Header("Misc")]
     public AudioSource source;
     public AudioClip click, error;
 
     void Start()
     {
         OpenGraphics();
+
+        #region Get Post Processing
+
+        profile.TryGetSettings(out _ambientOcclusion);
+        profile.TryGetSettings(out _vignette);
+        profile.TryGetSettings(out _bloom);
+        profile.TryGetSettings(out _chromaticAberration);
+        profile.TryGetSettings(out _depthOfField);
+
+        #endregion
 
         #region Set Resolution Dropdown
 
@@ -108,8 +138,16 @@ public class OptionsMenu : MonoBehaviour
             anisotropicToggle.isOn = false;
         }
 
+        ambientOcclusionToggle.isOn = _ambientOcclusion.active;
+        vignetteToggle.isOn = _vignette.active;
+        bloomToggle.isOn = _bloom.active;
+        chromaticAberrationToggle.isOn = _chromaticAberration.active;
+        depthOfFieldToggle.isOn = _depthOfField.active;
+
         #endregion
     }
+
+    #region Page01
 
     public void SetResolution (int resIndex)
     {
@@ -177,6 +215,37 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.masterTextureLimit = textureResIndex;
     }
 
+    #endregion
+
+    #region Page02
+
+    public void SetAmbientOcclusion(bool usesAO)
+    {
+        _ambientOcclusion.active = usesAO;
+    }
+
+    public void SetVignette(bool usesVignette)
+    {
+        _vignette.active = usesVignette;
+    }
+
+    public void SetBloom(bool usesBloom)
+    {
+        _bloom.active = usesBloom;
+    }
+
+    public void SetChromaticAberration(bool usesCA)
+    {
+        _chromaticAberration.active = usesCA;
+    }
+
+    public void SetDepthOfField(bool usesDOF)
+    {
+        _depthOfField.active = usesDOF;
+    }
+
+    #endregion
+
     public void RefreshValues()
     {
         #region Set Other Dropdowns
@@ -224,7 +293,36 @@ public class OptionsMenu : MonoBehaviour
             anisotropicToggle.isOn = false;
         }
 
+        ambientOcclusionToggle.isOn = _ambientOcclusion.active;
+        vignetteToggle.isOn = _vignette.active;
+        bloomToggle.isOn = _bloom.active;
+        chromaticAberrationToggle.isOn = _chromaticAberration.active;
+        depthOfFieldToggle.isOn = _depthOfField.active;
+
         #endregion
+    }
+
+    public void SetPage(int page)
+    {
+        foreach(GameObject pageGroup in pages)
+        {
+            pageGroup.SetActive(false);
+        }
+        pages[page].SetActive(true);
+
+        switch (page)
+        {
+            case 0:
+                page01Button.SetActive(false);
+                page02Button.SetActive(true);
+                pageText.text = "Page " + (page + 1) + "/" + pages.Count;
+                break;
+            case 1:
+                page01Button.SetActive(true);
+                page02Button.SetActive(false);
+                pageText.text = "Page " + (page + 1) + "/" + pages.Count;
+                break;
+        }
     }
 
     #region Section Swapping
