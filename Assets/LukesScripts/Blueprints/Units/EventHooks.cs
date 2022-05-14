@@ -32,6 +32,11 @@ namespace LukesScripts.Blueprints
         /// No parameters
         /// </summary>
         public static string Attack = "Attack";
+        // AI
+        /// <summary>
+        /// No parameters
+        /// </summary>
+        public static string DelayedAttack = "DelayedAttack";
         /// <summary>
         /// No parameters
         /// </summary>
