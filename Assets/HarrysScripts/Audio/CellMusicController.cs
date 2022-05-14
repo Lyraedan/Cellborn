@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class CellMusicController : MonoBehaviour
 {
-    public string cellMusicName, levelMusicName;
     bool hasExited;
+    public AudioSource source;
+    public AudioClip cellMusic;
+    public AudioClip levelMusic;
 
     void Start()
     {
-        AudioManager.instance.Stop(levelMusicName);
-        AudioManager.instance.Play(cellMusicName);
+        source.Stop();
+        source.clip = cellMusic;
+        source.Play();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
             if (!hasExited)
             {
-                AudioManager.instance.Stop(cellMusicName);
-                AudioManager.instance.Play(levelMusicName);
+                source.Stop();
+                source.clip = levelMusic;
+                source.Play();
                 hasExited = true;
             }
         }

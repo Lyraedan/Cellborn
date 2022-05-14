@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2135424604995857608}
   - component: {fileID: 517157866754457554}
   - component: {fileID: 7862681331039326315}
+  - component: {fileID: 6680238288457972791}
   m_Layer: 0
   m_Name: P_Fairy_Projectile_Destroy_Yellow
   m_TagString: Untagged
@@ -4902,6 +4903,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6680238288457972791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781498731490086021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8499151749984903526
 GameObject:
   m_ObjectHideFlags: 0

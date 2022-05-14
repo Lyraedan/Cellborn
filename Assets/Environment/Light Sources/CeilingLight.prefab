@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3005046341028642952}
   - component: {fileID: 3005046341028642959}
+  - component: {fileID: 5229029908291741428}
+  - component: {fileID: 6839792178906318679}
   m_Layer: 0
   m_Name: CeilingLight
   m_TagString: Prop
@@ -42,7 +44,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.7058824, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.76975363, b: 0.514151, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 116
@@ -93,3 +95,35 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &5229029908291741428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005046341028642958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 6839792178906318679}
+  meshRenderers: []
+  lights:
+    sources:
+    - {fileID: 3005046341028642959}
+  particles:
+    emitters: []
+--- !u!65 &6839792178906318679
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005046341028642958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

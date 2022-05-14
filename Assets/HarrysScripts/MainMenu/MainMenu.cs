@@ -16,6 +16,9 @@ public class MainMenu : MonoBehaviour
     public VideoPlayer videoPlayer;
     public List<VideoClip> backgroundRenders;
     int chosenBackground;
+
+    public AudioSource source;
+    public AudioClip menuClickSound;
     
     void Start()
     {
@@ -94,6 +97,7 @@ public class MainMenu : MonoBehaviour
 
     public void ClickSound()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = menuClickSound;
+        source.Play();
     }
 }

@@ -16,6 +16,6 @@ public class DagleWeapon : WeaponBase
 
     public override void Fire()
     {
-        AudioManager.instance.Play("PistolFire");
+
     }
 }

@@ -22,6 +22,9 @@ namespace LukesScripts.AI
         public SkinnedMeshRenderer skinnedMeshRenderer;
         public Material defaultMaterial;
         public Material damagedMaterial;
+        public Animator animController;
+        public AudioSource audioSource;
+        public AudioClip idleSound, hitSound, deathSound;
 
         protected Vector3 OurPosition
         {
@@ -123,8 +126,18 @@ namespace LukesScripts.AI
 
         public void DoAttack()
         {
+            if (animController != null)
+            {
+                animController.SetBool("IsAttacking", true);
+            }
             Attack();
             CustomEvent.Trigger(gameObject, EventHooks.Attack);
+            /*
+            if (animController != null)
+            {
+                animController.SetBool("IsAttacking", false);
+            }
+            */
         }
 
         public abstract void OnHit();
@@ -143,6 +156,8 @@ namespace LukesScripts.AI
             {
                 WeaponBag.instance.RefillBag();
             }
+            audioSource.clip = deathSound;
+            audioSource.Play();
             OnDeath();
             CustomEvent.Trigger(gameObject, EventHooks.OnDeath);
         }
@@ -150,6 +165,8 @@ namespace LukesScripts.AI
         public void Hit()
         {
             isHit = true;
+            audioSource.clip = hitSound;
+            audioSource.Play();
             OnHit();
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
             isHit = false;
@@ -161,6 +178,12 @@ namespace LukesScripts.AI
             skinnedMeshRenderer.material = damagedMaterial;
             yield return new WaitForSeconds(0.1f);
             skinnedMeshRenderer.material = defaultMaterial;
+            yield return new WaitUntil(() => !audioSource.isPlaying);
+            if (idleSound != null)
+            {
+                audioSource.clip = idleSound;
+                audioSource.Play();
+            }
         }
 
         public bool MoveTo(Vector3 position)

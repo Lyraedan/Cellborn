@@ -30,6 +30,6 @@ public class WeaponMusicGun : WeaponBase
 
     public override void Fire()
     {
-        AudioManager.instance.Play("SilencedFire");
+
     }
 }

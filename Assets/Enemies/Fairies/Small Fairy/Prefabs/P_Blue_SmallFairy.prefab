@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: -7825588690380539266}
   - component: {fileID: 3434470127644330833}
   - component: {fileID: -6911894143726377819}
+  - component: {fileID: -1632473966747514011}
+  - component: {fileID: 2531404140077799830}
   m_Layer: 12
   m_Name: P_Blue_SmallFairy
   m_TagString: Enemy
@@ -90,7 +92,7 @@ MonoBehaviour:
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: -7825588690380539266}
-  colour: Blue
+  colour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -123,7 +125,8 @@ MonoBehaviour:
   meshRenderers:
   - {fileID: 6826545288478285973}
   lights:
-    sources: []
+    sources:
+    - {fileID: 7817134785961906585}
   particles:
     emitters: []
 --- !u!65 &7034860564585011215
@@ -181,6 +184,11 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 6826545288478285973}
   defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
+  animController: {fileID: 2531404140077799830}
+  audioSource: {fileID: -6911894143726377819}
+  idleSound: {fileID: 8300000, guid: 7db76156cd9b6c844b55fa7f9afefda9, type: 3}
+  hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
+  deathSound: {fileID: 8300000, guid: 2a23069c9f48f014f8cd0acd2fdd5076, type: 3}
   isHit: 0
   roamRadius: 3
   playerStats: {fileID: 0}
@@ -193,6 +201,7 @@ MonoBehaviour:
   maxFleeDistance: 30
   projectile: {fileID: 535181506469579714, guid: f9c298a6201458840a185db32a574a86, type: 3}
   firePoint: {fileID: 4895736231511726152}
+  animController: {fileID: 2531404140077799830}
   remainingDistance: 0
 --- !u!114 &3434470127644330833
 MonoBehaviour:
@@ -362,6 +371,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1632473966747514011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2531404140077799830
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3bcc401d2bf191240845a18df745284e, type: 3}
+  m_Controller: {fileID: 9100000, guid: b5763740fceaf0f478235ce7c2621893, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6740784127087936462
 GameObject:
   m_ObjectHideFlags: 0

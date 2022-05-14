@@ -34,6 +34,8 @@ public class AIFairy : AI
     public GameObject projectile;
     public Transform firePoint;
 
+    public Animator animController;
+
     private float DistanceFromPatrolPoint
     {
         get
@@ -82,9 +84,7 @@ public class AIFairy : AI
             Debug.Log("Do attack!");
             //PlayerStats.instance.DamagePlayer(damage);
 
-            GameObject projInstance = Instantiate(projectile, firePoint.position, firePoint.rotation);
-            var projScript = projInstance.GetComponent<ProjectileBehaviour>();
-            projInstance.GetComponent<Rigidbody>().AddForce((transform.forward * projScript.throwStrength) + (transform.up * projScript.arcSize), ForceMode.Impulse);
+            animController.SetTrigger("Attack");
 
             attackDelay = 0;
         }
@@ -114,12 +114,19 @@ public class AIFairy : AI
 
     public override void OnDeath()
     {
-        AudioManager.instance.Play("FairyDeath");
+        
     }
 
     public override void DrawGizmos()
     {
 
+    }
+
+    public void FireProjectile()
+    {
+        GameObject projInstance = Instantiate(projectile, firePoint.position, firePoint.rotation);
+        var projScript = projInstance.GetComponent<ProjectileBehaviour>();
+        projInstance.GetComponent<Rigidbody>().AddForce((transform.forward * projScript.throwStrength) + (transform.up * projScript.arcSize), ForceMode.Impulse);
     }
 
 }

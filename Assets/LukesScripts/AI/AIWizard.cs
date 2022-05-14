@@ -174,7 +174,7 @@ public class AIWizard : AI
 
     public override void OnDeath()
     {
-        AudioManager.instance.Play("Win");
+        
     }
 
     public override void DrawGizmos()

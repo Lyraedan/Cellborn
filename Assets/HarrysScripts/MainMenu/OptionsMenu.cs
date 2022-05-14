@@ -18,23 +18,24 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
 
     public Toggle fullscreenToggle;
+    public Toggle anisotropicToggle;
 
+    public TMP_Dropdown antiAliasingDropdown;
+    public TMP_Dropdown shadowsDropdown;
+    public TMP_Dropdown shadowResDropdown;
+    public TMP_Dropdown textureResDropdown;
     public List<string> qualitySettings;
     public TMP_Dropdown qualityDropdown;
 
-    [Header("Audio")]
-    public AudioMixer audioMixer;
-    public TextMeshProUGUI masterVolText;
-    public TextMeshProUGUI musicVolText;
-    public TextMeshProUGUI soundVolText;
-    public Slider masterSlider;
-    public Slider musicSlider;
-    public Slider soundSlider;
-    
+    public AudioSource source;
+    public AudioClip click, error;
+
     void Start()
     {
         OpenGraphics();
-        
+
+        #region Set Resolution Dropdown
+
         resolutions = Screen.resolutions.ToList();
 
         resolutionDropdown.ClearOptions();
@@ -55,19 +56,59 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        fullscreenToggle.isOn = Screen.fullScreen;
+        #endregion
+
+        #region Set Other Dropdowns
+
+        switch(QualitySettings.antiAliasing)
+        {
+            case 0: antiAliasingDropdown.value = 0; break;
+            case 2: antiAliasingDropdown.value = 1; break;
+            case 4: antiAliasingDropdown.value = 2; break;
+            case 8: antiAliasingDropdown.value = 3; break;
+        } 
+        antiAliasingDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadows)
+        {
+            case ShadowQuality.Disable: shadowsDropdown.value = 0; break;
+            case ShadowQuality.HardOnly: shadowsDropdown.value = 1; break;
+            case ShadowQuality.All: shadowsDropdown.value = 2; break;
+        }
+        shadowsDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadowResolution)
+        {
+            case ShadowResolution.Low: shadowResDropdown.value = 0; break;
+            case ShadowResolution.Medium: shadowResDropdown.value = 1; break;
+            case ShadowResolution.High: shadowResDropdown.value = 2; break;
+            case ShadowResolution.VeryHigh: shadowResDropdown.value = 3; break;
+        }
+        shadowResDropdown.RefreshShownValue();
+
+        textureResDropdown.value = QualitySettings.masterTextureLimit;
+        textureResDropdown.RefreshShownValue();
 
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(qualitySettings);
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.RefreshShownValue();
 
-        /* masterSlider.value = Mathf.Pow(10, GetMasterVolume()) / 20;
-        musicSlider.value = Mathf.Pow(10, GetMusicVolume()) / 20;
-        soundSlider.value = Mathf.Pow(10, GetSFXVolume()) / 20;
-        masterVolText.text = (int)(Mathf.Pow(10, GetMasterVolume()) / 20) + "%";
-        musicVolText.text = (int)(Mathf.Pow(10, GetMusicVolume()) / 20) + "%";
-        soundVolText.text = (int)(Mathf.Pow(10, GetSFXVolume()) / 20) + "%"; */
+        #endregion
+
+        #region Set Toggles
+
+        fullscreenToggle.isOn = Screen.fullScreen;
+        if (QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable)
+        {
+            anisotropicToggle.isOn = true;
+        }
+        else
+        {
+            anisotropicToggle.isOn = false;
+        }
+
+        #endregion
     }
 
     public void SetResolution (int resIndex)
@@ -84,76 +125,114 @@ public class OptionsMenu : MonoBehaviour
     public void SetQuality (int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
-        Debug.Log(QualitySettings.GetQualityLevel());
+        RefreshValues();
     }
 
-    public void SetVSync (bool isVSync)
+    public void SetAnisotropic (bool usesAnisotropic)
     {
-        QualitySettings.vSyncCount = Convert.ToInt32(isVSync);
-    }
-
-    public void SetMasterVolume (float volume)
-    {
-        audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);
-        masterVolText.text = (int)(volume * 100) + "%";
-    }
-    
-    public void SetMusicVolume (float volume)
-    {
-        audioMixer.SetFloat("MusicVol", Mathf.Log10(volume) * 20);
-        musicVolText.text = (int)(volume * 100) + "%";
-    }
-
-    public void SetSoundVolume (float volume)
-    {
-        audioMixer.SetFloat("SFXVol", Mathf.Log10(volume) * 20);
-        soundVolText.text = (int)(volume * 100) + "%";
-    }
-
-    public float GetMasterVolume()
-    {
-        float value;
-        if(audioMixer.GetFloat("MasterVol", out value))
+        if (usesAnisotropic)
         {
-            return value;
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
         }
         else
         {
-            return 0f;
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
         }
     }
 
-    public float GetMusicVolume()
+    public void SetAntiAliasing (int antiAliasingIndex)
     {
-        float value;
-        if(audioMixer.GetFloat("MusicVol", out value))
+        switch(antiAliasingIndex)
         {
-            return value;
-        }
-        else
-        {
-            return 0f;
+            case 0: QualitySettings.antiAliasing = 0; break;
+            case 1: QualitySettings.antiAliasing = 2; break;
+            case 2: QualitySettings.antiAliasing = 4; break;
+            case 3: QualitySettings.antiAliasing = 8; break;
         }
     }
 
-    public float GetSFXVolume()
+    public void SetShadows (int shadowIndex)
     {
-        float value;
-        if(audioMixer.GetFloat("SFXVol", out value))
+        switch (shadowIndex)
         {
-            return value;
+            case 0: QualitySettings.shadows = ShadowQuality.Disable; break;
+            case 1: QualitySettings.shadows = ShadowQuality.HardOnly; break;
+            case 2: QualitySettings.shadows = ShadowQuality.All; break;
+        }
+    }
+
+    public void SetShadowResolution (int shadowResIndex)
+    {
+        switch (shadowResIndex)
+        {
+            case 0: QualitySettings.shadowResolution = ShadowResolution.Low; break;
+            case 1: QualitySettings.shadowResolution = ShadowResolution.Medium; break;
+            case 2: QualitySettings.shadowResolution = ShadowResolution.High; break;
+            case 3: QualitySettings.shadowResolution = ShadowResolution.VeryHigh; break;
+        }
+    }
+
+    public void SetTextureResolution (int textureResIndex)
+    {
+        QualitySettings.masterTextureLimit = textureResIndex;
+    }
+
+    public void RefreshValues()
+    {
+        #region Set Other Dropdowns
+
+        switch(QualitySettings.antiAliasing)
+        {
+            case 0: antiAliasingDropdown.value = 0; break;
+            case 2: antiAliasingDropdown.value = 1; break;
+            case 4: antiAliasingDropdown.value = 2; break;
+            case 8: antiAliasingDropdown.value = 3; break;
+        }        
+        antiAliasingDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadows)
+        {
+            case ShadowQuality.Disable: shadowsDropdown.value = 0; break;
+            case ShadowQuality.HardOnly: shadowsDropdown.value = 1; break;
+            case ShadowQuality.All: shadowsDropdown.value = 2; break;
+        }
+        shadowsDropdown.RefreshShownValue();
+
+        switch(QualitySettings.shadowResolution)
+        {
+            case ShadowResolution.Low: shadowResDropdown.value = 0; break;
+            case ShadowResolution.Medium: shadowResDropdown.value = 1; break;
+            case ShadowResolution.High: shadowResDropdown.value = 2; break;
+            case ShadowResolution.VeryHigh: shadowResDropdown.value = 3; break;
+        }
+        shadowResDropdown.RefreshShownValue();
+
+        textureResDropdown.value = QualitySettings.masterTextureLimit;
+        textureResDropdown.RefreshShownValue();
+
+        #endregion
+
+        #region Set Toggles
+
+        fullscreenToggle.isOn = Screen.fullScreen;
+        if (QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable)
+        {
+            anisotropicToggle.isOn = true;
         }
         else
         {
-            return 0f;
+            anisotropicToggle.isOn = false;
         }
+
+        #endregion
     }
 
     #region Section Swapping
 
     public void OpenGraphics()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(true);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
@@ -162,7 +241,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenAudio()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(true);
         controlsGroup.SetActive(false);
@@ -171,7 +251,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenControls()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(true);
@@ -180,16 +261,19 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenOther()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = click;
+        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
         otherGroup.SetActive(true);
     }
 
+    // Why the fuck does this exist...
     public void NoFunction()
     {
-        AudioManager.instance.Play("MenuError");
+        source.clip = error;
+        source.Play();
     }
 
     #endregion

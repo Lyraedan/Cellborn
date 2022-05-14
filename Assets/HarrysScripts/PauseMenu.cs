@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
+    
     public static bool isPaused = false;
     public KeyCode pauseButton;
 
@@ -13,6 +15,17 @@ public class PauseMenu : MonoBehaviour
     public string mainMenuSceneName = "MainMenu";
 
     public LoadingTips tipsScript;
+
+    public AudioSource source;
+    public AudioClip menuClickSound;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
     
     void Update()
     {
@@ -31,7 +44,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = menuClickSound;
+        source.Play();
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
         isPaused = false;
@@ -53,7 +67,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = menuClickSound;
+        source.Play();
         Resume();
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
@@ -61,7 +76,8 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        AudioManager.instance.Play("MenuClick");
+        source.clip = menuClickSound;
+        source.Play();
         Resume();
         Debug.Log("Quitting game...");
         Application.Quit();
