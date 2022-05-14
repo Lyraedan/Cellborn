@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
             pos.x -= distanceFrom.x;
             pos.y -= distanceFrom.y;
             pos.z -= distanceFrom.z;
-            transform.position = pos;
+            Camera.main.transform.position = pos;
         }
     }
 }

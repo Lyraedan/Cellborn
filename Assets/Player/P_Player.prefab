@@ -6583,6 +6583,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7483907030024036441}
     m_Modifications:
+    - target: {fileID: 140335547240790337, guid: a31120c8ce59e5c469b296ad20345bd3, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 604779988493554036, guid: a31120c8ce59e5c469b296ad20345bd3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6809,6 +6813,10 @@ PrefabInstance:
     - target: {fileID: 2925995419130920256, guid: 11d082607a56ce24d9a34f1894675be8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925995419130920256, guid: 11d082607a56ce24d9a34f1894675be8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2925995419130920260, guid: 11d082607a56ce24d9a34f1894675be8, type: 3}
       propertyPath: m_Enabled
@@ -7073,6 +7081,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7896298103940881703, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8686839358415271265, guid: 5526f0687aeef574eaff7bd77fa6e7df, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7111,6 +7123,10 @@ PrefabInstance:
     - target: {fileID: 6976331707194537072, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
       propertyPath: m_Name
       value: PebbleWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976331707194537072, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6976331707194537077, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
       propertyPath: m_RootOrder
@@ -7406,6 +7422,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6514005691360707819, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50abdd3a11b4fc147b88858fa3949f40, type: 3}
 --- !u!4 &2224399714286834769 stripped
@@ -7600,6 +7620,10 @@ PrefabInstance:
     - target: {fileID: 5099940127662423832, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
       propertyPath: m_Name
       value: GrapplingWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099940127662423832, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7200835774901043714, guid: 218bdb4bfe62a0d43970187ad835d2c6, type: 3}
       propertyPath: source
@@ -7978,6 +8002,10 @@ PrefabInstance:
     - target: {fileID: 4161291639031290691, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161291639031290691, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4161291639031290700, guid: 9fe71c443c472b948bae89c873e64371, type: 3}
       propertyPath: m_RootOrder
@@ -8600,6 +8628,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 200445494078871861, guid: bcc63955f6cf12549b0e8cc7607b8db5, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 819143048879403264, guid: bcc63955f6cf12549b0e8cc7607b8db5, type: 3}
+      propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1482680456321717923, guid: bcc63955f6cf12549b0e8cc7607b8db5, type: 3}

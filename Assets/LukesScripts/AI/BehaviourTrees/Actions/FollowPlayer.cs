@@ -81,13 +81,19 @@ namespace LukesScripts.AI.Actions
 
         bool SetDestination()
         {
-            Vector3 destination = Target();
+            try
+            {
+                Vector3 destination = Target();
 #if UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5
             agent.Resume();
 #else
-            agent.isStopped = false;
+                agent.isStopped = false;
 #endif
-            return agent.SetDestination(destination);
+                return agent.SetDestination(destination);
+            } catch(System.Exception e)
+            {
+                return false;
+            }
         }
 
         bool HasArrived()

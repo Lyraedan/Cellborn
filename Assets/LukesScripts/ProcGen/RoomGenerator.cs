@@ -45,6 +45,7 @@ public class RoomGenerator : MonoBehaviour
     public bool enableCulling = true;
 
     private GameObject player;
+    private PlayerMovementTest controller;
 
     //Adjacent directions
     [HideInInspector] public const int UP = 0;
@@ -138,8 +139,6 @@ public class RoomGenerator : MonoBehaviour
         navmesh = new NavMeshSurface[1];
         navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
 
-        BakeNavmesh();
-
         Vector3 startCoords = PositionAsGridCoordinates(start.centres[0]);
         GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
 
@@ -149,14 +148,21 @@ public class RoomGenerator : MonoBehaviour
         {
             player = SpawnPlayer(startPoint);
             CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
+            player.name = "Player";
+            player.transform.SetParent(null);
         }
         else
         {
             // Spawn teleporter back?
+            Debug.Log("Moving player to start! Prev: " + player.transform.position);
+            Debug.Log("Putting " + player.name + " to start");
             var position = startPoint.position;
             position.y += 0.5f;
             player.transform.position = position;
+            Debug.Log("Moved player to start! New: " + player.transform.position + " | " + position.ToString());
         }
+
+        BakeNavmesh();
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
         GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
@@ -248,10 +254,11 @@ public class RoomGenerator : MonoBehaviour
         if (levelTeleporter != null)
             Destroy(levelTeleporter);
 
+        rooms.Clear();
         Generate(levels[levelIndex]);
 
-        Minimap.instance.GenerateMinimap(grid);
-        PlaceEntities();
+        //Minimap.instance.GenerateMinimap(grid);
+        //PlaceEntities();
     }
 
     public void Regenerate()
