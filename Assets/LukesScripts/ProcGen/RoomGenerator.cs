@@ -31,6 +31,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject teleporter;
     public GameObject prisonCell;
     private GameObject spawnCell;
+    private GameObject levelTeleporter;
 
     private Room start, end;
 
@@ -168,7 +169,7 @@ public class RoomGenerator : MonoBehaviour
         else
         {
             // Generate teleporter
-            var teleporter = SpawnTeleporter(endPoint);
+            levelTeleporter = SpawnTeleporter(endPoint);
         }
 
         StartCoroutine(AwaitAssignables());
@@ -231,7 +232,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
 
-        if(spawnCell != null)
+        if (spawnCell != null)
         {
             Destroy(spawnCell);
         }
@@ -244,8 +245,13 @@ public class RoomGenerator : MonoBehaviour
         levelIndex = next;
         ClearDungeon();
         DeleteAllObjectsWithTag("Environment");
+        if (levelTeleporter != null)
+            Destroy(levelTeleporter);
+
         Generate(levels[levelIndex]);
+
         Minimap.instance.GenerateMinimap(grid);
+        PlaceEntities();
     }
 
     public void Regenerate()
@@ -502,22 +508,23 @@ public class RoomGenerator : MonoBehaviour
 
             int difX = pointsX[1] - pointsX[0];
             int x = pointsX[0];
-            if(difX > 0)
+            if (difX > 0)
             {
-                while(x < pointsX[1])
+                while (x < pointsX[1])
                 {
-                    grid.grid[x, 0, (int)gridCurrent.z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x, 0, (int)gridCurrent.z + 1].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x, 0, (int)gridCurrent.z - 1].flag = GridCell.GridFlag.OCCUPIED;
+                    var cell = grid.grid[x, 0, (int)gridCurrent.z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
                     x++;
                 }
-            } else if(difX < 0)
+            }
+            else if (difX < 0)
             {
                 while (x > pointsX[1])
                 {
-                    grid.grid[x, 0, (int)gridCurrent.z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x, 0, (int)gridCurrent.z + 1].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x, 0, (int)gridCurrent.z - 1].flag = GridCell.GridFlag.OCCUPIED;
+                    var cell = grid.grid[x, 0, (int)gridCurrent.z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
                     x--;
                 }
             }
@@ -528,9 +535,9 @@ public class RoomGenerator : MonoBehaviour
             {
                 while (z < pointsZ[1])
                 {
-                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x + 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x - 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    var cell = grid.grid[x, 0, z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
                     z++;
                 }
             }
@@ -538,11 +545,22 @@ public class RoomGenerator : MonoBehaviour
             {
                 while (z > pointsZ[1])
                 {
-                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x + 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-                    grid.grid[x - 1, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+                    var cell = grid.grid[x, 0, z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
                     z--;
                 }
+            }
+        }
+
+        // Widen hallways
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            var current = rooms[i];
+            for (int j = 0; j < current.hallways.Count; j++)
+            {
+                var hallway = current.hallways[j];
+                SetAdjacentCells(hallway, GridCell.GridFlag.OCCUPIED);
             }
         }
 
@@ -597,20 +615,13 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    private int combineCheckCounter = 0;
     IEnumerator Combine(int index)
     {
         if (index >= rooms.Count)
         {
             Debug.Log("Finished Combining rooms!");
             Debug.Log("Have " + rooms.Count + " after combining");
-            if (combineCheckCounter < 5)
-            {
-                combineCheckCounter++;
-                Debug.Log("Combining again");
-                StartCoroutine(Combine(0));
-            }
-            yield return null;
+            yield break;
         }
 
         var current = rooms[index];
@@ -650,6 +661,20 @@ public class RoomGenerator : MonoBehaviour
         GridCell downLeft = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z - 1);
         GridCell downRight = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z - 1);
         return new GridCell[] { up, down, left, right, upLeft, upRight, downLeft, downRight };
+    }
+
+    /// <summary>
+    /// Set the cells around the current sell in a 3x3 area
+    /// </summary>
+    /// <param name="current"></param>
+    /// <param name="flag"></param>
+    public void SetAdjacentCells(GridCell current, GridCell.GridFlag flag)
+    {
+        var adjacent = GetAdjacentCells(current);
+        for (int i = 0; i < adjacent.Length; i++)
+        {
+            adjacent[i].flag = flag;
+        }
     }
 
     /// <summary>
