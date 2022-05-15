@@ -430,7 +430,6 @@ public class RoomGenerator : MonoBehaviour
 
     void PlaceProps(List<RoomMeshGenerator.Edge> edgeVertices)
     {
-        // Wall lights
         for (int i = 0; i < edgeVertices.Count; i++)
         {
             var range = UnityEngine.Random.Range(wallPropRate.x, wallPropRate.y);
@@ -444,14 +443,13 @@ public class RoomGenerator : MonoBehaviour
                     break;
                 }
                 var position = floorMesh.transform.position + edgeVertices[i].origin;
-                position.y += 0.2f;
+                position.y += 0.05f;
                 var direction = edgeVertices[i].DirectionAsVector3();
                 var l = SpawnPrefab(prop, position, direction);
                 l.transform.SetParent(environment.transform);
             }
         }
 
-        // Room center lights here
         for (int i = 0; i < rooms.Count; i++)
         {
             for (int j = 0; j < rooms[i].centres.Count; j++)
@@ -468,7 +466,7 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = rooms[i].centres[j];
-                    position.y += 0.2f;
+                    position.y += 0.05f;
                     var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
                     GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
