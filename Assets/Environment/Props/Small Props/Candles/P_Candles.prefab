@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3113911681405490589}
   m_Layer: 0
   m_Name: P_Candles
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threashold: -5
+  aboveThreashold: 1.5
 --- !u!1001 &234375830356587206
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: -2530573828177406701}
   m_Layer: 0
   m_Name: P_Chest
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threashold: -5
+  aboveThreashold: 1.5
 --- !u!1 &7286467643952070457
 GameObject:
   m_ObjectHideFlags: 0

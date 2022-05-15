@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1171860622504760272}
   m_Layer: 0
   m_Name: P_BeerKeg
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threashold: -5
+  aboveThreashold: 1.5
 --- !u!1 &1627571361463877338
 GameObject:
   m_ObjectHideFlags: 0
