@@ -225,16 +225,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07c9970c9e585345b97550db2055494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullRadius: 6
-  objectPullForce: 80000
-  playerPullForce: 3
-  destroyEffect: {fileID: 7678880109118250643, guid: aa2c182e26998634e997691b7a7147b7, type: 3}
-  holeTime: 7
-  playerHealthDrainMultiplier: 32
-  enemyHealthDrainMultiplier: 32
-  playerDamage: 1
-  enemyDamage: 1
   colour: {r: 1, g: 1, b: 1, a: 1}
+  destroyEffect: {fileID: 7678880109118250643, guid: aa2c182e26998634e997691b7a7147b7, type: 3}
+  damage: 1
+  pullForce: 10
+  playerForceMultiplier: 1
+  enemyForceMultiplier: 25
+  propForceMultiplier: 1
+  projectileForceMultiplier: 1
+  source: {fileID: 6223980532674162495}
 --- !u!135 &2264107669518592796
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -246,7 +245,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.075
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5750009798428695561
 MonoBehaviour:
@@ -276,15 +275,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 431639992745117960, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 431639992745117960, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 431639992745117960, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 9.1834e-41
+      value: 2.3510647e-38
       objectReference: {fileID: 0}
     - target: {fileID: 4179411477971221787, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_IsActive
@@ -393,6 +392,10 @@ PrefabInstance:
     - target: {fileID: 7590994616193773720, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590994616193773926, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7590994616193773926, guid: 2f80b49c0af6df540b5ce0300ad1a3ac, type: 3}
       propertyPath: m_Enabled
