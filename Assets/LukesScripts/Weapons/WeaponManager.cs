@@ -67,6 +67,30 @@ public class WeaponManager : MonoBehaviour
                     UIController.instance.ammoBar.maxValue = value.maxAmmo;
                     UIController.instance.ammoBar.value = value.currentAmmo;
                 }
+
+                ParticleSystem.MainModule innerRingMain = WeaponManager.instance.targetProperties.inner.main;
+                ParticleSystem.MainModule ringMain = WeaponManager.instance.targetProperties.outer.main;
+
+                if (_currentWeapon.colour == Color.red)
+                {
+                    innerRingMain.startColor = Color.red;
+                    ringMain.startColor = Color.red;
+                }
+                else if (_currentWeapon.GetComponent<WeaponProperties>().colour == Color.blue)
+                {
+                    innerRingMain.startColor = Color.blue;
+                    ringMain.startColor = Color.blue;
+                }
+                else if (_currentWeapon.GetComponent<WeaponProperties>().colour == Color.yellow)
+                {
+                    innerRingMain.startColor = Color.yellow;
+                    ringMain.startColor = Color.yellow;
+                }
+                else
+                {
+                    innerRingMain.startColor = Color.white;
+                    ringMain.startColor = Color.white;
+                }
             }
             else
             {
@@ -107,7 +131,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        currentlyHeldWeapons[0] = FindWeapon(12);
+        //currentlyHeldWeapons[0] = FindWeapon(12);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
