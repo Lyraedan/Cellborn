@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7770875931563846649}
   - component: {fileID: 9148789667712342818}
   - component: {fileID: 8052924431221360688}
+  - component: {fileID: 2821892684038600006}
   m_Layer: 0
   m_Name: P_Bookcase
   m_TagString: Prop
@@ -200,6 +201,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 9148789667712342818}
+--- !u!114 &2821892684038600006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638609692388642607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5
 --- !u!1 &738624364249372705
 GameObject:
   m_ObjectHideFlags: 0

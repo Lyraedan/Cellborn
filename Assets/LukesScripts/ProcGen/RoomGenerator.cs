@@ -24,6 +24,10 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 minRoomSize = new Vector2(3, 6);
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
+    [Header("Prop rates")]
+    public Vector2 wallPropRate = new Vector2(30, 50);
+    public Vector2 centrePropRate = new Vector2(30, 50);
+
     public List<Room> rooms = new List<Room>();
     public GameObject floorPrefab, wallPrefab, ceilingPrefab, environmentRootPrefab, environment;
 
@@ -136,6 +140,7 @@ public class RoomGenerator : MonoBehaviour
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
         PlaceLighting(floorMesh.edgeVertices);
+        PlaceProps(floorMesh.edgeVertices);
 
         navmesh = new NavMeshSurface[1];
         navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
@@ -184,7 +189,8 @@ public class RoomGenerator : MonoBehaviour
         // Wall lights
         for (int i = 0; i < edgeVertices.Count; i++)
         {
-            var spawn = i % 10 == 0;
+            var range = UnityEngine.Random.Range(10, 25);
+            var spawn = i % range == 0;
             if (spawn)
             {
                 var light = GetRandomLight();
@@ -328,13 +334,6 @@ public class RoomGenerator : MonoBehaviour
     }
 
     #region Prefab Grabbers
-    public GameObject SpawnRandomProp(GridCell cell)
-    {
-        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.PROP)).ToList();
-        int index = Random.Range(0, prop.Count);
-        return prop[index].Spawn(cell.position, cell.rotation);
-    }
-
     public GameObject GetRandomLight()
     {
         var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_LIGHT)).ToList();
@@ -348,6 +347,26 @@ public class RoomGenerator : MonoBehaviour
     public GameObject GetRandomCeilingLight()
     {
         var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CEILING_LIGHT)).ToList();
+        if (prop.Count <= 0)
+            return null;
+
+        int index = Random.Range(0, prop.Count);
+        return prop[index].prefab;
+    }
+
+    public GameObject GetRandomProp()
+    {
+        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_PROP)).ToList();
+        if (prop.Count <= 0)
+            return null;
+
+        int index = Random.Range(0, prop.Count);
+        return prop[index].prefab;
+    }
+
+    public GameObject GetRandomCentreProp()
+    {
+        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.CENTER_PROP)).ToList();
         if (prop.Count <= 0)
             return null;
 
@@ -409,17 +428,55 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    void PlaceProps()
+    void PlaceProps(List<RoomMeshGenerator.Edge> edgeVertices)
     {
-        for (int x = 0; x < grid.cells.x; x++)
+        // Wall lights
+        for (int i = 0; i < edgeVertices.Count; i++)
         {
-            for (int z = 0; z < grid.cells.z; z++)
+            var range = UnityEngine.Random.Range(wallPropRate.x, wallPropRate.y);
+            var spawn = i % range == 0;
+            if (spawn)
             {
-                var cell = grid.grid[x, 0, z];
-                if (cell.hasProp)
+                var prop = GetRandomProp();
+                if (prop == null)
                 {
-                    var prop = SpawnRandomProp(cell);
-                    prop.transform.SetParent(environment.transform);
+                    Debug.LogError("No prop prefab found!");
+                    break;
+                }
+                var position = floorMesh.transform.position + edgeVertices[i].origin;
+                position.y += 0.5f;
+                var direction = edgeVertices[i].DirectionAsVector3();
+                var l = SpawnPrefab(prop, position, direction);
+                l.transform.SetParent(environment.transform);
+            }
+        }
+
+        // Room center lights here
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            for (int j = 0; j < rooms[i].centres.Count; j++)
+            {
+                var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
+                var spawn = i % range == 0;
+
+                if (spawn)
+                {
+                    var prop = GetRandomCentreProp();
+                    if (prop == null)
+                    {
+                        Debug.LogError("No prop prefab found!");
+                        break;
+                    }
+                    var position = rooms[i].centres[j];
+                    position.y += 0.5f;
+                    var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
+                    GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
+
+                    if (!CellisInPrisonCell(cell) || !CellIsInRoom(cell, 0))
+                    {
+                        var l = SpawnPrefab(prop, position, Vector3.zero);
+                        l.transform.SetParent(environment.transform);
+                    }
                 }
             }
         }

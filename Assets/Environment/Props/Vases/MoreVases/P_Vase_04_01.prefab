@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6384023079605299184}
   - component: {fileID: 364085940039294958}
   - component: {fileID: 272587810487712946}
+  - component: {fileID: -4712879045705710120}
   m_Layer: 0
   m_Name: P_Vase_04_01
   m_TagString: Untagged
@@ -150,3 +151,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.001, y: 0.245, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-4712879045705710120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883106574171013600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5

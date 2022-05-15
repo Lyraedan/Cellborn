@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3408923735152110770}
   - component: {fileID: 7547948395747449802}
   - component: {fileID: 4986121220141483776}
+  - component: {fileID: 6237089140027106003}
   m_Layer: 0
   m_Name: P_Cauldron
   m_TagString: Prop
@@ -244,3 +245,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6237089140027106003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029727424576102190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5

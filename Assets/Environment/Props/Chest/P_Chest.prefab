@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5540631799304981105}
   - component: {fileID: 151604267740173497}
   - component: {fileID: 8473896766878090818}
+  - component: {fileID: -2530573828177406701}
   m_Layer: 0
   m_Name: P_Chest
   m_TagString: Untagged
@@ -182,6 +183,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2530573828177406701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526053306709812793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5
 --- !u!1 &7286467643952070457
 GameObject:
   m_ObjectHideFlags: 0

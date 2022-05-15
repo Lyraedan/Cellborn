@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2877768105488478330}
   - component: {fileID: 5399712165297357867}
   - component: {fileID: 8307372593784099953}
+  - component: {fileID: 591252746271920890}
   m_Layer: 0
   m_Name: P_MediumCandle
   m_TagString: Untagged
@@ -132,3 +133,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &591252746271920890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2164075548543221990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5
