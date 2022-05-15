@@ -56,6 +56,8 @@ public class PlayerStats : MonoBehaviour
     public Image armourBlue;
     public GameObject armourBall;
 
+    public Image speedBlue;
+
     #endregion
 
     public bool isDead;
@@ -73,6 +75,7 @@ public class PlayerStats : MonoBehaviour
         currentHP = maxHP;
         damageRed.CrossFadeAlpha(0, 0f, false);
         armourBlue.CrossFadeAlpha(0, 0f, false);
+        speedBlue.CrossFadeAlpha(0, 0f, false);
         UIController.instance.healthBar.maxValue = maxHP;
 
     }
@@ -141,8 +144,17 @@ public class PlayerStats : MonoBehaviour
                 defenseTimer = 0f;
                 defenseMultiplier = 1;
                 armourBall.SetActive(false);
-                armourBlue.CrossFadeAlpha(0f, 2f, false);
+                armourBlue.CrossFadeAlpha(0f, 0.5f, false);
             }
+        }
+
+        if (PlayerMovementTest.instance.potionSpeedMultiplier != 1)
+        {
+            speedBlue.CrossFadeAlpha(1f, 0.25f, false);
+        }
+        else
+        {
+            speedBlue.CrossFadeAlpha(0f, 0.5f, false);
         }
     }
 
