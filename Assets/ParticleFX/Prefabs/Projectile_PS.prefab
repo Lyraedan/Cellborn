@@ -88,7 +88,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.89e-43, y: 2.28e-43, z: 0, w: -0.0000000021225635}
+  m_BoundingSphereOverride: {x: 2.8948138e-37, y: 2.9095073e-37, z: 2.9095075e-37, w: 2.9242016e-37}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -209,7 +209,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 250
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -262,7 +262,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4908,7 +4908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7254281539747273483}
   m_Layer: 0
-  m_Name: Projectile_Slow_PS
+  m_Name: Projectile_PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

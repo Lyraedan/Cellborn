@@ -24,8 +24,18 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 minRoomSize = new Vector2(3, 6);
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
-    [Header("Prop rates")]
+
+    [Header("Environmental rates")]
+    [Tooltip("What are the chances of spawning a light if a light is chosen to be spawned? 1 in x")]
+    public float wallLightChance = 10f;
+
+    [Tooltip("What are the rates of choosing to spawn a light over a wall prop? 1 in x")]
+    public Vector2 lightOrPropChance = new Vector2(0, 2);
+
+    [Tooltip("What are the rate ranges for spawning the wall props? 1 in x")]
     public Vector2 wallPropRate = new Vector2(30, 50);
+
+    [Tooltip("What are the rate ranges for spawning the centre props? 1 in x")]
     public Vector2 centrePropRate = new Vector2(30, 50);
 
     public List<Room> rooms = new List<Room>();
@@ -50,7 +60,7 @@ public class RoomGenerator : MonoBehaviour
     public bool enableCulling = true;
 
     private GameObject player;
-    private PlayerMovementTest controller;
+    public PlayerMovementTest playerController;
 
     //Adjacent directions
     [HideInInspector] public const int UP = 0;
@@ -139,8 +149,7 @@ public class RoomGenerator : MonoBehaviour
         floorMesh.GenerateFloor(grid);
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
-        PlaceLighting(floorMesh.edgeVertices);
-        PlaceProps(floorMesh.edgeVertices);
+        SpawnEnvironment(floorMesh.edgeVertices);
 
         navmesh = new NavMeshSurface[1];
         navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
@@ -153,7 +162,7 @@ public class RoomGenerator : MonoBehaviour
         if (levelIndex == 0)
         {
             player = SpawnPlayer(startPoint);
-            controller = player.GetComponent<PlayerMovementTest>();
+            playerController = player.GetComponent<PlayerMovementTest>();
             CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
             player.name = "Player";
             player.transform.SetParent(null);
@@ -163,7 +172,7 @@ public class RoomGenerator : MonoBehaviour
             // Spawn teleporter back?
             var position = startPoint.position;
             position.y += 0.5f;
-            controller.TeleportPlayer(position);
+            playerController.TeleportPlayer(position);
         }
 
         BakeNavmesh();
@@ -182,48 +191,6 @@ public class RoomGenerator : MonoBehaviour
         }
 
         StartCoroutine(AwaitAssignables());
-    }
-
-    private void PlaceLighting(List<RoomMeshGenerator.Edge> edgeVertices)
-    {
-        // Wall lights
-        for (int i = 0; i < edgeVertices.Count; i++)
-        {
-            var range = UnityEngine.Random.Range(10, 25);
-            var spawn = i % range == 0;
-            if (spawn)
-            {
-                var light = GetRandomLight();
-                if (light == null)
-                {
-                    Debug.LogError("No light prefab found!");
-                    break;
-                }
-                var position = floorMesh.transform.position + edgeVertices[i].origin;
-                position.y += (wallMesh.wallHeight / 2) + 0.5f;
-                var direction = edgeVertices[i].DirectionAsVector3();
-                var l = SpawnPrefab(light, position, direction);
-                l.transform.SetParent(environment.transform);
-            }
-        }
-
-        // Room center lights here
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            for (int j = 0; j < rooms[i].centres.Count; j++)
-            {
-                var light = GetRandomCeilingLight();
-                if (light == null)
-                {
-                    Debug.LogError("No light prefab found!");
-                    break;
-                }
-                var position = rooms[i].centres[j];
-                position.y = wallMesh.wallHeight - 0.5f;
-                var l = SpawnPrefab(light, position, Vector3.zero);
-                l.transform.SetParent(environment.transform);
-            }
-        }
     }
 
     void ClearDungeon()
@@ -295,7 +262,7 @@ public class RoomGenerator : MonoBehaviour
             Regenerate();
         } else if(Input.GetKeyDown(KeyCode.L))
         {
-            controller.TeleportPlayerToRandomPoint();
+            playerController.TeleportPlayerToRandomPoint();
         }
     }
 
@@ -428,25 +395,49 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    void PlaceProps(List<RoomMeshGenerator.Edge> edgeVertices)
+    void SpawnEnvironment(List<RoomMeshGenerator.Edge> edgeVertices)
     {
         for (int i = 0; i < edgeVertices.Count; i++)
         {
             var range = UnityEngine.Random.Range(wallPropRate.x, wallPropRate.y);
-            var spawn = i % range == 0;
-            if (spawn)
+
+            bool spawnLightInsteadOfProp = Mathf.RoundToInt(UnityEngine.Random.Range(lightOrPropChance.x, lightOrPropChance.y)) == 0;
+
+            if (spawnLightInsteadOfProp)
             {
-                var prop = GetRandomProp();
-                if (prop == null)
+                var spawn = i % wallLightChance == 0;
+                if (spawn)
                 {
-                    Debug.LogError("No prop prefab found!");
-                    break;
+                    var light = GetRandomLight();
+                    if (light == null)
+                    {
+                        Debug.LogError("No light prefab found!");
+                        break;
+                    }
+                    var position = floorMesh.transform.position + edgeVertices[i].origin;
+                    position.y += (wallMesh.wallHeight / 2) + 0.5f;
+                    var direction = edgeVertices[i].DirectionAsVector3();
+                    var l = SpawnPrefab(light, position, direction);
+                    l.transform.SetParent(environment.transform);
                 }
-                var position = floorMesh.transform.position + edgeVertices[i].origin;
-                position.y += 0.2f;
-                var direction = edgeVertices[i].DirectionAsVector3();
-                var l = SpawnPrefab(prop, position, direction);
-                l.transform.SetParent(environment.transform);
+            }
+            else
+            {
+                var spawn = i % range == 0;
+                if (spawn)
+                {
+                    var prop = GetRandomProp();
+                    if (prop == null)
+                    {
+                        Debug.LogError("No prop prefab found!");
+                        break;
+                    }
+                    var position = floorMesh.transform.position + edgeVertices[i].origin;
+                    position.y += 0.2f;
+                    var direction = edgeVertices[i].DirectionAsVector3();
+                    var p = SpawnPrefab(prop, position, direction);
+                    p.transform.SetParent(environment.transform);
+                }
             }
         }
 
@@ -454,6 +445,18 @@ public class RoomGenerator : MonoBehaviour
         {
             for (int j = 0; j < rooms[i].centres.Count; j++)
             {
+                // Spawn a light
+                var light = GetRandomCeilingLight();
+                if (light == null)
+                {
+                    Debug.LogError("No light prefab found!");
+                    break;
+                }
+                var lightPosition = rooms[i].centres[j];
+                lightPosition.y = wallMesh.wallHeight - 0.5f;
+                var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
+                lt.transform.SetParent(environment.transform);
+
                 var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
                 var spawn = i % range == 0;
 

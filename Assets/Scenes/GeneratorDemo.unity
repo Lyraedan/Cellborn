@@ -489,6 +489,8 @@ MonoBehaviour:
   minRoomSize: {x: 8, y: 16}
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 0
+  wallLightChance: 10
+  lightOrPropChance: {x: 0, y: 1}
   wallPropRate: {x: 20, y: 20}
   centrePropRate: {x: 1, y: 1}
   rooms: []
@@ -562,6 +564,7 @@ MonoBehaviour:
   navAgent: {fileID: 1226544331}
   targetAim: {fileID: 915354250}
   enableCulling: 1
+  playerController: {fileID: 0}
   entitySpawnRate: 80
   navmesh:
   - {fileID: 269149476}

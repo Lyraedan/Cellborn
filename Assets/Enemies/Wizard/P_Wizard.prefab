@@ -49,7 +49,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8073571031068658479}
   serializedVersion: 2
-  m_Mass: 40
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -137,7 +137,6 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: ce0f2f1353330724b8594a52f434ee87, type: 3}
   deathSound: {fileID: 8300000, guid: 7af36d3f625e0484ab27d502f5825b28, type: 3}
   isHit: 0
-  bindingPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &6330084364845817153
 MonoBehaviour:
   m_ObjectHideFlags: 0
