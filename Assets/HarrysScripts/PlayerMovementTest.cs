@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerMovementTest : MonoBehaviour
 {
@@ -117,5 +118,27 @@ public class PlayerMovementTest : MonoBehaviour
         var newRotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
         transform.rotation = newRotation;
         test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
+    }
+
+    public void TeleportPlayer(Vector3 position)
+    {
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
+    }
+
+    public void TeleportPlayerToRandomPoint()
+    {
+        float radius = 1000;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = hit.position;
+        }
+
+        TeleportPlayer(finalPosition);
     }
 }

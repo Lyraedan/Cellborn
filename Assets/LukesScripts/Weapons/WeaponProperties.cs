@@ -33,7 +33,6 @@ public class WeaponProperties : MonoBehaviour
     public Sprite blueIcon;
     public Sprite yellowIcon;
 
-
     public WeaponBase functionality;
 
     public bool IsFull

@@ -7,8 +7,6 @@ public class GrappleHook : ProjectileBehaviour
 {
     public GameObject playerObject;
 
-    public WeaponManager managerInstance;
-
     public float playerPull, enemyPull;
 
     public SphereCollider triggerCollider;
@@ -21,7 +19,8 @@ public class GrappleHook : ProjectileBehaviour
     [SerializeField]GameObject pulledObject;
     [SerializeField]CharacterController playerController;
     [SerializeField]string collisionTag;
-    [SerializeField]bool isPulling, isPhysObj;
+    [SerializeField]bool isPhysObj;
+    public bool isPulling;
 
     public Material cordMaterial;
     public float cordWidth = 0.05f;
@@ -31,7 +30,6 @@ public class GrappleHook : ProjectileBehaviour
     void Start()
     {
         playerController = FindObjectOfType<PlayerMovementTest>().controller;
-        managerInstance = FindObjectOfType<WeaponManager>();
         playerObject = FindObjectOfType<PlayerMovementTest>().gameObject;
 
         cord = gameObject.AddComponent<LineRenderer>();
@@ -46,12 +44,12 @@ public class GrappleHook : ProjectileBehaviour
 
         DrawLine(playerObject.transform.position, transform.position, ropeColor);
 
-        if (!managerInstance.HasWeaponInInventory(4))
+        if (!WeaponManager.instance.HasWeaponInInventory(4))
         {
             RetrieveHook();
         }
 
-        if(managerInstance.currentlyHeldWeapons[managerInstance.currentlySelectedIndex].weaponId != 4)
+        if(WeaponManager.instance.currentlyHeldWeapons[WeaponManager.instance.currentlySelectedIndex].weaponId != 4)
         {
             RetrieveHook();
         }
@@ -139,7 +137,7 @@ public class GrappleHook : ProjectileBehaviour
         }
     }
 
-    void RetrieveHook()
+    public void RetrieveHook()
     {
         WeaponProperties grappleWeapon;
 
@@ -148,13 +146,13 @@ public class GrappleHook : ProjectileBehaviour
         projRigidbody.GetComponent<Rigidbody>().useGravity = true;
         projRigidbody.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
-        for (int i = 0; i < managerInstance.currentlyHeldWeapons.Count; i++)
+        for (int i = 0; i < WeaponManager.instance.currentlyHeldWeapons.Count; i++)
         {
-            if (managerInstance.currentlyHeldWeapons[i].weaponId == 4)
+            if (WeaponManager.instance.currentlyHeldWeapons[i].weaponId == 4)
             {
-                grappleWeapon = managerInstance.currentlyHeldWeapons[i];
+                grappleWeapon = WeaponManager.instance.currentlyHeldWeapons[i];
                 grappleWeapon.SetAmmo(1);
-                managerInstance.ammoText.text = "Ammo: " + grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
+                WeaponManager.instance.ammoText.text = "Ammo: " + grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
                 break;
             }
         }

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -147,6 +148,7 @@ public class RoomGenerator : MonoBehaviour
         if (levelIndex == 0)
         {
             player = SpawnPlayer(startPoint);
+            controller = player.GetComponent<PlayerMovementTest>();
             CameraManager.instance.main.gameObject.GetComponent<CameraFollow>().player = player;
             player.name = "Player";
             player.transform.SetParent(null);
@@ -154,12 +156,9 @@ public class RoomGenerator : MonoBehaviour
         else
         {
             // Spawn teleporter back?
-            Debug.Log("Moving player to start! Prev: " + player.transform.position);
-            Debug.Log("Putting " + player.name + " to start");
             var position = startPoint.position;
             position.y += 0.5f;
-            player.transform.position = position;
-            Debug.Log("Moved player to start! New: " + player.transform.position + " | " + position.ToString());
+            controller.TeleportPlayer(position);
         }
 
         BakeNavmesh();
@@ -170,7 +169,6 @@ public class RoomGenerator : MonoBehaviour
         {
             var boss = SpawnWizard(endPoint);
             var bossAI = boss.GetComponent<AIWizard>();
-            bossAI.bindingPoint = endCords;
         }
         else
         {
@@ -254,11 +252,28 @@ public class RoomGenerator : MonoBehaviour
         if (levelTeleporter != null)
             Destroy(levelTeleporter);
 
+        // Is holding grapple hook
+        if(WeaponManager.instance.currentWeapon.weaponId == 4)
+        {
+            if(WeaponManager.instance.currentWeapon.functionality != null)
+            {
+                // This is fuckin dumb
+                WeaponGrapple weaponGrapple = (WeaponGrapple) WeaponManager.instance.currentWeapon.functionality;
+                var grapple = weaponGrapple.grapple;
+
+                if (grapple != null)
+                {
+                    if(grapple.isPulling)
+                    {
+                        grapple.RetrieveHook();
+                    }
+                }
+                
+            }
+        }
+
         rooms.Clear();
         Generate(levels[levelIndex]);
-
-        //Minimap.instance.GenerateMinimap(grid);
-        //PlaceEntities();
     }
 
     public void Regenerate()
@@ -272,6 +287,9 @@ public class RoomGenerator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             Regenerate();
+        } else if(Input.GetKeyDown(KeyCode.L))
+        {
+            controller.TeleportPlayerToRandomPoint();
         }
     }
 
@@ -288,7 +306,10 @@ public class RoomGenerator : MonoBehaviour
     {
         yield return new WaitUntil(() => WeaponManager.instance != null);
         //Grab weapons
-        WeaponManager.instance.GetWeaponsInLevel();
+        if (levelIndex == 0)
+        {
+            WeaponManager.instance.GetWeaponsInLevel();
+        }
         Minimap.instance.GenerateMinimap(grid);
         PlaceEntities();
 

@@ -8,8 +8,6 @@ using EventHooks = LukesScripts.Blueprints.EventHooks;
 public class AIWizard : AI
 {
 
-    public Vector3 bindingPoint;
-
     private float secondsBetweenAttacks = 1f;
     private float attackDelay = 0;
 
