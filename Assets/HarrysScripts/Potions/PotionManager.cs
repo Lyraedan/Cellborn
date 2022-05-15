@@ -27,6 +27,9 @@ public class PotionManager : MonoBehaviour
     public PotionProperties currentPotion;
     public PotionProperties toPickup;
 
+    public GameObject potionDrinkEffect;
+    public ParticleSystem potionDrinkEffectPS;
+
     public AudioSource source;
     public AudioClip pickupSound;
 
@@ -75,10 +78,13 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(useKeys[0]))
+        if (Input.GetKeyDown(useKeys[0]))
         {
             if (!healthScript.isDead)
             {
+                var psMain = potionDrinkEffectPS.main;
+                psMain.startColor = new ParticleSystem.MinMaxGradient(currentlyHeldPotions[0].drinkEffectColor);
+                potionDrinkEffect.SetActive(true);
                 currentlyHeldPotions[0].Consume();
                 if (currentlyHeldPotions[0].functionality != null)
                 {
@@ -87,10 +93,13 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(useKeys[1]))
+        if (Input.GetKeyDown(useKeys[1]))
         {
             if (!healthScript.isDead)
             {
+                var psMain = potionDrinkEffectPS.main;
+                psMain.startColor = new ParticleSystem.MinMaxGradient(currentlyHeldPotions[1].drinkEffectColor);
+                potionDrinkEffect.SetActive(true);
                 currentlyHeldPotions[1].Consume();
                 if (currentlyHeldPotions[1].functionality != null)
                 {

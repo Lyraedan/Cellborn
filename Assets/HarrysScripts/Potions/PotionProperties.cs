@@ -11,6 +11,7 @@ public class PotionProperties : MonoBehaviour
     public int potionID;
     public Sprite icon;
     public Sprite identifier;
+    public Color drinkEffectColor;
 
     [Header("Set Functionality")]
     public PotionBase functionality;
