@@ -54,6 +54,7 @@ public class PlayerStats : MonoBehaviour
     public float indicFadeTime;
 
     public Image armourBlue;
+    public GameObject armourBall;
 
     #endregion
 
@@ -131,6 +132,7 @@ public class PlayerStats : MonoBehaviour
         if (defenseMultiplier != 1)
         {
             armourBlue.CrossFadeAlpha(1f, 0.25f, false);
+            armourBall.SetActive(true);
             defenseTimer += 1f * Time.deltaTime;
 
             if (defenseTimer >= defenseTime)
@@ -138,6 +140,7 @@ public class PlayerStats : MonoBehaviour
                 defenseTime = 0f;
                 defenseTimer = 0f;
                 defenseMultiplier = 1;
+                armourBall.SetActive(false);
                 armourBlue.CrossFadeAlpha(0f, 2f, false);
             }
         }
