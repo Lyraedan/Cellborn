@@ -34,16 +34,16 @@ public class MusicGunMusicControl : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
+            discoLights.SetActive(true);
+            /* source.clip = song;
             if (!source.isPlaying)
-            {
-                source.clip = song;
+            {                
                 source.Play();
-                discoLights.SetActive(true);
-            }
+            } */
         }
         else
         {
-            source.Stop();
+            //source.Stop();
             discoLights.SetActive(false);
         }
     }
