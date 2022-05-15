@@ -255,18 +255,6 @@ public class RoomGenerator : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Regenerate();
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            playerController.TeleportPlayerToRandomPoint();
-        }
-    }
-
     void DeleteAllObjectsWithTag(string tag)
     {
         var list = GameObject.FindGameObjectsWithTag(tag);
