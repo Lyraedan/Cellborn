@@ -226,22 +226,22 @@ public class RoomGenerator : MonoBehaviour
             Destroy(levelTeleporter);
 
         // Is holding grapple hook
-        if(WeaponManager.instance.currentWeapon.weaponId == 4)
+        if (WeaponManager.instance.currentWeapon.weaponId == 4)
         {
-            if(WeaponManager.instance.currentWeapon.functionality != null)
+            if (WeaponManager.instance.currentWeapon.functionality != null)
             {
                 // This is fuckin dumb
-                WeaponGrapple weaponGrapple = (WeaponGrapple) WeaponManager.instance.currentWeapon.functionality;
+                WeaponGrapple weaponGrapple = (WeaponGrapple)WeaponManager.instance.currentWeapon.functionality;
                 var grapple = weaponGrapple.grapple;
 
                 if (grapple != null)
                 {
-                    if(grapple.isPulling)
+                    if (grapple.isPulling)
                     {
                         grapple.RetrieveHook();
                     }
                 }
-                
+
             }
         }
 
@@ -260,7 +260,8 @@ public class RoomGenerator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             Regenerate();
-        } else if(Input.GetKeyDown(KeyCode.L))
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
         {
             playerController.TeleportPlayerToRandomPoint();
         }
@@ -473,7 +474,7 @@ public class RoomGenerator : MonoBehaviour
                     var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
                     GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
-                    if (!CellisInPrisonCell(cell) || !CellIsInRoom(cell, 0))
+                    if (!CellIsInPrisonCell(cell) || !CellIsInRoom(cell, 0) || !CellIsOnTeleporter(cell))
                     {
                         var l = SpawnPrefab(prop, position, Vector3.zero);
                         l.transform.SetParent(environment.transform);
@@ -490,7 +491,7 @@ public class RoomGenerator : MonoBehaviour
             for (int x = 0; x < grid.cells.x; x++)
             {
                 var cell = grid.grid[x, 0, z];
-                bool isInPrisonCell = CellisInPrisonCell(cell);
+                bool isInPrisonCell = CellIsInPrisonCell(cell);
 
                 if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
                 {
@@ -914,7 +915,7 @@ public class RoomGenerator : MonoBehaviour
         return room.hallways.Contains(current);
     }
 
-    private bool CellisInPrisonCell(GridCell current)
+    private bool CellIsInPrisonCell(GridCell current)
     {
         Vector3 playerCoords = PositionAsGridCoordinates(start.centres[0]);
         for (int z = -3; z < 4; z++)
@@ -922,6 +923,23 @@ public class RoomGenerator : MonoBehaviour
             for (int x = -3; x < 4; x++)
             {
                 GridCell cell = navAgent.GetGridCellAt((int)playerCoords.x + x, (int)playerCoords.y, (int)playerCoords.z + z);
+                if (current.position.Equals(cell.position))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private bool CellIsOnTeleporter(GridCell current)
+    {
+        Vector3 cellCoords = PositionAsGridCoordinates(current.position);
+        for (int z = -3; z < 4; z++)
+        {
+            for (int x = -3; x < 4; x++)
+            {
+                GridCell cell = navAgent.GetGridCellAt((int)cellCoords.x + x, (int)cellCoords.y, (int)cellCoords.z + z);
                 if (current.position.Equals(cell.position))
                 {
                     return true;
