@@ -443,7 +443,7 @@ public class RoomGenerator : MonoBehaviour
                     break;
                 }
                 var position = floorMesh.transform.position + edgeVertices[i].origin;
-                position.y += 0.15f;
+                position.y += 0.2f;
                 var direction = edgeVertices[i].DirectionAsVector3();
                 var l = SpawnPrefab(prop, position, direction);
                 l.transform.SetParent(environment.transform);
@@ -466,7 +466,7 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = rooms[i].centres[j];
-                    position.y += 0.15f;
+                    position.y += 0.2f;
                     var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
                     GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
