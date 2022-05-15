@@ -1950,7 +1950,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4928757207975901002}
   - component: {fileID: 804092394012921564}
-  - component: {fileID: 3205320061414349654}
   m_Layer: 0
   m_Name: P_OpenBarrel
   m_TagString: Untagged
@@ -1995,27 +1994,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 3205320061414349654}
+  collider: {fileID: 5887745926815652297}
   meshRenderers:
   - {fileID: 1085079400205577904}
   lights:
     sources: []
   particles:
     emitters: []
---- !u!136 &3205320061414349654
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705399087079943664}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.4589984
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.49, z: 0}
 --- !u!1 &5809874235427364778
 GameObject:
   m_ObjectHideFlags: 0

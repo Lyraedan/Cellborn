@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8242957100777751314}
   - component: {fileID: 5587475576677589614}
   - component: {fileID: 4978687038799573966}
-  - component: {fileID: 1276775495863872199}
   - component: {fileID: 1171860622504760272}
   m_Layer: 0
   m_Name: P_BeerKeg
@@ -53,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 1276775495863872199}
+  collider: {fileID: 3961953866067664934}
   meshRenderers:
   - {fileID: 5799485130514409905}
   - {fileID: 8420237573765361025}
@@ -204,19 +203,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.5, z: 0}
   m_TimeToStationary: 0.5
---- !u!65 &1276775495863872199
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240061955152574466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.7870362, z: 0.68857956}
-  m_Center: {x: 0, y: 0.40371585, z: 0.0017187595}
 --- !u!114 &1171860622504760272
 MonoBehaviour:
   m_ObjectHideFlags: 0

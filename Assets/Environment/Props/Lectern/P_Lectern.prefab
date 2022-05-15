@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 409588016415666156}
   - component: {fileID: 7017977661202473803}
   - component: {fileID: 3410114281034976456}
+  - component: {fileID: -8296098102214642919}
   m_Layer: 0
   m_Name: P_Lectern
   m_TagString: Prop
@@ -129,7 +130,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5302568919011541938, guid: 968dec25570905a4a8a54ae2c2d371a5, type: 3}
 --- !u!114 &5364960410165592762
@@ -276,6 +277,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &-8296098102214642919
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931888185341150522}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7386065003380977107
 GameObject:
   m_ObjectHideFlags: 0
