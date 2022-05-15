@@ -12,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager instance;
 
     public GameObject player, target;
+    public TargetProperties targetProperties;
 
     public KeyCode pickupKey = KeyCode.F;
     public KeyCode dropKey = KeyCode.G;
@@ -90,6 +91,7 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         target = GameObject.Find("Target");
+        targetProperties = target.GetComponent<TargetProperties>();
     }
 
     public bool isInventoryFull {
