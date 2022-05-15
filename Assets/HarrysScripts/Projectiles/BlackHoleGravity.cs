@@ -58,7 +58,7 @@ public class BlackHoleGravity : MonoBehaviour
             else if (other.CompareTag("Prop"))
             {
                 float weight = rigidbody.mass * Physics.gravity.y;
-                rigidbody.AddForce(force * weight * propForceMultiplier * Time.deltaTime);
+                rigidbody.AddForce(-force * weight * propForceMultiplier * Time.deltaTime);
             }
         }
     }

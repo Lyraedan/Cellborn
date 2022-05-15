@@ -401,7 +401,7 @@ public class RoomGenerator : MonoBehaviour
         {
             var range = UnityEngine.Random.Range(wallPropRate.x, wallPropRate.y);
 
-            bool spawnLightInsteadOfProp = UnityEngine.Random.Range(lightOrPropChance.x, lightOrPropChance.y) == 0;
+            bool spawnLightInsteadOfProp = Mathf.RoundToInt(UnityEngine.Random.Range(lightOrPropChance.x, lightOrPropChance.y)) == 0;
 
             if (spawnLightInsteadOfProp)
             {
