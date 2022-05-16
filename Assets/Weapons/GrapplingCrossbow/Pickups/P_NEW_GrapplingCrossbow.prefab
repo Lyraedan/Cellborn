@@ -128,6 +128,7 @@ MonoBehaviour:
   secondsBetweenShots: 0.7
   source: {fileID: 5888547535445500621}
   fireSound: {fileID: 8300000, guid: ac07595f16ad4f44f97c1fe8b9c1a8a5, type: 3}
+  grapple: {fileID: 0}
 --- !u!208 &513735314269569515
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
