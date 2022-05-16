@@ -462,7 +462,7 @@ public class RoomGenerator : MonoBehaviour
                     var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
                     GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
-                    if (!CellIsInPrisonCell(cell) || !CellIsInRoom(cell, 0) || !CellIsOnTeleporter(cell))
+                    if (!CellIsInPrisonCell(cell) || !CellIsInRoom(cell, 0) || !CellIsOnTeleporter(cell) || !CellIsInRoom(cell, rooms.Count - 1))
                     {
                         var l = SpawnPrefab(prop, position, Vector3.zero);
                         l.transform.SetParent(environment.transform);
@@ -923,9 +923,9 @@ public class RoomGenerator : MonoBehaviour
     private bool CellIsOnTeleporter(GridCell current)
     {
         Vector3 cellCoords = PositionAsGridCoordinates(current.position);
-        for (int z = -3; z < 4; z++)
+        for (int z = -5; z < 6; z++)
         {
-            for (int x = -3; x < 4; x++)
+            for (int x = -5; x < 6; x++)
             {
                 GridCell cell = navAgent.GetGridCellAt((int)cellCoords.x + x, (int)cellCoords.y, (int)cellCoords.z + z);
                 if (current.position.Equals(cell.position))
