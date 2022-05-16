@@ -441,7 +441,8 @@ public class RoomGenerator : MonoBehaviour
                 {
                     SpawnProps(i, j);
                 }
-            } else
+            }
+            else
             {
                 SpawnProps(i, 0);
             }
@@ -457,30 +458,11 @@ public class RoomGenerator : MonoBehaviour
             Debug.LogError("No light prefab found!");
             return;
         }
-        if (centreIndex <= 0)
-        {
-            var lightPosition = rooms[roomIndex].centres[centreIndex];
-            lightPosition.y = wallMesh.wallHeight - 0.5f;
-            var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
-            lt.transform.SetParent(environment.transform);
-        } else
-        {
-            var lightPosition = rooms[roomIndex].centres[centreIndex];
-            lightPosition.y = wallMesh.wallHeight - 0.5f;
-            var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
-            lt.transform.SetParent(environment.transform);
 
-            /*
-            // Last
-            if (centreIndex >= rooms[roomIndex].centres.Count - 1)
-            {
-                var lightPosition2 = rooms[roomIndex].centres[centreIndex + 1];
-                lightPosition2.y = wallMesh.wallHeight - 0.5f;
-                var lt2 = SpawnPrefab(light, lightPosition2, Vector3.zero);
-                lt2.transform.SetParent(environment.transform);
-            }
-            */
-        }
+        var lightPosition = rooms[roomIndex].centres[centreIndex];
+        lightPosition.y = wallMesh.wallHeight - 0.5f;
+        var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
+        lt.transform.SetParent(environment.transform);
 
         var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
         var spawn = roomIndex % range == 0;
@@ -501,35 +483,12 @@ public class RoomGenerator : MonoBehaviour
             float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
             float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
 
-            if (centreIndex <= 0)
+            if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold)
             {
-                if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold)
-                {
-                    var l = SpawnPrefab(prop, position, Vector3.zero);
-                    l.transform.SetParent(environment.transform);
-                }
-            } else
-            {
-                var position2 = rooms[roomIndex].centres[centreIndex + 1];
-                var distanceBetweenCentres = Vector3.Distance(position, position2);
-                if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && distanceBetweenCentres > centreSafeZoneThreashold)
-                {
-                    var l = SpawnPrefab(prop, position, Vector3.zero);
-                    l.transform.SetParent(environment.transform);
-                }
-
-                /*
-                if (centreIndex + 1 == rooms[roomIndex].centres.Count - 1)
-                {
-                    var checkLast = rooms[roomIndex].centres[rooms[roomIndex].centres.Count - 1];
-                    var checkLastDistance = Vector3.Distance(position, checkLast);
-                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && checkLastDistance > centreSafeZoneThreashold)
-                    {
-                        var l = SpawnPrefab(prop, position, Vector3.zero);
-                        l.transform.SetParent(environment.transform);
-                    }
-                }*/
+                var l = SpawnPrefab(prop, position, Vector3.zero);
+                l.transform.SetParent(environment.transform);
             }
+
         }
     }
 
