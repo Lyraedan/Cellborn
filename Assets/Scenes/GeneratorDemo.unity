@@ -493,6 +493,8 @@ MonoBehaviour:
   lightOrPropChance: {x: 0, y: 1}
   wallPropRate: {x: 5, y: 5}
   centrePropRate: {x: 1, y: 1}
+  startEndSafeZoneThreashold: 20
+  centreSafeZoneThreashold: 5
   rooms: []
   floorPrefab: {fileID: 1388156948635569762, guid: 0756b06ea7016f048a8b65752d750e98, type: 3}
   wallPrefab: {fileID: 8393986084579273156, guid: e579237075886b84d821bb9b5297218f, type: 3}
@@ -554,8 +556,6 @@ MonoBehaviour:
   - prefab: {fileID: 4834119464799054825, guid: d8c5e7fb60133fb4f91037be40fad236, type: 3}
     type: 3
   - prefab: {fileID: 4834119464799054825, guid: 68918751453eb4346b2e4b6cb8e11152, type: 3}
-    type: 2
-  - prefab: {fileID: 4834119464799054825, guid: 32f5c974ccad0fa4f8002ca616de22a7, type: 3}
     type: 2
   - prefab: {fileID: 4834119464799054825, guid: b2e52f9f630a80643acfc2907104343b, type: 3}
     type: 3
