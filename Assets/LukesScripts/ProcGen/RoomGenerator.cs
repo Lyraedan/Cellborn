@@ -39,6 +39,7 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 centrePropRate = new Vector2(30, 50);
 
     public float startEndSafeZoneThreashold = 20f;
+    public float centreSafeZoneThreashold = 5f;
 
     public List<Room> rooms = new List<Room>();
     public GameObject floorPrefab, wallPrefab, ceilingPrefab, environmentRootPrefab, environment;
@@ -434,7 +435,7 @@ public class RoomGenerator : MonoBehaviour
 
         for (int i = 0; i < rooms.Count; i++)
         {
-            for (int j = 0; j < rooms[i].centres.Count; j++)
+            for (int j = 0; j < rooms[i].centres.Count - 1; j++)
             {
                 // Spawn a light
                 var light = GetRandomCeilingLight();
@@ -460,6 +461,7 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = rooms[i].centres[j];
+                    var position2 = rooms[i].centres[j + 1];
                     position.y += 0.2f;
                     var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
                     GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
@@ -467,7 +469,9 @@ public class RoomGenerator : MonoBehaviour
                     float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
                     float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
 
-                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold)
+                    float distanceBetweenCentres = Vector3.Distance(position, position2);
+
+                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && distanceBetweenCentres > centreSafeZoneThreashold)
                     {
                         var l = SpawnPrefab(prop, position, Vector3.zero);
                         l.transform.SetParent(environment.transform);
