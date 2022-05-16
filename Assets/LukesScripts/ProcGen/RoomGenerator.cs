@@ -437,7 +437,7 @@ public class RoomGenerator : MonoBehaviour
         {
             if (rooms[i].centres.Count > 1)
             {
-                for (int j = 0; j < rooms[i].centres.Count - 1; j++)
+                for (int j = 0; j < rooms[i].centres.Count; j++)
                 {
                     SpawnProps(i, j);
                 }
@@ -470,6 +470,7 @@ public class RoomGenerator : MonoBehaviour
             var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
             lt.transform.SetParent(environment.transform);
 
+            /*
             // Last
             if (centreIndex >= rooms[roomIndex].centres.Count - 1)
             {
@@ -478,6 +479,7 @@ public class RoomGenerator : MonoBehaviour
                 var lt2 = SpawnPrefab(light, lightPosition2, Vector3.zero);
                 lt2.transform.SetParent(environment.transform);
             }
+            */
         }
 
         var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
