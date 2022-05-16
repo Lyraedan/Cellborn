@@ -471,7 +471,7 @@ public class RoomGenerator : MonoBehaviour
 
                     float distanceBetweenCentres = Vector3.Distance(position, position2);
 
-                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && distanceBetweenCentres > centreSafeZoneThreashold)
+                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && (distanceBetweenCentres > centreSafeZoneThreashold && rooms[i].centres.Count > 1))
                     {
                         var l = SpawnPrefab(prop, position, Vector3.zero);
                         l.transform.SetParent(environment.transform);
