@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7017977661202473803}
   - component: {fileID: 3410114281034976456}
   - component: {fileID: -8296098102214642919}
+  - component: {fileID: -7267364400177088009}
   m_Layer: 0
   m_Name: P_Lectern
   m_TagString: Prop
@@ -293,6 +294,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &-7267364400177088009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931888185341150522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5
+  aboveThreashold: 1.5
 --- !u!1 &7386065003380977107
 GameObject:
   m_ObjectHideFlags: 0
