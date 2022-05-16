@@ -435,559 +435,609 @@ public class RoomGenerator : MonoBehaviour
 
         for (int i = 0; i < rooms.Count; i++)
         {
-            for (int j = 0; j < rooms[i].centres.Count - 1; j++)
+            if (rooms[i].centres.Count > 1)
             {
-                // Spawn a light
-                var light = GetRandomCeilingLight();
-                if (light == null)
+                for (int j = 0; j < rooms[i].centres.Count - 1; j++)
                 {
-                    Debug.LogError("No light prefab found!");
-                    break;
+                    SpawnProps(i, j);
                 }
-                var lightPosition = rooms[i].centres[j];
-                lightPosition.y = wallMesh.wallHeight - 0.5f;
-                var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
-                lt.transform.SetParent(environment.transform);
+            } else
+            {
+                SpawnProps(i, 0);
+            }
+        }
+    }
 
-                var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
-                var spawn = i % range == 0;
+    void SpawnProps(int roomIndex, int centreIndex)
+    {
+        // Spawn a light
+        var light = GetRandomCeilingLight();
+        if (light == null)
+        {
+            Debug.LogError("No light prefab found!");
+            return;
+        }
+        if (centreIndex <= 0)
+        {
+            var lightPosition = rooms[roomIndex].centres[centreIndex];
+            lightPosition.y = wallMesh.wallHeight - 0.5f;
+            var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
+            lt.transform.SetParent(environment.transform);
+        } else
+        {
+            var lightPosition = rooms[roomIndex].centres[centreIndex];
+            lightPosition.y = wallMesh.wallHeight - 0.5f;
+            var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
+            lt.transform.SetParent(environment.transform);
 
-                if (spawn)
+            // Last
+            if (centreIndex >= rooms[roomIndex].centres.Count - 1)
+            {
+                var lightPosition2 = rooms[roomIndex].centres[centreIndex + 1];
+                lightPosition2.y = wallMesh.wallHeight - 0.5f;
+                var lt2 = SpawnPrefab(light, lightPosition2, Vector3.zero);
+                lt2.transform.SetParent(environment.transform);
+            }
+        }
+
+        var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
+        var spawn = roomIndex % range == 0;
+
+        if (spawn)
+        {
+            var prop = GetRandomCentreProp();
+            if (prop == null)
+            {
+                Debug.LogError("No prop prefab found!");
+                return;
+            }
+            var position = rooms[roomIndex].centres[centreIndex];
+            position.y += 0.2f;
+            var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
+            GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
+
+            float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
+            float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
+
+            if (centreIndex <= 0)
+            {
+                if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold)
                 {
-                    var prop = GetRandomCentreProp();
-                    if (prop == null)
-                    {
-                        Debug.LogError("No prop prefab found!");
-                        break;
-                    }
-                    var position = rooms[i].centres[j];
-                    var position2 = rooms[i].centres[j + 1];
-                    position.y += 0.2f;
-                    var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
-                    GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
+                    var l = SpawnPrefab(prop, position, Vector3.zero);
+                    l.transform.SetParent(environment.transform);
+                }
+            } else
+            {
+                var position2 = rooms[roomIndex].centres[centreIndex + 1];
+                var distanceBetweenCentres = Vector3.Distance(position, position2);
+                if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && distanceBetweenCentres > centreSafeZoneThreashold)
+                {
+                    var l = SpawnPrefab(prop, position, Vector3.zero);
+                    l.transform.SetParent(environment.transform);
+                }
 
-                    float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
-                    float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
-
-                    float distanceBetweenCentres = Vector3.Distance(position, position2);
-
-                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && (distanceBetweenCentres > centreSafeZoneThreashold && rooms[i].centres.Count > 1))
+                /*
+                if (centreIndex + 1 == rooms[roomIndex].centres.Count - 1)
+                {
+                    var checkLast = rooms[roomIndex].centres[rooms[roomIndex].centres.Count - 1];
+                    var checkLastDistance = Vector3.Distance(position, checkLast);
+                    if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && checkLastDistance > centreSafeZoneThreashold)
                     {
                         var l = SpawnPrefab(prop, position, Vector3.zero);
                         l.transform.SetParent(environment.transform);
                     }
+                }*/
+            }
+        }
+    }
+
+    void FlagProps()
+    {
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var cell = grid.grid[x, 0, z];
+                bool isInPrisonCell = CellIsInPrisonCell(cell);
+
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
+                {
+                    bool spawnProp = (Random.Range(0, 10) == 0);
+                    cell.hasProp = spawnProp;
                 }
             }
         }
     }
 
-        void FlagProps()
+    void FlagEntities()
+    {
+        for (int z = 0; z < grid.cells.z; z++)
         {
-            for (int z = 0; z < grid.cells.z; z++)
+            for (int x = 0; x < grid.cells.x; x++)
             {
-                for (int x = 0; x < grid.cells.x; x++)
+                var cell = grid.grid[x, 0, z];
+                bool isInStart = CellIsInRoom(cell, 0);
+                bool isInHallway = false;
+                for (int i = 0; i < rooms.Count; i++)
+                {
+                    bool hallwayCheck = CellIsInHallway(cell, rooms[i]);
+                    if (hallwayCheck)
+                    {
+                        isInHallway = true;
+                        break;
+                    }
+                }
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart && !isInHallway)
+                {
+                    if (!cell.hasProp)
+                    {
+                        bool spawnEntity = (Random.Range(0, entitySpawnRate) == 0);
+                        grid.grid[x, 0, z].hasEntity = spawnEntity;
+                    }
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region Proc gen
+
+    void CleanupRooms()
+    {
+        // Cleanup overlaps
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell cell = grid.grid[x, 0, z];
+                // Clean up walls that overlap
+                if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
+                    if (!isAgainstVoid)
+                    {
+                        cell.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
+
+        Debug.Log("Had " + rooms.Count + " before combining");
+        StartCoroutine(Combine(0));
+    }
+
+    void CleanupHallways()
+    {
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell cell = grid.grid[x, 0, z];
+                // Clean up walls that overlap
+                if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                {
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
+                    if (!isAgainstVoid)
+                    {
+                        cell.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
+    }
+
+    void CarveHallways()
+    {
+
+        for (int i = 0; i < rooms.Count - 1; i++)
+        {
+            var current = rooms[i];
+            var next = rooms[i + 1];
+
+            var gridCurrent = navAgent.PositionAsGridCoordinates(current.centres[0]);
+            var gridNext = navAgent.PositionAsGridCoordinates(next.centres[0]);
+
+            var pointsX = new int[] { (int)gridCurrent.x, (int)gridNext.x };
+            var pointsZ = new int[] { (int)gridCurrent.z, (int)gridNext.z };
+
+            int difX = pointsX[1] - pointsX[0];
+            int x = pointsX[0];
+            if (difX > 0)
+            {
+                while (x < pointsX[1])
+                {
+                    var cell = grid.grid[x, 0, (int)gridCurrent.z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
+                    x++;
+                }
+            }
+            else if (difX < 0)
+            {
+                while (x > pointsX[1])
+                {
+                    var cell = grid.grid[x, 0, (int)gridCurrent.z];
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
+                    x--;
+                }
+            }
+
+            int difZ = pointsZ[1] - pointsZ[0];
+            int z = pointsZ[0];
+            if (difZ > 0)
+            {
+                while (z < pointsZ[1])
                 {
                     var cell = grid.grid[x, 0, z];
-                    bool isInPrisonCell = CellIsInPrisonCell(cell);
-
-                    if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
-                    {
-                        bool spawnProp = (Random.Range(0, 10) == 0);
-                        cell.hasProp = spawnProp;
-                    }
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
+                    z++;
                 }
             }
-        }
-
-        void FlagEntities()
-        {
-            for (int z = 0; z < grid.cells.z; z++)
+            else if (difZ < 0)
             {
-                for (int x = 0; x < grid.cells.x; x++)
+                while (z > pointsZ[1])
                 {
                     var cell = grid.grid[x, 0, z];
-                    bool isInStart = CellIsInRoom(cell, 0);
-                    bool isInHallway = false;
-                    for (int i = 0; i < rooms.Count; i++)
-                    {
-                        bool hallwayCheck = CellIsInHallway(cell, rooms[i]);
-                        if (hallwayCheck)
-                        {
-                            isInHallway = true;
-                            break;
-                        }
-                    }
-                    if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart && !isInHallway)
-                    {
-                        if (!cell.hasProp)
-                        {
-                            bool spawnEntity = (Random.Range(0, entitySpawnRate) == 0);
-                            grid.grid[x, 0, z].hasEntity = spawnEntity;
-                        }
-                    }
+                    cell.flag = GridCell.GridFlag.OCCUPIED;
+                    current.hallways.Add(cell);
+                    z--;
                 }
             }
         }
-        #endregion
 
-        #region Proc gen
-
-        void CleanupRooms()
+        // Widen hallways
+        for (int i = 0; i < rooms.Count; i++)
         {
-            // Cleanup overlaps
-            for (int z = 0; z < grid.cells.z; z++)
+            var current = rooms[i];
+            for (int j = 0; j < current.hallways.Count; j++)
             {
-                for (int x = 0; x < grid.cells.x; x++)
-                {
-                    GridCell cell = grid.grid[x, 0, z];
-                    // Clean up walls that overlap
-                    if (cell.flag.Equals(GridCell.GridFlag.WALL))
-                    {
-                        bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
-                        if (!isAgainstVoid)
-                        {
-                            cell.flag = GridCell.GridFlag.OCCUPIED;
-                        }
-                    }
-                }
+                var hallway = current.hallways[j];
+                SetAdjacentCells(hallway, GridCell.GridFlag.OCCUPIED);
             }
-
-            Debug.Log("Had " + rooms.Count + " before combining");
-            StartCoroutine(Combine(0));
         }
 
-        void CleanupHallways()
+        for (int z = 0; z < grid.cells.z; z++)
         {
-            for (int z = 0; z < grid.cells.z; z++)
+            for (int x = 0; x < grid.cells.x; x++)
             {
-                for (int x = 0; x < grid.cells.x; x++)
+                GridCell cell = grid.grid[x, 0, z];
+                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
                 {
-                    GridCell cell = grid.grid[x, 0, z];
-                    // Clean up walls that overlap
-                    if (cell.flag.Equals(GridCell.GridFlag.WALL))
+                    bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
+                    if (isAgainstVoid)
                     {
-                        bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
-                        if (!isAgainstVoid)
-                        {
-                            cell.flag = GridCell.GridFlag.OCCUPIED;
-                        }
+                        cell.flag = GridCell.GridFlag.WALL;
                     }
                 }
             }
         }
 
-        void CarveHallways()
+    }
+
+    void CombineRooms(Room root, List<Room> rooms)
+    {
+        List<Room> toCombine = new List<Room>();
+        for (int i = 0; i < rooms.Count; i++)
         {
-
-            for (int i = 0; i < rooms.Count - 1; i++)
+            var current = rooms[i];
+            if (current != root)
             {
-                var current = rooms[i];
-                var next = rooms[i + 1];
-
-                var gridCurrent = navAgent.PositionAsGridCoordinates(current.centres[0]);
-                var gridNext = navAgent.PositionAsGridCoordinates(next.centres[0]);
-
-                var pointsX = new int[] { (int)gridCurrent.x, (int)gridNext.x };
-                var pointsZ = new int[] { (int)gridCurrent.z, (int)gridNext.z };
-
-                int difX = pointsX[1] - pointsX[0];
-                int x = pointsX[0];
-                if (difX > 0)
+                bool overlap = RoomOverlaps(root, current);
+                if (overlap)
                 {
-                    while (x < pointsX[1])
-                    {
-                        var cell = grid.grid[x, 0, (int)gridCurrent.z];
-                        cell.flag = GridCell.GridFlag.OCCUPIED;
-                        current.hallways.Add(cell);
-                        x++;
-                    }
-                }
-                else if (difX < 0)
-                {
-                    while (x > pointsX[1])
-                    {
-                        var cell = grid.grid[x, 0, (int)gridCurrent.z];
-                        cell.flag = GridCell.GridFlag.OCCUPIED;
-                        current.hallways.Add(cell);
-                        x--;
-                    }
-                }
-
-                int difZ = pointsZ[1] - pointsZ[0];
-                int z = pointsZ[0];
-                if (difZ > 0)
-                {
-                    while (z < pointsZ[1])
-                    {
-                        var cell = grid.grid[x, 0, z];
-                        cell.flag = GridCell.GridFlag.OCCUPIED;
-                        current.hallways.Add(cell);
-                        z++;
-                    }
-                }
-                else if (difZ < 0)
-                {
-                    while (z > pointsZ[1])
-                    {
-                        var cell = grid.grid[x, 0, z];
-                        cell.flag = GridCell.GridFlag.OCCUPIED;
-                        current.hallways.Add(cell);
-                        z--;
-                    }
+                    toCombine.Add(current);
                 }
             }
+        }
 
-            // Widen hallways
-            for (int i = 0; i < rooms.Count; i++)
+        if (toCombine.Count > 0)
+        {
+            for (int i = 0; i < toCombine.Count; i++)
             {
-                var current = rooms[i];
-                for (int j = 0; j < current.hallways.Count; j++)
+                var room = toCombine[i];
+                rooms.Remove(room);
+                Debug.Log("Removed overlapping room!");
+                root.occupied.AddRange(room.occupied);
+                root.walls.AddRange(room.walls);
+                root.hallways.AddRange(room.hallways);
+                root.centres.AddRange(room.centres);
+            }
+            root.indicatorColor = Random.ColorHSV();
+            Debug.Log("Combined " + toCombine.Count + " Rooms");
+        }
+    }
+
+    IEnumerator Combine(int index)
+    {
+        if (index >= rooms.Count)
+        {
+            Debug.Log("Finished Combining rooms!");
+            Debug.Log("Have " + rooms.Count + " after combining");
+            yield break;
+        }
+
+        var current = rooms[index];
+        CombineRooms(current, rooms);
+        StartCoroutine(Combine(index + 1));
+        yield return null;
+    }
+
+    bool RoomOverlaps(Room a, Room b)
+    {
+        return a.Intersects(b);
+    }
+
+    void BakeNavmesh()
+    {
+        Debug.Log("Baking navmesh");
+        foreach (NavMeshSurface surface in navmesh)
+        {
+            surface.BuildNavMesh();
+        }
+        Debug.Log("Baked navmesh");
+    }
+
+    /// <summary>
+    /// Returns the cells "up, down, left, right, upLeft, upRight, downLeft, downRight" to the current cell
+    /// </summary>
+    /// <param name="current"></param>
+    /// <returns></returns>
+    public GridCell[] GetAdjacentCells(GridCell current)
+    {
+        GridCell up = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z + 1);
+        GridCell down = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z - 1);
+        GridCell left = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z);
+        GridCell right = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z);
+        GridCell upLeft = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z + 1);
+        GridCell upRight = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z + 1);
+        GridCell downLeft = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z - 1);
+        GridCell downRight = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z - 1);
+        return new GridCell[] { up, down, left, right, upLeft, upRight, downLeft, downRight };
+    }
+
+    /// <summary>
+    /// Set the cells around the current sell in a 3x3 area
+    /// </summary>
+    /// <param name="current"></param>
+    /// <param name="flag"></param>
+    public void SetAdjacentCells(GridCell current, GridCell.GridFlag flag)
+    {
+        var adjacent = GetAdjacentCells(current);
+        for (int i = 0; i < adjacent.Length; i++)
+        {
+            adjacent[i].flag = flag;
+        }
+    }
+
+    /// <summary>
+    /// Check if a tile is adjacent
+    /// </summary>
+    /// <param name="current">The grid cell</param>
+    /// <param name="flag">What are we looking for</param>
+    /// <param name="mode">0 - All, 1 - Plus shape, 2 - Cross shape</param>
+    /// <returns></returns>
+    public bool TileIsAdjacent(GridCell current, GridCell.GridFlag flag, int mode = 0)
+    {
+        var adjacent = GetAdjacentCells(current);
+        switch (mode)
+        {
+            case 0:
+                for (int i = 0; i < adjacent.Length; i++)
                 {
-                    var hallway = current.hallways[j];
-                    SetAdjacentCells(hallway, GridCell.GridFlag.OCCUPIED);
-                }
-            }
-
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                for (int x = 0; x < grid.cells.x; x++)
-                {
-                    GridCell cell = grid.grid[x, 0, z];
-                    if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED))
+                    if (adjacent[i] != null)
                     {
-                        bool isAgainstVoid = TileIsAdjacent(cell, GridCell.GridFlag.WALKABLE);
-                        if (isAgainstVoid)
-                        {
-                            cell.flag = GridCell.GridFlag.WALL;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        void CombineRooms(Room root, List<Room> rooms)
-        {
-            List<Room> toCombine = new List<Room>();
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                var current = rooms[i];
-                if (current != root)
-                {
-                    bool overlap = RoomOverlaps(root, current);
-                    if (overlap)
-                    {
-                        toCombine.Add(current);
-                    }
-                }
-            }
-
-            if (toCombine.Count > 0)
-            {
-                for (int i = 0; i < toCombine.Count; i++)
-                {
-                    var room = toCombine[i];
-                    rooms.Remove(room);
-                    Debug.Log("Removed overlapping room!");
-                    root.occupied.AddRange(room.occupied);
-                    root.walls.AddRange(room.walls);
-                    root.hallways.AddRange(room.hallways);
-                    root.centres.AddRange(room.centres);
-                }
-                root.indicatorColor = Random.ColorHSV();
-                Debug.Log("Combined " + toCombine.Count + " Rooms");
-            }
-        }
-
-        IEnumerator Combine(int index)
-        {
-            if (index >= rooms.Count)
-            {
-                Debug.Log("Finished Combining rooms!");
-                Debug.Log("Have " + rooms.Count + " after combining");
-                yield break;
-            }
-
-            var current = rooms[index];
-            CombineRooms(current, rooms);
-            StartCoroutine(Combine(index + 1));
-            yield return null;
-        }
-
-        bool RoomOverlaps(Room a, Room b)
-        {
-            return a.Intersects(b);
-        }
-
-        void BakeNavmesh()
-        {
-            Debug.Log("Baking navmesh");
-            foreach (NavMeshSurface surface in navmesh)
-            {
-                surface.BuildNavMesh();
-            }
-            Debug.Log("Baked navmesh");
-        }
-
-        /// <summary>
-        /// Returns the cells "up, down, left, right, upLeft, upRight, downLeft, downRight" to the current cell
-        /// </summary>
-        /// <param name="current"></param>
-        /// <returns></returns>
-        public GridCell[] GetAdjacentCells(GridCell current)
-        {
-            GridCell up = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z + 1);
-            GridCell down = navAgent.GetGridCellAt((int)current.position.x, (int)current.position.y, (int)current.position.z - 1);
-            GridCell left = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z);
-            GridCell right = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z);
-            GridCell upLeft = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z + 1);
-            GridCell upRight = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z + 1);
-            GridCell downLeft = navAgent.GetGridCellAt((int)current.position.x - 1, (int)current.position.y, (int)current.position.z - 1);
-            GridCell downRight = navAgent.GetGridCellAt((int)current.position.x + 1, (int)current.position.y, (int)current.position.z - 1);
-            return new GridCell[] { up, down, left, right, upLeft, upRight, downLeft, downRight };
-        }
-
-        /// <summary>
-        /// Set the cells around the current sell in a 3x3 area
-        /// </summary>
-        /// <param name="current"></param>
-        /// <param name="flag"></param>
-        public void SetAdjacentCells(GridCell current, GridCell.GridFlag flag)
-        {
-            var adjacent = GetAdjacentCells(current);
-            for (int i = 0; i < adjacent.Length; i++)
-            {
-                adjacent[i].flag = flag;
-            }
-        }
-
-        /// <summary>
-        /// Check if a tile is adjacent
-        /// </summary>
-        /// <param name="current">The grid cell</param>
-        /// <param name="flag">What are we looking for</param>
-        /// <param name="mode">0 - All, 1 - Plus shape, 2 - Cross shape</param>
-        /// <returns></returns>
-        public bool TileIsAdjacent(GridCell current, GridCell.GridFlag flag, int mode = 0)
-        {
-            var adjacent = GetAdjacentCells(current);
-            switch (mode)
-            {
-                case 0:
-                    for (int i = 0; i < adjacent.Length; i++)
-                    {
-                        if (adjacent[i] != null)
-                        {
-                            if (adjacent[i].flag.Equals(flag))
-                                return true;
-                        }
-                    }
-                    break;
-                case 1:
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (adjacent[i] != null)
-                        {
-                            if (adjacent[i].flag.Equals(flag))
-                                return true;
-                        }
-                    }
-                    break;
-                case 2:
-                    for (int i = 4; i < adjacent.Length; i++)
-                    {
-                        if (adjacent[i] != null)
-                        {
-                            if (adjacent[i].flag.Equals(flag))
-                                return true;
-                        }
-                    }
-                    break;
-                default:
-                    for (int i = 0; i < adjacent.Length; i++)
-                    {
-                        if (adjacent[i] != null)
-                        {
-                            if (adjacent[i].flag.Equals(flag))
-                                return true;
-                        }
-                    }
-                    break;
-            }
-            return false;
-        }
-
-        bool GenerateRoom(Vector3 pos, Vector3 roomDimensions)
-        {
-            var width = grid.cells.x;
-            var length = grid.cells.z;
-
-            if (pos.x < 0 || pos.z < 0 || pos.x + roomDimensions.x >= width || pos.z + roomDimensions.z >= length)
-            {
-                Debug.LogWarning("Room size exceeds grid size!");
-                return false;
-            }
-
-            Room room = new Room();
-            for (int x = (int)pos.x; x < pos.x + roomDimensions.x; x++)
-            {
-                for (int z = (int)pos.z; z < pos.z + roomDimensions.z; z++)
-                {
-                    if (grid.grid[x, 0, z].flag.Equals(GridCell.GridFlag.OCCUPIED))
-                    {
-                        Debug.LogWarning("Overlapping rooms!");
-                        //break;
-                    }
-
-                    //Flag walls
-                    if (x <= pos.x || x >= pos.x + (roomDimensions.x - 1) ||
-                       z <= pos.z || z >= pos.z + (roomDimensions.z - 1))
-                    {
-                        // These are walls
-                        grid.grid[x, 0, z].flag = GridCell.GridFlag.WALL;
-                        room.walls.Add(grid.grid[x, 0, z]);
-                    }
-                    else
-                    {
-                        grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
-
-                        room.occupied.Add(grid.grid[x, 0, z]);
-                    }
-                }
-            }
-            room.start = new Vector3(pos.x, 0f, pos.z);
-            room.end = new Vector3(pos.x + roomDimensions.x, 0f, pos.z + roomDimensions.z);
-            room.centres.Add(new Vector3(pos.x + (roomDimensions.x / 2), 0, pos.z + (roomDimensions.z / 2)));
-
-            var gridCentreX = Mathf.RoundToInt((pos.x + roomDimensions.x) / 2);
-            var gridCentreZ = Mathf.RoundToInt((pos.z + roomDimensions.z) / 2);
-            room.gridCentre = new Vector3Int(gridCentreX, 0, gridCentreZ);
-
-            rooms.Add(room);
-            return true;
-        }
-
-        bool GenerateRandomRoom()
-        {
-            var posX = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.x));
-            var posZ = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.z));
-            var position = new Vector3(posX, 1, posZ);
-
-            var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
-            var sizeZ = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
-            var dimensions = new Vector3(sizeX, 1, sizeZ);
-
-            return GenerateRoom(position, dimensions);
-        }
-        #endregion
-
-        Vector3 GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
-        {
-            var x = Mathf.RoundToInt(Random.Range(minX, maxX));
-            var y = Mathf.RoundToInt(Random.Range(minY, maxY));
-            var z = Mathf.RoundToInt(Random.Range(minZ, maxZ));
-            return new Vector3(x, y, z);
-        }
-
-        public Vector3 PositionAsGridCoordinates(Vector3 position)
-        {
-            var x = Mathf.RoundToInt(position.x / grid.cellSize.x);
-            var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
-            var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
-            return new Vector3(x, y, z);
-        }
-
-        private bool CellIsInRoom(GridCell current, int roomIndex)
-        {
-            if (roomIndex < 0)
-                return false;
-            else if (roomIndex >= rooms.Count)
-                return false;
-
-            return rooms[roomIndex].occupied.Contains(current) || rooms[roomIndex].hallways.Contains(current) || rooms[roomIndex].walls.Contains(current);
-        }
-
-        private bool CellIsInHallway(GridCell current, Room room)
-        {
-            return room.hallways.Contains(current);
-        }
-
-        private bool CellIsInPrisonCell(GridCell current)
-        {
-            Vector3 playerCoords = PositionAsGridCoordinates(start.centres[0]);
-            for (int z = -3; z < 4; z++)
-            {
-                for (int x = -3; x < 4; x++)
-                {
-                    GridCell cell = navAgent.GetGridCellAt((int)playerCoords.x + x, (int)playerCoords.y, (int)playerCoords.z + z);
-                    if (cell != null)
-                    {
-                        if (current.position.Equals(cell.position))
-                        {
+                        if (adjacent[i].flag.Equals(flag))
                             return true;
-                        }
                     }
                 }
-            }
+                break;
+            case 1:
+                for (int i = 0; i < 4; i++)
+                {
+                    if (adjacent[i] != null)
+                    {
+                        if (adjacent[i].flag.Equals(flag))
+                            return true;
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 4; i < adjacent.Length; i++)
+                {
+                    if (adjacent[i] != null)
+                    {
+                        if (adjacent[i].flag.Equals(flag))
+                            return true;
+                    }
+                }
+                break;
+            default:
+                for (int i = 0; i < adjacent.Length; i++)
+                {
+                    if (adjacent[i] != null)
+                    {
+                        if (adjacent[i].flag.Equals(flag))
+                            return true;
+                    }
+                }
+                break;
+        }
+        return false;
+    }
+
+    bool GenerateRoom(Vector3 pos, Vector3 roomDimensions)
+    {
+        var width = grid.cells.x;
+        var length = grid.cells.z;
+
+        if (pos.x < 0 || pos.z < 0 || pos.x + roomDimensions.x >= width || pos.z + roomDimensions.z >= length)
+        {
+            Debug.LogWarning("Room size exceeds grid size!");
             return false;
         }
 
-        private bool CellIsOnTeleporter(GridCell current)
+        Room room = new Room();
+        for (int x = (int)pos.x; x < pos.x + roomDimensions.x; x++)
         {
-            Vector3 cellCoords = PositionAsGridCoordinates(current.position);
-            for (int z = -5; z < 6; z++)
+            for (int z = (int)pos.z; z < pos.z + roomDimensions.z; z++)
             {
-                for (int x = -5; x < 6; x++)
+                if (grid.grid[x, 0, z].flag.Equals(GridCell.GridFlag.OCCUPIED))
                 {
-                    GridCell cell = navAgent.GetGridCellAt((int)cellCoords.x + x, (int)cellCoords.y, (int)cellCoords.z + z);
-                    if (cell != null)
+                    Debug.LogWarning("Overlapping rooms!");
+                    //break;
+                }
+
+                //Flag walls
+                if (x <= pos.x || x >= pos.x + (roomDimensions.x - 1) ||
+                   z <= pos.z || z >= pos.z + (roomDimensions.z - 1))
+                {
+                    // These are walls
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.WALL;
+                    room.walls.Add(grid.grid[x, 0, z]);
+                }
+                else
+                {
+                    grid.grid[x, 0, z].flag = GridCell.GridFlag.OCCUPIED;
+
+                    room.occupied.Add(grid.grid[x, 0, z]);
+                }
+            }
+        }
+        room.start = new Vector3(pos.x, 0f, pos.z);
+        room.end = new Vector3(pos.x + roomDimensions.x, 0f, pos.z + roomDimensions.z);
+        room.centres.Add(new Vector3(pos.x + (roomDimensions.x / 2), 0, pos.z + (roomDimensions.z / 2)));
+
+        var gridCentreX = Mathf.RoundToInt((pos.x + roomDimensions.x) / 2);
+        var gridCentreZ = Mathf.RoundToInt((pos.z + roomDimensions.z) / 2);
+        room.gridCentre = new Vector3Int(gridCentreX, 0, gridCentreZ);
+
+        rooms.Add(room);
+        return true;
+    }
+
+    bool GenerateRandomRoom()
+    {
+        var posX = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.x));
+        var posZ = Mathf.RoundToInt(Random.Range(0, generatedDungeonSize.z));
+        var position = new Vector3(posX, 1, posZ);
+
+        var sizeX = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
+        var sizeZ = Mathf.RoundToInt(Random.Range(minRoomSize.x, minRoomSize.y));
+        var dimensions = new Vector3(sizeX, 1, sizeZ);
+
+        return GenerateRoom(position, dimensions);
+    }
+    #endregion
+
+    Vector3 GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
+    {
+        var x = Mathf.RoundToInt(Random.Range(minX, maxX));
+        var y = Mathf.RoundToInt(Random.Range(minY, maxY));
+        var z = Mathf.RoundToInt(Random.Range(minZ, maxZ));
+        return new Vector3(x, y, z);
+    }
+
+    public Vector3 PositionAsGridCoordinates(Vector3 position)
+    {
+        var x = Mathf.RoundToInt(position.x / grid.cellSize.x);
+        var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
+        var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
+        return new Vector3(x, y, z);
+    }
+
+    private bool CellIsInRoom(GridCell current, int roomIndex)
+    {
+        if (roomIndex < 0)
+            return false;
+        else if (roomIndex >= rooms.Count)
+            return false;
+
+        return rooms[roomIndex].occupied.Contains(current) || rooms[roomIndex].hallways.Contains(current) || rooms[roomIndex].walls.Contains(current);
+    }
+
+    private bool CellIsInHallway(GridCell current, Room room)
+    {
+        return room.hallways.Contains(current);
+    }
+
+    private bool CellIsInPrisonCell(GridCell current)
+    {
+        Vector3 playerCoords = PositionAsGridCoordinates(start.centres[0]);
+        for (int z = -3; z < 4; z++)
+        {
+            for (int x = -3; x < 4; x++)
+            {
+                GridCell cell = navAgent.GetGridCellAt((int)playerCoords.x + x, (int)playerCoords.y, (int)playerCoords.z + z);
+                if (cell != null)
+                {
+                    if (current.position.Equals(cell.position))
                     {
-                        if (current.position.Equals(cell.position))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
-            return false;
         }
+        return false;
+    }
+
+    private bool CellIsOnTeleporter(GridCell current)
+    {
+        Vector3 cellCoords = PositionAsGridCoordinates(current.position);
+        for (int z = -5; z < 6; z++)
+        {
+            for (int x = -5; x < 6; x++)
+            {
+                GridCell cell = navAgent.GetGridCellAt((int)cellCoords.x + x, (int)cellCoords.y, (int)cellCoords.z + z);
+                if (cell != null)
+                {
+                    if (current.position.Equals(cell.position))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
+    private void OnDrawGizmos()
+    {
+        if (start == null || end == null)
+            return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(start.centres[0], 0.25f);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawSphere(end.centres[0], 0.25f);
+
+        for (int i = 0; i < rooms.Count; i++)
         {
-            if (start == null || end == null)
-                return;
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(start.centres[0], 0.25f);
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawSphere(end.centres[0], 0.25f);
-
-            for (int i = 0; i < rooms.Count; i++)
+            var room = rooms[i];
+            room.DrawGizmos();
+            if (room.drawHallwayPath)
             {
-                var room = rooms[i];
-                room.DrawGizmos();
-                if (room.drawHallwayPath)
+                Gizmos.color = Color.black;
+                if (room.hallways.Count > 0)
                 {
-                    Gizmos.color = Color.black;
-                    if (room.hallways.Count > 0)
+                    for (int j = 1; j < room.hallways.Count - 1; j++)
                     {
-                        for (int j = 1; j < room.hallways.Count - 1; j++)
-                        {
-                            Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
-                        }
+                        Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
                     }
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(room.hallways[0].position, 0.25f);
-                    Gizmos.color = Color.cyan;
-                    Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
                 }
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(room.hallways[0].position, 0.25f);
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
         }
+    }
 #endif
-    }
+}
 
-    public class CellInfo : MonoBehaviour
-    {
-        public Vector3 cellRotation = Vector3.zero;
-    }
+public class CellInfo : MonoBehaviour
+{
+    public Vector3 cellRotation = Vector3.zero;
+}
