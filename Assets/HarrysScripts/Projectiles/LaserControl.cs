@@ -15,9 +15,20 @@ public class LaserControl : MonoBehaviour
 
     public WeaponProperties empty;
 
+    public AudioClip laserSound, warmupSound, cooldownSound;
+    public AudioSource fireSource, warmupSource, cooldownSource;
+
     void Start()
     {
         laserParticles.Stop();
+
+        fireSource.clip = laserSound;
+        warmupSource.clip = warmupSound;
+        cooldownSource.clip = cooldownSound;
+
+        fireSource.Stop();
+        warmupSource.Stop();
+        cooldownSource.Stop();
     }
 
     void Update()
@@ -39,6 +50,10 @@ public class LaserControl : MonoBehaviour
                 if (!laserParticles.isPlaying && WeaponManager.instance.currentWeapon.currentAmmo > 0)
                 {
                     laserParticles.Play();
+                    if (!warmupSource.isPlaying)
+                    {
+                        warmupSource.Play();
+                    }
                 }
                 
                 if (WeaponManager.instance.currentWeapon.currentAmmo <= 1)
@@ -55,17 +70,27 @@ public class LaserControl : MonoBehaviour
                 if (hasWarmedUp)
                 {
                     //psMain.simulationSpace = ParticleSystemSimulationSpace.Local;
-                    isFiring = true;
+                    if (!fireSource.isPlaying)
+                    {
+                        fireSource.Play();
+                    }
+                    isFiring = true;                  
                 }
             }
             else
             {
                 laserParticles.Stop();
+                fireSource.Stop();
                 isFiring = false;
                 hasWarmedUp = false;
 
                 if (!hasCooledDown)
                 {
+                    if (!cooldownSource.isPlaying)
+                    {
+                        cooldownSource.Play();
+                    }
+                    
                     cooldownTimer += 1f * Time.deltaTime;
 
                     if (cooldownTimer >= cooldown)
@@ -100,5 +125,11 @@ public class LaserControl : MonoBehaviour
         hasWarmedUp = false;
         warmupTimer = 0;
         hasCooledDown = true; 
+
+        fireSource.Stop();
+        if (!cooldownSource.isPlaying)
+        {
+            cooldownSource.Play();
+        }
     }
 }
