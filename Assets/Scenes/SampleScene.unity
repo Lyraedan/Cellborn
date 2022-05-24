@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -245,8 +245,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3a60817add2954186f6f69129ba87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {x: 0, y: 0, z: 0}
-  end: {x: 0, y: 0, z: 0}
+  roomParent: {fileID: 0}
+  grid: {fileID: 0}
+  seed: 0
+  levelIndex: 0
+  numberOfLevels: 3
+  levels: 
+  minDungeonSize: {x: 10, y: 10}
+  maxDungeonSize: {x: 25, y: 25}
+  minRoomSize: {x: 3, y: 6}
+  generatedDungeonSize: {x: 0, y: 0, z: 0}
+  maxRoomLimit: 10
+  maxEntities: 10
+  wallLightChance: 10
+  lightOrPropChance: {x: 0, y: 2}
+  wallPropRate: {x: 30, y: 50}
+  centrePropRate: {x: 30, y: 50}
+  startEndSafeZoneThreashold: 20
+  centreSafeZoneThreashold: 5
+  rooms: []
+  floorPrefab: {fileID: 0}
+  wallPrefab: {fileID: 0}
+  ceilingPrefab: {fileID: 0}
+  environmentRootPrefab: {fileID: 0}
+  environment: {fileID: 0}
+  wizard: {fileID: 0}
+  teleporter: {fileID: 0}
+  prisonCell: {fileID: 0}
+  prefabs: []
+  navAgent: {fileID: 0}
+  targetAim: {fileID: 0}
+  enableCulling: 1
+  playerController: {fileID: 0}
+  entitySpawnRate: 20
+  navmesh: []
+  floorMesh: {fileID: 0}
+  wallMesh: {fileID: 0}
+  roofMesh: {fileID: 0}
 --- !u!4 &955071183
 Transform:
   m_ObjectHideFlags: 0
