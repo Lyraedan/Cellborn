@@ -67,16 +67,16 @@ public class MainMenu : MonoBehaviour
     
     public void StartGame(string sceneName)
     {
+        mainMenuGroup.SetActive(false);
+        startGameGroup.SetActive(false);
+        loadingGroup.SetActive(true);
+        
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     IEnumerator LoadSceneAsync (string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-        mainMenuGroup.SetActive(false);
-        startGameGroup.SetActive(false);
-        loadingGroup.SetActive(true);
 
         while (!operation.isDone)
         {
