@@ -38,9 +38,9 @@ public class UIController : MonoBehaviour
             minimapBG.rectTransform.sizeDelta = new Vector2(Minimap.instance.canvas.sprite.rect.width * 4, Minimap.instance.canvas.sprite.rect.height * 4);
         };
 
-        Debug.Log(Screen.currentResolution.width + "," + Screen.currentResolution.height);
+        /* Debug.Log(Screen.currentResolution.width + "," + Screen.currentResolution.height);
 
         damageIndicator.rectTransform.sizeDelta = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
-        defenseIndicator.rectTransform.sizeDelta = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+        defenseIndicator.rectTransform.sizeDelta = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height); */
     }
 }
