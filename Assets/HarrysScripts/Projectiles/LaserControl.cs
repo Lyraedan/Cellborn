@@ -41,7 +41,7 @@ public class LaserControl : MonoBehaviour
         if (WeaponManager.instance.currentWeapon.weaponId == 5)
         {
             Debug.Log("Agh a laser");
-            if (Input.GetButton("Fire1") && hasCooledDown)
+            if (Input.GetButton("Fire1") && hasCooledDown && !PlayerStats.instance.isDead && !PauseMenu.isPaused)
             {
                 hasWarmedUp = false;
                 cooldownTimer = 0f;
