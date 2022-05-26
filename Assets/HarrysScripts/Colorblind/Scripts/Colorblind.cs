@@ -13,6 +13,8 @@ namespace Wilberforce
     [AddComponentMenu("Image Effects/Color Adjustments/Colorblind")]
     public class Colorblind : MonoBehaviour
     {
+        public static Colorblind instance;
+        
         // public Parameters  
 		public int Type = 0;
 
@@ -66,6 +68,11 @@ namespace Wilberforce
             }
 
             isSupported = true;
+        }
+
+        void Update()
+        {
+            Type = ColorblindManager.instance.colorblindType;
         }
 
         private static Material CreateMaterial(Shader shader)
