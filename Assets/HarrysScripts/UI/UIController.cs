@@ -25,10 +25,6 @@ public class UIController : MonoBehaviour
     [Header("Minimap")]
     public Image minimapBG;
 
-    [Header("Effects")]
-    public Image damageIndicator;
-    public Image defenseIndicator;
-
     void Start()
     {
         Minimap.instance.OnMapGenerated += () =>
@@ -37,10 +33,5 @@ public class UIController : MonoBehaviour
             minimapBG.rectTransform.position = Minimap.instance.canvas.rectTransform.position;
             minimapBG.rectTransform.sizeDelta = new Vector2(Minimap.instance.canvas.sprite.rect.width * 4, Minimap.instance.canvas.sprite.rect.height * 4);
         };
-
-        /* Debug.Log(Screen.currentResolution.width + "," + Screen.currentResolution.height);
-
-        damageIndicator.rectTransform.sizeDelta = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
-        defenseIndicator.rectTransform.sizeDelta = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height); */
     }
 }
