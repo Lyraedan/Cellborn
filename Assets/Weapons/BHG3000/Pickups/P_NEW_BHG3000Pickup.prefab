@@ -83,7 +83,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 90
   m_CollisionDetection: 0
 --- !u!114 &4170707339558579696
 MonoBehaviour:
@@ -133,8 +133,8 @@ MonoBehaviour:
   redRing: {fileID: 4913457049465209304}
   yellowRing: {fileID: 6667224882377222356}
   blueRing: {fileID: 4630236783228290163}
-  _currentAmmo: 5
-  maxAmmo: 5
+  _currentAmmo: 3
+  maxAmmo: 3
   icon: {fileID: 21300000, guid: b227ac2c985e99042b3fb8c28ffcbf86, type: 3}
   redIcon: {fileID: 21300000, guid: f47ec556403691347be0c827b851a7ad, type: 3}
   blueIcon: {fileID: 21300000, guid: 25d6304ed73aa544e857fa6d98a42be2, type: 3}

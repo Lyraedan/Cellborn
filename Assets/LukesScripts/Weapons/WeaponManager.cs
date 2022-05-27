@@ -204,7 +204,7 @@ public class WeaponManager : MonoBehaviour
         }
 
         var scrollDelta = Input.mouseScrollDelta;
-        if (scrollDelta != Vector2.zero)
+        if (scrollDelta != Vector2.zero && !PauseMenu.isPaused)
         {
             uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
             

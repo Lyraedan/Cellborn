@@ -49,7 +49,6 @@ public class AITest : AI
             Debug.Log("Do attack!");
             //AudioManager.instance.Play("SnakeAttack");
             animController.SetTrigger("Attack");
-            Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
 
             attackDelay = 0;
         }
@@ -101,5 +100,10 @@ public class AITest : AI
         }
         else
             return null;
+    }
+
+    public void SpawnAcid()
+    {
+        Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
     }
 }

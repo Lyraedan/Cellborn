@@ -18,6 +18,7 @@ public class OptionsMenu : MonoBehaviour
     public List<string> resolutionStr;
     public TMP_Dropdown resolutionDropdown;
 
+    public Toggle vsyncToggle;
     public Toggle fullscreenToggle;
     public Toggle anisotropicToggle;
 
@@ -128,6 +129,12 @@ public class OptionsMenu : MonoBehaviour
 
         #region Set Toggles
 
+        switch (QualitySettings.vSyncCount)
+        {
+            case 0: vsyncToggle.isOn = false; break;
+            case 1: vsyncToggle.isOn = true; break;
+        }
+
         fullscreenToggle.isOn = Screen.fullScreen;
         if (QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable)
         {
@@ -166,15 +173,15 @@ public class OptionsMenu : MonoBehaviour
         RefreshValues();
     }
 
-    public void SetAnisotropic (bool usesAnisotropic)
+    public void SetVSync (bool usesVSync)
     {
-        if (usesAnisotropic)
+        if (usesVSync)
         {
-            QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+            QualitySettings.vSyncCount = 1;
         }
         else
         {
-            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+            QualitySettings.vSyncCount = 0;
         }
     }
 
@@ -218,6 +225,18 @@ public class OptionsMenu : MonoBehaviour
     #endregion
 
     #region Page02
+
+    public void SetAnisotropic (bool usesAnisotropic)
+    {
+        if (usesAnisotropic)
+        {
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+        }
+        else
+        {
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+        }
+    }
 
     public void SetAmbientOcclusion(bool usesAO)
     {

@@ -166,6 +166,8 @@ namespace LukesScripts.AI
         {
             isHit = true;
             audioSource.clip = hitSound;
+            audioSource.loop = false;
+            audioSource.pitch = 1f;
             audioSource.Play();
             OnHit();
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
@@ -182,6 +184,8 @@ namespace LukesScripts.AI
             if (idleSound != null)
             {
                 audioSource.clip = idleSound;
+                audioSource.loop = true;
+                audioSource.pitch = 2f;
                 audioSource.Play();
             }
         }

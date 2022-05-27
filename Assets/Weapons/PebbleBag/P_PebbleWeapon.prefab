@@ -46,10 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pebble Bag
   weaponId: 0
-  colour: Grey
+  colour: {r: 1, g: 1, b: 1, a: 1}
+  redRing: {fileID: 0}
+  yellowRing: {fileID: 0}
+  blueRing: {fileID: 0}
   _currentAmmo: 30
   maxAmmo: 30
-  icon: {fileID: 21300000, guid: 189ac09f916aa814c9317ae5d01c0cd4, type: 3}
+  icon: {fileID: 21300000, guid: 9e9783656be56cb4ab6d4d768685e17b, type: 3}
+  redIcon: {fileID: 0}
+  blueIcon: {fileID: 0}
+  yellowIcon: {fileID: 0}
   functionality: {fileID: -3620807374433043931}
 --- !u!114 &-3620807374433043931
 MonoBehaviour:
@@ -68,3 +74,5 @@ MonoBehaviour:
   projectile: {fileID: 2089850481414163968, guid: f5b85d6043fbcfb48a525eb66b17ec58, type: 3}
   angle: 0
   secondsBetweenShots: 0.5
+  source: {fileID: 0}
+  fireSound: {fileID: 0}

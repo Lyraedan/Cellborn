@@ -20,7 +20,7 @@ public class LoadingTips : MonoBehaviour
 
     void Update()
     {
-        timer += 1f * Time.deltaTime;
+        timer += 1f * Time.unscaledDeltaTime;
 
         if (timer >= tipTime)
         {

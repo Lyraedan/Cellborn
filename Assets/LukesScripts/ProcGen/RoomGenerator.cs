@@ -24,6 +24,7 @@ public class RoomGenerator : MonoBehaviour
     public Vector2 minRoomSize = new Vector2(3, 6);
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
+    public int maxEntities = 10;
 
     [Header("Environmental rates")]
     [Tooltip("What are the chances of spawning a light if a light is chosen to be spawned? 1 in x")]
@@ -136,8 +137,8 @@ public class RoomGenerator : MonoBehaviour
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
-        FlagProps();
-        FlagEntities();
+        //FlagProps();
+        //FlagEntities();
 
         Destroy(floorMesh.gameObject);
         Destroy(wallMesh.gameObject);
@@ -249,6 +250,13 @@ public class RoomGenerator : MonoBehaviour
         }
 
         rooms.Clear();
+
+        // Clear navmesh
+        for(int i = 0; i < navmesh.Length; i++)
+        {
+            navmesh[i].RemoveData();
+            navmesh[i] = null;
+        }
         Generate(levels[levelIndex]);
     }
 
@@ -276,11 +284,60 @@ public class RoomGenerator : MonoBehaviour
             WeaponManager.instance.GetWeaponsInLevel();
         }
         Minimap.instance.GenerateMinimap(grid);
-        PlaceEntities();
+        SpawnEntities();
 
         // Matilde if you need to. Start behaviour tree's beyond this point.
 
         Debug.Log("Got assignables");
+    }
+
+    private void SpawnEntities()
+    {
+        int entityCount = maxEntities * (levelIndex + 1);
+        for(int i = 0; i < entityCount; i++)
+        {
+            GridCell cell = GetRandomEntityCell();
+            SpawnRandomEntity(cell);
+        }
+    }
+
+    GridCell GetRandomEntityCell()
+    {
+        Vector3 position = GetRandomPointOnNavmesh();
+        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
+
+        bool isInStart = CellIsInRoom(cell, 0);
+        bool isInHallway = false;
+        for (int j = 0; j < rooms.Count; j++)
+        {
+            bool hallwayCheck = CellIsInHallway(cell, rooms[j]);
+            if (hallwayCheck)
+            {
+                isInHallway = true;
+                break;
+            }
+        }
+
+        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED);
+
+        if (!isInStart && !isInHallway && isValidTile)
+            return cell;
+        else // Lol this is bad
+            return GetRandomEntityCell();
+    }
+
+    private Vector3 GetRandomPointOnNavmesh()
+    {
+        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
+
+        // Pick the first indice of a random triangle in the nav mesh
+        int t = Random.Range(0, navMeshData.indices.Length - 3);
+
+        // Select a random point on it
+        Vector3 point = Vector3.Lerp(navMeshData.vertices[navMeshData.indices[t]], navMeshData.vertices[navMeshData.indices[t + 1]], Random.value);
+        Vector3.Lerp(point, navMeshData.vertices[navMeshData.indices[t + 2]], Random.value);
+
+        return point;
     }
 
     public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
@@ -338,7 +395,7 @@ public class RoomGenerator : MonoBehaviour
         var entities = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.ENTITY)).ToList();
         int index = Random.Range(0, entities.Count);
         var pos = cell.position;
-        pos.y += 0.5f;
+        //pos.y += 0.5f;
         return entities[index].Spawn(pos, Vector3.zero);
     }
 
@@ -374,6 +431,7 @@ public class RoomGenerator : MonoBehaviour
     #endregion
 
     #region Population
+    /*
     void PlaceEntities()
     {
         for (int x = 0; x < grid.cells.x; x++)
@@ -386,6 +444,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
     }
+    */
 
     void SpawnEnvironment(List<RoomMeshGenerator.Edge> edgeVertices)
     {
@@ -525,6 +584,7 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
+    /*
     void FlagEntities()
     {
         for (int z = 0; z < grid.cells.z; z++)
@@ -554,6 +614,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
     }
+    */
     #endregion
 
     #region Proc gen
@@ -748,6 +809,8 @@ public class RoomGenerator : MonoBehaviour
     void BakeNavmesh()
     {
         Debug.Log("Baking navmesh");
+        NavMesh.RemoveAllNavMeshData();
+
         foreach (NavMeshSurface surface in navmesh)
         {
             surface.BuildNavMesh();
