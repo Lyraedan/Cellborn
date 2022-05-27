@@ -61,8 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 4975868962984073307}
   meshRenderers:
-  - {fileID: 7324386593909809018}
-  - {fileID: 1051382462951513653}
+  - {fileID: 5805000323214582989}
   lights:
     sources: []
   particles:
@@ -93,6 +92,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3280234
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.3280234
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3280234
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -134,6 +145,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 980413da4c459b042a38ee9ba26cdbc9, type: 2}
+    - target: {fileID: -6707154633926006989, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c761cbcb4ed10b6459a599d88629fe5d, type: 2}
+    - target: {fileID: -3901992563441801604, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c761cbcb4ed10b6459a599d88629fe5d, type: 2}
     - target: {fileID: 919132149155446097, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
       propertyPath: m_Name
       value: Picture Frame 3_01
@@ -145,13 +168,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
   m_PrefabInstance: {fileID: 5138066938686683209}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &7324386593909809018 stripped
+--- !u!23 &5805000323214582989 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6707154633926006989, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
-  m_PrefabInstance: {fileID: 5138066938686683209}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1051382462951513653 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -3901992563441801604, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 08166ec0ba7055342a067c94e907964f, type: 3}
   m_PrefabInstance: {fileID: 5138066938686683209}
   m_PrefabAsset: {fileID: 0}
