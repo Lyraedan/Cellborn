@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 3448020228206790939}
   meshRenderers:
-  - {fileID: 3957661125910425426}
+  - {fileID: 0}
   lights:
     sources: []
   particles:
@@ -117,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4dc37dcbe3547d74a8c969dd6cf0c7b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0099
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4dc37dcbe3547d74a8c969dd6cf0c7b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -164,10 +164,5 @@ PrefabInstance:
 --- !u!4 &2785268630070006845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4dc37dcbe3547d74a8c969dd6cf0c7b2, type: 3}
-  m_PrefabInstance: {fileID: 2390842347385648086}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &3957661125910425426 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4dc37dcbe3547d74a8c969dd6cf0c7b2, type: 3}
   m_PrefabInstance: {fileID: 2390842347385648086}
   m_PrefabAsset: {fileID: 0}
