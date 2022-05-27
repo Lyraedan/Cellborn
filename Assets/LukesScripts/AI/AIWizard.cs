@@ -8,7 +8,7 @@ using EventHooks = LukesScripts.Blueprints.EventHooks;
 public class AIWizard : AI
 {
 
-    private float secondsBetweenAttacks = 1f;
+    private float secondsBetweenAttacks = 2.8f;
     private float attackDelay = 0;
 
     public override void Init()
