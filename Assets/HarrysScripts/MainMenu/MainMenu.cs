@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class MainMenu : MonoBehaviour
@@ -19,11 +20,17 @@ public class MainMenu : MonoBehaviour
 
     public AudioSource source;
     public AudioClip menuClickSound;
+
+    public PostProcessProfile profile;
+    private ColorGrading _colorGrading;
     
     void Start()
     {
         chosenBackground = Random.Range(0, backgroundRenders.Count);
         videoPlayer.clip = backgroundRenders[chosenBackground];
+
+        profile.TryGetSettings(out _colorGrading);
+        _colorGrading.active = false;
     }
 
     void Update()
