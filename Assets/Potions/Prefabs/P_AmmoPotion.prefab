@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1069557220705607317}
   - component: {fileID: -9076472093016649723}
   - component: {fileID: -392504575235704374}
+  - component: {fileID: -3042008668800525302}
+  - component: {fileID: 8952562503611241242}
   m_Layer: 0
   m_Name: P_AmmoPotion
   m_TagString: Potion
@@ -65,7 +67,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 90
   m_CollisionDetection: 0
 --- !u!114 &7014644175783748129
 MonoBehaviour:
@@ -230,6 +232,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3042008668800525302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86875c4187defd4d946c73d655896f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potion: {fileID: 4489515831532256452}
+  Height: 0.5
+--- !u!114 &8952562503611241242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c85e529305e1d47b89300eea275818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0
