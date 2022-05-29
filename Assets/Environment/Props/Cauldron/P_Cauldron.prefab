@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 7547948395747449802}
   - component: {fileID: 4986121220141483776}
   - component: {fileID: 6237089140027106003}
-  - component: {fileID: 2403420283068563408}
   - component: {fileID: 9064935757645568857}
   - component: {fileID: 861344865587283378}
   - component: {fileID: 4914739165967641477}
@@ -254,22 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   threashold: -5
   aboveThreashold: 1.5
---- !u!54 &2403420283068563408
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6029727424576102190}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!65 &9064935757645568857
 BoxCollider:
   m_ObjectHideFlags: 0
