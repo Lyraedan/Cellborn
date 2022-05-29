@@ -5,7 +5,7 @@ using UnityEngine;
 public class PotionHeight : MonoBehaviour
 {
       public GameObject potion; 
-    public float Height = 0.5f;
+    public float Height = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
