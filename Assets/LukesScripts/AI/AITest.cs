@@ -44,11 +44,11 @@ public class AITest : AI
 
     public override void Attack()
     {
+        animController.SetTrigger("Attack");
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
             //AudioManager.instance.Play("SnakeAttack");
-            animController.SetTrigger("Attack");
 
             attackDelay = 0;
         }
