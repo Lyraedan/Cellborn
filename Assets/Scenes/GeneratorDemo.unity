@@ -570,6 +570,12 @@ MonoBehaviour:
     type: 2
   - prefab: {fileID: 4834119464799054825, guid: 744ebd0e7b4de564fb2246f2b37b81fe, type: 3}
     type: 3
+  - prefab: {fileID: 4834119464799054825, guid: fcff23c0aef5d214b9d2f5eefb39d0e1, type: 3}
+    type: 3
+  - prefab: {fileID: 4834119464799054825, guid: 0bb63471659b2474fa531b52ed29ab67, type: 3}
+    type: 3
+  - prefab: {fileID: 4834119464799054825, guid: ae86bd610f5436a4cb9bdb28383bdaf1, type: 3}
+    type: 3
   navAgent: {fileID: 1226544331}
   targetAim: {fileID: 915354250}
   enableCulling: 1
@@ -1157,7 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
   colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!4 &2089827449 stripped
 Transform:
