@@ -72,7 +72,10 @@ namespace Wilberforce
 
         void Update()
         {
-            Type = ColorblindManager.instance.colorblindType;
+            if (ColorblindManager.instance != null && Type != ColorblindManager.instance.colorblindType)
+            {
+                Type = ColorblindManager.instance.colorblindType;
+            }
         }
 
         private static Material CreateMaterial(Shader shader)
