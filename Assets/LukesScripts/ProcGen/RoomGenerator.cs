@@ -81,6 +81,8 @@ public class RoomGenerator : MonoBehaviour
     public NavMeshSurface[] navmesh;
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
+    [SerializeField] private List<GameObject> wallProps = new List<GameObject>();
+
     private void Awake()
     {
         if (instance == null)
@@ -137,9 +139,6 @@ public class RoomGenerator : MonoBehaviour
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
-        //FlagProps();
-        //FlagEntities();
-
         Destroy(floorMesh.gameObject);
         Destroy(wallMesh.gameObject);
         Destroy(roofMesh.gameObject);
@@ -153,7 +152,6 @@ public class RoomGenerator : MonoBehaviour
         floorMesh.GenerateFloor(grid);
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
-        SpawnEnvironment(floorMesh.edgeVertices);
 
         navmesh = new NavMeshSurface[1];
         navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
@@ -180,6 +178,7 @@ public class RoomGenerator : MonoBehaviour
         }
 
         BakeNavmesh();
+        SpawnEnvironment(floorMesh.edgeVertices);
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
         GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
@@ -252,7 +251,7 @@ public class RoomGenerator : MonoBehaviour
         rooms.Clear();
 
         // Clear navmesh
-        for(int i = 0; i < navmesh.Length; i++)
+        for (int i = 0; i < navmesh.Length; i++)
         {
             navmesh[i].RemoveData();
             navmesh[i] = null;
@@ -294,7 +293,7 @@ public class RoomGenerator : MonoBehaviour
     private void SpawnEntities()
     {
         int entityCount = maxEntities * (levelIndex + 1);
-        for(int i = 0; i < entityCount; i++)
+        for (int i = 0; i < entityCount; i++)
         {
             GridCell cell = GetRandomEntityCell();
             SpawnRandomEntity(cell);
@@ -431,21 +430,6 @@ public class RoomGenerator : MonoBehaviour
     #endregion
 
     #region Population
-    /*
-    void PlaceEntities()
-    {
-        for (int x = 0; x < grid.cells.x; x++)
-        {
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                var cell = grid.grid[x, 0, z];
-                if (cell.hasEntity)
-                    SpawnRandomEntity(cell);
-            }
-        }
-    }
-    */
-
     void SpawnEnvironment(List<RoomMeshGenerator.Edge> edgeVertices)
     {
         for (int i = 0; i < edgeVertices.Count; i++)
@@ -470,6 +454,7 @@ public class RoomGenerator : MonoBehaviour
                     var direction = edgeVertices[i].DirectionAsVector3();
                     var l = SpawnPrefab(light, position, direction);
                     l.transform.SetParent(environment.transform);
+                    wallProps.Add(l);
                 }
             }
             else
@@ -484,10 +469,14 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
-                    position.y += 0.2f;
-                    var direction = edgeVertices[i].DirectionAsVector3();
-                    var p = SpawnPrefab(prop, position, direction);
-                    p.transform.SetParent(environment.transform);
+                    position.y += 0.5f;
+                    if (IsValidPropPosition(position))
+                    {
+                        var direction = edgeVertices[i].DirectionAsVector3();
+                        var p = SpawnPrefab(prop, position, direction);
+                        p.transform.SetParent(environment.transform);
+                        wallProps.Add(p);
+                    }
                 }
             }
         }
@@ -535,7 +524,7 @@ public class RoomGenerator : MonoBehaviour
                 return;
             }
             var position = rooms[roomIndex].centres[centreIndex];
-            position.y += 0.2f;
+            //position.y += 0.5f;
             var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
             GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
@@ -546,10 +535,10 @@ public class RoomGenerator : MonoBehaviour
 
             bool isBeyondThreashold = true;
 
-            if(rooms[roomIndex].centres.Count > 1)
+            if (rooms[roomIndex].centres.Count > 1)
             {
                 int nextIndex = centreIndex + 1;
-                if(nextIndex <= rooms[roomIndex].centres.Count - 1)
+                if (nextIndex <= rooms[roomIndex].centres.Count - 1)
                 {
                     var position2 = rooms[roomIndex].centres[nextIndex];
                     var distanceBetweenCentres = Vector3.Distance(position, position2);
@@ -566,55 +555,23 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    void FlagProps()
+    public bool IsValidPropPosition(Vector3 point)
     {
-        for (int z = 0; z < grid.cells.z; z++)
+        float radius = 3f;
+        bool valid = true;
+        for (int i = 0; i < wallProps.Count; i++)
         {
-            for (int x = 0; x < grid.cells.x; x++)
+            var position = wallProps[i].transform.position;
+            float distance = Vector3.Distance(point, position);
+            if (distance < radius)
             {
-                var cell = grid.grid[x, 0, z];
-                bool isInPrisonCell = CellIsInPrisonCell(cell);
-
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
-                {
-                    bool spawnProp = (Random.Range(0, 10) == 0);
-                    cell.hasProp = spawnProp;
-                }
+                valid = false;
+                break;
             }
         }
+        return valid;
     }
 
-    /*
-    void FlagEntities()
-    {
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var cell = grid.grid[x, 0, z];
-                bool isInStart = CellIsInRoom(cell, 0);
-                bool isInHallway = false;
-                for (int i = 0; i < rooms.Count; i++)
-                {
-                    bool hallwayCheck = CellIsInHallway(cell, rooms[i]);
-                    if (hallwayCheck)
-                    {
-                        isInHallway = true;
-                        break;
-                    }
-                }
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart && !isInHallway)
-                {
-                    if (!cell.hasProp)
-                    {
-                        bool spawnEntity = (Random.Range(0, entitySpawnRate) == 0);
-                        grid.grid[x, 0, z].hasEntity = spawnEntity;
-                    }
-                }
-            }
-        }
-    }
-    */
     #endregion
 
     #region Proc gen

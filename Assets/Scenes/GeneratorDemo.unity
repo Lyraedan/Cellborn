@@ -626,11 +626,11 @@ MonoBehaviour:
   - prefab: {fileID: 4834119464799054825, guid: 744ebd0e7b4de564fb2246f2b37b81fe, type: 3}
     type: 3
   - prefab: {fileID: 4834119464799054825, guid: fcff23c0aef5d214b9d2f5eefb39d0e1, type: 3}
-    type: 2
+    type: 9
   - prefab: {fileID: 4834119464799054825, guid: 0bb63471659b2474fa531b52ed29ab67, type: 3}
-    type: 2
+    type: 9
   - prefab: {fileID: 4834119464799054825, guid: ae86bd610f5436a4cb9bdb28383bdaf1, type: 3}
-    type: 2
+    type: 9
   navAgent: {fileID: 1226544331}
   targetAim: {fileID: 915354250}
   enableCulling: 1
@@ -641,6 +641,7 @@ MonoBehaviour:
   floorMesh: {fileID: 269149475}
   wallMesh: {fileID: 2089827450}
   roofMesh: {fileID: 416463875}
+  wallProps: []
 --- !u!4 &1226544329
 Transform:
   m_ObjectHideFlags: 0
