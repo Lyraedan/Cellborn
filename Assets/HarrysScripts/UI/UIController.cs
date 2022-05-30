@@ -28,16 +28,15 @@ public class UIController : MonoBehaviour
     [Header("Minimap")]
     public Image minimapBG;
 
-    public PostProcessProfile profile;
-    private ColorGrading _colorGrading;
+    public Camera UICamera;
 
     void Start()
     {
-        canvas.worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        UICamera = GameObject.FindWithTag("UICamera").GetComponent<Camera>();
+        
+        canvas.worldCamera = UICamera;
         canvas.planeDistance = 1f;
-
-        profile.TryGetSettings(out _colorGrading);
-        _colorGrading.active = true;
+        UICamera.enabled = true;
         
         Minimap.instance.OnMapGenerated += () =>
         {
