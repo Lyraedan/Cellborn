@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 3133881212142249392}
   - component: {fileID: -5423867540878650890}
   - component: {fileID: 3507284713019920814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P_BoxRifle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -344,9 +344,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -459,6 +467,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7639862954396452221, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5922622823359544968, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -5391367280849408158, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -467,6 +483,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 971b8c0cebf64a748954dd6988391ed9, type: 2}
+    - target: {fileID: -3913916400222787055, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -2800664718630319111, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -2679062349769898614, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -475,6 +499,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 971b8c0cebf64a748954dd6988391ed9, type: 2}
+    - target: {fileID: -1827928219432720515, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 236216658851537685, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -482,6 +510,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Name
       value: SM_BoxRifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214824004972775095, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375504265854871215, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764286731206244474, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3090425660323890121, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -499,10 +543,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 971b8c0cebf64a748954dd6988391ed9, type: 2}
+    - target: {fileID: 6557034908828988136, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619225641134156614, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7021475828731712600, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 971b8c0cebf64a748954dd6988391ed9, type: 2}
+    - target: {fileID: 8612017821129614109, guid: 254395e757509a54786820d543373676, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8837069292011704676, guid: 254395e757509a54786820d543373676, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -600,9 +656,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -671,9 +735,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6504369968633767317}
     m_Modifications:
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
