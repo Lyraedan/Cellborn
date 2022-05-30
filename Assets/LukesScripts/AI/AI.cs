@@ -149,7 +149,7 @@ namespace LukesScripts.AI
         public void Die()
         {
             int dropChance = UnityEngine.Random.Range(0, 100);
-            if (dropChance >= 50)
+            if (dropChance >= WeaponBag.instance.dropChance)
             {
                 int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
                 var position = transform.position;
@@ -159,6 +159,11 @@ namespace LukesScripts.AI
                 {
                     WeaponBag.instance.RefillBag();
                 }
+                WeaponBag.instance.dropChance = 75;
+            }
+            else
+            {
+                WeaponBag.instance.dropChance = WeaponBag.instance.dropChance - 25;
             }
             audioSource.clip = deathSound;
             audioSource.Play();
