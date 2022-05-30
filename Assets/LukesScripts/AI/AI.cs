@@ -148,13 +148,17 @@ namespace LukesScripts.AI
 
         public void Die()
         {
-            int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
-            var position = transform.position;
-            GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
-            WeaponBag.instance.weaponBag.RemoveAt(selected);
-            if (WeaponBag.instance.weaponBag.Count == 0)
+            int dropChance = UnityEngine.Random.Range(0, 100);
+            if (dropChance >= 50)
             {
-                WeaponBag.instance.RefillBag();
+                int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
+                var position = transform.position;
+                GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
+                WeaponBag.instance.weaponBag.RemoveAt(selected);
+                if (WeaponBag.instance.weaponBag.Count == 0)
+                {
+                    WeaponBag.instance.RefillBag();
+                }
             }
             audioSource.clip = deathSound;
             audioSource.Play();
