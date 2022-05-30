@@ -6,7 +6,9 @@ public class FairyMagic : ProjectileBehaviour
 {
     public GameObject destroyEffect;
     PlayerStats player;
-    public bool canDamage = true;
+    public bool canDamage = false;
+    public float noDamageTime;
+    float damageTimer;
     
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,12 @@ public class FairyMagic : ProjectileBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        damageTimer += 1f * Time.deltaTime;
+
+        if (damageTimer >= noDamageTime)
+        {
+            canDamage = true;
+        }
     }
 
     public void HitPlayer()
@@ -39,10 +46,13 @@ public class FairyMagic : ProjectileBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            EnemyScript enemyScript = other.gameObject.GetComponent<EnemyScript>();
-            enemyScript.currentHP = enemyScript.currentHP - enemyDamage;
-            Instantiate(destroyEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
+            if (canDamage)
+            {
+                EnemyScript enemyScript = other.gameObject.GetComponent<EnemyScript>();
+                enemyScript.currentHP = enemyScript.currentHP - enemyDamage;
+                Instantiate(destroyEffect, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
         }
     }
     

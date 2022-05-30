@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 1867565309709391947}
   - component: {fileID: 3203029387994796823}
   - component: {fileID: 2265641431843061886}
+  - component: {fileID: 268861067100712352}
   m_Layer: 0
   m_Name: P_Deagle
   m_TagString: Weapon
@@ -327,6 +328,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
+--- !u!114 &268861067100712352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482680456321717923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 1482680456321717923}
+  Height: 0.05
 --- !u!1001 &478103236944160031
 PrefabInstance:
   m_ObjectHideFlags: 0
