@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: 5078670398076128874}
   - component: {fileID: 3890010452486171927}
   - component: {fileID: -322100684038176924}
-  - component: {fileID: -545997510862277077}
   - component: {fileID: 7994266616468080541}
   - component: {fileID: 6471435603928493670}
+  - component: {fileID: -2887118509862197024}
   m_Layer: 0
   m_Name: P_automaticshotgun
   m_TagString: Weapon
@@ -286,22 +286,6 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
---- !u!114 &-545997510862277077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2179520291715292898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -57143145, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: 9524108af9c5f2e468c27a31c5205760, type: 2}
 --- !u!114 &7994266616468080541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +313,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
+--- !u!54 &-2887118509862197024
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2179520291715292898}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &334944090156264485
 PrefabInstance:
   m_ObjectHideFlags: 0
