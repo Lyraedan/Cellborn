@@ -539,7 +539,7 @@ MonoBehaviour:
   grid: {fileID: 1226544330}
   seed: 0
   levelIndex: 0
-  numberOfLevels: 3
+  numberOfLevels: 4
   levels: 
   minDungeonSize: {x: 35, y: 35}
   maxDungeonSize: {x: 110, y: 110}
@@ -562,6 +562,7 @@ MonoBehaviour:
   wizard: {fileID: 8073571031068658479, guid: de957fe8e364779489160a2888d7942c, type: 3}
   teleporter: {fileID: 7201320962568937327, guid: c6e71df9492b3cd4aa0a90d925f019aa, type: 3}
   prisonCell: {fileID: 732313142836911903, guid: dc73bb5f6e3c0b142ac62fde331d44e6, type: 3}
+  bossRoom: {fileID: 5512484837785373214, guid: c718d04d22e6d714ba269a417ca734d8, type: 3}
   prefabs:
   - prefab: {fileID: 55881995776343736, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
     type: 8
@@ -651,7 +652,6 @@ MonoBehaviour:
   floorMesh: {fileID: 269149475}
   wallMesh: {fileID: 2089827450}
   roofMesh: {fileID: 416463875}
-  wallProps: []
 --- !u!4 &1226544329
 Transform:
   m_ObjectHideFlags: 0

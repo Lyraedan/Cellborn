@@ -51,6 +51,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject prisonCell;
     private GameObject spawnCell;
     private GameObject levelTeleporter;
+    [SerializeField] private GameObject bossRoom;
 
     private Room start, end;
 
@@ -109,6 +110,26 @@ public class RoomGenerator : MonoBehaviour
 
     void Generate(int seed)
     {
+        if(levelIndex == numberOfLevels - 1)
+        {
+            // Spawn boss room
+            var arena = Instantiate(bossRoom, Vector3.zero, Quaternion.identity);
+            var playerSpawn = arena.transform.Find("PlayerSpawn");
+            var wizardSpawn = arena.transform.Find("BossSpawn");
+
+            // Move player
+            playerController.TeleportPlayer(playerSpawn.position);
+
+            //Spawn wizard
+            var finalWizard = Instantiate(wizard, wizardSpawn.position, Quaternion.identity);
+            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
+
+            grid.Reset();
+            grid.Bake();
+            SetupArena();
+            Debug.Log("Generated arena");
+            return;
+        }
         Random.InitState(seed);
         Debug.Log("Generating dungeon with seed: " + seed);
         //generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
@@ -198,6 +219,17 @@ public class RoomGenerator : MonoBehaviour
         }
 
         StartCoroutine(AwaitAssignables());
+    }
+
+    void SetupArena()
+    {
+        // Delete dungeon
+        Destroy(floorMesh.gameObject);
+        Destroy(wallMesh.gameObject);
+        Destroy(roofMesh.gameObject);
+        Destroy(environment);
+
+
     }
 
     void ClearDungeon()

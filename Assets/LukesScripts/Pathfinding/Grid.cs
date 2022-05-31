@@ -79,6 +79,20 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        for (int x = 0; x < cells.x; x++)
+        {
+            for (int y = 0; y < cells.y; y++)
+            {
+                for (int z = 0; z < cells.z; z++)
+                {
+                    grid[x, y, z].flag = GridCell.GridFlag.WALKABLE;
+                }
+            }
+        }
+    }
+
     public GridRay RayCastX(int colum, int startx, int endx, GridCell.GridFlag flag, bool inverse = false)
     {
         GridRay ray = new GridRay();
