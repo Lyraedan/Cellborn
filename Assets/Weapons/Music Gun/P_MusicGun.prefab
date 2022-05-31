@@ -313,6 +313,7 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: beb4c9b88d1945d45bb1ed30b917f09d, type: 3}
   AccuracyRange: 0
   accuracy: 0
+  discoCooldown: 0.5
 --- !u!114 &8602138632772569531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +329,7 @@ MonoBehaviour:
   discoLights: {fileID: 0}
   source: {fileID: 945874588689647132}
   song: {fileID: 8300000, guid: 22831aebe106762458cb41a823d314d1, type: 3}
+  hasCooledDown: 0
 --- !u!114 &8312521369559068552
 MonoBehaviour:
   m_ObjectHideFlags: 0

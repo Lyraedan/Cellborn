@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class MusicGunMusicControl : MonoBehaviour
 {
+    public static MusicGunMusicControl instance;
+    
     public GameObject discoLights;
 
     public AudioSource source;
     public AudioClip song;
 
     private bool playing = false;
+    public bool hasCooledDown;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
 
     private void Start()
     {
@@ -53,6 +64,12 @@ public class MusicGunMusicControl : MonoBehaviour
         }
 
         if (WeaponManager.instance.currentWeapon.currentAmmo <= 0)
+        {
+            StopMusic();
+            return;
+        }
+
+        if (!hasCooledDown)
         {
             StopMusic();
             return;

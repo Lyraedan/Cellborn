@@ -8,24 +8,51 @@ public class WeaponMusicGun : WeaponBase
     public float accuracy;
     System.Random random = new System.Random();
 
+    public float discoCooldown;
+    float cdTimer;
+    bool hasCooledDown;
+
     public override void Init()
     {
-        
+        hasCooledDown = true;
     }
 
     public override void Tick()
     {
+        MusicGunMusicControl.instance.hasCooledDown = hasCooledDown;
+        
         if (Input.GetButton("Fire1"))
         {
-            if (secondsBetweenShots >= 0.06f)
+            if (hasCooledDown)
             {
-                secondsBetweenShots = secondsBetweenShots - 0.0001f;
+                if (secondsBetweenShots >= 0.06f)
+                {
+                    secondsBetweenShots = secondsBetweenShots - 0.0001f;
+                }
             }
         }
         else
         {
-            secondsBetweenShots = 0.2f;
+            secondsBetweenShots = 1000f;
+            cdTimer = 0f;
+
+            if (hasCooledDown)
+            {
+                hasCooledDown = false;
+            }
         }
+
+        if (!hasCooledDown)
+            {
+                cdTimer += 1f * Time.deltaTime;
+
+                if (cdTimer >= discoCooldown)
+                {
+                    hasCooledDown = true;
+                    cdTimer = 0f;
+                    secondsBetweenShots = 0.2f;
+                }
+            }
     }
 
     public override void Fire()
