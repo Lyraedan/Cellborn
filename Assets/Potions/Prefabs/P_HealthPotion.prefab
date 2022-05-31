@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8138490526469769510}
   - component: {fileID: 2360146643880078822}
   - component: {fileID: -4451180552139479541}
-  - component: {fileID: 7360759319157097370}
+  - component: {fileID: 2444367727267130252}
   m_Layer: 9
   m_Name: P_HealthPotion
   m_TagString: Potion
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
---- !u!114 &7360759319157097370
+--- !u!114 &2444367727267130252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,11 +253,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4489515831532256452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e86875c4187defd4d946c73d655896f9, type: 3}
+  m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potion: {fileID: 4489515831532256452}
-  Height: 0.03
+  height: 0.1
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0

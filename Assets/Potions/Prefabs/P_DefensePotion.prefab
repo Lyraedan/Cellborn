@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8827574758078251915}
   - component: {fileID: -5110079443651043071}
   - component: {fileID: -8165192486011755154}
-  - component: {fileID: 2075933472076451813}
+  - component: {fileID: 3364528298998894840}
   m_Layer: 9
   m_Name: P_DefensePotion
   m_TagString: Potion
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
---- !u!114 &2075933472076451813
+--- !u!114 &3364528298998894840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,11 +255,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4489515831532256452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e86875c4187defd4d946c73d655896f9, type: 3}
+  m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potion: {fileID: 4489515831532256452}
-  Height: 0.03
+  height: 0.1
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0
