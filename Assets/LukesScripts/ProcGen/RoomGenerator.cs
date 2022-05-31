@@ -178,6 +178,7 @@ public class RoomGenerator : MonoBehaviour
         }
 
         BakeNavmesh();
+        wallProps.Clear();
         SpawnEnvironment(floorMesh.edgeVertices);
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
@@ -557,6 +558,9 @@ public class RoomGenerator : MonoBehaviour
 
     public bool IsValidPropPosition(Vector3 point)
     {
+        if (wallProps.Count == 0)
+            return true;
+
         float radius = 3f;
         bool valid = true;
         for (int i = 0; i < wallProps.Count; i++)
