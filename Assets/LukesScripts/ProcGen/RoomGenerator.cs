@@ -78,10 +78,11 @@ public class RoomGenerator : MonoBehaviour
 
     public int entitySpawnRate = 20;
 
-    public NavMeshSurface[] navmesh;
+    public List<NavMeshSurface> navmesh = new List<NavMeshSurface>();
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
-    [SerializeField] private List<GameObject> wallProps = new List<GameObject>();
+    private List<GameObject> wallProps = new List<GameObject>();
+    private List<RoomMeshGenerator.Edge> floorCorners = new List<RoomMeshGenerator.Edge>();
 
     private void Awake()
     {
@@ -153,8 +154,7 @@ public class RoomGenerator : MonoBehaviour
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
 
-        navmesh = new NavMeshSurface[1];
-        navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
+        navmesh.Add(floorMesh.gameObject.GetComponent<NavMeshSurface>());
 
         Vector3 startCoords = PositionAsGridCoordinates(start.centres[0]);
         GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
@@ -178,7 +178,10 @@ public class RoomGenerator : MonoBehaviour
         }
 
         BakeNavmesh();
+        floorCorners.Clear();
         wallProps.Clear();
+        floorCorners = GetCorners();
+        Debug.Log($"Got {floorCorners.Count} corners!");
         SpawnEnvironment(floorMesh.edgeVertices);
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
@@ -252,11 +255,12 @@ public class RoomGenerator : MonoBehaviour
         rooms.Clear();
 
         // Clear navmesh
-        for (int i = 0; i < navmesh.Length; i++)
+        for (int i = 0; i < navmesh.Count; i++)
         {
             navmesh[i].RemoveData();
-            navmesh[i] = null;
         }
+        Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
+        navmesh.Clear();
         Generate(levels[levelIndex]);
     }
 
@@ -347,6 +351,28 @@ public class RoomGenerator : MonoBehaviour
         spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
         spawned.transform.SetParent(roomParent);
         return spawned;
+    }
+
+    /// <summary>
+    /// Grab all the corners of the mesh - wip
+    /// </summary>
+    /// <returns></returns>
+    public List<RoomMeshGenerator.Edge> GetCorners()
+    {
+        List<RoomMeshGenerator.Edge> corners = new List<RoomMeshGenerator.Edge>();
+        var edges = floorMesh.edgeVertices;
+        for (int i = 1; i < edges.Count - 1; i++)
+        {
+            var prev = edges[i - 1];
+            var current = edges[i];
+            var next = edges[i + 1];
+
+            if (current.x == next.x - 1 && current.z == prev.z + 1)
+            {
+                corners.Add(current);
+            }
+        }
+        return corners;
     }
 
     #region Prefab Grabbers
@@ -1032,6 +1058,13 @@ public class RoomGenerator : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
+        }
+        foreach (RoomMeshGenerator.Edge corner in floorCorners)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(corner.origin, corner.origin + (Vector3.up / 2));
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(corner.origin + (Vector3.one / 2), 0.1f);
         }
     }
 #endif

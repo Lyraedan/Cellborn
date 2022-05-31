@@ -327,7 +327,8 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = currentlyHeldWeapons[index];
 
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
-        
+        drop.tag = "Weapon";
+
         //Turn on Ring
         if (drop.GetComponent<WeaponProperties>().colour == Color.red)
         {
