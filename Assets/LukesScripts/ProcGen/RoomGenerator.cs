@@ -25,6 +25,7 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("This gets updated at runtime")] public Vector3 generatedDungeonSize = Vector3.zero;
     public int maxRoomLimit = 10;
     public int maxEntities = 10;
+    public int maxLitter = 100;
 
     [Header("Environmental rates")]
     [Tooltip("What are the chances of spawning a light if a light is chosen to be spawned? 1 in x")]
@@ -228,6 +229,7 @@ public class RoomGenerator : MonoBehaviour
         floorCorners = GetCorners();
         Debug.Log($"Got {floorCorners.Count} corners!");
         SpawnEnvironment(floorMesh.edgeVertices);
+        SpawnLitter();
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
         GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
@@ -379,6 +381,17 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
+    public void SpawnLitter()
+    {
+        for(int i = 0; i < maxLitter; i++)
+        {
+            GridCell cell = GetRandomLitterCell();
+            var litter = SpawnRandomLitter(cell);
+            if (litter == null)
+                break;
+        }
+    }
+
     GridCell GetRandomEntityCell()
     {
         Vector3 position = GetRandomPointOnNavmesh();
@@ -402,6 +415,17 @@ public class RoomGenerator : MonoBehaviour
             return cell;
         else // Lol this is bad
             return GetRandomEntityCell();
+    }
+
+    GridCell GetRandomLitterCell()
+    {
+        Vector3 position = GetRandomPointOnNavmesh();
+        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
+        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.WALL);
+        if (isValidTile)
+            return cell;
+        else
+            return GetRandomLitterCell();
     }
 
     private Vector3 GetRandomPointOnNavmesh()
@@ -510,6 +534,19 @@ public class RoomGenerator : MonoBehaviour
         var pos = cell.position;
         //pos.y += 0.5f;
         return entities[index].Spawn(pos, Vector3.zero);
+    }
+
+    public GameObject SpawnRandomLitter(GridCell cell)
+    {
+        var litter = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.LITTER)).ToList();
+        if(litter.Count == 0)
+        {
+            return null;
+        }
+        int index = Random.Range(0, litter.Count);
+        var pos = cell.position;
+        //pos.y += 0.5f;
+        return litter[index].Spawn(pos, Vector3.zero);
     }
 
     public GameObject SpawnPlayer(GridCell cell)
