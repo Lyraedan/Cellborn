@@ -547,12 +547,13 @@ MonoBehaviour:
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 0
   maxEntities: 10
-  wallLightChance: 10
-  lightOrPropChance: {x: 0, y: 1}
+  wallLightChance: 1
+  lightOrPropChance: {x: 0, y: 10}
   wallPropRate: {x: 5, y: 5}
   centrePropRate: {x: 1, y: 1}
+  wallDecorRate: {x: 0, y: 2}
   startEndSafeZoneThreashold: 20
-  centreSafeZoneThreashold: 5
+  centreSafeZoneThreashold: 0
   rooms: []
   floorPrefab: {fileID: 1388156948635569762, guid: 0756b06ea7016f048a8b65752d750e98, type: 3}
   wallPrefab: {fileID: 8393986084579273156, guid: e579237075886b84d821bb9b5297218f, type: 3}
