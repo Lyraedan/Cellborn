@@ -39,6 +39,9 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("What are the rate ranges for spawning the centre props? 1 in x")]
     public Vector2 centrePropRate = new Vector2(30, 50);
 
+    [Tooltip("What are the rate ranges for spawning wall decoration as opposed to wall prop groups? 1 in x")]
+    public Vector2 wallDecorRate = new Vector2(0, 2);
+
     public float startEndSafeZoneThreashold = 20f;
     public float centreSafeZoneThreashold = 5f;
 
@@ -110,7 +113,8 @@ public class RoomGenerator : MonoBehaviour
 
     void Generate(int seed)
     {
-        if(levelIndex == numberOfLevels - 1)
+        Debug.Log("Loading level: " + levelIndex);
+        if (levelIndex == numberOfLevels - 1)
         {
             // Spawn boss room
             var arena = Instantiate(bossRoom, Vector3.zero, Quaternion.identity);
@@ -181,7 +185,6 @@ public class RoomGenerator : MonoBehaviour
         GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
 
         //PlaceProps();
-        Debug.Log("Loading level: " + levelIndex);
         if (levelIndex == 0)
         {
             player = SpawnPlayer(startPoint);
@@ -428,14 +431,27 @@ public class RoomGenerator : MonoBehaviour
         return prop[index].prefab;
     }
 
-    public GameObject GetRandomProp()
+    public object[] GetRandomProp()
     {
-        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_PROP)).ToList();
-        if (prop.Count <= 0)
-            return null;
+        bool placeDecor = (int)Random.Range(wallDecorRate.x, wallDecorRate.y) == 0;
 
-        int index = Random.Range(0, prop.Count);
-        return prop[index].prefab;
+        if (!placeDecor)
+        {
+            var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_PROP)).ToList();
+            if (prop.Count <= 0)
+                return null;
+
+            int index = Random.Range(0, prop.Count);
+            return new object[] { 0, prop[index].prefab };
+        } else
+        {
+            var decor = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_DECOR)).ToList();
+            if (decor.Count <= 0)
+                return null;
+
+            int index = Random.Range(0, decor.Count);
+            return new object[] { 1, decor[index].prefab };
+        }
     }
 
     public GameObject GetRandomCentreProp()
@@ -528,11 +544,17 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
-                    position.y += 0.5f;
+                    if ((int) prop[0] == 0)
+                    {
+                        position.y += 0.5f;
+                    } else if((int) prop[0] == 1)
+                    {
+                        position.y += (wallMesh.wallHeight / 2) + 0.5f;
+                    }
                     if (IsValidPropPosition(position))
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
-                        var p = SpawnPrefab(prop, position, direction);
+                        var p = SpawnPrefab((GameObject) prop[1], position, direction);
                         p.transform.SetParent(environment.transform);
                         wallProps.Add(p);
                     }
