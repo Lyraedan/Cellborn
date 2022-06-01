@@ -117,18 +117,39 @@ public class RoomGenerator : MonoBehaviour
         if (levelIndex == numberOfLevels - 1)
         {
             // Spawn boss room
-            var arena = Instantiate(bossRoom, Vector3.zero, Quaternion.identity);
-            var playerSpawn = arena.transform.Find("PlayerSpawn");
-            var wizardSpawn = arena.transform.Find("BossSpawn");
+            var arenaPos = new Vector3(generatedDungeonSize.x / 2, -0.5f, generatedDungeonSize.z / 2);
+            var arena = Instantiate(bossRoom, arenaPos, Quaternion.identity).GetComponent<Arena>();
 
             // Move player
-            playerController.TeleportPlayer(playerSpawn.position);
+            playerController.TeleportPlayer(arena.playerSpawn.position);
 
             //Spawn wizard
-            var finalWizard = Instantiate(wizard, wizardSpawn.position, Quaternion.identity);
+            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
             var finalWizardAI = finalWizard.GetComponent<AIWizard>();
 
-            grid.Reset();
+            // Remove prev navmesh
+            for (int i = 0; i < navmesh.Count; i++)
+            {
+                navmesh[i].RemoveData();
+            }
+            Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
+            navmesh.Clear();
+
+            // Add arena navmesh
+            navmesh.Add(arena.navmesh);
+            BakeNavmesh();
+
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                for(int x = 0; x < grid.cells.x; x++)
+                {
+                    var current = grid.grid[x, 0, z];
+                    current.flag = GridCell.GridFlag.WALKABLE;
+                }
+            }
+
+            Minimap.instance.GenerateMinimap(grid);
+
             grid.Bake();
             SetupArena();
             Debug.Log("Generated arena");
@@ -232,7 +253,23 @@ public class RoomGenerator : MonoBehaviour
         Destroy(roofMesh.gameObject);
         Destroy(environment);
 
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                    if (isWall)
+                        current.flag = GridCell.GridFlag.WALL;
+                    else
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                }
+            }
+        }
 
+        Minimap.instance.GenerateMinimap(grid);
     }
 
     void ClearDungeon()
@@ -240,6 +277,8 @@ public class RoomGenerator : MonoBehaviour
         DeleteAllObjectsWithTag("Weapon");
         DeleteAllObjectsWithTag("Prop");
         DeleteAllObjectsWithTag("Enemy");
+        DeleteAllObjectsWithTag("EnemyProjectile");
+        DeleteAllObjectsWithTag("Projectile");
         // Reset grid
         for (int z = 0; z < grid.cells.z; z++)
         {
