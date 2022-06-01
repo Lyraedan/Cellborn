@@ -17,10 +17,10 @@ GameObject:
   - component: {fileID: -3347254792252385418}
   - component: {fileID: 5888547535445500621}
   - component: {fileID: 4295134143045911642}
-  - component: {fileID: -2116230494682089170}
   - component: {fileID: 15517645202138542}
   - component: {fileID: 3268241336457269891}
-  m_Layer: 0
+  - component: {fileID: 2682665247097846966}
+  m_Layer: 9
   m_Name: P_NEW_GrapplingCrossbow
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -255,22 +255,6 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
---- !u!114 &-2116230494682089170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5099940127662423832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -57143145, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: 9524108af9c5f2e468c27a31c5205760, type: 2}
 --- !u!114 &15517645202138542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +281,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 5099940127662423832}
-  Height: 0.05
+  Height: 0.03
+--- !u!54 &2682665247097846966
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099940127662423832}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &2255591014799840088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,9 +329,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -452,10 +460,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: -7870848654300659484, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671859662222377032, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5338850383965703389, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -5195634026606945810, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: -5161589289235357263, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4318356988614431546, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3811897083987879047, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -3800378311871163899, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -464,14 +496,42 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: -2488985550032963843, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Name
       value: GrapplingCrossbow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070442692109966647, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178008447587384801, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454639336064628107, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788445760253106101, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2633414733251221458, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: 3874716406467642702, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4566648614187500854, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -480,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: 5850351765752512529, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6066229466627591464, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -504,6 +568,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2e640c5ee33693643a570ec080bba70d, type: 2}
+    - target: {fileID: 9041715808491878035, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f1a49b87178a52468b8180889eec6d4, type: 3}
 --- !u!4 &3448487448100637475 stripped
@@ -526,9 +594,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -597,9 +673,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2540295702269459575}
     m_Modifications:
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive

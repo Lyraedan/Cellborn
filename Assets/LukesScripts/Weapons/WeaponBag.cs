@@ -7,6 +7,8 @@ using System.Linq;
 public class WeaponBag : MonoBehaviour
 {
     public static WeaponBag instance;
+    public int dropChance;
+
     void Awake()
     {
         if (instance == null)

@@ -108,6 +108,20 @@ public class Minimap : MonoBehaviour
         }
     }
 
+    public void ClearMinimap(Grid grid)
+    {
+        int width = (int)grid.cells.x;
+        int height = (int)grid.cells.z;
+
+        for (int y = 0; y < height; y++)
+        {
+            for(int x = 0; x < width; x++)
+            {
+                texture.SetPixel(x, y, new Color(0, 0, 0, 0));
+            }
+        }
+    }
+
     public void GenerateMinimap(Grid grid)
     {
         int width = (int) grid.cells.x;

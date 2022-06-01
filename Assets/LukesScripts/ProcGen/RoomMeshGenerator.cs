@@ -78,6 +78,14 @@ public class RoomMeshGenerator : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
 
+    public bool ReadWriteEnabled
+    {
+        get
+        {
+            return mesh.isReadable;
+        }
+    }
+
     public bool showVertices = false;
     public bool showEdges = false;
     public bool showEdgeDirection = false;

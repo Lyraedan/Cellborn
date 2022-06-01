@@ -39,6 +39,9 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("What are the rate ranges for spawning the centre props? 1 in x")]
     public Vector2 centrePropRate = new Vector2(30, 50);
 
+    [Tooltip("What are the rate ranges for spawning wall decoration as opposed to wall prop groups? 1 in x")]
+    public Vector2 wallDecorRate = new Vector2(0, 2);
+
     public float startEndSafeZoneThreashold = 20f;
     public float centreSafeZoneThreashold = 5f;
 
@@ -51,6 +54,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject prisonCell;
     private GameObject spawnCell;
     private GameObject levelTeleporter;
+    [SerializeField] private GameObject bossRoom;
 
     private Room start, end;
 
@@ -78,8 +82,11 @@ public class RoomGenerator : MonoBehaviour
 
     public int entitySpawnRate = 20;
 
-    public NavMeshSurface[] navmesh;
+    public List<NavMeshSurface> navmesh = new List<NavMeshSurface>();
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
+
+    private List<GameObject> wallProps = new List<GameObject>();
+    private List<RoomMeshGenerator.Edge> floorCorners = new List<RoomMeshGenerator.Edge>();
 
     private void Awake()
     {
@@ -106,6 +113,48 @@ public class RoomGenerator : MonoBehaviour
 
     void Generate(int seed)
     {
+        Debug.Log("Loading level: " + levelIndex);
+        if (levelIndex == numberOfLevels - 1)
+        {
+            // Spawn boss room
+            var arenaPos = new Vector3(generatedDungeonSize.x / 2, -0.5f, generatedDungeonSize.z / 2);
+            var arena = Instantiate(bossRoom, arenaPos, Quaternion.identity).GetComponent<Arena>();
+
+            // Move player
+            playerController.TeleportPlayer(arena.playerSpawn.position);
+
+            //Spawn wizard
+            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
+            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
+
+            // Remove prev navmesh
+            for (int i = 0; i < navmesh.Count; i++)
+            {
+                navmesh[i].RemoveData();
+            }
+            Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
+            navmesh.Clear();
+
+            // Add arena navmesh
+            navmesh.Add(arena.navmesh);
+            BakeNavmesh();
+
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                for(int x = 0; x < grid.cells.x; x++)
+                {
+                    var current = grid.grid[x, 0, z];
+                    current.flag = GridCell.GridFlag.WALKABLE;
+                }
+            }
+
+            Minimap.instance.GenerateMinimap(grid);
+
+            grid.Bake();
+            SetupArena();
+            Debug.Log("Generated arena");
+            return;
+        }
         Random.InitState(seed);
         Debug.Log("Generating dungeon with seed: " + seed);
         //generatedDungeonSize = GenerateRandomVector((int)minDungeonSize.x, 0, (int)minDungeonSize.y, (int)maxDungeonSize.x, 1, (int)maxDungeonSize.y);
@@ -137,9 +186,6 @@ public class RoomGenerator : MonoBehaviour
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
-        //FlagProps();
-        //FlagEntities();
-
         Destroy(floorMesh.gameObject);
         Destroy(wallMesh.gameObject);
         Destroy(roofMesh.gameObject);
@@ -153,16 +199,13 @@ public class RoomGenerator : MonoBehaviour
         floorMesh.GenerateFloor(grid);
         wallMesh.GenerateWalls(floorMesh);
         roofMesh.GenerateCeiling(floorMesh);
-        SpawnEnvironment(floorMesh.edgeVertices);
 
-        navmesh = new NavMeshSurface[1];
-        navmesh[0] = floorMesh.gameObject.GetComponent<NavMeshSurface>();
+        navmesh.Add(floorMesh.gameObject.GetComponent<NavMeshSurface>());
 
         Vector3 startCoords = PositionAsGridCoordinates(start.centres[0]);
         GridCell startPoint = navAgent.GetGridCellAt((int)startCoords.x, (int)startCoords.y, (int)startCoords.z);
 
         //PlaceProps();
-        Debug.Log("Loading level: " + levelIndex);
         if (levelIndex == 0)
         {
             player = SpawnPlayer(startPoint);
@@ -180,6 +223,11 @@ public class RoomGenerator : MonoBehaviour
         }
 
         BakeNavmesh();
+        floorCorners.Clear();
+        wallProps.Clear();
+        floorCorners = GetCorners();
+        Debug.Log($"Got {floorCorners.Count} corners!");
+        SpawnEnvironment(floorMesh.edgeVertices);
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
         GridCell endPoint = navAgent.GetGridCellAt((int)endCords.x, (int)endCords.y, (int)endCords.z);
@@ -197,11 +245,40 @@ public class RoomGenerator : MonoBehaviour
         StartCoroutine(AwaitAssignables());
     }
 
+    void SetupArena()
+    {
+        // Delete dungeon
+        Destroy(floorMesh.gameObject);
+        Destroy(wallMesh.gameObject);
+        Destroy(roofMesh.gameObject);
+        Destroy(environment);
+
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                    if (isWall)
+                        current.flag = GridCell.GridFlag.WALL;
+                    else
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                }
+            }
+        }
+
+        Minimap.instance.GenerateMinimap(grid);
+    }
+
     void ClearDungeon()
     {
         DeleteAllObjectsWithTag("Weapon");
         DeleteAllObjectsWithTag("Prop");
         DeleteAllObjectsWithTag("Enemy");
+        DeleteAllObjectsWithTag("EnemyProjectile");
+        DeleteAllObjectsWithTag("Projectile");
         // Reset grid
         for (int z = 0; z < grid.cells.z; z++)
         {
@@ -252,11 +329,12 @@ public class RoomGenerator : MonoBehaviour
         rooms.Clear();
 
         // Clear navmesh
-        for(int i = 0; i < navmesh.Length; i++)
+        for (int i = 0; i < navmesh.Count; i++)
         {
             navmesh[i].RemoveData();
-            navmesh[i] = null;
         }
+        Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
+        navmesh.Clear();
         Generate(levels[levelIndex]);
     }
 
@@ -294,7 +372,7 @@ public class RoomGenerator : MonoBehaviour
     private void SpawnEntities()
     {
         int entityCount = maxEntities * (levelIndex + 1);
-        for(int i = 0; i < entityCount; i++)
+        for (int i = 0; i < entityCount; i++)
         {
             GridCell cell = GetRandomEntityCell();
             SpawnRandomEntity(cell);
@@ -349,6 +427,28 @@ public class RoomGenerator : MonoBehaviour
         return spawned;
     }
 
+    /// <summary>
+    /// Grab all the corners of the mesh - wip
+    /// </summary>
+    /// <returns></returns>
+    public List<RoomMeshGenerator.Edge> GetCorners()
+    {
+        List<RoomMeshGenerator.Edge> corners = new List<RoomMeshGenerator.Edge>();
+        var edges = floorMesh.edgeVertices;
+        for (int i = 1; i < edges.Count - 1; i++)
+        {
+            var prev = edges[i - 1];
+            var current = edges[i];
+            var next = edges[i + 1];
+
+            if (current.x == next.x - 1 && current.z == prev.z + 1)
+            {
+                corners.Add(current);
+            }
+        }
+        return corners;
+    }
+
     #region Prefab Grabbers
     public GameObject GetRandomLight()
     {
@@ -370,14 +470,27 @@ public class RoomGenerator : MonoBehaviour
         return prop[index].prefab;
     }
 
-    public GameObject GetRandomProp()
+    public object[] GetRandomProp()
     {
-        var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_PROP)).ToList();
-        if (prop.Count <= 0)
-            return null;
+        bool placeDecor = (int)Random.Range(wallDecorRate.x, wallDecorRate.y) == 0;
 
-        int index = Random.Range(0, prop.Count);
-        return prop[index].prefab;
+        if (!placeDecor)
+        {
+            var prop = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_PROP)).ToList();
+            if (prop.Count <= 0)
+                return null;
+
+            int index = Random.Range(0, prop.Count);
+            return new object[] { 0, prop[index].prefab };
+        } else
+        {
+            var decor = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_DECOR)).ToList();
+            if (decor.Count <= 0)
+                return null;
+
+            int index = Random.Range(0, decor.Count);
+            return new object[] { 1, decor[index].prefab };
+        }
     }
 
     public GameObject GetRandomCentreProp()
@@ -431,21 +544,6 @@ public class RoomGenerator : MonoBehaviour
     #endregion
 
     #region Population
-    /*
-    void PlaceEntities()
-    {
-        for (int x = 0; x < grid.cells.x; x++)
-        {
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                var cell = grid.grid[x, 0, z];
-                if (cell.hasEntity)
-                    SpawnRandomEntity(cell);
-            }
-        }
-    }
-    */
-
     void SpawnEnvironment(List<RoomMeshGenerator.Edge> edgeVertices)
     {
         for (int i = 0; i < edgeVertices.Count; i++)
@@ -470,6 +568,7 @@ public class RoomGenerator : MonoBehaviour
                     var direction = edgeVertices[i].DirectionAsVector3();
                     var l = SpawnPrefab(light, position, direction);
                     l.transform.SetParent(environment.transform);
+                    wallProps.Add(l);
                 }
             }
             else
@@ -484,10 +583,20 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
-                    position.y += 0.2f;
-                    var direction = edgeVertices[i].DirectionAsVector3();
-                    var p = SpawnPrefab(prop, position, direction);
-                    p.transform.SetParent(environment.transform);
+                    if ((int) prop[0] == 0)
+                    {
+                        position.y += 0.5f;
+                    } else if((int) prop[0] == 1)
+                    {
+                        position.y += (wallMesh.wallHeight / 2) + 0.5f;
+                    }
+                    if (IsValidPropPosition(position))
+                    {
+                        var direction = edgeVertices[i].DirectionAsVector3();
+                        var p = SpawnPrefab((GameObject) prop[1], position, direction);
+                        p.transform.SetParent(environment.transform);
+                        wallProps.Add(p);
+                    }
                 }
             }
         }
@@ -535,7 +644,7 @@ public class RoomGenerator : MonoBehaviour
                 return;
             }
             var position = rooms[roomIndex].centres[centreIndex];
-            position.y += 0.2f;
+            //position.y += 0.5f;
             var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
             GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
 
@@ -546,10 +655,10 @@ public class RoomGenerator : MonoBehaviour
 
             bool isBeyondThreashold = true;
 
-            if(rooms[roomIndex].centres.Count > 1)
+            if (rooms[roomIndex].centres.Count > 1)
             {
                 int nextIndex = centreIndex + 1;
-                if(nextIndex <= rooms[roomIndex].centres.Count - 1)
+                if (nextIndex <= rooms[roomIndex].centres.Count - 1)
                 {
                     var position2 = rooms[roomIndex].centres[nextIndex];
                     var distanceBetweenCentres = Vector3.Distance(position, position2);
@@ -566,55 +675,26 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    void FlagProps()
+    public bool IsValidPropPosition(Vector3 point)
     {
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var cell = grid.grid[x, 0, z];
-                bool isInPrisonCell = CellIsInPrisonCell(cell);
+        if (wallProps.Count == 0)
+            return true;
 
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInPrisonCell)
-                {
-                    bool spawnProp = (Random.Range(0, 10) == 0);
-                    cell.hasProp = spawnProp;
-                }
+        float radius = 3f;
+        bool valid = true;
+        for (int i = 0; i < wallProps.Count; i++)
+        {
+            var position = wallProps[i].transform.position;
+            float distance = Vector3.Distance(point, position);
+            if (distance < radius)
+            {
+                valid = false;
+                break;
             }
         }
+        return valid;
     }
 
-    /*
-    void FlagEntities()
-    {
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var cell = grid.grid[x, 0, z];
-                bool isInStart = CellIsInRoom(cell, 0);
-                bool isInHallway = false;
-                for (int i = 0; i < rooms.Count; i++)
-                {
-                    bool hallwayCheck = CellIsInHallway(cell, rooms[i]);
-                    if (hallwayCheck)
-                    {
-                        isInHallway = true;
-                        break;
-                    }
-                }
-                if (cell.flag.Equals(GridCell.GridFlag.OCCUPIED) && !isInStart && !isInHallway)
-                {
-                    if (!cell.hasProp)
-                    {
-                        bool spawnEntity = (Random.Range(0, entitySpawnRate) == 0);
-                        grid.grid[x, 0, z].hasEntity = spawnEntity;
-                    }
-                }
-            }
-        }
-    }
-    */
     #endregion
 
     #region Proc gen
@@ -1071,6 +1151,13 @@ public class RoomGenerator : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
+        }
+        foreach (RoomMeshGenerator.Edge corner in floorCorners)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(corner.origin, corner.origin + (Vector3.up / 2));
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(corner.origin + (Vector3.one / 2), 0.1f);
         }
     }
 #endif
