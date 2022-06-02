@@ -54,7 +54,69 @@ public class WeaponManager : MonoBehaviour
             {
                 weaponText.text = "";
             }
-            
+
+            animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("G11"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
+
+            if (_currentWeapon.weaponId == 1)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
+            }
+            else if (_currentWeapon.weaponId == 2)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
+            }
+            else if (_currentWeapon.weaponId == 3)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
+            }
+            else if (_currentWeapon.weaponId == 4)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
+            }
+            else if (_currentWeapon.weaponId == 5)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
+            }
+            else if (_currentWeapon.weaponId == 6)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
+            }
+            else if (_currentWeapon.weaponId == 7)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
+            }
+            else if (_currentWeapon.weaponId == 8)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
+            }
+            else if (_currentWeapon.weaponId == 9)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
+            }
+            else if (_currentWeapon.weaponId == 10)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
+            }
+            else if (_currentWeapon.weaponId == 11)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
+            }
+            else if (_currentWeapon.weaponId == 12)
+            {
+                animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
+            }
+
             if (value.functionality != null)
             {
                 if (value.functionality.infiniteAmmo)
@@ -95,68 +157,6 @@ public class WeaponManager : MonoBehaviour
                 }
 
                 animController.SetBool("IsHoldingWeapon", true);
-
-                animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("G11"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
-                animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
-
-                if (_currentWeapon.weaponId == 1)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
-                }
-                else if (_currentWeapon.weaponId == 2)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
-                }
-                else if (_currentWeapon.weaponId == 3)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
-                }
-                else if (_currentWeapon.weaponId == 4)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
-                }
-                else if (_currentWeapon.weaponId == 5)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
-                }
-                else if (_currentWeapon.weaponId == 6)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
-                }
-                else if (_currentWeapon.weaponId == 7)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
-                }
-                else if (_currentWeapon.weaponId == 8)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
-                }
-                else if (_currentWeapon.weaponId == 9)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
-                }
-                else if (_currentWeapon.weaponId == 10)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
-                }
-                else if (_currentWeapon.weaponId == 11)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
-                }
-                else if (_currentWeapon.weaponId == 12)
-                {
-                    animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
-                }
             }
             else
             {
