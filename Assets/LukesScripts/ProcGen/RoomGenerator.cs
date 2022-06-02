@@ -84,6 +84,7 @@ public class RoomGenerator : MonoBehaviour
     public int entitySpawnRate = 20;
 
     public List<NavMeshSurface> navmesh = new List<NavMeshSurface>();
+
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
     private List<GameObject> wallProps = new List<GameObject>();

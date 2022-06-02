@@ -547,6 +547,7 @@ MonoBehaviour:
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 0
   maxEntities: 10
+  maxLitter: 100
   wallLightChance: 1
   lightOrPropChance: {x: 0, y: 10}
   wallPropRate: {x: 5, y: 5}
@@ -1349,6 +1350,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1226544329}
     m_Modifications:
+    - target: {fileID: 1388156948635569760, guid: 0756b06ea7016f048a8b65752d750e98, type: 3}
+      propertyPath: physicsMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: 918e0e858b7ceef48a3ec3ea98fddf97, type: 2}
     - target: {fileID: 1388156948635569761, guid: 0756b06ea7016f048a8b65752d750e98, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1454,6 +1459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5427744135052981971, guid: 6bdfedd618d5bc04f82a4d8dfcdbf50a, type: 3}
+      propertyPath: physicsMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: 918e0e858b7ceef48a3ec3ea98fddf97, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bdfedd618d5bc04f82a4d8dfcdbf50a, type: 3}
 --- !u!1001 &6531379494636677463
@@ -1568,5 +1577,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8393986084579273158, guid: e579237075886b84d821bb9b5297218f, type: 3}
+      propertyPath: physicsMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: 918e0e858b7ceef48a3ec3ea98fddf97, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e579237075886b84d821bb9b5297218f, type: 3}

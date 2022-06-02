@@ -18,6 +18,7 @@ public class PlayerMovementTest : MonoBehaviour
     [HideInInspector] public bool disableMovement = false;
 
     public CharacterController controller;
+    public Collider playerCollider;
     public Animator animController;
     public Transform cam;
     public float speed;
@@ -34,7 +35,11 @@ public class PlayerMovementTest : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
     public Vector3 movingDirection = Vector3.zero;
-    [SerializeField] bool isGrounded;
+    [Header("Physics")]
+    public bool isGrounded;
+    public GameObject StoodOn;
+    public bool onSlope;
+    private Vector3 slopeNormal;
 
     Vector3 forward, right, velocity;
 
@@ -55,7 +60,9 @@ public class PlayerMovementTest : MonoBehaviour
         if (WeaponManager.instance == null)
             return;
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        (isGrounded, onSlope, slopeNormal, StoodOn) = CheckIsGrounded();
 
         if (isGrounded && velocity.y <= 0)
         {
@@ -140,5 +147,18 @@ public class PlayerMovementTest : MonoBehaviour
         }
 
         TeleportPlayer(finalPosition);
+    }
+
+    private (bool, bool, Vector3, GameObject) CheckIsGrounded()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerCollider.bounds.extents.y + 0.1f))
+        {
+            var onSlope = Vector3.Distance(hit.normal, Vector3.up) > 0f;
+            var slopeAngle = hit.normal;
+            var standingOn = hit.transform.gameObject;
+
+            return (true, onSlope, slopeAngle, standingOn);
+        }
+        return (false, false, Vector3.zero, null);
     }
 }
