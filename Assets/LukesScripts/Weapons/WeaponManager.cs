@@ -162,7 +162,9 @@ public class WeaponManager : MonoBehaviour
             {
                 if (!healthScript.isDead)
                 {
-                    currentWeapon.Shoot(delayed => {
+                    animController.SetBool("IsShooting", true);
+                    currentWeapon.Shoot(delayed =>
+                    {
                         if (!currentWeapon.functionality.infiniteAmmo)
                         {
                             ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
@@ -182,6 +184,10 @@ public class WeaponManager : MonoBehaviour
                         }
                     });
                 }
+            }
+            else
+            {
+                animController.SetBool("IsShooting", false);
             }
         }
 
