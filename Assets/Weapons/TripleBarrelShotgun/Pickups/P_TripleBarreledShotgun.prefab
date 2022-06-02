@@ -147,7 +147,7 @@ MonoBehaviour:
   angle: 0
   secondsBetweenShots: 1.09
   source: {fileID: -3416332858792044548}
-  fireSound: {fileID: 8300000, guid: 425a35b5526c1684fbd450d7e89c0548, type: 3}
+  fireSound: {fileID: 8300000, guid: fdc9deaec2920b545906a5da677edd0a, type: 3}
   coneSize: 5
   numberOfShots: 11
   AccuracyRange: 180
@@ -316,8 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 6429344869845800610}
-  Height: 0.03
+  height: 0.1
 --- !u!54 &-6264793659049472070
 Rigidbody:
   m_ObjectHideFlags: 0
