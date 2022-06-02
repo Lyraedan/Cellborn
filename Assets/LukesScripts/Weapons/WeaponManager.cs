@@ -32,6 +32,8 @@ public class WeaponManager : MonoBehaviour
     public GameObject slotPrefab;
     public List<GameObject> uiSlots = new List<GameObject>();
 
+    public Animator animController;
+
     private WeaponProperties _currentWeapon;
     public WeaponProperties currentWeapon
     {
@@ -91,11 +93,15 @@ public class WeaponManager : MonoBehaviour
                     innerRingMain.startColor = Color.white;
                     ringMain.startColor = Color.white;
                 }
+
+                animController.SetBool("IsHoldingWeapon", true);
             }
             else
             {
                 ammoText.text = "";
                 UIController.instance.ammoContainer.SetActive(false);
+                animController.SetBool("IsHoldingWeapon", false);
+
             }
         }
     }
