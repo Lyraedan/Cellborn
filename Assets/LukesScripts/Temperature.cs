@@ -9,15 +9,9 @@ public class Temperature : MonoBehaviour
     public GameObject fireFX;
     public bool onFire;
     public bool isPlayer;
-    PlayerStats playerStats;
     public float fireTimer = 0;
     public EnemyScript enemyScript;
     public NavMeshAgent navMeshAgent;
-
-    void Start()
-    {
-        playerStats = FindObjectOfType<PlayerStats>();
-    }
 
     private void FixedUpdate()
     {
@@ -38,6 +32,11 @@ public class Temperature : MonoBehaviour
         {
             fireFX.SetActive(false);
             onFire = false;
+        }
+
+        if (temperature < 0)
+        {
+            Frozen();
         }
 
         if (temperature < 1 && temperature > 0)
@@ -66,14 +65,6 @@ public class Temperature : MonoBehaviour
         else if (temperature <= -80)
         {
             temperature = -80;
-            Frozen();
-        }
-        else
-        {
-            if (!isPlayer)
-            {
-                navMeshAgent.speed = 3.5f;
-            }
         }
     }
 
@@ -83,7 +74,7 @@ public class Temperature : MonoBehaviour
         {
             if (isPlayer)
             {
-                playerStats.DamagePlayer(1);
+                PlayerStats.instance.DamagePlayer(1);
             }
             else
             {
@@ -96,15 +87,94 @@ public class Temperature : MonoBehaviour
 
     void Frozen()
     {
-        if (isPlayer)
+        if (temperature <= -80)
         {
-            PlayerMovementTest.instance.potionSpeedMultiplier = 0.25f;
-            PlayerMovementTest.instance.speedUpTime = 2;
-            PlayerMovementTest.instance.isSpedUp = true;
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 0f;
+                Debug.Log("temp <= -80");
+            }
+        }
+        else if (temperature < -50)
+        {
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.25f;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 0.875f;
+                Debug.Log("temp <= -50");
+            }
+        }
+        else if (temperature < -40)
+        {
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.45f;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 1.575f;
+                Debug.Log("temp <= -40");
+            }
+        }
+        else if (temperature < -30)
+        {
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.65f;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 2.275f;
+            }
+        }
+        else if (temperature < -20)
+        {
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.85f;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 2.975f;
+            }
+        }
+        else if (temperature < -10)
+        {
+            if (isPlayer)
+            {
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.95f;
+                PlayerMovementTest.instance.speedUpTime = 2;
+                PlayerMovementTest.instance.isSpedUp = true;
+            }
+            else
+            {
+                navMeshAgent.speed = 3.325f;
+            }
         }
         else
         {
-            navMeshAgent.speed = 0.875f;
+            if (!isPlayer)
+            {
+                navMeshAgent.speed = 3.5f;
+            }
         }
+
     }
 }

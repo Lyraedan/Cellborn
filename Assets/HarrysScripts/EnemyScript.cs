@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     private GameObject lastCollision;
     public AI functionality;
     public Color colour;
+    public Temperature temperature;
 
     void Update()
     {
@@ -56,6 +57,17 @@ public class EnemyScript : MonoBehaviour
             {
                 DamageEnemy(collObj.GetComponent<ProjectileBehaviour>().enemyDamage / 2);
             }
+
+            if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.red)
+            {
+                temperature.temperature = temperature.temperature + 50;
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.blue)
+            {
+                temperature.temperature = temperature.temperature - 40;
+            }
+
+
             Instantiate(hitEffect, collObj.transform.position, collObj.transform.rotation);
             Destroy(collObj);
         }
