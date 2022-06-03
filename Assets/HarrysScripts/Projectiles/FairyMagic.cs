@@ -34,7 +34,7 @@ public class FairyMagic : ProjectileBehaviour
             player.DamagePlayer(playerDamage);
             Instantiate(destroyEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-        }   
+        }
     }
 
     void OnCollisionEnter(Collision other)
