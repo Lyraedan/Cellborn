@@ -20,7 +20,13 @@ public class Story : MonoBehaviour
     bool isLoading = false;
 
     public AudioSource source, snake, fairy;
-    public AudioClip pageTurn, enemyDeathBurst, snakeDeath, fairyDeath;
+    public AudioClip pageTurn, enemyDeathBurst, snakeDeath, fairyDeath, storyMusic;
+
+    void Start()
+    {
+        MusicManager.instance.source.clip = storyMusic;
+        MusicManager.instance.source.Play();
+    }
 
     void Update()
     {
