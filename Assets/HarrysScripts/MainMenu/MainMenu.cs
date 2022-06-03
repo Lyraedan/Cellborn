@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
     public AudioSource source;
     public AudioClip menuClickSound;
 
+    public AudioClip mainMenuMusic;
+
     public PostProcessProfile profile;
     private ColorGrading _colorGrading;
     
@@ -31,6 +33,9 @@ public class MainMenu : MonoBehaviour
 
         profile.TryGetSettings(out _colorGrading);
         _colorGrading.active = false;
+
+        MusicManager.instance.source.clip = mainMenuMusic;
+        MusicManager.instance.source.Play();
     }
 
     void Update()
