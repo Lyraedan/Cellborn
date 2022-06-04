@@ -30,8 +30,8 @@ public class PotionManager : MonoBehaviour
     public GameObject potionDrinkEffect;
     public ParticleSystem potionDrinkEffectPS;
 
-    public AudioSource source;
-    public AudioClip pickupSound;
+    public AudioSource source01, source02, source03;
+    public AudioClip pickupSound, drinkSound, effectSound;
 
     void Awake()
     {
@@ -56,6 +56,10 @@ public class PotionManager : MonoBehaviour
 
         //currentlyHeldPotions[0] = FindPotion(3);
         //urrentlyHeldPotions[1] = FindPotion(4);
+
+        source01.clip = pickupSound;
+        source02.clip = drinkSound;
+        source03.clip = effectSound;
     }
 
     void Update()
@@ -86,6 +90,8 @@ public class PotionManager : MonoBehaviour
                 psMain.startColor = new ParticleSystem.MinMaxGradient(currentlyHeldPotions[0].drinkEffectColor);
                 potionDrinkEffect.SetActive(true);
                 currentlyHeldPotions[0].Consume();
+                source02.Play();
+                source03.Play();
                 if (currentlyHeldPotions[0].functionality != null)
                 {
                     currentlyHeldPotions[0] = emptyPotion;
@@ -101,6 +107,8 @@ public class PotionManager : MonoBehaviour
                 psMain.startColor = new ParticleSystem.MinMaxGradient(currentlyHeldPotions[1].drinkEffectColor);
                 potionDrinkEffect.SetActive(true);
                 currentlyHeldPotions[1].Consume();
+                source02.Play();
+                source03.Play();
                 if (currentlyHeldPotions[1].functionality != null)
                 {
                     currentlyHeldPotions[1] = emptyPotion;
@@ -131,8 +139,7 @@ public class PotionManager : MonoBehaviour
             Destroy(potion.gameObject);
             pickupText.text = string.Empty;
 
-            source.clip = pickupSound;
-            source.Play();
+            source01.Play();
         }
         else
         {
