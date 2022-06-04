@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4645342430638699295}
   - component: {fileID: 7832261217210240438}
+  - component: {fileID: 529655868361462030}
   m_Layer: 0
   m_Name: P_BossRoom
   m_TagString: Untagged
@@ -172,6 +173,19 @@ MonoBehaviour:
   navmesh: {fileID: 6951957088268259582}
   playerSpawn: {fileID: 4707217931178644649}
   wizardSpawn: {fileID: 3464846670000354317}
+--- !u!114 &529655868361462030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512484837785373214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd28c6b76f9eee4d8069eb6e751f642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossMusic: {fileID: 8300000, guid: 4fcbdd65e2a9c8d44a2685e010921ad5, type: 3}
 --- !u!1 &6500292664074270932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,14 +3924,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 19dcc7a08573bf445a20bf26d0f59ab1, type: 3}
   m_PrefabInstance: {fileID: 4754480784325276253}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2815738817884751908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1807970279642858887, guid: 19dcc7a08573bf445a20bf26d0f59ab1, type: 3}
-  m_PrefabInstance: {fileID: 4754480784325276253}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7106220798658105086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2550463727306718371, guid: 19dcc7a08573bf445a20bf26d0f59ab1, type: 3}
+  m_PrefabInstance: {fileID: 4754480784325276253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2815738817884751908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1807970279642858887, guid: 19dcc7a08573bf445a20bf26d0f59ab1, type: 3}
   m_PrefabInstance: {fileID: 4754480784325276253}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &2274200880328020259
