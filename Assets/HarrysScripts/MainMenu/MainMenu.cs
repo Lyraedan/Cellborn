@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
     public AudioSource source;
     public AudioClip menuClickSound;
 
+    public AudioClip menuMusic;
+
     public PostProcessProfile profile;
     private ColorGrading _colorGrading;
     
@@ -28,6 +30,9 @@ public class MainMenu : MonoBehaviour
     {
         chosenBackground = Random.Range(0, backgroundRenders.Count);
         videoPlayer.clip = backgroundRenders[chosenBackground];
+
+        MusicManager.instance.source.clip = menuMusic;
+        MusicManager.instance.source.Play();
 
         profile.TryGetSettings(out _colorGrading);
         _colorGrading.active = false;

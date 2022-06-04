@@ -20,7 +20,13 @@ public class Story : MonoBehaviour
     bool isLoading = false;
 
     public AudioSource source, snake, fairy;
-    public AudioClip pageTurn, enemyDeathBurst, snakeDeath, fairyDeath;
+    public AudioClip pageTurn, enemyDeathBurst, snakeDeath, fairyDeath, storyMusic;
+
+    void Start()
+    {
+        MusicManager.instance.source.clip = storyMusic;
+        MusicManager.instance.source.Play();
+    }
 
     void Update()
     {
@@ -67,7 +73,6 @@ public class Story : MonoBehaviour
 
         while (!operation.isDone)
         {
-            // Dude this is not how you calculate progress! (value * 100) / MaxValue - For the love of god its basic maths
             float progress = Mathf.Clamp01(operation.progress / .9f);            
             
             loadBar.value = progress;
