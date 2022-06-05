@@ -11,9 +11,12 @@ public class CellMusicController : MonoBehaviour
 
     void Start()
     {
-        source.Stop();
+        /* source.Stop();
         source.clip = cellMusic;
-        source.Play();
+        source.Play(); */
+
+        MusicManager.instance.SetClip(cellMusic);
+        MusicManager.instance.source.Play();
     }
 
     void OnTriggerEnter(Collider other)
@@ -22,9 +25,13 @@ public class CellMusicController : MonoBehaviour
         {
             if (!hasExited)
             {
-                source.Stop();
+                /* source.Stop();
                 source.clip = levelMusic;
-                source.Play();
+                source.Play(); */
+
+                MusicManager.instance.SetClip(levelMusic);
+                MusicManager.instance.source.Play();
+
                 hasExited = true;
             }
         }

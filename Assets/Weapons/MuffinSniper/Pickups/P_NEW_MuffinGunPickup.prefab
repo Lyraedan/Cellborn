@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2925995419998131788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MuffinSniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 1767269858531028003}
   - component: {fileID: 2430169949065381513}
   - component: {fileID: 4693124278788153753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4970318525930650537}
   - component: {fileID: 4220964482859406985}
   - component: {fileID: 8573978953399760875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 6919931481202783588}
   - component: {fileID: 4324599739050636829}
   - component: {fileID: 7906287446989276941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 7467586567912100901}
   - component: {fileID: 8098505904863718460}
   - component: {fileID: 38696092738782700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 7117909214851066616}
   - component: {fileID: 8656179497007908126}
   - component: {fileID: 185386525791739920}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MagazineSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,14 +460,17 @@ GameObject:
   - component: {fileID: 2925995419130920261}
   - component: {fileID: 2925995419130920260}
   - component: {fileID: 2925995419130920263}
-  - component: {fileID: 2925995419130920262}
+  - component: {fileID: -9119767823978843631}
   - component: {fileID: 1817028049274265515}
   - component: {fileID: -8517713694930692489}
   - component: {fileID: -1445588742106804624}
   - component: {fileID: 7063766023698970800}
   - component: {fileID: 2007303624575733320}
   - component: {fileID: -3089102941847238822}
-  m_Layer: 0
+  - component: {fileID: 8447133477220364289}
+  - component: {fileID: 3200613982455301201}
+  - component: {fileID: -612177859611727082}
+  m_Layer: 9
   m_Name: P_NEW_MuffinGunPickup
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -518,7 +521,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2925995419130920262
+--- !u!54 &-9119767823978843631
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -526,13 +529,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2925995419130920256}
   serializedVersion: 2
-  m_Mass: 5
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1817028049274265515
 MonoBehaviour:
@@ -590,6 +593,7 @@ MonoBehaviour:
   redIcon: {fileID: 21300000, guid: d7c071bb6e2f6d343ba54ac53034c0dd, type: 3}
   blueIcon: {fileID: 21300000, guid: 8b20279037775ba43aa598f8a6e9aaf4, type: 3}
   yellowIcon: {fileID: 21300000, guid: fcea9cbd0903efb44afc55fc66fe7b50, type: 3}
+  viewModel: {fileID: 0}
   functionality: {fileID: -1445588742106804624}
 --- !u!114 &-1445588742106804624
 MonoBehaviour:
@@ -607,7 +611,7 @@ MonoBehaviour:
   isInPlayerInventory: 0
   projectile: {fileID: 3551906132943474317, guid: 2f5187601f5c6314b950006a5488e2f9, type: 3}
   angle: 0
-  secondsBetweenShots: 1.9
+  secondsBetweenShots: 2.4
   source: {fileID: -3089102941847238822}
   fireSound: {fileID: 8300000, guid: 0d5155fbc3c16e946a697f477690ee85, type: 3}
 --- !u!208 &7063766023698970800
@@ -649,7 +653,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -734,6 +738,47 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8447133477220364289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925995419130920256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!114 &3200613982455301201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925995419130920256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c85e529305e1d47b89300eea275818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
+--- !u!114 &-612177859611727082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925995419130920256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0.1
 --- !u!1 &3310693061812901553
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +790,7 @@ GameObject:
   - component: {fileID: 3319808315766012850}
   - component: {fileID: 6179795332779265995}
   - component: {fileID: 5071798927504807509}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StockButt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +871,7 @@ GameObject:
   - component: {fileID: 3700106969787005952}
   - component: {fileID: 1208062500418867042}
   - component: {fileID: 8328221839498727981}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TriggerGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +952,7 @@ GameObject:
   - component: {fileID: 877747562779037134}
   - component: {fileID: 1839855993817356864}
   - component: {fileID: 4187248534780453995}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -988,7 +1033,7 @@ GameObject:
   - component: {fileID: 4217333674478159591}
   - component: {fileID: 1509445441023843880}
   - component: {fileID: 1536198592083683145}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reciever2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,7 +1114,7 @@ GameObject:
   - component: {fileID: 4269524083199384239}
   - component: {fileID: 3180433008454366500}
   - component: {fileID: 5516120174571331406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1150,7 +1195,7 @@ GameObject:
   - component: {fileID: 6884055917369316840}
   - component: {fileID: 3435946479755734547}
   - component: {fileID: 7360304931167338863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reciever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1276,7 @@ GameObject:
   - component: {fileID: 4680939125265892411}
   - component: {fileID: 1941963794884770020}
   - component: {fileID: 2308850211305579886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muffin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1357,7 @@ GameObject:
   - component: {fileID: 61032793803737725}
   - component: {fileID: 3718908946684238808}
   - component: {fileID: 8724714830812796180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RollingPin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1393,7 +1438,7 @@ GameObject:
   - component: {fileID: 2388295037704806714}
   - component: {fileID: 5561841566117967520}
   - component: {fileID: 4267571029701665681}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1470,9 +1515,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2925995419130920261}
     m_Modifications:
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -1549,9 +1602,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive
@@ -1644,9 +1705,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_Name
       value: Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316544, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: m_IsActive

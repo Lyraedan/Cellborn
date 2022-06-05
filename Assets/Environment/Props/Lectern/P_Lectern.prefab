@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 409588016415666156}
   - component: {fileID: 7017977661202473803}
   - component: {fileID: 3410114281034976456}
-  - component: {fileID: 8002364070226747414}
+  - component: {fileID: -7267364400177088009}
   m_Layer: 0
   m_Name: P_Lectern
   m_TagString: Prop
@@ -130,7 +130,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5302568919011541938, guid: 968dec25570905a4a8a54ae2c2d371a5, type: 3}
 --- !u!114 &5364960410165592762
@@ -277,7 +277,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8002364070226747414
+--- !u!114 &-7267364400177088009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,20 +286,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4931888185341150522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007e5edb50ddc0148a966f8d687263ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tables:
-  - spawnpoint: {fileID: 2413526860277913961}
-    chancesOfSpawningLoot: 1
-    possiblePrefabs:
-    - prefab: {fileID: 2173869165374577015, guid: 8ea407eba7c752b4ead8e0804c199b8e, type: 3}
-      rotation: {x: 0, y: 0, z: 0}
-  - spawnpoint: {fileID: 1957986382969452979}
-    chancesOfSpawningLoot: 1
-    possiblePrefabs:
-    - prefab: {fileID: 2173869165374577015, guid: 8ea407eba7c752b4ead8e0804c199b8e, type: 3}
-      rotation: {x: 0, y: 60, z: 0}
+  threashold: -5
+  aboveThreashold: 1.5
 --- !u!1 &7386065003380977107
 GameObject:
   m_ObjectHideFlags: 0

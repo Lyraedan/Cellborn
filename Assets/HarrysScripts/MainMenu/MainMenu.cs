@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class MainMenu : MonoBehaviour
@@ -19,11 +20,22 @@ public class MainMenu : MonoBehaviour
 
     public AudioSource source;
     public AudioClip menuClickSound;
+
+    public AudioClip menuMusic;
+
+    public PostProcessProfile profile;
+    private ColorGrading _colorGrading;
     
     void Start()
     {
         chosenBackground = Random.Range(0, backgroundRenders.Count);
         videoPlayer.clip = backgroundRenders[chosenBackground];
+
+        MusicManager.instance.source.clip = menuMusic;
+        MusicManager.instance.source.Play();
+
+        profile.TryGetSettings(out _colorGrading);
+        _colorGrading.active = false;
     }
 
     void Update()
@@ -67,16 +79,16 @@ public class MainMenu : MonoBehaviour
     
     public void StartGame(string sceneName)
     {
+        mainMenuGroup.SetActive(false);
+        startGameGroup.SetActive(false);
+        loadingGroup.SetActive(true);
+        
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     IEnumerator LoadSceneAsync (string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-        mainMenuGroup.SetActive(false);
-        startGameGroup.SetActive(false);
-        loadingGroup.SetActive(true);
 
         while (!operation.isDone)
         {

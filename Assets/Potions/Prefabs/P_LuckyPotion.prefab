@@ -16,7 +16,9 @@ GameObject:
   - component: {fileID: 1069557220705607317}
   - component: {fileID: -3032081126175483812}
   - component: {fileID: 6871022166659434383}
-  m_Layer: 0
+  - component: {fileID: 4548549129372564665}
+  - component: {fileID: 1972169173665280022}
+  m_Layer: 9
   m_Name: P_LuckyPotion
   m_TagString: Potion
   m_Icon: {fileID: 0}
@@ -65,7 +67,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &7014644175783748129
 MonoBehaviour:
@@ -85,6 +87,7 @@ MonoBehaviour:
   potionID: 4
   icon: {fileID: 21300000, guid: 64db02c4cd50e5d41af2f7af7ebbc1b3, type: 3}
   identifier: {fileID: 21300000, guid: a410f06a973f5784a9ac81d2b7ec6822, type: 3}
+  drinkEffectColor: {r: 1, g: 1, b: 0, a: 1}
   functionality: {fileID: 8527693381117525604}
 --- !u!114 &8527693381117525604
 MonoBehaviour:
@@ -103,7 +106,7 @@ MonoBehaviour:
   useSound: {fileID: 8300000, guid: 722de16d2c253fd46a5300dd0d72f8cc, type: 3}
   maxHPVariance: 50
   maxAmmoVariance: 50
-  maxSpeedVariance: 4
+  maxSpeedVariance: 1.5
   maxSpeedTimeVariance: 5
   maxDefenseVariance: 0.1
   maxDefenseTimeVariance: 6
@@ -137,7 +140,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 722de16d2c253fd46a5300dd0d72f8cc, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -234,6 +237,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4548549129372564665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c85e529305e1d47b89300eea275818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
+--- !u!114 &1972169173665280022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0.1
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,11 +288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9914449
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.13052616
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_LocalRotation.y
@@ -275,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -296,6 +325,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b23b768276620544d9d20d6f38126afe, type: 3}
       propertyPath: m_Name
       value: SM_Bottle_One
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b23b768276620544d9d20d6f38126afe, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b23b768276620544d9d20d6f38126afe, type: 3}

@@ -66,6 +66,7 @@ public class RoomMeshGenerator : MonoBehaviour
     public float tileSize = 1f, wallHeight = 1f;
 
     public Material material;
+    public PhysicMaterial physicsMaterial;
 
     public List<Vector3> vertices = new List<Vector3>();
     public List<int> tris = new List<int>();
@@ -77,6 +78,14 @@ public class RoomMeshGenerator : MonoBehaviour
     [HideInInspector] public MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
+
+    public bool ReadWriteEnabled
+    {
+        get
+        {
+            return mesh.isReadable;
+        }
+    }
 
     public bool showVertices = false;
     public bool showEdges = false;
@@ -274,6 +283,7 @@ public class RoomMeshGenerator : MonoBehaviour
 
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
+        meshCollider.material = physicsMaterial;
     }
 
     /// <summary>
@@ -341,6 +351,7 @@ public class RoomMeshGenerator : MonoBehaviour
             meshFilter.mesh.SetIndices(meshFilter.mesh.GetIndices(0).Concat(meshFilter.mesh.GetIndices(0).Reverse()).ToArray(), MeshTopology.Triangles, 0);
         }
         meshCollider.sharedMesh = meshFilter.mesh;
+        meshCollider.material = physicsMaterial;
 
     }
 
@@ -387,6 +398,7 @@ public class RoomMeshGenerator : MonoBehaviour
             meshFilter.mesh.SetIndices(meshFilter.mesh.GetIndices(0).Concat(meshFilter.mesh.GetIndices(0).Reverse()).ToArray(), MeshTopology.Triangles, 0);
         }
         meshCollider.sharedMesh = meshFilter.mesh;
+        meshCollider.material = physicsMaterial;
 
         meshRenderer.enabled = false; // Hide roof
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerMovementTest : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerMovementTest : MonoBehaviour
     [HideInInspector] public bool disableMovement = false;
 
     public CharacterController controller;
+    public Collider playerCollider;
     public Animator animController;
     public Transform cam;
     public float speed;
@@ -33,7 +35,11 @@ public class PlayerMovementTest : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
     public Vector3 movingDirection = Vector3.zero;
-    [SerializeField] bool isGrounded;
+    [Header("Physics")]
+    public bool isGrounded;
+    public GameObject StoodOn;
+    public bool onSlope;
+    private Vector3 slopeNormal;
 
     Vector3 forward, right, velocity;
 
@@ -54,7 +60,9 @@ public class PlayerMovementTest : MonoBehaviour
         if (WeaponManager.instance == null)
             return;
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        (isGrounded, onSlope, slopeNormal, StoodOn) = CheckIsGrounded();
 
         if (isGrounded && velocity.y <= 0)
         {
@@ -117,5 +125,40 @@ public class PlayerMovementTest : MonoBehaviour
         var newRotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
         transform.rotation = newRotation;
         test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
+    }
+
+    public void TeleportPlayer(Vector3 position)
+    {
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
+    }
+
+    public void TeleportPlayerToRandomPoint()
+    {
+        float radius = 1000;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = hit.position;
+        }
+
+        TeleportPlayer(finalPosition);
+    }
+
+    private (bool, bool, Vector3, GameObject) CheckIsGrounded()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerCollider.bounds.extents.y + 0.1f))
+        {
+            var onSlope = Vector3.Distance(hit.normal, Vector3.up) > 0f;
+            var slopeAngle = hit.normal;
+            var standingOn = hit.transform.gameObject;
+
+            return (true, onSlope, slopeAngle, standingOn);
+        }
+        return (false, false, Vector3.zero, null);
     }
 }

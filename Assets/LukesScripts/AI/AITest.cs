@@ -44,12 +44,11 @@ public class AITest : AI
 
     public override void Attack()
     {
+        animController.SetTrigger("Attack");
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
             //AudioManager.instance.Play("SnakeAttack");
-            animController.SetTrigger("Attack");
-            Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
 
             attackDelay = 0;
         }
@@ -67,10 +66,7 @@ public class AITest : AI
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
-        }
+
     }
 
 
@@ -104,5 +100,10 @@ public class AITest : AI
         }
         else
             return null;
+    }
+
+    public void SpawnAcid()
+    {
+        Instantiate(acid, acidPoint.transform.position, Quaternion.identity);
     }
 }

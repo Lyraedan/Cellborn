@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3562971160389472225}
   - component: {fileID: 3562971160389472226}
   - component: {fileID: 3562971160389472236}
+  - component: {fileID: 9016967685949730437}
   m_Layer: 0
   m_Name: P_Target
   m_TagString: Untagged
@@ -96,6 +97,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: -0.45
+--- !u!114 &9016967685949730437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562971160389472237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dac553f80d0adb4d8573048e5a5b815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inner: {fileID: 8231005899997225570}
+  outer: {fileID: 8231005901319222602}
 --- !u!1001 &8525722624295532521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +118,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3562971160389472224}
     m_Modifications:
+    - target: {fileID: 318378777348396425, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.10679557
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378777348396425, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.10679557
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378777348396425, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07753916
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378777348396427, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378777348396427, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378777348396427, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 318378777994824550, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
       propertyPath: m_Name
       value: Reticle_PS
@@ -157,14 +196,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 318378778137182881, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.58212
       objectReference: {fileID: 0}
     - target: {fileID: 318378778137182881, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.58212
       objectReference: {fileID: 0}
     - target: {fileID: 318378778137182881, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
       propertyPath: m_LocalScale.z
+      value: 0.58212
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378778137182883, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378778137182883, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318378778137182883, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -172,5 +223,15 @@ PrefabInstance:
 --- !u!4 &8231005901461585024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 318378777994824553, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+  m_PrefabInstance: {fileID: 8525722624295532521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8231005899997225570 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 318378777348396427, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
+  m_PrefabInstance: {fileID: 8525722624295532521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8231005901319222602 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 318378778137182883, guid: 0f2ae677b261f5048b0fa6a4670ed5c1, type: 3}
   m_PrefabInstance: {fileID: 8525722624295532521}
   m_PrefabAsset: {fileID: 0}

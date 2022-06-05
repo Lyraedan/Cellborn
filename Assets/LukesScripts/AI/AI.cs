@@ -148,13 +148,22 @@ namespace LukesScripts.AI
 
         public void Die()
         {
-            int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
-            var position = transform.position;
-            GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
-            WeaponBag.instance.weaponBag.RemoveAt(selected);
-            if (WeaponBag.instance.weaponBag.Count == 0)
+            int dropChance = UnityEngine.Random.Range(0, 100);
+            if (dropChance >= WeaponBag.instance.dropChance)
             {
-                WeaponBag.instance.RefillBag();
+                int selected = UnityEngine.Random.Range(0, WeaponBag.instance.weaponBag.Count);
+                var position = transform.position;
+                GameObject drop = Instantiate(WeaponBag.instance.weaponBag[selected], position, Quaternion.identity);
+                WeaponBag.instance.weaponBag.RemoveAt(selected);
+                if (WeaponBag.instance.weaponBag.Count == 0)
+                {
+                    WeaponBag.instance.RefillBag();
+                }
+                WeaponBag.instance.dropChance = 70;
+            }
+            else
+            {
+                WeaponBag.instance.dropChance = WeaponBag.instance.dropChance - 30;
             }
             audioSource.clip = deathSound;
             audioSource.Play();
@@ -166,6 +175,9 @@ namespace LukesScripts.AI
         {
             isHit = true;
             audioSource.clip = hitSound;
+            audioSource.loop = false;
+            audioSource.pitch = 1f;
+            audioSource.spatialBlend = 0f;
             audioSource.Play();
             OnHit();
             CustomEvent.Trigger(gameObject, EventHooks.OnHit);
@@ -182,6 +194,9 @@ namespace LukesScripts.AI
             if (idleSound != null)
             {
                 audioSource.clip = idleSound;
+                audioSource.loop = true;
+                audioSource.pitch = 2f;
+                audioSource.spatialBlend = 1f;
                 audioSource.Play();
             }
         }

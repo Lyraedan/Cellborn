@@ -9,11 +9,11 @@ public class RoomPrefab
 
     public enum RoomPropType
     {
-        FLOOR, WALL, PROP, DOOR, CORNER, ENTITY, BOSS, PLAYER, WALL_LIGHT, CEILING_LIGHT
+        FLOOR, WALL, WALL_PROP, CENTER_PROP, DOOR, CORNER, ENTITY, BOSS, PLAYER, WALL_LIGHT, CEILING_LIGHT, WALL_DECOR, LITTER
     }
 
     public GameObject prefab;
-    public RoomPropType type = RoomPropType.PROP;
+    public RoomPropType type = RoomPropType.WALL_PROP;
 
     public GameObject Spawn(Vector3 position, Vector3 rotation)
     {

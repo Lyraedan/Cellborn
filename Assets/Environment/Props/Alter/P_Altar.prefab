@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3350777894052858686}
   - component: {fileID: 5974244715827015935}
   - component: {fileID: 6566629883619026203}
+  - component: {fileID: -7013257459971737977}
   m_Layer: 0
   m_Name: P_Altar
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,10 +34,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3310342713081253040}
-  - {fileID: 6298385439322078358}
-  - {fileID: 5089894015759741627}
-  - {fileID: 7034624060775372234}
-  - {fileID: 3380230958007712380}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -205,6 +202,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7013257459971737977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120552978167892247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threashold: -5
+  aboveThreashold: 1.5
 --- !u!1 &5520652213592206568
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,12 +239,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5520652213592206568}
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.223, y: 0.71436787, z: 0.026}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0027935603, y: 0.24106671, z: 0.00015580613}
+  m_LocalScale: {x: 0.0125272, y: 0.3374546, z: 0.0059925383}
   m_Children: []
-  m_Father: {fileID: 5495529958148428717}
-  m_RootOrder: 4
+  m_Father: {fileID: 3310342713081253040}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6366450458962401116
 GameObject:
@@ -249,7 +260,7 @@ GameObject:
   - component: {fileID: 7056743393280504514}
   m_Layer: 0
   m_Name: Candle
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,12 +272,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6366450458962401116}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2665757, y: 0.55633163, z: 0.59999996}
-  m_LocalScale: {x: 5.838225, y: 1.0969415, z: 5.838225}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0033394366, y: 0.18773666, z: 0.0035955252}
+  m_LocalScale: {x: 0.07313661, y: 0.37016794, z: 0.034985784}
   m_Children: []
-  m_Father: {fileID: 5495529958148428717}
-  m_RootOrder: 2
+  m_Father: {fileID: 3310342713081253040}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3779413670063884892
 MeshFilter:
@@ -328,7 +339,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3033996063522644917, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
 --- !u!1 &6949448502010718574
@@ -345,7 +356,7 @@ GameObject:
   - component: {fileID: 8540233726892688263}
   m_Layer: 0
   m_Name: Book
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,12 +368,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6949448502010718574}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.17278102, y: 0.57361054, z: 0}
-  m_LocalScale: {x: 25.895155, y: 2.352697, z: 32.742104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.002164462, y: 0.19356743, z: 0}
+  m_LocalScale: {x: 0.3243938, y: 0.7939284, z: 0.19620831}
   m_Children: []
-  m_Father: {fileID: 5495529958148428717}
-  m_RootOrder: 1
+  m_Father: {fileID: 3310342713081253040}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3086707733380048279
 MeshFilter:
@@ -424,7 +435,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -66333826979096818, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}
 --- !u!1 &7749409213360491174
@@ -441,7 +452,7 @@ GameObject:
   - component: {fileID: 3002853487533951637}
   m_Layer: 0
   m_Name: Altar
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -456,7 +467,11 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 79.8263, y: 2.9633617, z: 166.87419}
-  m_Children: []
+  m_Children:
+  - {fileID: 6298385439322078358}
+  - {fileID: 5089894015759741627}
+  - {fileID: 7034624060775372234}
+  - {fileID: 3380230958007712380}
   m_Father: {fileID: 5495529958148428717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -537,7 +552,7 @@ GameObject:
   - component: {fileID: 378495309049460654}
   m_Layer: 0
   m_Name: Candle1
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,12 +564,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8805474626186583834}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2665757, y: 0.55633163, z: -0.59999996}
-  m_LocalScale: {x: 5.838225, y: 1.0969415, z: 5.838225}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0033394366, y: 0.18773666, z: -0.0035955252}
+  m_LocalScale: {x: 0.07313661, y: 0.37016794, z: 0.034985784}
   m_Children: []
-  m_Father: {fileID: 5495529958148428717}
-  m_RootOrder: 3
+  m_Father: {fileID: 3310342713081253040}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1056468449994785678
 MeshFilter:
@@ -616,6 +631,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5359771393718946927, guid: 1eb9e211ad62a8d40b6d83a6a88f0dc1, type: 3}

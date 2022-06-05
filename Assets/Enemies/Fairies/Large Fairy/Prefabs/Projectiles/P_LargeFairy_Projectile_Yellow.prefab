@@ -4842,11 +4842,13 @@ MonoBehaviour:
   shotDirection: 0
   lifetime: 5
   t: 0
-  enemyDamage: 0
+  enemyDamage: 10
   playerDamage: 10
+  colour: {r: 0, g: 0, b: 0, a: 0}
   canChangeDistance: 0
   destroyEffect: {fileID: 2364194774723484448, guid: 60acbd44c3956ee4e9ea9c8e57e35099, type: 3}
-  canDamage: 1
+  canDamage: 0
+  noDamageTime: 0.5
 --- !u!54 &535181506469579725
 Rigidbody:
   m_ObjectHideFlags: 0

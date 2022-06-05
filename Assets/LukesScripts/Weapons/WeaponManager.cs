@@ -12,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager instance;
 
     public GameObject player, target;
+    public TargetProperties targetProperties;
 
     public KeyCode pickupKey = KeyCode.F;
     public KeyCode dropKey = KeyCode.G;
@@ -31,6 +32,8 @@ public class WeaponManager : MonoBehaviour
     public GameObject slotPrefab;
     public List<GameObject> uiSlots = new List<GameObject>();
 
+    public Animator animController;
+
     private WeaponProperties _currentWeapon;
     public WeaponProperties currentWeapon
     {
@@ -41,8 +44,27 @@ public class WeaponManager : MonoBehaviour
         set
         {
             Debug.Log("Updating current weapon to " + value.weaponName);
+
+            if (currentViewModel != null)
+            {
+                currentViewModel.SetActive(false);
+                // Reset the view model animator
+                currentViewModelAnimator = null;
+            }
+
+            currentViewModel = value.viewModel;
+
+            if (currentViewModel != null)
+            {
+                currentViewModel.SetActive(true);
+                // If the view model has an animator
+                if (currentViewModel.GetComponent<Animator>())
+                {
+                    currentViewModelAnimator = currentViewModel.GetComponent<Animator>();
+                }
+            }
             _currentWeapon = value;
-            
+
             if (value.weaponId != -1)
             {
                 weaponText.text = value.weaponName;
@@ -51,7 +73,63 @@ public class WeaponManager : MonoBehaviour
             {
                 weaponText.text = "";
             }
-            
+
+            animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("G11"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
+
+            switch(value.weaponId)
+            {
+                case 1:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
+                    break;
+                case 2:
+                    animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
+                    break;
+                case 3:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
+                    break;
+                case 4:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
+                    break;
+                case 5:
+                    animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
+                    break;
+                case 6:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
+                    break;
+                case 7:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
+                    break;
+                case 8:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
+                    break;
+                case 9:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
+                    break;
+                case 10:
+                    animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
+                    break;
+                case 11:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
+                    break;
+                case 12:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
+                    break;
+                default:
+                    Debug.Log("No anim layer index to update");
+                    break;
+            }
+
             if (value.functionality != null)
             {
                 if (value.functionality.infiniteAmmo)
@@ -66,15 +144,46 @@ public class WeaponManager : MonoBehaviour
                     UIController.instance.ammoBar.maxValue = value.maxAmmo;
                     UIController.instance.ammoBar.value = value.currentAmmo;
                 }
+
+                ParticleSystem.MainModule innerRingMain = WeaponManager.instance.targetProperties.inner.main;
+                ParticleSystem.MainModule ringMain = WeaponManager.instance.targetProperties.outer.main;
+
+                if (_currentWeapon.colour == Color.red)
+                {
+                    innerRingMain.startColor = Color.red;
+                    ringMain.startColor = Color.red;
+                }
+                else if (_currentWeapon.GetComponent<WeaponProperties>().colour == Color.blue)
+                {
+                    innerRingMain.startColor = Color.blue;
+                    ringMain.startColor = Color.blue;
+                }
+                else if (_currentWeapon.GetComponent<WeaponProperties>().colour == Color.yellow)
+                {
+                    innerRingMain.startColor = Color.yellow;
+                    ringMain.startColor = Color.yellow;
+                }
+                else
+                {
+                    innerRingMain.startColor = Color.white;
+                    ringMain.startColor = Color.white;
+                }
+
+                animController.SetBool("IsHoldingWeapon", true);
             }
             else
             {
                 ammoText.text = "";
                 UIController.instance.ammoContainer.SetActive(false);
+                animController.SetBool("IsHoldingWeapon", false);
+
             }
         }
     }
     public WeaponProperties toPickup;
+
+    public GameObject currentViewModel;
+    public Animator currentViewModelAnimator;
 
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
@@ -90,10 +199,13 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         target = GameObject.Find("Target");
+        targetProperties = target.GetComponent<TargetProperties>();
     }
 
-    public bool isInventoryFull {
-        get {
+    public bool isInventoryFull
+    {
+        get
+        {
             return !HasWeaponInInventory(-1);
         }
     }
@@ -105,7 +217,8 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(1);
+        currentlyHeldWeapons[0] = FindWeapon(11); // Pebbles 
+        //currentlyHeldWeapons[0] = FindWeapon(6);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
@@ -130,7 +243,9 @@ public class WeaponManager : MonoBehaviour
             {
                 if (!healthScript.isDead)
                 {
-                    currentWeapon.Shoot(delayed => {
+                    animController.SetBool("IsShooting", true);
+                    currentWeapon.Shoot(delayed =>
+                    {
                         if (!currentWeapon.functionality.infiniteAmmo)
                         {
                             ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
@@ -150,6 +265,10 @@ public class WeaponManager : MonoBehaviour
                         }
                     });
                 }
+            }
+            else
+            {
+                animController.SetBool("IsShooting", false);
             }
         }
 
@@ -178,11 +297,11 @@ public class WeaponManager : MonoBehaviour
         }
 
         var scrollDelta = Input.mouseScrollDelta;
-        if (scrollDelta != Vector2.zero)
+        if (scrollDelta != Vector2.zero && !PauseMenu.isPaused)
         {
             uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
-            
-            if(scrollDelta.y < 0)
+
+            if (scrollDelta.y < 0)
             {
                 currentlySelectedIndex++;
                 if (currentlySelectedIndex >= currentlyHeldWeapons.Count)
@@ -190,7 +309,8 @@ public class WeaponManager : MonoBehaviour
 
                 uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
 
-            } else if(scrollDelta.y > 0)
+            }
+            else if (scrollDelta.y > 0)
             {
                 currentlySelectedIndex--;
                 if (currentlySelectedIndex < 0)
@@ -239,7 +359,7 @@ public class WeaponManager : MonoBehaviour
             pickupText.text = string.Empty;
 
             // Update current weapon
-            if(index == currentlySelectedIndex)
+            if (index == currentlySelectedIndex)
                 currentWeapon = wep;
 
             source.clip = pickupSound;
@@ -263,7 +383,8 @@ public class WeaponManager : MonoBehaviour
 
                 if (weapon.IsEmpty)
                     Destroy(weapon.gameObject);
-            } else
+            }
+            else
             {
                 Debug.Log("Ammo is full!");
                 CustomEvent.Trigger(gameObject, EventHooks.OnAmmoFull);
@@ -301,7 +422,8 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = currentlyHeldWeapons[index];
 
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
-        
+        drop.tag = "Weapon";
+
         //Turn on Ring
         if (drop.GetComponent<WeaponProperties>().colour == Color.red)
         {
