@@ -40,7 +40,8 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("What are the rate ranges for spawning wall decoration as opposed to wall prop groups? 1 in x")]
     public Vector2 wallDecorRate = new Vector2(0, 2);
 
-    public float startEndSafeZoneThreashold = 20f;
+    public float startSafeZoneThreashold = 20f;
+    public float endSafeZoneThreashold = 10f;
     public float centreSafeZoneThreashold = 5f;
 
     public List<Room> rooms = new List<Room>();
@@ -698,7 +699,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
 
-        if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && isBeyondThreashold)
+        if (distanceFromStart > startSafeZoneThreashold && distanceFromEnd > endSafeZoneThreashold && isBeyondThreashold)
         {
             var l = SpawnPrefab(prop, position, Vector3.zero);
             l.transform.SetParent(environment.transform);
