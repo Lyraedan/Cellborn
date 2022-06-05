@@ -552,7 +552,8 @@ MonoBehaviour:
   lightOrPropChance: {x: 0, y: 10}
   wallPropRate: {x: 5, y: 5}
   wallDecorRate: {x: 0, y: 2}
-  startEndSafeZoneThreashold: 2
+  startSafeZoneThreashold: 2
+  endSafeZoneThreashold: 2
   centreSafeZoneThreashold: 2
   rooms: []
   floorPrefab: {fileID: 1388156948635569762, guid: 0756b06ea7016f048a8b65752d750e98, type: 3}
