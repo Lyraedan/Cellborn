@@ -37,13 +37,11 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("What are the rate ranges for spawning the wall props? 1 in x")]
     public Vector2 wallPropRate = new Vector2(30, 50);
 
-    [Tooltip("What are the rate ranges for spawning the centre props? 1 in x")]
-    public Vector2 centrePropRate = new Vector2(30, 50);
-
     [Tooltip("What are the rate ranges for spawning wall decoration as opposed to wall prop groups? 1 in x")]
     public Vector2 wallDecorRate = new Vector2(0, 2);
 
-    public float startEndSafeZoneThreashold = 20f;
+    public float startSafeZoneThreashold = 20f;
+    public float endSafeZoneThreashold = 10f;
     public float centreSafeZoneThreashold = 5f;
 
     public List<Room> rooms = new List<Room>();
@@ -143,7 +141,7 @@ public class RoomGenerator : MonoBehaviour
 
             for (int z = 0; z < grid.cells.z; z++)
             {
-                for(int x = 0; x < grid.cells.x; x++)
+                for (int x = 0; x < grid.cells.x; x++)
                 {
                     var current = grid.grid[x, 0, z];
                     current.flag = GridCell.GridFlag.WALKABLE;
@@ -258,7 +256,7 @@ public class RoomGenerator : MonoBehaviour
 
         for (int z = 0; z < grid.cells.z; z++)
         {
-            for(int x = 0; x < grid.cells.x; x++)
+            for (int x = 0; x < grid.cells.x; x++)
             {
                 var current = grid.grid[x, 0, z];
                 if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
@@ -384,7 +382,7 @@ public class RoomGenerator : MonoBehaviour
 
     public void SpawnLitter()
     {
-        for(int i = 0; i < maxLitter; i++)
+        for (int i = 0; i < maxLitter; i++)
         {
             GridCell cell = GetRandomLitterCell();
             var litter = SpawnRandomLitter(cell);
@@ -507,7 +505,8 @@ public class RoomGenerator : MonoBehaviour
 
             int index = Random.Range(0, prop.Count);
             return new object[] { 0, prop[index].prefab };
-        } else
+        }
+        else
         {
             var decor = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.WALL_DECOR)).ToList();
             if (decor.Count <= 0)
@@ -540,7 +539,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject SpawnRandomLitter(GridCell cell)
     {
         var litter = prefabs.Where(e => e.type.Equals(RoomPrefab.RoomPropType.LITTER)).ToList();
-        if(litter.Count == 0)
+        if (litter.Count == 0)
         {
             return null;
         }
@@ -621,17 +620,18 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
-                    if ((int) prop[0] == 0)
+                    if ((int)prop[0] == 0)
                     {
                         position.y += 0.5f;
-                    } else if((int) prop[0] == 1)
+                    }
+                    else if ((int)prop[0] == 1)
                     {
                         position.y += (wallMesh.wallHeight / 2) + 0.5f;
                     }
                     if (IsValidPropPosition(position))
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
-                        var p = SpawnPrefab((GameObject) prop[1], position, direction);
+                        var p = SpawnPrefab((GameObject)prop[1], position, direction);
                         p.transform.SetParent(environment.transform);
                         wallProps.Add(p);
                     }
@@ -670,47 +670,41 @@ public class RoomGenerator : MonoBehaviour
         var lt = SpawnPrefab(light, lightPosition, Vector3.zero);
         lt.transform.SetParent(environment.transform);
 
-        var range = UnityEngine.Random.Range(centrePropRate.x, centrePropRate.y);
-        var spawn = roomIndex % range == 0;
-
-        if (spawn)
+        var prop = GetRandomCentreProp();
+        if (prop == null)
         {
-            var prop = GetRandomCentreProp();
-            if (prop == null)
-            {
-                Debug.LogError("No prop prefab found!");
-                return;
-            }
-            var position = rooms[roomIndex].centres[centreIndex];
-            //position.y += 0.5f;
-            var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
-            GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
-
-            float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
-            float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
-
-            // Todo, check distance between center points to see if is beyond threashold
-
-            bool isBeyondThreashold = true;
-
-            if (rooms[roomIndex].centres.Count > 1)
-            {
-                int nextIndex = centreIndex + 1;
-                if (nextIndex <= rooms[roomIndex].centres.Count - 1)
-                {
-                    var position2 = rooms[roomIndex].centres[nextIndex];
-                    var distanceBetweenCentres = Vector3.Distance(position, position2);
-                    isBeyondThreashold = distanceBetweenCentres > centreSafeZoneThreashold;
-                }
-            }
-
-            if (distanceFromStart > startEndSafeZoneThreashold && distanceFromEnd > startEndSafeZoneThreashold && isBeyondThreashold)
-            {
-                var l = SpawnPrefab(prop, position, Vector3.zero);
-                l.transform.SetParent(environment.transform);
-            }
-
+            Debug.LogError("No prop prefab found!");
+            return;
         }
+        var position = rooms[roomIndex].centres[centreIndex];
+        //position.y += 0.5f;
+        var gridCellCoords = navAgent.PositionAsGridCoordinates(position);
+        GridCell cell = navAgent.GetGridCellAt((int)gridCellCoords.x, (int)gridCellCoords.y, (int)gridCellCoords.z);
+
+        float distanceFromStart = Vector3.Distance(rooms[0].centres[0], position);
+        float distanceFromEnd = Vector3.Distance(rooms[rooms.Count - 1].centres[0], position);
+
+        // Todo, check distance between center points to see if is beyond threashold
+
+        bool isBeyondThreashold = true;
+
+        if (rooms[roomIndex].centres.Count > 1)
+        {
+            int nextIndex = centreIndex + 1;
+            if (nextIndex <= rooms[roomIndex].centres.Count - 1)
+            {
+                var position2 = rooms[roomIndex].centres[nextIndex];
+                var distanceBetweenCentres = Vector3.Distance(position, position2);
+                isBeyondThreashold = distanceBetweenCentres > centreSafeZoneThreashold;
+            }
+        }
+
+        if (distanceFromStart > startSafeZoneThreashold && distanceFromEnd > endSafeZoneThreashold && isBeyondThreashold)
+        {
+            var l = SpawnPrefab(prop, position, Vector3.zero);
+            l.transform.SetParent(environment.transform);
+        }
+
     }
 
     public bool IsValidPropPosition(Vector3 point)

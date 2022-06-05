@@ -41,19 +41,27 @@ public class FairyMagic : ProjectileBehaviour
     {
         if (canDamage)
         {
-            if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "Prop" || other.gameObject.tag == "Environment")
-            {
-                Instantiate(destroyEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
-            else if (other.gameObject.tag == "Enemy")
+            if (other.gameObject.tag == "Enemy")
             {
                 EnemyScript enemyScript = other.gameObject.GetComponent<EnemyScript>();
                 enemyScript.currentHP = enemyScript.currentHP - enemyDamage;
-                Instantiate(destroyEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
             }
         }
+
+        if (damageTimer > 0.1f)
+        {
+            Instantiate(destroyEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
-    
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (damageTimer > 0.1f)
+        {
+            Instantiate(destroyEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+    }
+
 }
