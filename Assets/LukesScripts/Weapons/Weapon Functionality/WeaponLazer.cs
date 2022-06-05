@@ -61,6 +61,15 @@ public class WeaponLazer : WeaponBase
                             enemyScript.currentHP -= (enemyDamage/2);
                         }
 
+                        if (WeaponManager.instance.currentWeapon.colour == Color.red)
+                        {
+                            enemyScript.temperature.temperature += 10;
+                        }
+                        else if (WeaponManager.instance.currentWeapon.colour == Color.blue)
+                        {
+                            enemyScript.temperature.temperature -= 10;
+                        }
+
                         if (hitEnemy.GetComponent<AITest>() != null)
                         {
                             hitEnemy.GetComponent<AITest>().Hit();

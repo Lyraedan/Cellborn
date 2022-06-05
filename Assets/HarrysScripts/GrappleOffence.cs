@@ -53,10 +53,31 @@ public class GrappleOffence : MonoBehaviour
             if (other.tag == "Enemy")
             {
                 var enemy = other.gameObject.GetComponent<EnemyScript>();
+                Temperature temperature = go.GetComponent<Temperature>();
 
                 if (enemy != null)
                 {
-                    enemy.currentHP -= attackDamage;
+                    if (WeaponManager.instance.currentWeapon.colour == enemy.colour)
+                    {
+                        enemy.currentHP -= (attackDamage * 2);
+                    }
+                    else if (WeaponManager.instance.currentWeapon.colour == Color.grey)
+                    {
+                        enemy.currentHP -= attackDamage;
+                    }
+                    else
+                    {
+                        enemy.currentHP -= (attackDamage / 2);
+                    }
+
+                    if (WeaponManager.instance.currentWeapon.colour == Color.red)
+                    {
+                        temperature.temperature += 10;
+                    }
+                    else if (WeaponManager.instance.currentWeapon.colour == Color.blue)
+                    {
+                        temperature.temperature -= 10;
+                    }
                 }
 
                 if (other.gameObject.GetComponent<AITest>() != null)
