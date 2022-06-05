@@ -53,7 +53,7 @@ public class GrappleOffence : MonoBehaviour
             if (other.tag == "Enemy")
             {
                 var enemy = other.gameObject.GetComponent<EnemyScript>();
-                Temperature temperature = go.GetComponent<Temperature>();
+                Temperature temperature = enemy.GetComponent<Temperature>();
 
                 if (enemy != null)
                 {

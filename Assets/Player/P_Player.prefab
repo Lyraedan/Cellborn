@@ -512,8 +512,10 @@ MonoBehaviour:
   onFire: 0
   isPlayer: 1
   fireTimer: 0
+  shockTimer: 0
   enemyScript: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  shockDuration: 0
 --- !u!82 &8267362046205500567
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,8 +10,10 @@ public class Temperature : MonoBehaviour
     public bool onFire;
     public bool isPlayer;
     public float fireTimer = 0;
+    public float shockTimer = 0;
     public EnemyScript enemyScript;
     public NavMeshAgent navMeshAgent;
+    public float shockDuration = 0;
 
     private void FixedUpdate()
     {
@@ -65,6 +67,40 @@ public class Temperature : MonoBehaviour
         else if (temperature <= -80)
         {
             temperature = -80;
+        }
+
+        if (shockDuration > 0)
+        {
+            OnShocked();
+        }
+    }
+
+    void OnShocked()
+    {
+        if (shockTimer > 0.25f)
+        {
+            if (isPlayer)
+            {
+                PlayerStats.instance.DamagePlayer(3);
+            }
+            else
+            {
+                enemyScript.DamageEnemy(3);
+            }
+            shockTimer = 0;
+            shockDuration--;
+        }
+        shockTimer = shockTimer + 1 * Time.fixedDeltaTime;
+
+        if (isPlayer)
+        {
+            PlayerMovementTest.instance.potionSpeedMultiplier = 0.25f;
+            PlayerMovementTest.instance.speedUpTime = 0.25f;
+            PlayerMovementTest.instance.isSpedUp = true;
+        }
+        else
+        {
+            navMeshAgent.speed = 0.875f;
         }
     }
 
