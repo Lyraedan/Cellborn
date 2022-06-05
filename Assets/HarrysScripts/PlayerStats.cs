@@ -190,16 +190,18 @@ public class PlayerStats : MonoBehaviour
     public void KillPlayer()
     {
         currentHP = 0;
+        isDead = true;
+
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             if(meshRenderers[i] != null)
                 meshRenderers[i].enabled = false;
         }
+        WeaponManager.instance.OnPlayerDeath();
         moveScript.enabled = false;
         playerCollider.enabled = false;
         laserControl.laserParticles.Stop();
-        isDead = true;
 
         int seconds = 5;
         Debug.Log($"You are dead. Respawning in {seconds} seconds");

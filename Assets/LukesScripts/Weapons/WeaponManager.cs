@@ -210,6 +210,11 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    public void OnPlayerDeath()
+    {
+        currentWeapon = currentlyHeldWeapons[2];
+    }
+
     public void GetWeaponsInLevel()
     {
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
@@ -239,6 +244,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (!PauseMenu.isPaused)
         {
+            if (PlayerStats.instance.isDead)
+                return;
+
             if (Input.GetButton("Fire1"))
             {
                 if (!healthScript.isDead)
