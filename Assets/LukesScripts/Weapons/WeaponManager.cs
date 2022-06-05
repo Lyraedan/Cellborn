@@ -44,8 +44,16 @@ public class WeaponManager : MonoBehaviour
         set
         {
             Debug.Log("Updating current weapon to " + value.weaponName);
+
+            if (currentViewModel != null)
+                currentViewModel.SetActive(false);
+
+            currentViewModel = value.viewModel;
+
+            if (currentViewModel != null)
+                currentViewModel.SetActive(true);
             _currentWeapon = value;
-            
+
             if (value.weaponId != -1)
             {
                 weaponText.text = value.weaponName;
@@ -68,53 +76,47 @@ public class WeaponManager : MonoBehaviour
             animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
             animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
 
-            if (_currentWeapon.weaponId == 1)
+            switch(value.weaponId)
             {
-                animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
-            }
-            else if (_currentWeapon.weaponId == 2)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
-            }
-            else if (_currentWeapon.weaponId == 3)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
-            }
-            else if (_currentWeapon.weaponId == 4)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
-            }
-            else if (_currentWeapon.weaponId == 5)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
-            }
-            else if (_currentWeapon.weaponId == 6)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
-            }
-            else if (_currentWeapon.weaponId == 7)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
-            }
-            else if (_currentWeapon.weaponId == 8)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
-            }
-            else if (_currentWeapon.weaponId == 9)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
-            }
-            else if (_currentWeapon.weaponId == 10)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
-            }
-            else if (_currentWeapon.weaponId == 11)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
-            }
-            else if (_currentWeapon.weaponId == 12)
-            {
-                animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
+                case 1:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
+                    break;
+                case 2:
+                    animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
+                    break;
+                case 3:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
+                    break;
+                case 4:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
+                    break;
+                case 5:
+                    animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
+                    break;
+                case 6:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
+                    break;
+                case 7:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
+                    break;
+                case 8:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
+                    break;
+                case 9:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
+                    break;
+                case 10:
+                    animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
+                    break;
+                case 11:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
+                    break;
+                case 12:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
+                    break;
+                default:
+                    Debug.Log("No anim layer index to update");
+                    break;
             }
 
             if (value.functionality != null)
@@ -169,6 +171,8 @@ public class WeaponManager : MonoBehaviour
     }
     public WeaponProperties toPickup;
 
+    public GameObject currentViewModel;
+
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
 
@@ -186,8 +190,10 @@ public class WeaponManager : MonoBehaviour
         targetProperties = target.GetComponent<TargetProperties>();
     }
 
-    public bool isInventoryFull {
-        get {
+    public bool isInventoryFull
+    {
+        get
+        {
             return !HasWeaponInInventory(-1);
         }
     }
@@ -281,8 +287,8 @@ public class WeaponManager : MonoBehaviour
         if (scrollDelta != Vector2.zero && !PauseMenu.isPaused)
         {
             uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
-            
-            if(scrollDelta.y < 0)
+
+            if (scrollDelta.y < 0)
             {
                 currentlySelectedIndex++;
                 if (currentlySelectedIndex >= currentlyHeldWeapons.Count)
@@ -290,7 +296,8 @@ public class WeaponManager : MonoBehaviour
 
                 uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
 
-            } else if(scrollDelta.y > 0)
+            }
+            else if (scrollDelta.y > 0)
             {
                 currentlySelectedIndex--;
                 if (currentlySelectedIndex < 0)
@@ -339,7 +346,7 @@ public class WeaponManager : MonoBehaviour
             pickupText.text = string.Empty;
 
             // Update current weapon
-            if(index == currentlySelectedIndex)
+            if (index == currentlySelectedIndex)
                 currentWeapon = wep;
 
             source.clip = pickupSound;
@@ -363,7 +370,8 @@ public class WeaponManager : MonoBehaviour
 
                 if (weapon.IsEmpty)
                     Destroy(weapon.gameObject);
-            } else
+            }
+            else
             {
                 Debug.Log("Ammo is full!");
                 CustomEvent.Trigger(gameObject, EventHooks.OnAmmoFull);

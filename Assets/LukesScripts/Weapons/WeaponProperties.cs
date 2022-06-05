@@ -32,6 +32,8 @@ public class WeaponProperties : MonoBehaviour
     public Sprite redIcon;
     public Sprite blueIcon;
     public Sprite yellowIcon;
+    [Space(10)]
+    public GameObject viewModel;
 
     public WeaponBase functionality;
 
