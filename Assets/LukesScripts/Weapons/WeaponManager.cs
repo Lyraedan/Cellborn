@@ -46,12 +46,23 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Updating current weapon to " + value.weaponName);
 
             if (currentViewModel != null)
+            {
                 currentViewModel.SetActive(false);
+                // Reset the view model animator
+                currentViewModelAnimator = null;
+            }
 
             currentViewModel = value.viewModel;
 
             if (currentViewModel != null)
+            {
                 currentViewModel.SetActive(true);
+                // If the view model has an animator
+                if (currentViewModel.GetComponent<Animator>())
+                {
+                    currentViewModelAnimator = currentViewModel.GetComponent<Animator>();
+                }
+            }
             _currentWeapon = value;
 
             if (value.weaponId != -1)
@@ -172,6 +183,7 @@ public class WeaponManager : MonoBehaviour
     public WeaponProperties toPickup;
 
     public GameObject currentViewModel;
+    public Animator currentViewModelAnimator;
 
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
@@ -205,6 +217,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
+        currentlyHeldWeapons[0] = FindWeapon(11); // Pebbles 
         //currentlyHeldWeapons[0] = FindWeapon(6);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
