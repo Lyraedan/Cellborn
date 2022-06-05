@@ -45,15 +45,23 @@ public class FairyMagic : ProjectileBehaviour
             {
                 EnemyScript enemyScript = other.gameObject.GetComponent<EnemyScript>();
                 enemyScript.currentHP = enemyScript.currentHP - enemyDamage;
-                Instantiate(destroyEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instantiate(destroyEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
             }
         }
+
+        if (damageTimer > 0.1f)
+        {
+            Instantiate(destroyEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
-    
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (damageTimer > 0.1f)
+        {
+            Instantiate(destroyEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+    }
+
 }
