@@ -43,7 +43,14 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        
+        if (splashGroup.active)
+        {
+            if (Input.anyKeyDown)
+            {
+                SplashToMenu();
+                ClickSound();
+            }
+        }
     }
 
     public void OpenCredits()
