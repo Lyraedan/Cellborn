@@ -422,8 +422,10 @@ MonoBehaviour:
   onFire: 0
   isPlayer: 0
   fireTimer: 0
+  shockTimer: 0
   enemyScript: {fileID: 8505363278950117916}
   navMeshAgent: {fileID: 8500299319616729032}
+  shockDuration: 0
 --- !u!1 &6740784127087936462
 GameObject:
   m_ObjectHideFlags: 0
