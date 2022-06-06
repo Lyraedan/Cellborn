@@ -14,8 +14,6 @@ public class WeaponManager : MonoBehaviour
     public GameObject player, target;
     public TargetProperties targetProperties;
 
-    public KeyCode pickupKey = KeyCode.F;
-    public KeyCode dropKey = KeyCode.G;
     public KeyCode[] slotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3 };
     public TextMeshProUGUI pickupText, weaponText, ammoText;
     public GameObject firepoint;
@@ -247,7 +245,7 @@ public class WeaponManager : MonoBehaviour
             if (PlayerStats.instance.isDead)
                 return;
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton(ControlManager.INPUT_FIRE))
             {
                 if (!healthScript.isDead)
                 {
@@ -275,13 +273,13 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(pickupKey))
+        if (Input.GetButtonDown(ControlManager.INPUT_PICKUP))
         {
             if (toPickup != null)
                 Pickup(toPickup);
         }
 
-        if (Input.GetKeyDown(dropKey))
+        if (Input.GetAxisRaw("Drop") > 0)
         {
             // Is not pebble bag
             if (currentWeapon.weaponId > 0)

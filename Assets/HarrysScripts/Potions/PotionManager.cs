@@ -10,8 +10,6 @@ public class PotionManager : MonoBehaviour
 
     public GameObject player;
 
-    public KeyCode[] useKeys = new KeyCode[] { KeyCode.Q, KeyCode.E };
-    public KeyCode pickupKey = KeyCode.F;
     public TextMeshProUGUI useText, pickupText;
     public GameObject firePoint;
     public PlayerStats healthScript;
@@ -68,7 +66,7 @@ public class PotionManager : MonoBehaviour
         {
             if (potionSlots[i] != null)
             {
-                potionSlots[i].number.text = useKeys[i].ToString();
+                potionSlots[i].number.text = new string[] { "A", "B" }[i];
                 
                 if (potionSlots[i].image.sprite != null)
                 {
@@ -82,8 +80,11 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(useKeys[0]))
+        if (Input.GetButtonDown("UsePotionA"))
         {
+            if (currentlyHeldPotions[0] == emptyPotion)
+                return;
+
             if (!healthScript.isDead)
             {
                 var psMain = potionDrinkEffectPS.main;
@@ -99,8 +100,11 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(useKeys[1]))
+        if (Input.GetButtonDown("UsePotionB"))
         {
+            if (currentlyHeldPotions[1] == emptyPotion)
+                return;
+
             if (!healthScript.isDead)
             {
                 var psMain = potionDrinkEffectPS.main;
@@ -116,7 +120,7 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(pickupKey))
+        if (Input.GetButtonDown(ControlManager.INPUT_PICKUP))
         {
             if (toPickup != null)
                 Pickup(toPickup);

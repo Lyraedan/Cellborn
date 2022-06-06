@@ -75,7 +75,7 @@ public class MusicGunMusicControl : MonoBehaviour
             return;
         }
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton(ControlManager.INPUT_FIRE))
         {
             if(!playing)
             {

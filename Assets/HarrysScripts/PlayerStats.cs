@@ -109,7 +109,7 @@ public class PlayerStats : MonoBehaviour
             if (closestPickup.DistanceFromPlayer <= 1f)
             {
                 WeaponManager.instance.toPickup = closestPickup;
-                WeaponManager.instance.pickupText.text = $"{WeaponManager.instance.pickupKey.ToString()} - Pick Up {closestPickup.weaponName}";
+                WeaponManager.instance.pickupText.text = $"{ControlManager.pickup} - Pick Up {closestPickup.weaponName}";
             } else
             {
                 WeaponManager.instance.toPickup = null;
@@ -123,7 +123,7 @@ public class PlayerStats : MonoBehaviour
             if (closestPickup.DistanceFromPlayer <= 1f)
             {
                 PotionManager.instance.toPickup = closestPickup;
-                PotionManager.instance.pickupText.text = $"{PotionManager.instance.pickupKey.ToString()} - Pick Up {closestPickup.potionName}";
+                PotionManager.instance.pickupText.text = $"{ControlManager.pickup} - Pick Up {closestPickup.potionName}";
             } else
             {
                 PotionManager.instance.toPickup = null;

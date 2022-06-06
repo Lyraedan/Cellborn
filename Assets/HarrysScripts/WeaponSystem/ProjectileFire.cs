@@ -107,7 +107,7 @@ public class ProjectileFire : MonoBehaviour
             //Check if weapon is rapidfire
             if (isRapidFire)
             {
-                if (Input.GetButton("Fire1"))
+                if (Input.GetButton(ControlManager.INPUT_FIRE))
                 {
                     tFire += Time.deltaTime;
 
@@ -125,7 +125,7 @@ public class ProjectileFire : MonoBehaviour
             }
             else
             {
-                if (Input.GetButtonDown("Fire1") && canFire)
+                if (Input.GetButtonDown(ControlManager.INPUT_FIRE) && canFire)
                 {
                     if (currentAmmo > 0)
                     {
@@ -155,7 +155,7 @@ public class ProjectileFire : MonoBehaviour
 
                 if (tFire >= fireRate)
                 {
-                    if (Input.GetButton("Fire1"))
+                    if (Input.GetButton(ControlManager.INPUT_FIRE))
                     {
                         SpawnProjectile(projectile, shotsPerFire, fireAngle);
                         canFire = false;                        
@@ -165,7 +165,7 @@ public class ProjectileFire : MonoBehaviour
             }
             else
             {
-                if (Input.GetButtonDown("Fire1") && canFire)
+                if (Input.GetButtonDown(ControlManager.INPUT_FIRE) && canFire)
                 {
                     SpawnProjectile(projectile, shotsPerFire, fireAngle);
                     canFire = false;
