@@ -11,6 +11,25 @@ public class EnemyScript : MonoBehaviour
     public AI functionality;
     public Color colour;
     public Temperature temperature;
+    public bool red;
+    public bool blue;
+    public bool yellow;
+
+    private void Start()
+    {
+        if (red)
+        {
+            colour = Color.red;
+        }
+        else if (blue)
+        {
+            colour = Color.blue;
+        }
+        else if (yellow)
+        {
+            colour = Color.yellow;
+        }
+    }
 
     void Update()
     {

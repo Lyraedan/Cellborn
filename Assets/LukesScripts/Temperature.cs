@@ -52,7 +52,7 @@ public class Temperature : MonoBehaviour
 
         if (temperature > 0)
         {
-            temperature = temperature - 0.024f;
+            temperature = temperature - 0.4f;
         }
         else if (temperature < 0)
         {

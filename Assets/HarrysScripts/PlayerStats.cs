@@ -176,7 +176,7 @@ public class PlayerStats : MonoBehaviour
 
             if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.red)
             {
-                temperature.temperature += 50;
+                temperature.temperature += 60;
             }
             else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.blue)
             {

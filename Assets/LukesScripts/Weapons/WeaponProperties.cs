@@ -36,6 +36,7 @@ public class WeaponProperties : MonoBehaviour
     public GameObject viewModel;
 
     public WeaponBase functionality;
+    public Animator animController;
 
     public bool IsFull
     {
@@ -66,7 +67,7 @@ public class WeaponProperties : MonoBehaviour
 
     private void Start()
     {
-
+        animController = WeaponManager.instance.player.GetComponent<Animator>();
         if (!functionality.isInPlayerInventory)
         {
             try
@@ -117,9 +118,16 @@ public class WeaponProperties : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        animController.SetBool("IsShooting", false);
+    }
+
     public void Shoot(System.Action<bool> afterShot)
     {
-        if(functionality == null)
+        animController.SetBool("IsShooting", true);
+
+        if (functionality == null)
         {
             Debug.Log("Weapon has no functionality!");
             return;

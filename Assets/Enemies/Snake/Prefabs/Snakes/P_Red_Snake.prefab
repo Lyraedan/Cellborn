@@ -97,6 +97,9 @@ MonoBehaviour:
   functionality: {fileID: 5700812698526271174}
   colour: {r: 0, g: 0, b: 0, a: 0}
   temperature: {fileID: 3012469045400676501}
+  red: 1
+  blue: 0
+  yellow: 0
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -420,8 +423,10 @@ MonoBehaviour:
   onFire: 0
   isPlayer: 0
   fireTimer: 0
+  shockTimer: 0
   enemyScript: {fileID: 8505363278950117916}
   navMeshAgent: {fileID: 8500299319616729032}
+  shockDuration: 0
 --- !u!1001 &867728623313503246
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -94,8 +94,11 @@ MonoBehaviour:
   deathSmoke: {fileID: 6853229434069390151, guid: 8682d4057ab7be14ea18b31bfb8f4473, type: 3}
   hitEffect: {fileID: 6216887183071399359, guid: 182aab6efc60f7049b95e62c1b086164, type: 3}
   functionality: {fileID: -7825588690380539266}
-  colour: {r: 0, g: 0, b: 0, a: 0}
+  colour: {r: 1, g: 0, b: 0, a: 0}
   temperature: {fileID: 9102140921313546918}
+  red: 1
+  blue: 0
+  yellow: 0
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -422,8 +425,10 @@ MonoBehaviour:
   onFire: 0
   isPlayer: 0
   fireTimer: 0
+  shockTimer: 0
   enemyScript: {fileID: 8505363278950117916}
   navMeshAgent: {fileID: 8500299319616729032}
+  shockDuration: 0
 --- !u!1 &6740784127087936462
 GameObject:
   m_ObjectHideFlags: 0
