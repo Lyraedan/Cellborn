@@ -218,7 +218,7 @@ public class RoomGenerator : MonoBehaviour
         {
             // Spawn teleporter back?
             var position = startPoint.position;
-            position.y += 0.5f;
+            position.y += 1f;
             playerController.TeleportPlayer(position);
         }
 
@@ -701,7 +701,8 @@ public class RoomGenerator : MonoBehaviour
 
         if (distanceFromStart > startSafeZoneThreashold && distanceFromEnd > endSafeZoneThreashold && isBeyondThreashold)
         {
-            var l = SpawnPrefab(prop, position, Vector3.zero);
+            Vector3 rot = new Vector3(0, Random.Range(0, 360), 0);
+            var l = SpawnPrefab(prop, position, rot);
             l.transform.SetParent(environment.transform);
         }
 
