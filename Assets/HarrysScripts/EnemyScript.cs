@@ -11,6 +11,25 @@ public class EnemyScript : MonoBehaviour
     public AI functionality;
     public Color colour;
     public Temperature temperature;
+    public bool red;
+    public bool blue;
+    public bool yellow;
+
+    private void Start()
+    {
+        if (red)
+        {
+            colour = Color.red;
+        }
+        else if (blue)
+        {
+            colour = Color.blue;
+        }
+        else if (yellow)
+        {
+            colour = Color.yellow;
+        }
+    }
 
     void Update()
     {
@@ -60,11 +79,15 @@ public class EnemyScript : MonoBehaviour
 
             if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.red)
             {
-                temperature.temperature = temperature.temperature + 50;
+                temperature.temperature += 50;
             }
             else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.blue)
             {
-                temperature.temperature = temperature.temperature - 40;
+                temperature.temperature -= 40;
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.yellow)
+            {
+                temperature.shockDuration = 8; 
             }
 
 

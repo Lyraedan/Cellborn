@@ -9,11 +9,26 @@ public class FairyMagic : ProjectileBehaviour
     public bool canDamage = false;
     public float noDamageTime;
     float damageTimer;
+    public bool red;
+    public bool yellow;
+    public bool blue;
     
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerStats>();
+        if (red)
+        {
+            colour = Color.red;
+        }
+        else if (blue)
+        {
+            colour = Color.blue;
+        }
+        else if (yellow)
+        {
+            colour = Color.yellow;
+        }
     }
 
     // Update is called once per frame

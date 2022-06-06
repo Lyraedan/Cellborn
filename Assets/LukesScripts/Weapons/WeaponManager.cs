@@ -251,7 +251,6 @@ public class WeaponManager : MonoBehaviour
             {
                 if (!healthScript.isDead)
                 {
-                    animController.SetBool("IsShooting", true);
                     currentWeapon.Shoot(delayed =>
                     {
                         if (!currentWeapon.functionality.infiniteAmmo)
@@ -273,10 +272,6 @@ public class WeaponManager : MonoBehaviour
                         }
                     });
                 }
-            }
-            else
-            {
-                animController.SetBool("IsShooting", false);
             }
         }
 

@@ -78,6 +78,10 @@ public class GrappleOffence : MonoBehaviour
                     {
                         temperature.temperature -= 10;
                     }
+                    else if (WeaponManager.instance.currentWeapon.colour == Color.yellow)
+                    {
+                        temperature.shockDuration = 8;
+                    }
                 }
 
                 if (other.gameObject.GetComponent<AITest>() != null)

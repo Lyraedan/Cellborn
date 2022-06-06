@@ -7,7 +7,6 @@ using TMPro;
 
 public class LoadingScreen : MonoBehaviour
 {
-    public Slider loadBar;
     public TextMeshProUGUI loadBarText;
     public string scene;
     
@@ -29,7 +28,6 @@ public class LoadingScreen : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);            
             
-            loadBar.value = progress;
             loadBarText.text = (int)(progress * 100f) + "%";
 
             yield return null;

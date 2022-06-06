@@ -21,5 +21,6 @@ public class Potion_Speed : PotionBase
         PlayerMovementTest.instance.potionSpeedMultiplier = speedMultiplier;
         PlayerMovementTest.instance.speedUpTime = speedUpTime;
         PlayerMovementTest.instance.isSpedUp = true;
+        PlayerMovementTest.instance.isSpeedPotioned = true;
     }
 }

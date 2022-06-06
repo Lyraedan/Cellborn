@@ -16,12 +16,41 @@ public class Acid : MonoBehaviour
 
     public float lifetime;
     public float t;
+    public Color colour;
+    public bool red;
+    public bool blue;
+    public bool yellow;
 
     private void Start()
     {
+        if (red)
+        {
+            colour = Color.red;
+        }
+        else if (blue)
+        {
+            colour = Color.blue;
+        }
+        else if (yellow)
+        {
+            colour = Color.yellow;
+        }
+
         OnPlayerStoodInAcid?.AddListener(() =>
         {
             PlayerStats.instance.DamagePlayer(playerDamage);
+            if (colour == Color.red)
+            {
+                PlayerStats.instance.temperature.temperature += 6;
+            }
+            else if (colour == Color.blue)
+            {
+                PlayerStats.instance.temperature.temperature -= 4;
+            }
+            else if (colour == Color.yellow)
+            {
+                PlayerStats.instance.temperature.shockDuration = 4;
+            }
         });
     }
 

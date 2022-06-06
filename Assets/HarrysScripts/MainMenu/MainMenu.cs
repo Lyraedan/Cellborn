@@ -11,11 +11,11 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenuGroup, creditsGroup, loadingGroup, optionsGroup, startGameGroup, logo;
 
-    public Slider loadBar;
     public TextMeshProUGUI loadBarText;
 
     public VideoPlayer videoPlayer;
     public List<VideoClip> backgroundRenders;
+    public GameObject background;
     int chosenBackground;
 
     public AudioSource source;
@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
 
     public PostProcessProfile profile;
     private ColorGrading _colorGrading;
+
+    public GameObject splashGroup;
+    public GameObject mainGroup;
     
     void Start()
     {
@@ -40,7 +43,14 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        
+        if (splashGroup.active)
+        {
+            if (Input.anyKeyDown)
+            {
+                SplashToMenu();
+                ClickSound();
+            }
+        }
     }
 
     public void OpenCredits()
@@ -82,6 +92,8 @@ public class MainMenu : MonoBehaviour
         mainMenuGroup.SetActive(false);
         startGameGroup.SetActive(false);
         loadingGroup.SetActive(true);
+        background.SetActive(false);
+        logo.SetActive(false);
         
         StartCoroutine(LoadSceneAsync(sceneName));
     }
@@ -94,7 +106,6 @@ public class MainMenu : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);            
             
-            loadBar.value = progress;
             loadBarText.text = (int)(progress * 100f) + "%";
 
             yield return null;
@@ -111,5 +122,11 @@ public class MainMenu : MonoBehaviour
     {
         source.clip = menuClickSound;
         source.Play();
+    }
+
+    public void SplashToMenu()
+    {
+        splashGroup.SetActive(false);
+        mainGroup.SetActive(true);
     }
 }
