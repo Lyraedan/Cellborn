@@ -149,7 +149,7 @@ public class PlayerStats : MonoBehaviour
             }
         }
 
-        if (PlayerMovementTest.instance.potionSpeedMultiplier != 1)
+        if (PlayerMovementTest.instance.potionSpeedMultiplier != 1 && PlayerMovementTest.instance.isSpeedPotioned)
         {
             speedBlue.CrossFadeAlpha(1f, 0.25f, false);
         }
@@ -216,6 +216,11 @@ public class PlayerStats : MonoBehaviour
         moveScript.enabled = false;
         playerCollider.enabled = false;
         laserControl.laserParticles.Stop();
+
+        temperature.temperature = 0;
+        temperature.fireFX.SetActive(false);
+        temperature.iceFX.SetActive(false);
+        temperature.shockFX.SetActive(false);
 
         int seconds = 5;
         Debug.Log($"You are dead. Respawning in {seconds} seconds");

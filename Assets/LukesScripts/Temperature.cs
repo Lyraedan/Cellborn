@@ -7,6 +7,8 @@ public class Temperature : MonoBehaviour
 {
     public float temperature;
     public GameObject fireFX;
+    public GameObject iceFX;
+    public GameObject shockFX;
     public bool onFire;
     public bool isPlayer;
     public float fireTimer = 0;
@@ -39,6 +41,10 @@ public class Temperature : MonoBehaviour
         if (temperature < 0)
         {
             Frozen();
+        }
+        else
+        {
+            iceFX.SetActive(false);
         }
 
         if (temperature < 1 && temperature > 0)
@@ -73,12 +79,18 @@ public class Temperature : MonoBehaviour
         {
             OnShocked();
         }
+        else
+        {
+            shockFX.SetActive(false);
+        }
     }
 
     void OnShocked()
     {
+
         if (shockTimer > 0.25f)
         {
+            shockFX.SetActive(true);
             if (isPlayer)
             {
                 PlayerStats.instance.DamagePlayer(3);
@@ -123,6 +135,8 @@ public class Temperature : MonoBehaviour
 
     void Frozen()
     {
+        iceFX.SetActive(true);
+
         if (temperature <= -80)
         {
             if (isPlayer)

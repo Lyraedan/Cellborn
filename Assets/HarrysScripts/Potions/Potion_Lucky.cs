@@ -83,6 +83,7 @@ public class Potion_Lucky : PotionBase
                             PlayerMovementTest.instance.potionSpeedMultiplier = maxSpeedVariance;
                             PlayerMovementTest.instance.speedUpTime = maxSpeedTimeVariance;
                             PlayerMovementTest.instance.isSpedUp = true;
+                            PlayerMovementTest.instance.isSpeedPotioned = true;
                             Debug.Log("Sped up by " + speedMod + "x for " + speedTimeMod + " seconds");
                             break;
                     }

@@ -40,6 +40,7 @@ public class PlayerMovementTest : MonoBehaviour
     public GameObject StoodOn;
     public bool onSlope;
     private Vector3 slopeNormal;
+    public bool isSpeedPotioned = false;
 
     Vector3 forward, right, velocity;
 
