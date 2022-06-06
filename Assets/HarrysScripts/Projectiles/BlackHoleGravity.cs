@@ -65,6 +65,10 @@ public class BlackHoleGravity : MonoBehaviour
                 {
                     temperature.temperature -= 10;
                 }
+                else if (colour == Color.yellow)
+                {
+                    temperature.shockDuration = 8;
+                }
             }
             else if (other.CompareTag("Player"))
             {
@@ -79,6 +83,10 @@ public class BlackHoleGravity : MonoBehaviour
                 else if (colour == Color.blue)
                 {
                     temperature.temperature -= 10;
+                }
+                else if (colour == Color.yellow)
+                {
+                    temperature.shockDuration = 8;
                 }
             }
             else if (other.CompareTag("Projectile") || other.CompareTag("EnemyProjectile"))

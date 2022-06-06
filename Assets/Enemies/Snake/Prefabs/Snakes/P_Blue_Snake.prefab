@@ -241,7 +241,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: af905131fcf5db248b050bc8f899e3c9, type: 3}
   isHit: 0
   playerStats: {fileID: 0}
-  acid: {fileID: 6889663135260513420, guid: 0f06a260db58e564abcbf0a71d39f0de, type: 3}
+  acid: {fileID: 6889663135260513420, guid: 70e7ac9b8ec173240bf681870c0a7bfa, type: 3}
   acidPoint: {fileID: 377243591531936383}
   animController: {fileID: -172652356501322566}
   remainingDistance: 0
@@ -420,8 +420,10 @@ MonoBehaviour:
   onFire: 0
   isPlayer: 0
   fireTimer: 0
+  shockTimer: 0
   enemyScript: {fileID: 8505363278950117916}
   navMeshAgent: {fileID: 8500299319616729032}
+  shockDuration: 0
 --- !u!1001 &720118884255169307
 PrefabInstance:
   m_ObjectHideFlags: 0

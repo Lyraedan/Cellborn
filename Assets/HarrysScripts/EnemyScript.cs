@@ -60,11 +60,15 @@ public class EnemyScript : MonoBehaviour
 
             if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.red)
             {
-                temperature.temperature = temperature.temperature + 50;
+                temperature.temperature += 50;
             }
             else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.blue)
             {
-                temperature.temperature = temperature.temperature - 40;
+                temperature.temperature -= 40;
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.yellow)
+            {
+                temperature.shockDuration = 8; 
             }
 
 

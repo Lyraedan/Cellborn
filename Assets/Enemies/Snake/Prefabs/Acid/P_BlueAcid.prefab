@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 57536874172660003}
   - component: {fileID: -1524876272520928812}
   m_Layer: 0
-  m_Name: P_Acid
+  m_Name: P_BlueAcid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   damageDelay: 0.025
   lifetime: 10
   t: 0
+  colour: {r: 0, g: 0, b: 1, a: 0}
 --- !u!64 &4364128181605876794
 MeshCollider:
   m_ObjectHideFlags: 0

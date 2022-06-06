@@ -28,9 +28,10 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector] public float defenseMultiplier = 1;
     [HideInInspector] public float defenseTime;
     float defenseTimer;
+    public Temperature temperature;
 
     #region Player Components
-    
+
     public TextMeshProUGUI healthText;
     public GameObject deathEffect;
 
@@ -171,6 +172,19 @@ public class PlayerStats : MonoBehaviour
             else
             {
                 DamagePlayer(collObj.GetComponentInChildren<ProjectileBehaviour>().playerDamage);
+            }
+
+            if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.red)
+            {
+                temperature.temperature += 50;
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.blue)
+            {
+                temperature.temperature -= 40;
+            }
+            else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.yellow)
+            {
+                temperature.shockDuration = 8;
             }
         }
     }

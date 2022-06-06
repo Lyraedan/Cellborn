@@ -69,6 +69,10 @@ public class WeaponLazer : WeaponBase
                         {
                             enemyScript.temperature.temperature -= 10;
                         }
+                        else if (WeaponManager.instance.currentWeapon.colour == Color.yellow)
+                        {
+                            enemyScript.temperature.shockDuration = 8;
+                        }
 
                         if (hitEnemy.GetComponent<AITest>() != null)
                         {
