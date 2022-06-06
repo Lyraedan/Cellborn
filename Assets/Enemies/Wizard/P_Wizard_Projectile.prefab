@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 535181506469579725}
   - component: {fileID: 2834166439525900301}
   - component: {fileID: 6159968963900256685}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: P_Wizard_Projectile
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -4848,6 +4848,7 @@ MonoBehaviour:
   canChangeDistance: 0
   destroyEffect: {fileID: 2364194774723484448, guid: a21c988ae6ef0704d9582ada5dc07b1f, type: 3}
   canDamage: 1
+  noDamageTime: 0
 --- !u!54 &535181506469579725
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5067,7 +5068,7 @@ GameObject:
   - component: {fileID: 535181507083592477}
   - component: {fileID: 535181507083592479}
   - component: {fileID: 535181507083592476}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9871,7 +9872,7 @@ GameObject:
   - component: {fileID: 535181507627775310}
   - component: {fileID: 535181507627775304}
   - component: {fileID: 535181507627775305}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: Main_Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14675,7 +14676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535181507698187055}
   - component: {fileID: 535181507698187054}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14753,7 +14754,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -1.2563384e+27, z: 4.5905e-41, w: 1e-45}
+  m_BoundingSphereOverride: {x: 0, y: -0.00000045989145, z: 4.5904e-41, w: 1e-45}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
