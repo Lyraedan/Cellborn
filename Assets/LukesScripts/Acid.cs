@@ -49,7 +49,7 @@ public class Acid : MonoBehaviour
             }
             else if (colour == Color.yellow)
             {
-                PlayerStats.instance.temperature.shockDuration = 8;
+                PlayerStats.instance.temperature.shockDuration = 4;
             }
         });
     }
