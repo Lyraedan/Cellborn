@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1468798803036684350}
   - component: {fileID: 7381624746457758318}
   - component: {fileID: 6920695779139702904}
-  - component: {fileID: 8719139604002842178}
+  - component: {fileID: 4129455200696217093}
   m_Layer: 0
   m_Name: Tabletop
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8719139604002842178
+--- !u!64 &4129455200696217093
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,9 +269,8 @@ GameObject:
   - component: {fileID: 8577853992256568038}
   - component: {fileID: 3558363691718043402}
   - component: {fileID: 6207692333069624678}
-  - component: {fileID: 8019549026957351777}
-  - component: {fileID: 7647983227663900507}
   - component: {fileID: -1366044663688937619}
+  - component: {fileID: 8290552502498773306}
   m_Layer: 0
   m_Name: P_RoundTable
   m_TagString: Prop
@@ -308,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 8719139604002842178}
+  collider: {fileID: 0}
   meshRenderers:
   - {fileID: 116619918386006914}
   - {fileID: 5028525373498577475}
@@ -333,32 +332,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.41, z: 0}
   m_TimeToStationary: 0.5
---- !u!65 &8019549026957351777
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8953569951070691420}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8993808, y: 0.11611587, z: 0.8993808}
-  m_Center: {x: 0, y: 0.055, z: 0.000000074505806}
---- !u!65 &7647983227663900507
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8953569951070691420}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.40211344, y: 0.5682833, z: 0.40211332}
-  m_Center: {x: 0, y: 0.42, z: 0.000000052154064}
 --- !u!114 &-1366044663688937619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,3 +346,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   threashold: -5
   aboveThreashold: 1.5
+--- !u!135 &8290552502498773306
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953569951070691420}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8494147
+  m_Center: {x: 0, y: 0, z: 0}
