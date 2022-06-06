@@ -17,14 +17,22 @@ public class AudioManagerRevised : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(this);
+        }
         else
             Destroy(this);
 
-        DontDestroyOnLoad(this);
     }
 
     private void Start()
+    {
+        LoadSliders();
+        SceneManager.sceneLoaded += LoadedScene;
+    }
+
+    void LoadSliders()
     {
         masterSlider.value = PlayerPrefs.HasKey("VOLUME_MASTER") ? PlayerPrefs.GetFloat("VOLUME_MASTER") : masterSlider.maxValue;
         musicSlider.value = PlayerPrefs.HasKey("VOLUME_MUSIC") ? PlayerPrefs.GetFloat("VOLUME_MUSIC") : musicSlider.maxValue;
@@ -58,16 +66,27 @@ public class AudioManagerRevised : MonoBehaviour
             sfx = sfxSlider.value;
             sfxVolText.text = $"{Mathf.RoundToInt((sfx * 100) / masterSlider.maxValue)}%";
         });
-
-        SceneManager.sceneLoaded += LoadedScene;
     }
 
     private void LoadedScene(Scene scene, LoadSceneMode mode)
     {
         // is first scene aka menu
-        if(scene.buildIndex == 0)
+        if(scene.name == "MainMenu")
         {
-            
+            var cache = FindObjectOfType<SoundSliderCache>();
+            masterSlider = cache.master;
+            sfxSlider = cache.sfx;
+            musicSlider = cache.music;
+
+            masterVolText = cache.masterText;
+            sfxVolText = cache.sfxText;
+            musicVolText = cache.musicText;
+
+            masterSlider.onValueChanged.RemoveAllListeners();
+            sfxSlider.onValueChanged.RemoveAllListeners();
+            musicSlider.onValueChanged.RemoveAllListeners();
+
+            LoadSliders();
         }
     }
 
