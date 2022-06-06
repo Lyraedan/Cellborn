@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
 
     public PostProcessProfile profile;
     private ColorGrading _colorGrading;
+
+    public GameObject splashGroup;
+    public GameObject mainGroup;
     
     void Start()
     {
@@ -112,5 +115,11 @@ public class MainMenu : MonoBehaviour
     {
         source.clip = menuClickSound;
         source.Play();
+    }
+
+    public void SplashToMenu()
+    {
+        splashGroup.SetActive(false);
+        mainGroup.SetActive(true);
     }
 }
