@@ -80,6 +80,9 @@ public class MusicGunMusicControl : MonoBehaviour
             if(!playing)
             {
                 Debug.Log("[Music Gun] Fire1 is pressed");
+
+                MusicManager.instance.source.Pause();
+
                 source.Play();
                 playing = true;
                 discoLights.SetActive(true);
@@ -88,6 +91,7 @@ public class MusicGunMusicControl : MonoBehaviour
         else
         {
             StopMusic();
+            MusicManager.instance.source.UnPause();
         }
     }
 
