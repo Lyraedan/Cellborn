@@ -61,8 +61,6 @@ public class PlayerMovementTest : MonoBehaviour
         if (WeaponManager.instance == null)
             return;
 
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
         (isGrounded, onSlope, slopeNormal, StoodOn) = CheckIsGrounded();
 
         if (isGrounded && velocity.y <= 0)
@@ -94,19 +92,7 @@ public class PlayerMovementTest : MonoBehaviour
         if (!disableMovement)
         {
             movingDirection = heading * speed * potionSpeedMultiplier * Time.deltaTime;
-
-            // Moving states if we need them
-            bool standingStill = movingDirection.Equals(Vector3.zero);
-            bool movingLeft = movingDirection.x < 0 && movingDirection.z > 0;
-            bool movingRight = movingDirection.x > 0 && movingDirection.z < 0;
-            bool movingUp = movingDirection.x > 0 && movingDirection.z > 0;
-            bool movingDown = movingDirection.x < 0 && movingDirection.z < 0;
-
-            float velocityX = Vector3.Dot(movingDirection, transform.right);
-            float velocityZ = Vector3.Dot(movingDirection, transform.forward);
-
-            animController.SetFloat("VelocityX", velocityX);
-            animController.SetFloat("VelocityZ", velocityZ);
+            Animate(movingDirection);
 
             controller.Move(movingDirection);
         }
@@ -126,6 +112,19 @@ public class PlayerMovementTest : MonoBehaviour
         var newRotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampening);
         transform.rotation = newRotation;
         test = Vector3.Cross(transform.position, WeaponManager.instance.target.transform.position);
+    }
+
+    public void Animate(Vector3 heading)
+    {
+        if (heading.magnitude > 1.0f)
+        {
+            heading = heading.normalized;
+        }
+
+        heading = transform.InverseTransformDirection(heading);
+
+        animController.SetFloat("VelocityX", heading.x, 0.05f, Time.deltaTime);
+        animController.SetFloat("VelocityZ", heading.z, 0.05f, Time.deltaTime);
     }
 
     public void TeleportPlayer(Vector3 position)
