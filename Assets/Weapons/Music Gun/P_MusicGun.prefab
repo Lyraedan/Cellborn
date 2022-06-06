@@ -213,7 +213,9 @@ MonoBehaviour:
   redIcon: {fileID: 21300000, guid: 2c1f6c21542545a45a3e4d6c279f395b, type: 3}
   blueIcon: {fileID: 21300000, guid: c7729349bf9ad1b4998f3531683c05dc, type: 3}
   yellowIcon: {fileID: 21300000, guid: 80cbccfbde6698049a8f1c84a776a8e8, type: 3}
+  viewModel: {fileID: 0}
   functionality: {fileID: 4684211471939641043}
+  animController: {fileID: 0}
 --- !u!65 &7612239085541188469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -328,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   discoLights: {fileID: 0}
   source: {fileID: 945874588689647132}
-  song: {fileID: 8300000, guid: 22831aebe106762458cb41a823d314d1, type: 3}
+  song: {fileID: 8300000, guid: c6d352c08ff350b4685c178140b958a0, type: 3}
   hasCooledDown: 0
 --- !u!114 &8312521369559068552
 MonoBehaviour:
@@ -495,8 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 2179520291715292898}
-  Height: 0.03
+  height: 0.1
 --- !u!54 &-9124157616797949571
 Rigidbody:
   m_ObjectHideFlags: 0
