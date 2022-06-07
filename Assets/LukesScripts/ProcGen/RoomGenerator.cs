@@ -40,8 +40,8 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("What are the rate ranges for spawning wall decoration as opposed to wall prop groups? 1 in x")]
     public Vector2 wallDecorRate = new Vector2(0, 2);
 
-    public float startSafeZoneThreashold = 20f;
-    public float endSafeZoneThreashold = 10f;
+    public float startSafeZoneThreashold = 40f;
+    public float endSafeZoneThreashold = 20f;
     public float centreSafeZoneThreashold = 5f;
 
     public List<Room> rooms = new List<Room>();
