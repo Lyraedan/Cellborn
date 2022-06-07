@@ -1,4 +1,4 @@
-Shader "Custom/NoCullStandard"
+Shader "Custom/WallFadeWall"
 {
 	Properties
 	{

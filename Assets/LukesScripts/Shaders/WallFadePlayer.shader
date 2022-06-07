@@ -1,4 +1,4 @@
-Shader "Custom/NoCullStandard"
+Shader "Custom/WallFadePlayer"
 {
 	Properties
 	{
@@ -54,6 +54,13 @@ Shader "Custom/NoCullStandard"
 			Tags { "RenderType" = "Opaque" "PerformanceChecks" = "False" }
 			LOD 300
 			Cull Off
+			ColorMask 0
+
+			Stencil {
+				Ref 1
+				Comp Always
+				Pass Replace
+			}
 
 			// ------------------------------------------------------------------
 			//  Base forward pass (directional light, emission, lightmaps, ...)
@@ -222,6 +229,13 @@ Shader "Custom/NoCullStandard"
 			Tags { "RenderType" = "Opaque" "PerformanceChecks" = "False" }
 			LOD 150
 			Cull Off
+			ColorMask 0
+
+			Stencil {
+				Ref 1
+				Comp Always
+				Pass Replace
+			}
 
 			// ------------------------------------------------------------------
 			//  Base forward pass (directional light, emission, lightmaps, ...)

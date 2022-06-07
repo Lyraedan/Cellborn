@@ -280,7 +280,7 @@ public class RoomGenerator : MonoBehaviour
         Minimap.instance.GenerateMinimap(grid);
 
         // Move player
-        playerController.TeleportPlayer(arena.playerSpawn.position);
+        playerController.TeleportPlayer(new Vector3(1000, 0, 1000));
 
         PlayerStats.instance.bossVideo.SetActive(true);
         bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
@@ -289,6 +289,7 @@ public class RoomGenerator : MonoBehaviour
         WaitThenExecute(() =>
         {
             cutscenePlaying = false;
+            playerController.TeleportPlayer(arena.playerSpawn.position);
             PlayerStats.instance.bossVideo.SetActive(false);
 
             //Spawn wizard
