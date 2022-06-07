@@ -38,6 +38,7 @@ public class WeaponProperties : MonoBehaviour
 
     public WeaponBase functionality;
     public Animator animController;
+    int colourID = 99;
 
     public bool IsFull
     {
@@ -75,7 +76,7 @@ public class WeaponProperties : MonoBehaviour
             {
                 if (colour == Color.white)
                 {
-                    int colourID = Random.Range(0, 3);
+                    colourID = Random.Range(0, 3);
                     if (colourID == 0)
                     {
                         colour = Color.red;
@@ -95,7 +96,7 @@ public class WeaponProperties : MonoBehaviour
                         icon = yellowIcon;
                     }
                 }
-                else
+                else if (colour != Color.red && colour != Color.blue && colour != Color.yellow)
                 {
                     greyRing.SetActive(true);
                 }
@@ -130,8 +131,6 @@ public class WeaponProperties : MonoBehaviour
 
     public void Shoot(System.Action<bool> afterShot)
     {
-        animController.SetBool("IsShooting", true);
-
         if (functionality == null)
         {
             Debug.Log("Weapon has no functionality!");

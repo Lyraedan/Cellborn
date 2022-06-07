@@ -10,6 +10,9 @@ public class WeaponTripleBarrelShotgun : WeaponBase
     public float accuracy;
     System.Random random = new System.Random();
 
+    public WeaponProperties weaponProperties;
+    public Animator animController;
+
     public override void Init()
     {
 
@@ -17,6 +20,11 @@ public class WeaponTripleBarrelShotgun : WeaponBase
 
     public override void Tick()
     {
+    }
+
+    public void Start()
+    {
+        animController = weaponProperties.animController;
     }
 
     public override void Fire()
@@ -37,5 +45,6 @@ public class WeaponTripleBarrelShotgun : WeaponBase
             proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance);
             proj.GetComponent<ProjectileBehaviour>().colour = WeaponManager.instance.currentWeapon.colour;
         }
+        animController.SetBool("IsShooting", true);
     }
 }

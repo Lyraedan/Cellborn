@@ -12,6 +12,9 @@ public class WeaponMusicGun : WeaponBase
     float cdTimer;
     bool hasCooledDown;
 
+    public WeaponProperties weaponProperties;
+    public Animator animController;
+
     public override void Init()
     {
         hasCooledDown = true;
@@ -55,8 +58,13 @@ public class WeaponMusicGun : WeaponBase
             }
     }
 
+    public void Start()
+    {
+        animController = weaponProperties.animController;
+    }
+
     public override void Fire()
     {
-
+        animController.SetBool("IsShooting", true);
     }
 }

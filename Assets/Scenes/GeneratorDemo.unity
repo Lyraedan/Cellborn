@@ -547,12 +547,12 @@ MonoBehaviour:
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 0
   maxEntities: 10
-  maxLitter: 100
+  maxLitter: 25
   wallLightChance: 1
   lightOrPropChance: {x: 0, y: 10}
   wallPropRate: {x: 5, y: 5}
   wallDecorRate: {x: 0, y: 2}
-  startSafeZoneThreashold: 4
+  startSafeZoneThreashold: 7
   endSafeZoneThreashold: 2
   centreSafeZoneThreashold: 2
   rooms: []
@@ -565,6 +565,7 @@ MonoBehaviour:
   teleporter: {fileID: 7201320962568937327, guid: c6e71df9492b3cd4aa0a90d925f019aa, type: 3}
   prisonCell: {fileID: 732313142836911903, guid: dc73bb5f6e3c0b142ac62fde331d44e6, type: 3}
   bossRoom: {fileID: 5512484837785373214, guid: c718d04d22e6d714ba269a417ca734d8, type: 3}
+  bossCutsceneEnter: {fileID: 0}
   prefabs:
   - prefab: {fileID: 55881995776343736, guid: 8f6433341a003574ea08642a311bfe10, type: 3}
     type: 8
@@ -690,6 +691,70 @@ MonoBehaviour:
     type: 11
   - prefab: {fileID: 4834119464799054825, guid: 6e56dd8baf6db1b4cb6df59d21c7d51f, type: 3}
     type: 2
+  - prefab: {fileID: 6258881346250905388, guid: bf813fff65e07fa45a28efddd2826efe, type: 3}
+    type: 12
+  - prefab: {fileID: 6773492339979333745, guid: 40f51783ad51d704381d068947e27d20, type: 3}
+    type: 12
+  - prefab: {fileID: 9097777222176358767, guid: e066c7e30dff54e4cb23325090c3cf22, type: 3}
+    type: 12
+  - prefab: {fileID: 5307322228457016651, guid: 84ca9d0955be28149aa0ac2ca4e1252f, type: 3}
+    type: 12
+  - prefab: {fileID: 8811712046028216676, guid: c4ee026fef2616b45b42d2e416068217, type: 3}
+    type: 12
+  - prefab: {fileID: 4552332654748329938, guid: 52cf335bfceb6e34ebfb2ccd77fb7504, type: 3}
+    type: 12
+  - prefab: {fileID: 2266490987995981044, guid: 01fbde67f04ad6d4f82cebcca3fb8789, type: 3}
+    type: 12
+  - prefab: {fileID: 8592984674082307067, guid: 20fab80eecdd84741b0cceb63c773873, type: 3}
+    type: 12
+  - prefab: {fileID: 2246603973653753709, guid: 1aa5c008226314548aa31cdf67356fe3, type: 3}
+    type: 12
+  - prefab: {fileID: 132027829585251146, guid: 971aff4a69f2a93439bb989724cc0278, type: 3}
+    type: 12
+  - prefab: {fileID: 5363964902193243896, guid: 1724b0321c65c0c4bbe634aa157763bf, type: 3}
+    type: 12
+  - prefab: {fileID: 8562623988701871903, guid: dbfb6bd88cd4b2346b602b3264a43cd4, type: 3}
+    type: 12
+  - prefab: {fileID: 8369747493020899198, guid: 4c8d41d7c5b378142b20ebe34dc19a8c, type: 3}
+    type: 12
+  - prefab: {fileID: 1099449103161929598, guid: a9ac542a62ececb49a1f53ac9392108e, type: 3}
+    type: 12
+  - prefab: {fileID: 5998241158556819918, guid: 958533f3ea853b44fb15d9eeabb59d3c, type: 3}
+    type: 12
+  - prefab: {fileID: 7371336425647990855, guid: b35d82155caef3d4f98d6126c9391ecf, type: 3}
+    type: 12
+  - prefab: {fileID: 4544523784844353233, guid: e654e5ec61496e94482eb16b17aa3fdd, type: 3}
+    type: 12
+  - prefab: {fileID: 3909460054784643621, guid: 87092e56bbb2842409bbb0d4763b7840, type: 3}
+    type: 12
+  - prefab: {fileID: 1794398275440830270, guid: f996fae934c3114498a72ef69b9353f3, type: 3}
+    type: 12
+  - prefab: {fileID: 6337983660422157017, guid: 469ac289ae3684b4597edd4516bdea50, type: 3}
+    type: 12
+  - prefab: {fileID: 6970822337315648814, guid: 282b96076cf5c4b428b66b2c63a18386, type: 3}
+    type: 12
+  - prefab: {fileID: 3084360904689880363, guid: 5e044f92cadaebf4e801fb66003e12e5, type: 3}
+    type: 12
+  - prefab: {fileID: 8296301676752261739, guid: af02d6a4ba1027441863cbfa5cdadd5b, type: 3}
+    type: 12
+  - prefab: {fileID: 1323893525356919059, guid: f960fff1855aae643912866ee82aac25, type: 3}
+    type: 12
+  - prefab: {fileID: 3725501511003124377, guid: 7669b4a7b358c764cacd133cfdf45951, type: 3}
+    type: 12
+  - prefab: {fileID: 3050804005639033892, guid: e4cedbebd7ae6014a961dce2a54806cf, type: 3}
+    type: 12
+  - prefab: {fileID: 9156740619772232873, guid: f5d07e0c5e6641b4c8533ded572e530c, type: 3}
+    type: 12
+  - prefab: {fileID: 5343620835509952339, guid: 26c4a0e66b92c2a41ac950e8fb65f3cd, type: 3}
+    type: 12
+  - prefab: {fileID: 4113190480649607241, guid: 9009cade57012274e94a7a4c5b24a443, type: 3}
+    type: 12
+  - prefab: {fileID: 7535478326059366862, guid: 07ec3ea5eecdbba4bbf9cb61806aba7d, type: 3}
+    type: 12
+  - prefab: {fileID: 4053642607576269890, guid: 3eb18d8211ebd9d4b8a3d7c17ccf0d31, type: 3}
+    type: 12
+  - prefab: {fileID: 4159747100168238078, guid: fb0b4c610b1e66b4f99173c0d3ad6309, type: 3}
+    type: 12
   navAgent: {fileID: 1226544331}
   targetAim: {fileID: 915354250}
   enableCulling: 1
@@ -700,6 +765,7 @@ MonoBehaviour:
   floorMesh: {fileID: 269149475}
   wallMesh: {fileID: 2089827450}
   roofMesh: {fileID: 416463875}
+  cutscenePlaying: 0
 --- !u!4 &1226544329
 Transform:
   m_ObjectHideFlags: 0
@@ -739,7 +805,8 @@ MonoBehaviour:
   drawHallways: 0
   drawDistances: 0
   drawAllPaths: 0
-  drawEntitySpawns: 0
+  drawProps: 1
+  drawTraps: 0
   ready: 0
 --- !u!114 &1226544331
 MonoBehaviour:
