@@ -308,7 +308,6 @@ public class RoomGenerator : MonoBehaviour
                 }
             }
         }
-
         Minimap.instance.GenerateMinimap(grid);
 
     }
@@ -688,7 +687,7 @@ public class RoomGenerator : MonoBehaviour
                     {
                         position.y += (wallMesh.wallHeight / 2) + 0.5f;
                     }
-                    if (IsValidPropPosition(position))
+                    if (IsValidPropPosition(position)/* && WallPropPlacementIsValid(position)*/)
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
                         var p = SpawnPrefab((GameObject)prop[1], position, direction);
@@ -1063,6 +1062,26 @@ public class RoomGenerator : MonoBehaviour
                     }
                 }
                 break;
+            case 3:
+                for (int i = 0; i < 2; i++)
+                {
+                    if (adjacent[i] != null)
+                    {
+                        if (adjacent[i].flag.Equals(flag))
+                            return true;
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 2; i < 4; i++)
+                {
+                    if (adjacent[i] != null)
+                    {
+                        if (adjacent[i].flag.Equals(flag))
+                            return true;
+                    }
+                }
+                break;
             default:
                 for (int i = 0; i < adjacent.Length; i++)
                 {
@@ -1075,6 +1094,27 @@ public class RoomGenerator : MonoBehaviour
                 break;
         }
         return false;
+    }
+
+    public bool WallPropPlacementIsValid(Vector3 point)
+    {
+        GridCell current = navAgent.GetGridCellAt((int)point.x, 0, (int)point.z);
+        var adjacentHorizontalVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE, 3);
+        var adjacentHorizontalOccupied = TileIsAdjacent(current, GridCell.GridFlag.OCCUPIED, 3);
+
+        var adjacentVerticalVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE, 4);
+        var adjacentVerticalOccupied = TileIsAdjacent(current, GridCell.GridFlag.OCCUPIED, 4);
+
+        if (adjacentHorizontalVoid)
+            return false;
+        else if (adjacentHorizontalOccupied)
+            return false;
+        else if (adjacentVerticalVoid)
+            return false;
+        else if (adjacentVerticalOccupied)
+            return false;
+
+        return true;
     }
 
     bool GenerateRoom(Vector3 pos, Vector3 roomDimensions)
