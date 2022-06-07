@@ -111,6 +111,34 @@ public class RoomGenerator : MonoBehaviour
         Generate(levels[levelIndex]);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("Clear minimap");
+            Minimap.instance.ClearMinimap(grid);
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Clear navmesh");
+            ClearNavmesh();
+        }
+    }
+
+    /// <summary>
+    /// Remove all the navmesh surface information and clear the navmesh list
+    /// </summary>
+    void ClearNavmesh()
+    {
+        if (navmesh.Count == 0)
+            return;
+
+        foreach (NavMeshSurface surface in navmesh)
+        {
+            surface.RemoveData();
+        }
+    }
+
     void Generate(int seed)
     {
         Debug.Log("Loading level: " + levelIndex);
@@ -126,14 +154,6 @@ public class RoomGenerator : MonoBehaviour
             //Spawn wizard
             var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
             var finalWizardAI = finalWizard.GetComponent<AIWizard>();
-
-            // Remove prev navmesh
-            for (int i = 0; i < navmesh.Count; i++)
-            {
-                navmesh[i].RemoveData();
-            }
-            Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
-            navmesh.Clear();
 
             // Add arena navmesh
             navmesh.Add(arena.navmesh);
@@ -186,10 +206,17 @@ public class RoomGenerator : MonoBehaviour
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
-        Destroy(floorMesh.gameObject);
-        Destroy(wallMesh.gameObject);
-        Destroy(roofMesh.gameObject);
-        Destroy(environment);
+        if(floorMesh != null)
+            Destroy(floorMesh.gameObject);
+
+        if(wallMesh != null)
+            Destroy(wallMesh.gameObject);
+
+        if(roofMesh != null)
+            Destroy(roofMesh.gameObject);
+
+        if(environment != null)
+            Destroy(environment);
 
         floorMesh = Instantiate(floorPrefab, transform).GetComponent<RoomMeshGenerator>();
         wallMesh = Instantiate(wallPrefab, transform).GetComponent<RoomMeshGenerator>();
@@ -330,13 +357,14 @@ public class RoomGenerator : MonoBehaviour
         rooms.Clear();
 
         // Clear navmesh
-        for (int i = 0; i < navmesh.Count; i++)
-        {
-            navmesh[i].RemoveData();
-        }
-        Destroy(floorMesh.gameObject.GetComponent<NavMeshSurface>());
+        ClearNavmesh();
         navmesh.Clear();
-        Generate(levels[levelIndex]);
+
+        WaitThenExecute(() =>
+        {
+            Debug.Log("Now generate");
+            Generate(levels[levelIndex]);
+        }, waitUntil: true, condition: navmesh.Count == 0);
     }
 
     public void Regenerate()
@@ -448,6 +476,23 @@ public class RoomGenerator : MonoBehaviour
         spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
         spawned.transform.SetParent(roomParent);
         return spawned;
+    }
+
+    void WaitThenExecute(Action callback, int length = 1, bool waitEndOfFrame = false, bool waitUntil = false, bool condition = false)
+    {
+        StartCoroutine(WaitThenExecuteEnumerator(callback, length, waitEndOfFrame, waitUntil, condition));
+    }
+
+    IEnumerator WaitThenExecuteEnumerator(Action callback, int length, bool waitEndOfFrame, bool waitUntil, bool condition)
+    {
+        if (!waitEndOfFrame && !waitUntil)
+            yield return new WaitForSeconds(length);
+        else if (waitEndOfFrame && !waitUntil)
+            yield return new WaitForEndOfFrame();
+        else
+            yield return new WaitUntil(() => condition);
+
+        callback?.Invoke();
     }
 
     /// <summary>
@@ -922,8 +967,6 @@ public class RoomGenerator : MonoBehaviour
     void BakeNavmesh()
     {
         Debug.Log("Baking navmesh");
-        NavMesh.RemoveAllNavMeshData();
-
         foreach (NavMeshSurface surface in navmesh)
         {
             surface.BuildNavMesh();
