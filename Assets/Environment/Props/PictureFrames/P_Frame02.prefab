@@ -76,7 +76,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.05, y: 0.05, z: 0.05}
+  m_Extents: {x: 0.015, y: 0.03, z: 0.03}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -136,7 +136,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e5d7131015960cc44a803fd15cd64408, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 69c91d5571de9d04ab9ba44a6b25883a, type: 2}
+      objectReference: {fileID: 2100000, guid: 8dd309bac39057447942fe8ae722bb1a, type: 2}
     - target: {fileID: 919132149155446097, guid: e5d7131015960cc44a803fd15cd64408, type: 3}
       propertyPath: m_Name
       value: Picture Frame 2_01
