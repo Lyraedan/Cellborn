@@ -18,6 +18,9 @@ public class LaserControl : MonoBehaviour
     public AudioClip laserSound, warmupSound, cooldownSound;
     public AudioSource fireSource, warmupSource, cooldownSource;
 
+    bool hasPlayedCooldownSound;
+    bool hasPlayedWarmupSound;
+
     void Start()
     {
         laserParticles.Stop();
@@ -44,16 +47,18 @@ public class LaserControl : MonoBehaviour
             if (Input.GetButton(ControlManager.INPUT_FIRE) && hasCooledDown && !PlayerStats.instance.isDead && !PauseMenu.isPaused)
             {
                 hasWarmedUp = false;
-                cooldownTimer = 0f;
+                //cooldownTimer = 0f;
                 warmupTimer += 1f * Time.deltaTime;
+                hasPlayedCooldownSound = false;
+                if (!warmupSource.isPlaying * !hasPlayedWarmupSound)
+                {
+                    warmupSource.Play();
+                    hasPlayedWarmupSound = true;
+                }
 
                 if (!laserParticles.isPlaying && WeaponManager.instance.currentWeapon.currentAmmo > 0)
                 {
                     laserParticles.Play();
-                    if (!warmupSource.isPlaying)
-                    {
-                        warmupSource.Play();
-                    }
                 }
                 
                 if (WeaponManager.instance.currentWeapon.currentAmmo <= 1)
@@ -81,16 +86,13 @@ public class LaserControl : MonoBehaviour
             {
                 laserParticles.Stop();
                 fireSource.Stop();
+                warmupSource.Stop();
                 isFiring = false;
                 hasWarmedUp = false;
+                hasPlayedWarmupSound = flase;
 
                 if (!hasCooledDown)
-                {
-                    if (!cooldownSource.isPlaying)
-                    {
-                        cooldownSource.Play();
-                    }
-                    
+                {        
                     cooldownTimer += 1f * Time.deltaTime;
 
                     if (cooldownTimer >= cooldown)
@@ -107,6 +109,11 @@ public class LaserControl : MonoBehaviour
                 hasCooledDown = false;
                 hasWarmedUp = false;
                 warmupTimer = 0f;
+                if (!hasCooledDown && !hasPlayedCooldownSound)
+                {
+                    cooldownSource.Play();
+                    hasPlayedCooldownSound = true;
+                }
             }
         }
     }
