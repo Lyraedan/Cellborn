@@ -93,7 +93,6 @@ GameObject:
   - component: {fileID: 343159130911893656}
   - component: {fileID: 5753540460430903559}
   - component: {fileID: 4660319953237668696}
-  - component: {fileID: 5546072404749133777}
   m_Layer: 0
   m_Name: P_Book_Green
   m_TagString: Untagged
@@ -168,22 +167,6 @@ MonoBehaviour:
     sources: []
   particles:
     emitters: []
---- !u!54 &5546072404749133777
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799090858753902652}
-  serializedVersion: 2
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &4133076650693694371
 GameObject:
   m_ObjectHideFlags: 0
