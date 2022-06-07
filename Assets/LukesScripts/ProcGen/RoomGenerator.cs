@@ -111,36 +111,6 @@ public class RoomGenerator : MonoBehaviour
         Generate(levels[levelIndex]);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            grid.Bake();
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                for (int x = 0; x < grid.cells.x; x++)
-                {
-                    var current = grid.grid[x, 0, z];
-                    if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
-                    {
-                        bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
-                        if (isWall)
-                            current.flag = GridCell.GridFlag.WALL;
-                        else
-                            current.flag = GridCell.GridFlag.OCCUPIED;
-                    }
-                }
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            Minimap.instance.GenerateMinimap(grid);
-        }
-    }
-
     /// <summary>
     /// Remove all the navmesh surface information and clear the navmesh list
     /// </summary>
