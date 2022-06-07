@@ -65,6 +65,7 @@ MonoBehaviour:
   redRing: {fileID: 3478422146978201004}
   yellowRing: {fileID: 3480457893088699674}
   blueRing: {fileID: 5836601392241670036}
+  greyRing: {fileID: 5316330675725926259}
   _currentAmmo: 40
   maxAmmo: 40
   icon: {fileID: 21300000, guid: 386beb57c476d0c41ad9159e7d25d4b6, type: 3}
@@ -678,6 +679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+--- !u!1 &5316330675725926259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+  m_PrefabInstance: {fileID: 3782888362904371507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5316330675725926286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
