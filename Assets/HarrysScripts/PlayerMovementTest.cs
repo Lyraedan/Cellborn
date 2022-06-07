@@ -61,6 +61,9 @@ public class PlayerMovementTest : MonoBehaviour
         if (WeaponManager.instance == null)
             return;
 
+        if (RoomGenerator.instance.cutscenePlaying)
+            return;
+
         (isGrounded, onSlope, slopeNormal, StoodOn) = CheckIsGrounded();
 
         if (isGrounded && velocity.y <= 0)

@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
 public class RoomGenerator : MonoBehaviour
@@ -54,6 +55,7 @@ public class RoomGenerator : MonoBehaviour
     private GameObject spawnCell;
     private GameObject levelTeleporter;
     [SerializeField] private GameObject bossRoom;
+    public VideoPlayer bossCutsceneEnter;
 
     private Room start, end;
 
@@ -87,6 +89,8 @@ public class RoomGenerator : MonoBehaviour
 
     private List<GameObject> wallProps = new List<GameObject>();
     private List<RoomMeshGenerator.Edge> floorCorners = new List<RoomMeshGenerator.Edge>();
+
+    [HideInInspector] public bool cutscenePlaying = false;
 
     private void Awake()
     {
@@ -134,18 +138,11 @@ public class RoomGenerator : MonoBehaviour
             var arenaPos = new Vector3(generatedDungeonSize.x / 2, -0.5f, generatedDungeonSize.z / 2);
             var arena = Instantiate(bossRoom, arenaPos, Quaternion.identity).GetComponent<Arena>();
 
-            // Move player
-            playerController.TeleportPlayer(arena.playerSpawn.position);
-
-            //Spawn wizard
-            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
-            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
-
             // Add arena navmesh
             navmesh.Add(arena.navmesh);
             BakeNavmesh();
 
-            SetupArena();
+            SetupArena(arena);
             Debug.Log("Generated arena");
             return;
         }
@@ -247,7 +244,7 @@ public class RoomGenerator : MonoBehaviour
         StartCoroutine(AwaitAssignables());
     }
 
-    void SetupArena()
+    void SetupArena(Arena arena)
     {
         // Delete dungeon
         if (floorMesh != null)
@@ -279,6 +276,23 @@ public class RoomGenerator : MonoBehaviour
             }
         }
         Minimap.instance.GenerateMinimap(grid);
+
+        // Move player
+        playerController.TeleportPlayer(arena.playerSpawn.position);
+
+        PlayerStats.instance.bossVideo.SetActive(true);
+        bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
+        cutscenePlaying = true;
+        bossCutsceneEnter.Play();
+        WaitThenExecute(() =>
+        {
+            cutscenePlaying = false;
+            PlayerStats.instance.bossVideo.SetActive(false);
+
+            //Spawn wizard
+            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
+            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
+        }, (int) bossCutsceneEnter.clip.length);
 
     }
 
@@ -575,7 +589,7 @@ public class RoomGenerator : MonoBehaviour
         int index = Random.Range(0, litter.Count);
         var pos = cell.position;
         //pos.y += 0.5f;
-        return litter[index].Spawn(pos, Vector3.zero);
+        return litter[index].Spawn(pos, new Vector3(90, 0, 0));
     }
 
     public GameObject SpawnPlayer(GridCell cell)

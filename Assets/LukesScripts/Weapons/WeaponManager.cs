@@ -247,6 +247,9 @@ public class WeaponManager : MonoBehaviour
 
             if (Input.GetButton(ControlManager.INPUT_FIRE))
             {
+                if (RoomGenerator.instance.cutscenePlaying)
+                    return;
+
                 if (!healthScript.isDead)
                 {
                     currentWeapon.Shoot(delayed =>

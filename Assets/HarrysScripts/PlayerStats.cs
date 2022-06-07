@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats instance;
+
+    public GameObject bossVideo;
+    public VideoPlayer bossIntro;
 
     public int maxHP;
     private int _currentHP;
@@ -80,7 +84,7 @@ public class PlayerStats : MonoBehaviour
         armourBlue.CrossFadeAlpha(0, 0f, false);
         speedBlue.CrossFadeAlpha(0, 0f, false);
         UIController.instance.healthBar.maxValue = maxHP;
-
+        RoomGenerator.instance.bossCutsceneEnter = bossIntro;
     }
 
     void Update()
