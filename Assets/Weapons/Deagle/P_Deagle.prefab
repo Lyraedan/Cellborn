@@ -44,6 +44,7 @@ Transform:
   - {fileID: 147348079190226458}
   - {fileID: 1788168393841170002}
   - {fileID: 8870527919718226850}
+  - {fileID: 131938824660848422}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -65,6 +66,7 @@ MonoBehaviour:
   redRing: {fileID: 147348079190226663}
   yellowRing: {fileID: 1788168393841170095}
   blueRing: {fileID: 8870527919718226783}
+  greyRing: {fileID: 131938824660848603}
   _currentAmmo: 20
   maxAmmo: 20
   icon: {fileID: 21300000, guid: 011daa099a2e3e74c93db783bbdb2c6a, type: 3}
@@ -670,6 +672,77 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9059239661871316669, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
   m_PrefabInstance: {fileID: 7307156191715780847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8965646305330606491
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8481976756044194305}
+    m_Modifications:
+    - target: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_Name
+      value: WeaponPickupStandard_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.357
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+--- !u!1 &131938824660848603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+  m_PrefabInstance: {fileID: 8965646305330606491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &131938824660848422 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+  m_PrefabInstance: {fileID: 8965646305330606491}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9201872415771068583
 PrefabInstance:

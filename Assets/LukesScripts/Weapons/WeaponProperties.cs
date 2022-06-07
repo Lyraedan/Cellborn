@@ -12,6 +12,7 @@ public class WeaponProperties : MonoBehaviour
     public GameObject redRing;
     public GameObject yellowRing;
     public GameObject blueRing;
+    public GameObject greyRing;
     [SerializeField] private int _currentAmmo = 30;
     public int currentAmmo {
         get {
@@ -93,6 +94,10 @@ public class WeaponProperties : MonoBehaviour
                         yellowRing.SetActive(true);
                         icon = yellowIcon;
                     }
+                }
+                else
+                {
+                    greyRing.SetActive(true);
                 }
             }
             catch (Exception e)
