@@ -590,7 +590,8 @@ public class RoomGenerator : MonoBehaviour
         int index = Random.Range(0, litter.Count);
         var pos = cell.position;
         pos.y += 0.004f;
-        return litter[index].Spawn(pos, new Vector3(90, 0, 0));
+
+        return litter[index].Spawn(pos, new Vector3(90, Random.Range(0, 360), 0));
     }
 
     public GameObject SpawnPlayer(GridCell cell)
