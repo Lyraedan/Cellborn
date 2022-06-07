@@ -89,7 +89,7 @@ public class LaserControl : MonoBehaviour
                 warmupSource.Stop();
                 isFiring = false;
                 hasWarmedUp = false;
-                hasPlayedWarmupSound = flase;
+                hasPlayedWarmupSound = false;
 
                 if (!hasCooledDown)
                 {        
