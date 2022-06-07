@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5540631799304981105}
   - component: {fileID: 151604267740173497}
   - component: {fileID: 1070803142322427600}
+  - component: {fileID: -4472736026464717044}
   m_Layer: 0
   m_Name: P_Chest
   m_TagString: Prop
@@ -178,6 +179,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4472736026464717044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526053306709812793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7286467643952070457
 GameObject:
   m_ObjectHideFlags: 0

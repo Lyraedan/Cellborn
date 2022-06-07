@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -5110079443651043071}
   - component: {fileID: -8165192486011755154}
   - component: {fileID: 3364528298998894840}
+  - component: {fileID: -5401438562313035726}
   m_Layer: 9
   m_Name: P_DefensePotion
   m_TagString: Potion
@@ -259,6 +260,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0.05
+--- !u!114 &-5401438562313035726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489515831532256452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &8260326513437863973
 PrefabInstance:
   m_ObjectHideFlags: 0

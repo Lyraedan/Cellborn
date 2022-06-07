@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 2846590950427142006}
   - component: {fileID: 4890517102343232338}
   - component: {fileID: 709356360569006500}
+  - component: {fileID: 8869740845117804132}
   m_Layer: 12
   m_Name: P_Yellow_Snake
   m_TagString: Enemy
@@ -431,6 +432,24 @@ MonoBehaviour:
   enemyScript: {fileID: 8505363278950117916}
   navMeshAgent: {fileID: 8500299319616729032}
   shockDuration: 0
+--- !u!114 &8869740845117804132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968839935604444949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 1, g: 1, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &2487324683747092018
 PrefabInstance:
   m_ObjectHideFlags: 0
