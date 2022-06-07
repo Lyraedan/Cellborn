@@ -23,7 +23,9 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-    public TextMeshProUGUI win;
+    public GameObject winGroup;
+    public GameObject loseGroup;
+    public TextMeshProUGUI respawnCountdown;
 
     [HideInInspector] public float defenseMultiplier = 1;
     [HideInInspector] public float defenseTime;
@@ -217,6 +219,8 @@ public class PlayerStats : MonoBehaviour
         playerCollider.enabled = false;
         laserControl.laserParticles.Stop();
 
+        loseGroup.SetActive(true);
+
         temperature.temperature = 0;
         temperature.fireFX.SetActive(false);
         temperature.iceFX.SetActive(false);
@@ -237,6 +241,7 @@ public class PlayerStats : MonoBehaviour
         } else
         {
             Debug.Log(seconds);
+            respawnCountdown.text = "Respawning in: " + seconds;
             yield return new WaitForSeconds(1f);
             StartCoroutine(TimedReset(seconds - 1));
         }

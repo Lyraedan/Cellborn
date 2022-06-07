@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponHeight : MonoBehaviour
 { 
-    public float height = 0.1f;
+    public float height = 0.05f;
     // Start is called before the first frame update
     void Start()
     {

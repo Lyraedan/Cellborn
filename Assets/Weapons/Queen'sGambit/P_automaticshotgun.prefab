@@ -65,6 +65,7 @@ MonoBehaviour:
   redRing: {fileID: 3478422146978201004}
   yellowRing: {fileID: 3480457893088699674}
   blueRing: {fileID: 5836601392241670036}
+  greyRing: {fileID: 5316330675725926259}
   _currentAmmo: 40
   maxAmmo: 40
   icon: {fileID: 21300000, guid: 386beb57c476d0c41ad9159e7d25d4b6, type: 3}
@@ -95,7 +96,7 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: fdc9deaec2920b545906a5da677edd0a, type: 3}
   coneSize: 1
   numberOfShots: 9
-  AccuracyRange: 180
+  AccuracyRange: 135
   accuracy: 0
 --- !u!65 &7612239085541188469
 BoxCollider:
@@ -301,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3a02c90eefec24f9ef7f70c8fa76cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0.1
+  height: 0.05
 --- !u!114 &6471435603928493670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +629,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponPickupStandard_PS
       objectReference: {fileID: 0}
+    - target: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -674,6 +679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+--- !u!1 &5316330675725926259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9059239661871316544, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}
+  m_PrefabInstance: {fileID: 3782888362904371507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5316330675725926286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9059239661871316669, guid: 1189618d90d1c15428595af13ff0ffa4, type: 3}

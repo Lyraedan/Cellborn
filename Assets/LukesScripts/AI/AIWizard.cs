@@ -19,7 +19,7 @@ public class AIWizard : AI
     private void OnDestroy()
     {
         if(PlayerStats.instance != null)
-            PlayerStats.instance.win.gameObject.SetActive(true);
+            PlayerStats.instance.winGroup.SetActive(true);
     }
 
     public override void Tick()
