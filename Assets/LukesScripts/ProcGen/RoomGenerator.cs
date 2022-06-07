@@ -414,6 +414,7 @@ public class RoomGenerator : MonoBehaviour
         {
             GridCell cell = GetRandomLitterCell();
             var litter = SpawnRandomLitter(cell);
+            litter.transform.SetParent(environment.transform);
             if (litter == null)
                 break;
         }
