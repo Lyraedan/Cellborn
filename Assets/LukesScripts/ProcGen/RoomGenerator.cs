@@ -648,10 +648,14 @@ public class RoomGenerator : MonoBehaviour
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
                     position.y += (wallMesh.wallHeight / 2) + 0.5f;
-                    var direction = edgeVertices[i].DirectionAsVector3();
-                    var l = SpawnPrefab(light, position, direction);
-                    l.transform.SetParent(environment.transform);
-                    wallProps.Add(l);
+                    if (IsNotACorner(position, GridCell.GridFlag.WALKABLE) &&
+                        IsNotACorner(position, GridCell.GridFlag.OCCUPIED))
+                    {
+                        var direction = edgeVertices[i].DirectionAsVector3();
+                        var l = SpawnPrefab(light, position, direction);
+                        l.transform.SetParent(environment.transform);
+                        wallProps.Add(l);
+                    }
                 }
             }
             else
