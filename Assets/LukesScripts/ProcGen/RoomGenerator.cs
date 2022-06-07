@@ -674,7 +674,10 @@ public class RoomGenerator : MonoBehaviour
                     {
                         position.y += (wallMesh.wallHeight / 2) + 0.5f;
                     }
-                    if (IsValidPropPosition(position)/* && WallPropPlacementIsValid(position)*/)
+                    if (IsValidPropPosition(position) && IsNotACorner(position, GridCell.GridFlag.WALKABLE) &&
+                                                         IsNotACorner(position, GridCell.GridFlag.OCCUPIED) &&
+                                                         IsNotACorner(position, GridCell.GridFlag.PROP) &&
+                                                         IsNotACorner(position, GridCell.GridFlag.WALL_PROP))
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
                         var p = SpawnPrefab((GameObject)prop[1], position, direction);
@@ -752,6 +755,16 @@ public class RoomGenerator : MonoBehaviour
             l.transform.SetParent(environment.transform);
         }
 
+    }
+
+    public bool IsNotACorner(Vector3 point, GridCell.GridFlag flag, int threashold = 4)
+    {
+        GridCell cell = navAgent.GetGridCellAt((int)point.x, 0, (int)point.z);
+        if (HasAdjacentNulls(cell))
+            return false;
+
+        int found = GetAdjacentCount(cell, flag);
+        return found < threashold;
     }
 
     public bool IsValidPropPosition(Vector3 point)
@@ -1081,6 +1094,36 @@ public class RoomGenerator : MonoBehaviour
                 break;
         }
         return false;
+    }
+
+    public int GetAdjacentCount(GridCell current, GridCell.GridFlag flag)
+    {
+        int count = 0;
+        var adjacent = GetAdjacentCells(current);
+        for(int i = 0; i < adjacent.Length; i++)
+        {
+            if(adjacent[i] != null)
+            {
+                if (adjacent[i].flag.Equals(flag))
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public bool HasAdjacentNulls(GridCell cell)
+    {
+        bool found = false;
+        var adjacent = GetAdjacentCells(cell);
+        for(int i = 0; i < adjacent.Length; i++)
+        {
+            if(adjacent[i] == null)
+            {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     public bool WallPropPlacementIsValid(Vector3 point)
