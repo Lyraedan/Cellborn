@@ -257,11 +257,13 @@ MonoBehaviour:
   generatedDungeonSize: {x: 0, y: 0, z: 0}
   maxRoomLimit: 10
   maxEntities: 10
+  maxLitter: 100
   wallLightChance: 10
   lightOrPropChance: {x: 0, y: 2}
   wallPropRate: {x: 30, y: 50}
-  centrePropRate: {x: 30, y: 50}
-  startEndSafeZoneThreashold: 20
+  wallDecorRate: {x: 0, y: 2}
+  startSafeZoneThreashold: 40
+  endSafeZoneThreashold: 20
   centreSafeZoneThreashold: 5
   rooms: []
   floorPrefab: {fileID: 0}
@@ -272,6 +274,7 @@ MonoBehaviour:
   wizard: {fileID: 0}
   teleporter: {fileID: 0}
   prisonCell: {fileID: 0}
+  bossRoom: {fileID: 0}
   prefabs: []
   navAgent: {fileID: 0}
   targetAim: {fileID: 0}
@@ -282,7 +285,6 @@ MonoBehaviour:
   floorMesh: {fileID: 0}
   wallMesh: {fileID: 0}
   roofMesh: {fileID: 0}
-  wallProps: []
 --- !u!4 &955071183
 Transform:
   m_ObjectHideFlags: 0
