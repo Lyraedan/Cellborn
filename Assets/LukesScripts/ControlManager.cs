@@ -27,6 +27,7 @@ public class ControlManager : MonoBehaviour
         Debug.Log("Controllers: " + names.Length);
         for(int i = 0; i < names.Length; i++)
         {
+            Debug.Log("Controller: " + names[i]);
             if(names[i].Length == 19)
             {
                 Debug.Log("PS4 controller is connected");
@@ -38,6 +39,11 @@ public class ControlManager : MonoBehaviour
                 Debug.Log("Xbox controller is connected");
                 PS4Controller = 0;
                 XboxOneController = 1;
+            }
+            if(string.IsNullOrEmpty(names[i]))
+            {
+                PS4Controller = 0;
+                XboxOneController = 0;
             }
         }
 
