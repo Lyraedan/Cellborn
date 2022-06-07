@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6053249630255658921}
   - component: {fileID: 5565320189876093227}
   - component: {fileID: 913606105375031931}
+  - component: {fileID: 7181503206940970489}
   m_Layer: 0
   m_Name: P_Bottle_Two
   m_TagString: Prop
@@ -134,3 +135,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7313513377971999389, guid: b954b55f24a05f044b6fa328bbd12dba, type: 3}
+--- !u!114 &7181503206940970489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4600278992190672648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

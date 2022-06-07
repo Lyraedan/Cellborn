@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 5282245113961087082}
   - component: {fileID: 5859202384987398975}
   - component: {fileID: -4565826248163863625}
+  - component: {fileID: 5750459921232370573}
   m_Layer: 0
   m_Name: P_Cauldron
   m_TagString: Prop
@@ -370,3 +371,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6736655, y: 0.029871523, z: 0.77958995}
   m_Center: {x: -0.020442843, y: 0.12332791, z: 0.00059339404}
+--- !u!114 &5750459921232370573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029727424576102190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

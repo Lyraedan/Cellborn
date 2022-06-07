@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8242957100777751314}
   - component: {fileID: 5587475576677589614}
   - component: {fileID: 4978687038799573966}
-  - component: {fileID: 1171860622504760272}
+  - component: {fileID: 2643070312531106733}
   m_Layer: 0
   m_Name: P_BeerKeg
   m_TagString: Prop
@@ -183,7 +183,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.09, y: 0.41, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &1171860622504760272
+--- !u!114 &2643070312531106733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,11 +192,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 240061955152574466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &1627571361463877338
 GameObject:
   m_ObjectHideFlags: 0
