@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 557094369781666358}
   - component: {fileID: 2556456555049128700}
   - component: {fileID: -997526082292824825}
+  - component: {fileID: -4088536380839199455}
   m_Layer: 0
   m_Name: P_Crate02
   m_TagString: Prop
@@ -95,6 +96,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4088536380839199455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759584478443900800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &2390842347385648086
 PrefabInstance:
   m_ObjectHideFlags: 0

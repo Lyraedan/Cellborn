@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -6180607934985345487}
   - component: {fileID: 1956602899279579293}
   - component: {fileID: -6264793659049472070}
+  - component: {fileID: 1591962238958751493}
   m_Layer: 9
   m_Name: P_TripleBarreledShotgun
   m_TagString: Weapon
@@ -156,6 +157,8 @@ MonoBehaviour:
   numberOfShots: 11
   AccuracyRange: 135
   accuracy: 0
+  weaponProperties: {fileID: 6429344869845800611}
+  animController: {fileID: 0}
 --- !u!208 &6429344869845800665
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -337,6 +340,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1591962238958751493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429344869845800610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1547486202083007187
 PrefabInstance:
   m_ObjectHideFlags: 0

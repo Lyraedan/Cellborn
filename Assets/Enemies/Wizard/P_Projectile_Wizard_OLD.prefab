@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3551906132943474316}
   - component: {fileID: 3551906132943474319}
   - component: {fileID: 9074122352265458141}
+  - component: {fileID: 4945805624514892040}
   m_Layer: 13
   m_Name: P_Projectile_Wizard_OLD
   m_TagString: EnemyProjectile
@@ -166,6 +167,24 @@ MonoBehaviour:
     - {fileID: 564221120363019861}
   particles:
     emitters: []
+--- !u!114 &4945805624514892040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551906132943474317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &5582233009284797892
 GameObject:
   m_ObjectHideFlags: 0

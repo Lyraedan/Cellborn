@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3133881212142249392}
   - component: {fileID: -5423867540878650890}
   - component: {fileID: 3507284713019920814}
+  - component: {fileID: -1237185026623409170}
   m_Layer: 9
   m_Name: P_BoxRifle
   m_TagString: Weapon
@@ -151,6 +152,8 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: a8a0c9c90fb0b8643b817297c723e9a9, type: 3}
   AccuracyRange: 0
   accuracy: 0
+  weaponProperties: {fileID: 0}
+  animController: {fileID: 0}
 --- !u!208 &6920891937863246977
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -332,6 +335,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-1237185026623409170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504369968633767323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &2872663516184255943
 PrefabInstance:
   m_ObjectHideFlags: 0

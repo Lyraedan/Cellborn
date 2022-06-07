@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1788678530691312996}
   - component: {fileID: 4695842019198408595}
   - component: {fileID: -3840845616950329498}
+  - component: {fileID: 4991937319573863633}
   m_Layer: 0
   m_Name: P_Vase_01_01
   m_TagString: Prop
@@ -146,3 +147,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4991937319573863633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6137723262708244746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
