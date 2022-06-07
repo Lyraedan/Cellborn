@@ -221,6 +221,8 @@ public class RoomGenerator : MonoBehaviour
         }
 
         BakeNavmesh();
+        Minimap.instance.GenerateMinimap(grid);
+
         floorCorners.Clear();
         wallProps.Clear();
         floorCorners = GetCorners();
@@ -388,7 +390,6 @@ public class RoomGenerator : MonoBehaviour
         {
             WeaponManager.instance.GetWeaponsInLevel();
         }
-        Minimap.instance.GenerateMinimap(grid);
         SpawnEntities();
 
         // Matilde if you need to. Start behaviour tree's beyond this point.
@@ -588,7 +589,7 @@ public class RoomGenerator : MonoBehaviour
         }
         int index = Random.Range(0, litter.Count);
         var pos = cell.position;
-        //pos.y += 0.5f;
+        pos.y += 0.01f;
         return litter[index].Spawn(pos, new Vector3(90, 0, 0));
     }
 

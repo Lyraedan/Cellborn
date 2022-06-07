@@ -18,11 +18,13 @@ public class Minimap : MonoBehaviour
             Destroy(this);
     }
 
-    public MinimapBlip[] blips = new MinimapBlip[4] {
+    public MinimapBlip[] blips = new MinimapBlip[6] {
         new MinimapBlip(GridCell.GridFlag.WALKABLE, Color.clear),
         new MinimapBlip(GridCell.GridFlag.OCCUPIED, Color.gray),
         new MinimapBlip(GridCell.GridFlag.WALL, Color.black),
-        new MinimapBlip(GridCell.GridFlag.CORNER, Color.black)
+        new MinimapBlip(GridCell.GridFlag.CORNER, Color.black),
+        new MinimapBlip(GridCell.GridFlag.PROP, Color.black),
+        new MinimapBlip(GridCell.GridFlag.WALL_PROP, Color.black)
     };
 
     public Color playerBlip = Color.white;
@@ -170,6 +172,10 @@ public class Minimap : MonoBehaviour
                 return blips[2];
             case GridCell.GridFlag.CORNER:
                 return blips[3];
+            case GridCell.GridFlag.PROP:
+                return blips[4];
+            case GridCell.GridFlag.WALL_PROP:
+                return blips[5];
             default:
                 return blips[0];
         }
