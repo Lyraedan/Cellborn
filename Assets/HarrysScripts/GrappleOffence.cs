@@ -80,7 +80,7 @@ public class GrappleOffence : MonoBehaviour
                     }
                     else if (WeaponManager.instance.currentWeapon.colour == Color.yellow)
                     {
-                        temperature.shockDuration = 8;
+                        temperature.shockDuration = 4;
                     }
                 }
 
