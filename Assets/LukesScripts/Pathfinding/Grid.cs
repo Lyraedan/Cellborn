@@ -28,7 +28,8 @@ public class Grid : MonoBehaviour
     public bool drawHallways = true;
     public bool drawDistances = true;
     public bool drawAllPaths = false;
-    public bool drawProps = true;
+    public bool drawProps = false;
+    public bool drawTraps = false;
 
     [HideInInspector] public bool ready = false;
 
@@ -220,18 +221,27 @@ public class Grid : MonoBehaviour
                             }
                         } else if(grid[x, y, z].flag.Equals(GridCell.GridFlag.PROP))
                         {
-                            Gizmos.color = Color.yellow;
-                            Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            if (drawProps)
+                            {
+                                Gizmos.color = Color.yellow;
+                                Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            }
                         }
                         else if (grid[x, y, z].flag.Equals(GridCell.GridFlag.WALL_PROP))
                         {
-                            Gizmos.color = Color.cyan;
-                            Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            if (drawProps)
+                            {
+                                Gizmos.color = Color.cyan;
+                                Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            }
                         }
                         else if(grid[x, y, z].flag.Equals(GridCell.GridFlag.TRAP))
                         {
-                            Gizmos.color = Color.gray;
-                            Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            if (drawTraps)
+                            {
+                                Gizmos.color = Color.gray;
+                                Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                            }
                         }
                         if (drawDistances)
                         {
