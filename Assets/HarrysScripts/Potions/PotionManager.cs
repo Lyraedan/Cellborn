@@ -66,7 +66,7 @@ public class PotionManager : MonoBehaviour
         {
             if (potionSlots[i] != null)
             {
-                potionSlots[i].number.text = new string[] { "A", "B" }[i];
+                potionSlots[i].number.text = new string[] { ControlManager.usePotionA, ControlManager.usePotionB }[i];
                 
                 if (potionSlots[i].image.sprite != null)
                 {

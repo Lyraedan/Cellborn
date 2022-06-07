@@ -113,15 +113,31 @@ public class RoomGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Clear minimap");
-            Minimap.instance.ClearMinimap(grid);
+            grid.Bake();
         }
-        else if (Input.GetKeyDown(KeyCode.P))
+        else if (Input.GetKeyDown(KeyCode.O))
         {
-            Debug.Log("Clear navmesh");
-            ClearNavmesh();
+            for (int z = 0; z < grid.cells.z; z++)
+            {
+                for (int x = 0; x < grid.cells.x; x++)
+                {
+                    var current = grid.grid[x, 0, z];
+                    if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
+                    {
+                        bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                        if (isWall)
+                            current.flag = GridCell.GridFlag.WALL;
+                        else
+                            current.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            Minimap.instance.GenerateMinimap(grid);
         }
     }
 
@@ -159,18 +175,6 @@ public class RoomGenerator : MonoBehaviour
             navmesh.Add(arena.navmesh);
             BakeNavmesh();
 
-            for (int z = 0; z < grid.cells.z; z++)
-            {
-                for (int x = 0; x < grid.cells.x; x++)
-                {
-                    var current = grid.grid[x, 0, z];
-                    current.flag = GridCell.GridFlag.WALKABLE;
-                }
-            }
-
-            Minimap.instance.GenerateMinimap(grid);
-
-            grid.Bake();
             SetupArena();
             Debug.Log("Generated arena");
             return;
@@ -206,16 +210,16 @@ public class RoomGenerator : MonoBehaviour
         start = rooms[0];
         end = rooms[rooms.Count - 1];
 
-        if(floorMesh != null)
+        if (floorMesh != null)
             Destroy(floorMesh.gameObject);
 
-        if(wallMesh != null)
+        if (wallMesh != null)
             Destroy(wallMesh.gameObject);
 
-        if(roofMesh != null)
+        if (roofMesh != null)
             Destroy(roofMesh.gameObject);
 
-        if(environment != null)
+        if (environment != null)
             Destroy(environment);
 
         floorMesh = Instantiate(floorPrefab, transform).GetComponent<RoomMeshGenerator>();
@@ -276,11 +280,19 @@ public class RoomGenerator : MonoBehaviour
     void SetupArena()
     {
         // Delete dungeon
-        Destroy(floorMesh.gameObject);
-        Destroy(wallMesh.gameObject);
-        Destroy(roofMesh.gameObject);
-        Destroy(environment);
+        if (floorMesh != null)
+            Destroy(floorMesh.gameObject);
 
+        if (wallMesh != null)
+            Destroy(wallMesh.gameObject);
+
+        if (roofMesh != null)
+            Destroy(roofMesh.gameObject);
+
+        if (environment != null)
+            Destroy(environment);
+
+        grid.Bake();
         for (int z = 0; z < grid.cells.z; z++)
         {
             for (int x = 0; x < grid.cells.x; x++)
@@ -298,6 +310,7 @@ public class RoomGenerator : MonoBehaviour
         }
 
         Minimap.instance.GenerateMinimap(grid);
+
     }
 
     void ClearDungeon()
@@ -356,6 +369,8 @@ public class RoomGenerator : MonoBehaviour
 
         rooms.Clear();
 
+        grid.Clear();
+        Minimap.instance.ClearMinimap(grid);
         // Clear navmesh
         ClearNavmesh();
         navmesh.Clear();

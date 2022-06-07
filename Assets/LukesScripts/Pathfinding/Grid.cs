@@ -50,6 +50,13 @@ public class Grid : MonoBehaviour
             }
         }
 
+        Clear();
+        //Bake();
+        ready = true;
+    }
+
+    public void Clear()
+    {
         for (int x = 0; x < cells.x; x++)
         {
             for (int y = 0; y < cells.y; y++)
@@ -60,9 +67,6 @@ public class Grid : MonoBehaviour
                 }
             }
         }
-
-        //Bake();
-        ready = true;
     }
 
     public void Bake()
@@ -73,7 +77,7 @@ public class Grid : MonoBehaviour
             {
                 for(int z = 0; z < cells.z; z++)
                 {
-                    grid[x, y, z].flag = Physics.CheckSphere(grid[x, y, z].position, 0.5f) ? GridCell.GridFlag.NONWALKABLE : GridCell.GridFlag.WALKABLE;
+                    grid[x, y, z].flag = Physics.CheckBox(grid[x, y, z].position, Vector3.one) ? GridCell.GridFlag.NONWALKABLE : GridCell.GridFlag.WALKABLE;
                 }
             }
         }
