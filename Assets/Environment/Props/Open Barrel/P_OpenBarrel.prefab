@@ -1933,7 +1933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4928757207975901002}
   - component: {fileID: 804092394012921564}
-  - component: {fileID: 8252431147910070583}
+  - component: {fileID: -3282475538878124396}
   m_Layer: 0
   m_Name: P_OpenBarrel
   m_TagString: Prop
@@ -1985,7 +1985,7 @@ MonoBehaviour:
     sources: []
   particles:
     emitters: []
---- !u!114 &8252431147910070583
+--- !u!114 &-3282475538878124396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1994,11 +1994,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5705399087079943664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &5809874235427364778
 GameObject:
   m_ObjectHideFlags: 0

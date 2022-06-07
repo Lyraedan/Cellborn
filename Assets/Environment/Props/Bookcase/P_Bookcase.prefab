@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3535644460374845822}
   - component: {fileID: 9148789667712342818}
   - component: {fileID: 8052924431221360688}
-  - component: {fileID: 2821892684038600006}
+  - component: {fileID: 1409634781961201688}
   m_Layer: 0
   m_Name: P_Bookcase
   m_TagString: Prop
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 9148789667712342818}
---- !u!114 &2821892684038600006
+--- !u!114 &1409634781961201688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,11 +191,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 638609692388642607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &738624364249372705
 GameObject:
   m_ObjectHideFlags: 0

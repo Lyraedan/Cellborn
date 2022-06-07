@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8404375408929974737}
   - component: {fileID: 1288514393169396889}
   - component: {fileID: 5856284911108761147}
-  - component: {fileID: 4934797089738312802}
+  - component: {fileID: 5340652355849812828}
   m_Layer: 0
   m_Name: P_Crate
   m_TagString: Prop
@@ -278,7 +278,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4934797089738312802
+--- !u!114 &5340652355849812828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,11 +287,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3370285178795195368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &3403464567772349634
 GameObject:
   m_ObjectHideFlags: 0

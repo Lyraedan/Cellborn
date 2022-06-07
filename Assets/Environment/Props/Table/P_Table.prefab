@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 489812873702774190}
   - component: {fileID: 443169864875183299}
   - component: {fileID: 4813979310002347057}
-  - component: {fileID: 665992442417525732}
+  - component: {fileID: 8557537156509786987}
   m_Layer: 0
   m_Name: P_Table
   m_TagString: Prop
@@ -363,7 +363,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &665992442417525732
+--- !u!114 &8557537156509786987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,11 +372,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5519738370868223448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &6926717090639449213
 GameObject:
   m_ObjectHideFlags: 0

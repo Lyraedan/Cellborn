@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 2657137683589517504}
   - component: {fileID: 4473716847065109516}
   - component: {fileID: 3310886146888250182}
-  - component: {fileID: 8367780910549637499}
+  - component: {fileID: 3802759783529430009}
   m_Layer: 0
   m_Name: P_Barrel
   m_TagString: Prop
@@ -369,7 +369,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8367780910549637499
+--- !u!114 &3802759783529430009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,8 +378,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8652509190956171710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5

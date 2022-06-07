@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3350777894052858686}
   - component: {fileID: 5974244715827015935}
   - component: {fileID: 6566629883619026203}
-  - component: {fileID: -7013257459971737977}
+  - component: {fileID: 7917152486060675815}
   m_Layer: 0
   m_Name: P_Altar
   m_TagString: Prop
@@ -202,7 +202,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-7013257459971737977
+--- !u!114 &7917152486060675815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,11 +211,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5120552978167892247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5ae66a00514004990ea14c58dfd4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threashold: -5
-  aboveThreashold: 1.5
 --- !u!1 &5520652213592206568
 GameObject:
   m_ObjectHideFlags: 0
