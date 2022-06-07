@@ -28,7 +28,7 @@ public class Grid : MonoBehaviour
     public bool drawHallways = true;
     public bool drawDistances = true;
     public bool drawAllPaths = false;
-    public bool drawEntitySpawns = false;
+    public bool drawProps = true;
 
     [HideInInspector] public bool ready = false;
 
@@ -214,16 +214,20 @@ public class Grid : MonoBehaviour
                                 Gizmos.color = Color.blue;
                                 Gizmos.DrawCube(grid[x, y, z].position, cellSize);
                             }
+                        } else if(grid[x, y, z].flag.Equals(GridCell.GridFlag.PROP))
+                        {
+                            Gizmos.color = Color.yellow;
+                            Gizmos.DrawCube(grid[x, y, z].position, cellSize);
+                        }
+                        else if(grid[x, y, z].flag.Equals(GridCell.GridFlag.TRAP))
+                        {
+                            Gizmos.color = Color.gray;
+                            Gizmos.DrawCube(grid[x, y, z].position, cellSize);
                         }
                         if (drawDistances)
                         {
                             Gizmos.color = Color.white;
                             Handles.Label(grid[x, y, z].position, $"{grid[x, y, z].distance}");
-                        }
-                        if(drawEntitySpawns)
-                        {
-                            Gizmos.color = Color.cyan;
-                            Gizmos.DrawSphere(grid[x, y, z].position, 0.25f);
                         }
                     }
                 }
@@ -237,15 +241,13 @@ public class Grid : MonoBehaviour
 public class GridCell
 {
     public enum GridFlag {
-        WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY, WALL, CORNER
+        WALKABLE, NONWALKABLE, OCCUPIED, HALLWAY, WALL, CORNER, PROP, TRAP
     }
 
     public int x, y, z;
     public GridFlag flag = GridFlag.WALKABLE;
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;
-    public bool hasEntity = false;
-    public bool hasProp = false;
     [HideInInspector] public float score = 0;
     [HideInInspector] public float distance = 0;
     public float scoredDistance => score + distance;
