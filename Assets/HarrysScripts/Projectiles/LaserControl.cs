@@ -50,7 +50,7 @@ public class LaserControl : MonoBehaviour
                 //cooldownTimer = 0f;
                 warmupTimer += 1f * Time.deltaTime;
                 hasPlayedCooldownSound = false;
-                if (!warmupSource.isPlaying * !hasPlayedWarmupSound)
+                if (!warmupSource.isPlaying && !hasPlayedWarmupSound)
                 {
                     warmupSource.Play();
                     hasPlayedWarmupSound = true;
