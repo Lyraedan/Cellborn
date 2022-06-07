@@ -58,11 +58,11 @@ public class Temperature : MonoBehaviour
 
         if (temperature > 0)
         {
-            temperature = temperature - 0.4f;
+            temperature = temperature - 0.8f;
         }
         else if (temperature < 0)
         {
-            temperature = temperature + 0.4f;
+            temperature = temperature + 0.8f;
         }
 
         //Temperature Cap and Freeze Trigger
@@ -88,16 +88,16 @@ public class Temperature : MonoBehaviour
     void OnShocked()
     {
 
-        if (shockTimer > 0.25f)
+        if (shockTimer > 1f)
         {
             shockFX.SetActive(true);
             if (isPlayer)
             {
-                PlayerStats.instance.DamagePlayer(3);
+                PlayerStats.instance.DamagePlayer(1);
             }
             else
             {
-                enemyScript.DamageEnemy(3);
+                enemyScript.DamageEnemy(1);
             }
             shockTimer = 0;
             shockDuration--;
@@ -106,19 +106,19 @@ public class Temperature : MonoBehaviour
 
         if (isPlayer)
         {
-            PlayerMovementTest.instance.potionSpeedMultiplier = 0.25f;
+            PlayerMovementTest.instance.potionSpeedMultiplier = 0.75f;
             PlayerMovementTest.instance.speedUpTime = 0.25f;
             PlayerMovementTest.instance.isSpedUp = true;
         }
         else
         {
-            navMeshAgent.speed = 0.875f;
+            navMeshAgent.speed = 2.625f;
         }
     }
 
     void OnFire()
     {
-        if (fireTimer > 0.25f)
+        if (fireTimer > 0.5f)
         {
             if (isPlayer)
             {
@@ -137,31 +137,17 @@ public class Temperature : MonoBehaviour
     {
         iceFX.SetActive(true);
 
-        if (temperature <= -80)
+        if (temperature < -50)
         {
             if (isPlayer)
             {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0;
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.50f;
                 PlayerMovementTest.instance.speedUpTime = 2;
                 PlayerMovementTest.instance.isSpedUp = true;
             }
             else
             {
-                navMeshAgent.speed = 0f;
-                Debug.Log("temp <= -80");
-            }
-        }
-        else if (temperature < -50)
-        {
-            if (isPlayer)
-            {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0.25f;
-                PlayerMovementTest.instance.speedUpTime = 2;
-                PlayerMovementTest.instance.isSpedUp = true;
-            }
-            else
-            {
-                navMeshAgent.speed = 0.875f;
+                navMeshAgent.speed = 1.75f;
                 Debug.Log("temp <= -50");
             }
         }
@@ -169,13 +155,13 @@ public class Temperature : MonoBehaviour
         {
             if (isPlayer)
             {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0.45f;
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.60f;
                 PlayerMovementTest.instance.speedUpTime = 2;
                 PlayerMovementTest.instance.isSpedUp = true;
             }
             else
             {
-                navMeshAgent.speed = 1.575f;
+                navMeshAgent.speed = 2.1f;
                 Debug.Log("temp <= -40");
             }
         }
@@ -183,39 +169,39 @@ public class Temperature : MonoBehaviour
         {
             if (isPlayer)
             {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0.65f;
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.70f;
                 PlayerMovementTest.instance.speedUpTime = 2;
                 PlayerMovementTest.instance.isSpedUp = true;
             }
             else
             {
-                navMeshAgent.speed = 2.275f;
+                navMeshAgent.speed = 2.45f;
             }
         }
         else if (temperature < -20)
         {
             if (isPlayer)
             {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0.85f;
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.80f;
                 PlayerMovementTest.instance.speedUpTime = 2;
                 PlayerMovementTest.instance.isSpedUp = true;
             }
             else
             {
-                navMeshAgent.speed = 2.975f;
+                navMeshAgent.speed = 2.8f;
             }
         }
         else if (temperature < -10)
         {
             if (isPlayer)
             {
-                PlayerMovementTest.instance.potionSpeedMultiplier = 0.95f;
+                PlayerMovementTest.instance.potionSpeedMultiplier = 0.90f;
                 PlayerMovementTest.instance.speedUpTime = 2;
                 PlayerMovementTest.instance.isSpedUp = true;
             }
             else
             {
-                navMeshAgent.speed = 3.325f;
+                navMeshAgent.speed = 3.15f;
             }
         }
         else
