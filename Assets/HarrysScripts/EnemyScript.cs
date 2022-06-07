@@ -87,7 +87,7 @@ public class EnemyScript : MonoBehaviour
             }
             else if (collObj.GetComponent<ProjectileBehaviour>().colour == Color.yellow)
             {
-                temperature.shockDuration = 8; 
+                temperature.shockDuration = 4; 
             }
 
 
