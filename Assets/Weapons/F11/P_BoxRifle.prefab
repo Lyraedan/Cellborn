@@ -152,8 +152,6 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: a8a0c9c90fb0b8643b817297c723e9a9, type: 3}
   AccuracyRange: 0
   accuracy: 0
-  weaponProperties: {fileID: 0}
-  animController: {fileID: 0}
 --- !u!208 &6920891937863246977
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -365,7 +363,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
@@ -740,6 +750,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.b
       value: 1
       objectReference: {fileID: 0}
@@ -749,6 +763,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059239661747002769, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9059239661747002772, guid: b95f9e45050a8e54e87ba5b51010e3e4, type: 3}
