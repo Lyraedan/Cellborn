@@ -17,6 +17,19 @@ public class WeaponManager : MonoBehaviour
     public KeyCode[] slotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3 };
     public TextMeshProUGUI pickupText, weaponText, ammoText;
     public GameObject firepoint;
+    public GameObject brenFirepoint;
+    public GameObject BHGFirepoint;
+    public GameObject bounceFirepoint;
+    public GameObject deagleFirepoint;
+    public GameObject uziFirepoint;
+    public GameObject f11Firepoint;
+    public GameObject grappleFirepoint;
+    public GameObject LBRFirepoint;
+    public GameObject muffinFirepoint;
+    public GameObject musicFirepoint;
+    public GameObject pebbleFirepoint;
+    public GameObject queenFirepoint;
+    public GameObject tripleFirepoint;
     public PlayerStats healthScript;
     public int currentlySelectedIndex = 0;
 
@@ -84,9 +97,13 @@ public class WeaponManager : MonoBehaviour
             animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
             animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
             animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
+            animController.SetLayerWeight(animController.GetLayerIndex("Pebble Bag"), 0);
 
-            switch(value.weaponId)
+            switch (value.weaponId)
             {
+                case 0:
+                    animController.SetLayerWeight(animController.GetLayerIndex("Pebble Bag"), 1);
+                    break;
                 case 1:
                     animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
                     break;
@@ -220,7 +237,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(7); // Pebbles 
+        currentlyHeldWeapons[0] = FindWeapon(5); // Pebbles 
         //currentlyHeldWeapons[0] = FindWeapon(6);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
