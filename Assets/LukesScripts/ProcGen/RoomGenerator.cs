@@ -285,12 +285,15 @@ public class RoomGenerator : MonoBehaviour
         PlayerStats.instance.bossVideo.SetActive(true);
         bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
         cutscenePlaying = true;
+        MusicManager.instance.source.Stop();
         bossCutsceneEnter.Play();
         WaitThenExecute(() =>
         {
             cutscenePlaying = false;
             playerController.TeleportPlayer(arena.playerSpawn.position);
             PlayerStats.instance.bossVideo.SetActive(false);
+
+            BossRoomMusic.instance.Play();
 
             //Spawn wizard
             var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
