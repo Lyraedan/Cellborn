@@ -140,7 +140,9 @@ public class WeaponProperties : MonoBehaviour
         if (!functionality.isInPlayerInventory)
             return;
 
-        if(functionality.infiniteAmmo)
+        animController.SetBool("IsShooting", true);
+
+        if (functionality.infiniteAmmo)
             functionality.Shoot(afterShot);
         else
         {

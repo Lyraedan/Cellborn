@@ -10,8 +10,6 @@ public class WeaponLazer : WeaponBase
     public float damageInterval;
     float t;
     bool weaponIsFiring;
-    public WeaponProperties weaponProperties;
-    public Animator animController;
 
     public override void Init()
     {
@@ -24,17 +22,10 @@ public class WeaponLazer : WeaponBase
             return;
     }
 
-    public void Start()
-    {
-        animController = weaponProperties.animController;
-    }
-
     public override void Fire()
     {
         if (WeaponManager.instance.laserController.isFiring)
         {
-            animController.SetBool("IsShooting", true);
-
             WeaponProperties weaponProperties = gameObject.GetComponent<WeaponProperties>();
             weaponProperties.RemoveAmmo(1);
             
