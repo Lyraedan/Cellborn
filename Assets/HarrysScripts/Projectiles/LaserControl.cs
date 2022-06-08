@@ -5,6 +5,9 @@ using UnityEngine;
 public class LaserControl : MonoBehaviour
 {
     public ParticleSystem laserParticles;
+    public ParticleSystem redLaserParticles;
+    public ParticleSystem blueLaserParticles;
+    public ParticleSystem yellowLaserParticles;
 
     public float warmup, cooldown;
 
@@ -43,6 +46,19 @@ public class LaserControl : MonoBehaviour
 
         if (WeaponManager.instance.currentWeapon.weaponId == 5)
         {
+            if (WeaponManager.instance.currentWeapon.colour == Color.red)
+            {
+                laserParticles = redLaserParticles;
+            }
+            else if (WeaponManager.instance.currentWeapon.colour == Color.blue)
+            {
+                laserParticles = blueLaserParticles;
+            }
+            else if (WeaponManager.instance.currentWeapon.colour == Color.yellow)
+            {
+                laserParticles = yellowLaserParticles;
+            }
+
             Debug.Log("Agh a laser");
             if (Input.GetButton(ControlManager.INPUT_FIRE) && hasCooledDown && !PlayerStats.instance.isDead && !PauseMenu.isPaused)
             {
