@@ -10,7 +10,14 @@ public class GrappleOffence : MonoBehaviour
     public GameObject fire2;
     public int timer = 0;
     public int timeBeforeFire;
-    
+
+    public GameObject redFire1;
+    public GameObject redFire2;
+    public GameObject blueFire1;
+    public GameObject blueFire2;
+    public GameObject yellowFire1;
+    public GameObject yellowFire2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +38,22 @@ public class GrappleOffence : MonoBehaviour
 
         if (isAttacking)
         {
+            if (WeaponManager.instance.currentWeapon.colour == Color.red)
+            {
+                fire1 = redFire1;
+                fire2 = redFire2;
+            }
+            else if (WeaponManager.instance.currentWeapon.colour == Color.blue)
+            {
+                fire1 = blueFire1;
+                fire2 = blueFire2;
+            }
+            else if (WeaponManager.instance.currentWeapon.colour == Color.yellow)
+            {
+                fire1 = yellowFire1;
+                fire2 = yellowFire2;
+            }
+
             if (fire1.activeSelf == false && timer == timeBeforeFire)
             {
                 fire1.SetActive(true);
