@@ -152,7 +152,7 @@ public class GrappleHook : ProjectileBehaviour
             {
                 grappleWeapon = WeaponManager.instance.currentlyHeldWeapons[i];
                 grappleWeapon.SetAmmo(1);
-                WeaponManager.instance.ammoText.text = "Ammo: " + grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
+                WeaponManager.instance.ammoText.text = grappleWeapon.currentAmmo + " / " + grappleWeapon.maxAmmo;
                 break;
             }
         }
