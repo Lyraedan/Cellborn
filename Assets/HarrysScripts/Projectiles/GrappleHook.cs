@@ -158,7 +158,7 @@ public class GrappleHook : ProjectileBehaviour
         }
 
         PlayerMovementTest.instance.disableMovement = false;
-        FindObjectOfType<GrappleOffence>().isAttacking = false;
+        FindObjectOfType<GrappleOffence>().isAttacking = false; // yyyyyyyyyy FindObjectOfType is heavy af and inefficient
         Destroy(gameObject);
     }
 

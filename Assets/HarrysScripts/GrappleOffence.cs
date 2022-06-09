@@ -1,3 +1,4 @@
+using LukesScripts.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class GrappleOffence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerStats.instance == null)
+            return;
+
         if (timer > timeBeforeFire)
         {
             timer = 0;
@@ -57,20 +61,26 @@ public class GrappleOffence : MonoBehaviour
                 fire2 = yellowFire2;
             }
 
-            if (fire1.activeSelf == false && timer == timeBeforeFire)
+            if (fire1 && fire2)
             {
-                fire1.SetActive(true);
-                fire2.SetActive(true);
+                if (fire1.activeSelf == false && timer == timeBeforeFire)
+                {
+                    fire1.SetActive(true);
+                    fire2.SetActive(true);
+                }
             }
 
             PlayerStats.instance.defenseMultiplier = defenseMultiplier;
             PlayerStats.instance.defenseTime = defenseTime;
         }
 
-        if (!isAttacking && fire1.activeSelf == true && timer == timeBeforeFire)
+        if (fire1 && fire2)
         {
-            fire1.SetActive(false);
-            fire2.SetActive(false);
+            if (!isAttacking && fire1.activeSelf == true && timer == timeBeforeFire)
+            {
+                fire1.SetActive(false);
+                fire2.SetActive(false);
+            }
         }
     }
 
@@ -78,7 +88,7 @@ public class GrappleOffence : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (other.tag == "Enemy")
+            if (other.CompareTag("Enemy"))
             {
                 var enemy = other.gameObject.GetComponent<EnemyScript>();
                 Temperature temperature = enemy.GetComponent<Temperature>();
@@ -112,17 +122,10 @@ public class GrappleOffence : MonoBehaviour
                     }
                 }
 
-                if (other.gameObject.GetComponent<AITest>() != null)
+                var ai = other.gameObject.GetComponent<AI>();
+                if(ai)
                 {
-                    other.gameObject.GetComponent<AITest>().Hit();
-                }
-                else if (other.gameObject.GetComponent<AIFairy>() != null)
-                {
-                    other.gameObject.GetComponent<AIFairy>().Hit();
-                }
-                else if (other.gameObject.GetComponent<AIWizard>() != null)
-                {
-                    other.gameObject.GetComponent<AIWizard>().Hit();
+                    ai.Hit();
                 }
             }
         }

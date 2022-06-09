@@ -237,7 +237,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(5); // Pebbles 
+        currentlyHeldWeapons[0] = FindWeapon(4);
         //currentlyHeldWeapons[0] = FindWeapon(6);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
@@ -347,24 +347,30 @@ public class WeaponManager : MonoBehaviour
     {
         WeaponProperties found = FindWeapon(weapon.weaponId);
         bool hasWeapon = HasWeaponInInventory(weapon.weaponId);
-        found.colour = weapon.colour;
-
-        //Turn on Ring
-        if (weapon.GetComponent<WeaponProperties>().colour == Color.red)
-        {
-            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().redIcon;
-        }
-        else if (weapon.GetComponent<WeaponProperties>().colour == Color.blue)
-        {
-            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().blueIcon;
-        }
-        else if (weapon.GetComponent<WeaponProperties>().colour == Color.yellow)
-        {
-            found.GetComponent<WeaponProperties>().icon = weapon.GetComponent<WeaponProperties>().yellowIcon;
-        }
 
         if (!isInventoryFull && !hasWeapon)
         {
+            found.colour = weapon.colour;
+
+            var currentProperties = weapon.GetComponent<WeaponProperties>();
+            var foundProperties = found.GetComponent<WeaponProperties>();
+            if (currentProperties && foundProperties)
+            {
+                if (currentProperties.colour == Color.red)
+                {
+                    foundProperties.icon = currentProperties.redIcon;
+                }
+                else if (currentProperties.colour == Color.blue)
+                {
+                    foundProperties.icon = currentProperties.blueIcon;
+                }
+                else if (currentProperties.colour == Color.yellow)
+                {
+                    foundProperties.icon = currentProperties.yellowIcon;
+                }
+            }
+
+
             var index = currentlyHeldWeapons.IndexOf(FindWeapon(-1));
             currentlyHeldWeapons[index] = found;
             var wep = currentlyHeldWeapons[index];
@@ -436,6 +442,26 @@ public class WeaponManager : MonoBehaviour
         bool hasWeapon = HasWeaponInInventory(weapon.weaponId);
         WeaponProperties empty = FindWeapon(-1);
 
+        if (currentWeapon.weaponId == 4)
+        {
+            if (currentWeapon.functionality != null)
+            {
+                // This is fuckin dumb
+                WeaponGrapple weaponGrapple = (WeaponGrapple)currentWeapon.functionality;
+                var grapple = weaponGrapple.grapple;
+
+                if (grapple != null)
+                {
+                    if (grapple.isPulling)
+                    {
+                        Debug.Log("Retrieve");
+                        grapple.RetrieveHook();
+                    }
+                }
+
+            }
+        }
+
         var index = currentlyHeldWeapons.IndexOf(found);
         currentlyHeldWeapons[index] = empty;
 
@@ -447,26 +473,27 @@ public class WeaponManager : MonoBehaviour
 
         GameObject drop = Instantiate(found.gameObject, firepoint.transform.position, Quaternion.identity);
         drop.tag = "Weapon";
+        var dropProperties = drop.GetComponent<WeaponProperties>();
 
         //Turn on Ring
-        if (drop.GetComponent<WeaponProperties>().colour == Color.red)
+        if (dropProperties.colour == Color.red)
         {
-            drop.GetComponent<WeaponProperties>().redRing.SetActive(true);
+            dropProperties.redRing.SetActive(true);
         }
-        else if (drop.GetComponent<WeaponProperties>().colour == Color.blue)
+        else if (dropProperties.colour == Color.blue)
         {
-            drop.GetComponent<WeaponProperties>().blueRing.SetActive(true);
+            dropProperties.blueRing.SetActive(true);
         }
-        else if (drop.GetComponent<WeaponProperties>().colour == Color.yellow)
+        else if (dropProperties.colour == Color.yellow)
         {
-            drop.GetComponent<WeaponProperties>().yellowRing.SetActive(true);
+            dropProperties.yellowRing.SetActive(true);
         }
 
         //Turn on Everything Else
         drop.GetComponent<BoxCollider>().enabled = true;
         drop.GetComponent<SphereCollider>().enabled = true;
         drop.GetComponent<Rigidbody>().useGravity = true;
-        drop.GetComponent<WeaponProperties>().functionality.isInPlayerInventory = false;
+        dropProperties.functionality.isInPlayerInventory = false;
         drop.transform.GetChild(0).gameObject.SetActive(true);
         drop.SetActive(true);
         CustomEvent.Trigger(gameObject, EventHooks.OnWeaponDropped);
