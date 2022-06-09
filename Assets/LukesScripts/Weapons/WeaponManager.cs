@@ -541,7 +541,7 @@ public class WeaponManager : MonoBehaviour
     IEnumerator PlayFireAnimation()
     {
         if (playingShootingAnim)
-            yield return null;
+            yield break;
 
         playingShootingAnim = true;
         animController.SetBool("IsShooting", true);
@@ -553,7 +553,7 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.LogError("no clips assoociated with animation!");
             animController.SetBool("IsShooting", false);
-            yield return null;
+            yield break;
         }
         var clip = clips[0].clip;
         var time = clip.length * state.normalizedTime;
