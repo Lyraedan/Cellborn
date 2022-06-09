@@ -193,6 +193,8 @@ public class WeaponManager : MonoBehaviour
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
 
+    bool playingShootingAnim = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -538,9 +540,26 @@ public class WeaponManager : MonoBehaviour
 
     IEnumerator PlayFireAnimation()
     {
+        if (playingShootingAnim)
+            yield return null;
+
+        playingShootingAnim = true;
         animController.SetBool("IsShooting", true);
-        var info = animController.GetCurrentAnimatorStateInfo(animController.GetLayerIndex(currentAnimationLayerWeapon));
-        yield return new WaitForSeconds(info.length);
+        yield return new WaitForEndOfFrame(); // Wait the 1 tick for the animator
+        int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
+        var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
+        var clips = animController.GetCurrentAnimatorClipInfo(layerIndex);
+        if (clips.Length == 0)
+        {
+            Debug.LogError("no clips assoociated with animation!");
+            animController.SetBool("IsShooting", false);
+            yield return null;
+        }
+        var clip = clips[0].clip;
+        var time = clip.length * state.normalizedTime;
+        Debug.Log(string.Format("Animation: {0} | {1} | {2} | {3}", state.length, clip.length, time, state.normalizedTime));
+        yield return new WaitForSeconds(time);
         animController.SetBool("IsShooting", false);
+        playingShootingAnim = false;
     }
 }
