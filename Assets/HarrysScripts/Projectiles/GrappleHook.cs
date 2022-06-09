@@ -42,7 +42,7 @@ public class GrappleHook : ProjectileBehaviour
 
         playerDistance = playerObject.transform.position - this.transform.position;
 
-        DrawLine(playerObject.transform.position, transform.position, ropeColor);
+        DrawLine(WeaponManager.instance.grappleFirepoint.transform.position, transform.position, ropeColor);
 
         if (!WeaponManager.instance.HasWeaponInInventory(4))
         {

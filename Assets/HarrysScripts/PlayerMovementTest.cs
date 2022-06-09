@@ -89,6 +89,7 @@ public class PlayerMovementTest : MonoBehaviour
                 speedUpTime = 0f;
                 speedUpTimer = 0f;
                 isSpedUp = false;
+                isSpeedPotioned = false;
             }
         }
 
