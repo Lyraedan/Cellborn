@@ -412,6 +412,8 @@ public class WeaponManager : MonoBehaviour
             }
 
             ammoText.text = wep.currentAmmo + " / " + wep.maxAmmo;
+            UIController.instance.ammoBar.maxValue = wep.maxAmmo;
+            UIController.instance.ammoBar.value = wep.currentAmmo;
         }
         else
         {
