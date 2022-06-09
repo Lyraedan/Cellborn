@@ -2375,7 +2375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2601691010617797902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.078, y: 0.008, z: -0.088}
+  m_LocalPosition: {x: 0.078, y: 0.008, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7064694838615943271}
@@ -3719,7 +3719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4544884552969830173}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.351, y: 0.008, z: -0.088}
+  m_LocalPosition: {x: 0.351, y: 0.008, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7064694838615943271}
@@ -5414,7 +5414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7000795670692052758}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.011, y: 0.035, z: 0.457}
+  m_LocalPosition: {x: 0.011, y: 0.035, z: 0.757}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7064694838615943271}
@@ -7042,7 +7042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e0d8acb8818224182325f1eafe9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 140
+  attackDamage: 75
   isAttacking: 0
   fire1: {fileID: 0}
   fire2: {fileID: 0}
