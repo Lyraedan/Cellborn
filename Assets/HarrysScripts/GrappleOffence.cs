@@ -18,6 +18,9 @@ public class GrappleOffence : MonoBehaviour
     public GameObject yellowFire1;
     public GameObject yellowFire2;
 
+    public float defenseMultiplier;
+    public float defenseTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +62,9 @@ public class GrappleOffence : MonoBehaviour
                 fire1.SetActive(true);
                 fire2.SetActive(true);
             }
+
+            PlayerStats.instance.defenseMultiplier = defenseMultiplier;
+            PlayerStats.instance.defenseTime = defenseTime;
         }
 
         if (!isAttacking && fire1.activeSelf == true && timer == timeBeforeFire)
@@ -66,7 +72,6 @@ public class GrappleOffence : MonoBehaviour
             fire1.SetActive(false);
             fire2.SetActive(false);
         }
-
     }
 
     void OnTriggerEnter(Collider other)
