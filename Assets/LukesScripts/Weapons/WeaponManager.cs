@@ -193,7 +193,8 @@ public class WeaponManager : MonoBehaviour
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
 
-    bool playingShootingAnim = false;
+    float shootingAnimLength, shootingAnimTime, shootingAnimDelayTimer;
+    bool canPlayShootingAnim = false;
 
     private void Awake()
     {
@@ -272,6 +273,27 @@ public class WeaponManager : MonoBehaviour
             if (PlayerStats.instance.isDead)
                 return;
 
+            animController.SetBool("IsShooting", shootingAnimLength != 0);
+            Debug.Log("Anim length: " + shootingAnimLength);
+            if (shootingAnimLength != 0)
+            {
+                shootingAnimTime += animController.speed * Time.deltaTime;
+
+                if (shootingAnimTime >= shootingAnimLength)
+                {
+                    Debug.Log("Anim reset");
+                    shootingAnimTime = 0;
+                    shootingAnimLength = 0;
+                }
+            }
+
+            shootingAnimDelayTimer += 1 * Time.deltaTime;
+            canPlayShootingAnim = shootingAnimDelayTimer > 0.5f;
+            if (shootingAnimDelayTimer > 0.5f)
+            {
+                shootingAnimDelayTimer = 0;
+            }
+
             if (Input.GetButton(ControlManager.INPUT_FIRE))
             {
                 if (RoomGenerator.instance.cutscenePlaying)
@@ -279,7 +301,7 @@ public class WeaponManager : MonoBehaviour
 
                 if (!healthScript.isDead)
                 {
-                    StartCoroutine(PlayFireAnimation());
+                    PlayFireAnimation();
                     currentWeapon.Shoot(delayed =>
                     {
                         if (!currentWeapon.functionality.infiniteAmmo)
@@ -538,28 +560,27 @@ public class WeaponManager : MonoBehaviour
         return result;
     }
 
-    IEnumerator PlayFireAnimation()
+    void PlayFireAnimation()
     {
-        if (playingShootingAnim)
-            yield break;
+        if (!canPlayShootingAnim)
+            return;
 
-        playingShootingAnim = true;
-        animController.SetBool("IsShooting", true);
-        yield return new WaitForEndOfFrame(); // Wait the 1 tick for the animator
-        int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
-        var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
-        var clips = animController.GetCurrentAnimatorClipInfo(layerIndex);
-        if (clips.Length == 0)
+        if (shootingAnimLength == 0)
         {
-            Debug.LogError("no clips assoociated with animation!");
-            animController.SetBool("IsShooting", false);
-            yield break;
+            int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
+            var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
+            var clips = animController.GetCurrentAnimatorClipInfo(layerIndex);
+            if (clips.Length == 0)
+            {
+                Debug.LogError("no clips assoociated with animation!");
+                return;
+            }
+            var clip = clips[0].clip;
+            var time = clip.length * state.normalizedTime;
+
+            shootingAnimLength = clip.length;
+            Debug.Log("Anim using clip " + clip.name);
         }
-        var clip = clips[0].clip;
-        var time = clip.length * state.normalizedTime;
-        Debug.Log(string.Format("Animation: {0} | {1} | {2} | {3}", state.length, clip.length, time, state.normalizedTime));
-        yield return new WaitForSeconds(time);
-        animController.SetBool("IsShooting", false);
-        playingShootingAnim = false;
+
     }
 }
