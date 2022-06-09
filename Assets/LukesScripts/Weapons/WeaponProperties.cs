@@ -154,6 +154,7 @@ public class WeaponProperties : MonoBehaviour
                         if(weaponId != 5)
                         {
                             currentAmmo--;
+                            UIController.instance.ammoBar.value = currentAmmo;
                         }
                     }
                     afterShot?.Invoke(delayed);
