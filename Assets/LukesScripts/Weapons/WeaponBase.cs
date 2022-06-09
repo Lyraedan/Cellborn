@@ -56,6 +56,8 @@ public abstract class WeaponBase : MonoBehaviour
     {
         if (canFire)
         {
+            WeaponManager.instance.animController.SetBool("IsShooting", true);
+
             // Has sound assigned
             if (source != null)
             {

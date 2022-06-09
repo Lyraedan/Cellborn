@@ -193,8 +193,9 @@ public class WeaponManager : MonoBehaviour
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
 
-    float shootingAnimLength, shootingAnimTime, shootingAnimDelayTimer;
-    bool canPlayShootingAnim = false;
+    public bool playingShootingAnim = false;
+
+    public float shootingAnimTime = 0;
 
     private void Awake()
     {
@@ -273,25 +274,19 @@ public class WeaponManager : MonoBehaviour
             if (PlayerStats.instance.isDead)
                 return;
 
-            animController.SetBool("IsShooting", shootingAnimLength != 0);
-            Debug.Log("Anim length: " + shootingAnimLength);
-            if (shootingAnimLength != 0)
+            if (playingShootingAnim)
             {
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
-                if (shootingAnimTime >= shootingAnimLength)
+                bool waited = shootingAnimTime >= currentWeapon.shootingAnimationLength / animController.speed;
+                animController.SetBool("IsShooting", waited);
+                if (waited)
                 {
                     Debug.Log("Anim reset");
                     shootingAnimTime = 0;
-                    shootingAnimLength = 0;
+                    playingShootingAnim = false;
+                    WeaponManager.instance.animController.SetBool("IsShooting", false);
                 }
-            }
-
-            shootingAnimDelayTimer += 1 * Time.deltaTime;
-            canPlayShootingAnim = shootingAnimDelayTimer > 0.5f;
-            if (shootingAnimDelayTimer > 0.5f)
-            {
-                shootingAnimDelayTimer = 0;
             }
 
             if (Input.GetButton(ControlManager.INPUT_FIRE))
@@ -301,7 +296,9 @@ public class WeaponManager : MonoBehaviour
 
                 if (!healthScript.isDead)
                 {
-                    PlayFireAnimation();
+                    if(shootingAnimTime == 0)
+                        playingShootingAnim = true;
+
                     currentWeapon.Shoot(delayed =>
                     {
                         if (!currentWeapon.functionality.infiniteAmmo)
@@ -560,27 +557,4 @@ public class WeaponManager : MonoBehaviour
         return result;
     }
 
-    void PlayFireAnimation()
-    {
-        if (!canPlayShootingAnim)
-            return;
-
-        if (shootingAnimLength == 0)
-        {
-            int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
-            var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
-            var clips = animController.GetCurrentAnimatorClipInfo(layerIndex);
-            if (clips.Length == 0)
-            {
-                Debug.LogError("no clips assoociated with animation!");
-                return;
-            }
-            var clip = clips[0].clip;
-            var time = clip.length * state.normalizedTime;
-
-            shootingAnimLength = clip.length;
-            Debug.Log("Anim using clip " + clip.name);
-        }
-
-    }
 }
