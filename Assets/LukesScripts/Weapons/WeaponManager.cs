@@ -86,19 +86,7 @@ public class WeaponManager : MonoBehaviour
                 weaponText.text = "";
             }
 
-            animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("G11"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
-            animController.SetLayerWeight(animController.GetLayerIndex("Pebble Bag"), 0);
+            RemoveWeaponWeights();
 
             switch (value.weaponId)
             {
@@ -232,6 +220,24 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = currentlyHeldWeapons[2];
     }
 
+    public void RemoveWeaponWeights()
+    {
+        currentAnimationLayerWeapon = null;
+        animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("G11"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 0);
+        animController.SetLayerWeight(animController.GetLayerIndex("Pebble Bag"), 0);
+    }
+
     public void GetWeaponsInLevel()
     {
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
@@ -239,7 +245,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        currentlyHeldWeapons[0] = FindWeapon(4);
+        //currentlyHeldWeapons[0] = FindWeapon(4);
         //currentlyHeldWeapons[0] = FindWeapon(6);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
@@ -324,7 +330,6 @@ public class WeaponManager : MonoBehaviour
         if (scrollDelta != Vector2.zero && !PauseMenu.isPaused)
         {
             uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
-
             if (scrollDelta.y < 0)
             {
                 currentlySelectedIndex++;
