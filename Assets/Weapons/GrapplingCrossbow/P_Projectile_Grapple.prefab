@@ -167,11 +167,11 @@ MonoBehaviour:
   shotDirection: 0
   lifetime: 20
   t: 0
-  enemyDamage: 40
+  enemyDamage: 140
   playerDamage: 0
+  colour: {r: 1, g: 1, b: 1, a: 1}
   canChangeDistance: 1
   playerObject: {fileID: 0}
-  managerInstance: {fileID: 0}
   playerPull: 4
   enemyPull: 1500
   triggerCollider: {fileID: 0}
@@ -180,8 +180,8 @@ MonoBehaviour:
   pulledObject: {fileID: 0}
   playerController: {fileID: 0}
   collisionTag: 
-  isPulling: 0
   isPhysObj: 0
+  isPulling: 0
   cordMaterial: {fileID: 2100000, guid: 42a0dd3756e16ba48a2cbdb1d700b167, type: 2}
   cordWidth: 0.02
   ropeColor: {r: 0.4716981, g: 0.29292917, b: 0.08232467, a: 1}
