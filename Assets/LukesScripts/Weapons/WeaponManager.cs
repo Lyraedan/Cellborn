@@ -45,6 +45,7 @@ public class WeaponManager : MonoBehaviour
 
     public Animator animController;
 
+    private string currentAnimationLayerWeapon;
     private WeaponProperties _currentWeapon;
     public WeaponProperties currentWeapon
     {
@@ -102,48 +103,49 @@ public class WeaponManager : MonoBehaviour
             switch (value.weaponId)
             {
                 case 0:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Pebble Bag"), 1);
+                    currentAnimationLayerWeapon = "Pebble Bag";
                     break;
                 case 1:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Bouncy Ball Gun"), 1);
+                    currentAnimationLayerWeapon = "Bouncy Ball Gun";
                     break;
                 case 2:
-                    animController.SetLayerWeight(animController.GetLayerIndex("BHG"), 1);
+                    currentAnimationLayerWeapon = "BHG";
                     break;
                 case 3:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Muffin Sniper"), 1);
+                    currentAnimationLayerWeapon = "Muffin Sniper";
                     break;
                 case 4:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Crossbow"), 1);
+                    currentAnimationLayerWeapon = "Crossbow";
                     break;
                 case 5:
-                    animController.SetLayerWeight(animController.GetLayerIndex("LBR"), 1);
+                    currentAnimationLayerWeapon = "LBR";
                     break;
                 case 6:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Triple Barrel Shotgun"), 1);
+                    currentAnimationLayerWeapon = "Triple Barrel Shotgun";
                     break;
                 case 7:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Dualzi"), 1);
+                    currentAnimationLayerWeapon = "Dualzi";
                     break;
                 case 8:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Boomer"), 1);
+                    currentAnimationLayerWeapon = "Boomer";
                     break;
                 case 9:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Bren"), 1);
+                    currentAnimationLayerWeapon = "Bren";
                     break;
                 case 10:
-                    animController.SetLayerWeight(animController.GetLayerIndex("G11"), 1);
+                    currentAnimationLayerWeapon = "G11";
                     break;
                 case 11:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Deagle"), 1);
+                    currentAnimationLayerWeapon = "Deagle";
                     break;
                 case 12:
-                    animController.SetLayerWeight(animController.GetLayerIndex("Boom Box Gun"), 1);
+                    currentAnimationLayerWeapon = "Boom Box Gun";
                     break;
                 default:
                     Debug.Log("No anim layer index to update");
                     break;
             }
+            animController.SetLayerWeight(animController.GetLayerIndex(currentAnimationLayerWeapon), 1);
 
             if (value.functionality != null)
             {
@@ -269,6 +271,7 @@ public class WeaponManager : MonoBehaviour
 
                 if (!healthScript.isDead)
                 {
+                    StartCoroutine(PlayFireAnimation());
                     currentWeapon.Shoot(delayed =>
                     {
                         if (!currentWeapon.functionality.infiniteAmmo)
@@ -526,5 +529,13 @@ public class WeaponManager : MonoBehaviour
             }
         }
         return result;
+    }
+
+    IEnumerator PlayFireAnimation()
+    {
+        animController.SetBool("IsShooting", true);
+        var info = animController.GetCurrentAnimatorStateInfo(animController.GetLayerIndex(currentAnimationLayerWeapon));
+        yield return new WaitForSeconds(info.length);
+        animController.SetBool("IsShooting", false);
     }
 }

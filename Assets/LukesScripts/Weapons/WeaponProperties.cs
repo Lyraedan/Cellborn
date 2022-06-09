@@ -124,11 +124,6 @@ public class WeaponProperties : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        animController.SetBool("IsShooting", false);
-    }
-
     public void Shoot(System.Action<bool> afterShot)
     {
         if (functionality == null)
@@ -139,8 +134,6 @@ public class WeaponProperties : MonoBehaviour
 
         if (!functionality.isInPlayerInventory)
             return;
-
-        animController.SetBool("IsShooting", true);
 
         if (functionality.infiniteAmmo)
             functionality.Shoot(afterShot);
