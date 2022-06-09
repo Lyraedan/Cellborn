@@ -396,6 +396,7 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log("Adding ammo!");
                 int remaining = wep.AddAmmo(weapon.currentAmmo);
                 Debug.Log("Added -> " + weapon.currentAmmo + " has " + remaining + " left");
+                UIController.instance.ammoBar.value = weapon.currentAmmo;
                 CustomEvent.Trigger(gameObject, EventHooks.OnAmmoReplenished, remaining, weapon.IsEmpty);
                 weapon.SetAmmo(remaining);
 
