@@ -176,13 +176,6 @@ public class WeaponManager : MonoBehaviour
 
                 animController.SetBool("IsHoldingWeapon", true);
             }
-            else
-            {
-                ammoText.text = "";
-                UIController.instance.ammoContainer.SetActive(false);
-                animController.SetBool("IsHoldingWeapon", false);
-
-            }
         }
     }
     public WeaponProperties toPickup;

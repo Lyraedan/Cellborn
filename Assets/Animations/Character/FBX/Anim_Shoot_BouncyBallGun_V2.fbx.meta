@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 57b98c4f1b16ce240877dcf2dfa57e78
+guid: d349478b0688f4e4b962ebd4e9640bf3
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: BHG_Shoot
+    second: Bouncy_Ball_Gun_Shoot_v2
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: BHG_Shoot
+      name: Bouncy_Ball_Gun_Shoot_v2
       takeName: Take 001
       internalID: 0
       firstFrame: 0
@@ -65,7 +65,7 @@ ModelImporter:
       - path: Character1_Reference
         weight: 0
       - path: Character1_Reference/Character1_Hips
-        weight: 0
+        weight: 1
       - path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg
         weight: 0
       - path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg/Character1_LeftLeg
@@ -87,7 +87,7 @@ ModelImporter:
       - path: Character1_Reference/Character1_Hips/Character1_RightUpLeg/Character1_RightLeg/Character1_RightFoot/Character1_Right_Ball_jnt/Character1_RightToeBase
         weight: 0
       - path: Character1_Reference/Character1_Hips/Character1_Spine
-        weight: 0
+        weight: 1
       - path: Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1
         weight: 1
       - path: Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2
