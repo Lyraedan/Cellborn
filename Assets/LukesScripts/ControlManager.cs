@@ -24,6 +24,10 @@ public class ControlManager : MonoBehaviour
     public static string INPUT_DROP = "Drop";
     public static string INPUT_PAUSE = "Pause";
 
+    public static string JOYSTICK_HORIZONTAL_TURN = "HorizontalTurn";
+    public static string JOYSTICK_VERTICAL_TURN = "VerticalTurn";
+
+
     private void Update()
     {
         var names = Input.GetJoystickNames();
@@ -53,12 +57,19 @@ public class ControlManager : MonoBehaviour
 
         if(XboxOneController == 1)
         {
+            //Remap
+            JOYSTICK_HORIZONTAL_TURN = "XboxHorizontalTurn";
+            JOYSTICK_VERTICAL_TURN = "XboxVerticalTurn";
+
             pickup = "X";
             drop = "Y";
             usePotionA = "LB";
             usePotionB = "RB";
         } else if(PS4Controller == 1)
         {
+            JOYSTICK_HORIZONTAL_TURN = "PS4HorizontalTurn";
+            JOYSTICK_VERTICAL_TURN = "PS4VerticalTurn";
+
             pickup = "Square";
             drop = "Triangle";
             usePotionA = "L1";

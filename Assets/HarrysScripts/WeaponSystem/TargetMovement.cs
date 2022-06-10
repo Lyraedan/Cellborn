@@ -21,24 +21,21 @@ public class TargetMovement : MonoBehaviour
                     transform.position = ray.GetPoint(distanceToPlane);
                 } else
                 {
-                    var horizontalTurn = Input.GetAxisRaw("HorizontalTurn") * 1.25f;
-                    var verticalTurn = Input.GetAxisRaw("VerticalTurn") * 1.25f;
+                    float maxDistanceFromPlayer = 3f; // 1.25f
+
+                    var horizontalTurn = Input.GetAxisRaw(ControlManager.JOYSTICK_HORIZONTAL_TURN) * maxDistanceFromPlayer;
+                    var verticalTurn = Input.GetAxisRaw(ControlManager.JOYSTICK_VERTICAL_TURN) * maxDistanceFromPlayer;
 
                     float deadzone = 0.5f;
                     bool isMovingJoystick = (horizontalTurn < -deadzone || horizontalTurn >= deadzone) || (verticalTurn < -deadzone || verticalTurn >= deadzone);
-                    var forward = PlayerStats.instance.gameObject.transform.forward;
-                    var right = PlayerStats.instance.gameObject.transform.right;
-
-                    /*
-                    var heading = PlayerStats.instance.gameObject.transform.position + 
-                                  ((forward * verticalTurn)
-                                  + (right * horizontalTurn));
-                                  */
+                    var forward = isMovingJoystick ? PlayerStats.instance.gameObject.transform.forward : Vector3.zero;
+                    var right = isMovingJoystick ? PlayerStats.instance.gameObject.transform.right : Vector3.zero;
 
                     if (isMovingJoystick)
                     {
                         //joystickHeading = new Vector3(right.x + horizontalTurn, 0, forward.y + -verticalTurn);
                         joystickHeading = new Vector3(horizontalTurn, 0, -verticalTurn);
+                        //joystickHeading = (forward * verticalTurn) + (right * horizontalTurn);
                     }
                     var translation = PlayerStats.instance.gameObject.transform.position + joystickHeading;
                     translation.y = height;
