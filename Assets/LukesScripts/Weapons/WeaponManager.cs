@@ -287,7 +287,8 @@ public class WeaponManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton(ControlManager.INPUT_FIRE))
+            Debug.Log("Fire: " + Input.GetButton(ControlManager.INPUT_FIRE) + " -> Binding: " + ControlManager.INPUT_FIRE);
+            if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
             {
                 if (RoomGenerator.instance.cutscenePlaying)
                     return;
