@@ -61,12 +61,22 @@ public class ControlManager : MonoBehaviour
             JOYSTICK_HORIZONTAL_TURN = "XboxHorizontalTurn";
             JOYSTICK_VERTICAL_TURN = "XboxVerticalTurn";
 
+            INPUT_FIRE = "XboxFire";
+            INPUT_DROP = "XboxDrop";
+            INPUT_PAUSE = "XboxPause";
+            INPUT_PICKUP = "XboxPickup";
+
             pickup = "X";
             drop = "Y";
             usePotionA = "LB";
             usePotionB = "RB";
         } else if(PS4Controller == 1)
         {
+            INPUT_FIRE = "PS4Fire";
+            INPUT_DROP = "PS4Drop";
+            INPUT_PAUSE = "PS4Pause";
+            INPUT_PICKUP = "PS4Pickup";
+
             JOYSTICK_HORIZONTAL_TURN = "PS4HorizontalTurn";
             JOYSTICK_VERTICAL_TURN = "PS4VerticalTurn";
 
@@ -76,6 +86,11 @@ public class ControlManager : MonoBehaviour
             usePotionB = "R1";
         } else
         {
+            INPUT_FIRE = "Fire1";
+            INPUT_PICKUP = "Pickup";
+            INPUT_DROP = "Drop";
+            INPUT_PAUSE = "Pause";
+
             pickup = "F";
             drop = "G";
             usePotionA = "Q";
