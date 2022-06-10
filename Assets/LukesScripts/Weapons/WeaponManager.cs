@@ -276,16 +276,18 @@ public class WeaponManager : MonoBehaviour
 
             if (playingShootingAnim)
             {
+                animController.speed = currentWeapon.shootingAnimationSpeed;
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
-                bool waited = shootingAnimTime >= currentWeapon.shootingAnimationLength / animController.speed;
+                float animationTime = currentWeapon.shootingAnimationLength / currentWeapon.shootingAnimationSpeed;
+                Debug.Log("Animation time: " + animationTime + " @ " + currentWeapon.shootingAnimationLength + " / " + animController.speed + " -> " + currentWeapon.shootingAnimationSpeed);
+                bool waited = shootingAnimTime >= animationTime;
                 animController.SetBool("IsShooting", waited);
                 if (waited)
                 {
-                    Debug.Log("Anim reset");
                     shootingAnimTime = 0;
                     playingShootingAnim = false;
-                    WeaponManager.instance.animController.SetBool("IsShooting", false);
+                    animController.SetBool("IsShooting", false);
                 }
             }
 

@@ -239,6 +239,8 @@ MonoBehaviour:
   source: {fileID: 8419515365273862257}
   pickupSound: {fileID: 8300000, guid: c931485ce61b33f49921a146f89bf8c1, type: 3}
   pickupAmmoSound: {fileID: 8300000, guid: c931485ce61b33f49921a146f89bf8c1, type: 3}
+  playingShootingAnim: 0
+  shootingAnimTime: 0
 --- !u!114 &2505581065836584820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9745,6 +9747,14 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ac07595f16ad4f44f97c1fe8b9c1a8a5, type: 3}
     - target: {fileID: -3620807374433043931, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
       propertyPath: isInPlayerInventory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4720002656406675271, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
+      propertyPath: shootingAnimationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4720002656406675271, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}
+      propertyPath: shootingAnimationLength
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6976331707194537072, guid: 3aac62ffe3236f54f8610a3db2e0db29, type: 3}

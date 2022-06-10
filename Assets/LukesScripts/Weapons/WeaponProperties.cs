@@ -30,6 +30,7 @@ public class WeaponProperties : MonoBehaviour
     }
     public int maxAmmo = 30;
     public float shootingAnimationLength = 1f;
+    public float shootingAnimationSpeed = 1f;
     public Sprite icon;
     public Sprite redIcon;
     public Sprite blueIcon;
