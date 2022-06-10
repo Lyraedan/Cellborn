@@ -271,10 +271,11 @@ public class WeaponManager : MonoBehaviour
             {
                 int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
                 var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
-                animController.speed = state.speed * state.speedMultiplier;
+                float animationSpeed = state.speed * state.speedMultiplier;
+                animController.speed = animationSpeed;
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
-                float animationTime = currentWeapon.shootingAnimationLength / currentWeapon.shootingAnimationSpeed;
+                float animationTime = currentWeapon.shootingAnimationLength / animationSpeed;
                 Debug.Log("Animation time: " + animationTime + " @ " + currentWeapon.shootingAnimationLength + " / " + animController.speed + " -> " + currentWeapon.shootingAnimationSpeed);
                 bool waited = shootingAnimTime >= animationTime;
                 animController.SetBool("IsShooting", waited);
