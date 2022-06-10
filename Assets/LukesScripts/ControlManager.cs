@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class ControlManager : MonoBehaviour
 {
-    private static bool controllerConnected = false;
-
-    private int XboxOneController = 0;
-    private int PS4Controller = 0;
+    private static int XboxOneController = 0;
+    private static int PS4Controller = 0;
+    public static bool ControllerConnected
+    {
+        get
+        {
+            return XboxOneController != 0 || PS4Controller != 0;
+        }
+    }
 
     public static string pickup = "F";
     public static string drop = "G";
@@ -22,7 +27,6 @@ public class ControlManager : MonoBehaviour
     private void Update()
     {
         var names = Input.GetJoystickNames();
-        controllerConnected = names.Length > 0;
 
         Debug.Log("Controllers: " + names.Length);
         for(int i = 0; i < names.Length; i++)
