@@ -276,7 +276,7 @@ public class WeaponManager : MonoBehaviour
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
                 float animationTime = currentWeapon.shootingAnimationLength / animationSpeed;
-                Debug.Log("Animation time: " + animationTime + " @ " + currentWeapon.shootingAnimationLength + " / " + animController.speed + " -> " + currentWeapon.shootingAnimationSpeed);
+                Debug.Log("Animation time: " + animationTime + " @ " + currentWeapon.shootingAnimationLength + " / " + animController.speed + " -> " + speed);
                 bool waited = shootingAnimTime >= animationTime;
                 animController.SetBool("IsShooting", waited);
                 if (waited)
