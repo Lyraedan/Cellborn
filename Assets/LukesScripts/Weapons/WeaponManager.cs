@@ -186,8 +186,8 @@ public class WeaponManager : MonoBehaviour
     public AudioSource source;
     public AudioClip pickupSound, pickupAmmoSound;
 
+    public float baseGlobalAnimationSpeed = 1f;
     public bool playingShootingAnim = false;
-
     public float shootingAnimTime = 0;
 
     private void Awake()
@@ -269,7 +269,9 @@ public class WeaponManager : MonoBehaviour
 
             if (playingShootingAnim)
             {
-                animController.speed = currentWeapon.shootingAnimationSpeed;
+                int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
+                var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
+                animController.speed = state.speed * state.speedMultiplier;
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
                 float animationTime = currentWeapon.shootingAnimationLength / currentWeapon.shootingAnimationSpeed;
@@ -278,6 +280,7 @@ public class WeaponManager : MonoBehaviour
                 animController.SetBool("IsShooting", waited);
                 if (waited)
                 {
+                    animController.speed = baseGlobalAnimationSpeed;
                     shootingAnimTime = 0;
                     playingShootingAnim = false;
                     animController.SetBool("IsShooting", false);
