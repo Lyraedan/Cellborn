@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 213242743}
   - component: {fileID: 213242745}
-  - component: {fileID: 213242744}
   m_Layer: 5
   m_Name: UICamera
   m_TagString: UICamera
@@ -155,20 +154,6 @@ Transform:
   m_Father: {fileID: 1848201147}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &213242744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213242742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!20 &213242745
 Camera:
   m_ObjectHideFlags: 0
@@ -1021,7 +1006,6 @@ GameObject:
   - component: {fileID: 1848201157}
   - component: {fileID: 1848201158}
   - component: {fileID: 1848201159}
-  - component: {fileID: 1848201160}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1347,20 +1331,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1848201160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848201144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!4 &2089827449 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8393986084579273157, guid: e579237075886b84d821bb9b5297218f, type: 3}
