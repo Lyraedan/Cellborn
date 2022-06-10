@@ -274,7 +274,7 @@ public class WeaponManager : MonoBehaviour
             if (PlayerStats.instance.isDead)
                 return;
 
-            if (playingShootingAnim)
+            /*if (playingShootingAnim)
             {
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
@@ -287,7 +287,7 @@ public class WeaponManager : MonoBehaviour
                     playingShootingAnim = false;
                     WeaponManager.instance.animController.SetBool("IsShooting", false);
                 }
-            }
+            }*/
 
             if (Input.GetButton(ControlManager.INPUT_FIRE))
             {
@@ -296,11 +296,13 @@ public class WeaponManager : MonoBehaviour
 
                 if (!healthScript.isDead)
                 {
-                    if(shootingAnimTime == 0)
-                        playingShootingAnim = true;
+                    //if(shootingAnimTime == 0)
+                    //playingShootingAnim = true;
 
                     currentWeapon.Shoot(delayed =>
                     {
+                        WeaponManager.instance.animController.SetBool("IsShooting", true);
+
                         if (!currentWeapon.functionality.infiniteAmmo)
                         {
                             ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
@@ -320,6 +322,10 @@ public class WeaponManager : MonoBehaviour
                         }
                     });
                 }
+            }
+            else
+            {
+                WeaponManager.instance.animController.SetBool("IsShooting", false);
             }
         }
 
