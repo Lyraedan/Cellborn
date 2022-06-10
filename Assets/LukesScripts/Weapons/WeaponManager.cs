@@ -271,7 +271,7 @@ public class WeaponManager : MonoBehaviour
             {
                 int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
                 var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
-                float animationSpeed = state.speed * state.speedMultiplier;
+                float animationSpeed = state.speed;
                 animController.speed = animationSpeed;
                 shootingAnimTime += animController.speed * Time.deltaTime;
 
