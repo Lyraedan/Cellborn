@@ -11,7 +11,7 @@ using TMPro;
 public class OptionsMenu : MonoBehaviour
 {
     [Header("Groups")]
-    public GameObject graphicsGroup, audioGroup, controlsGroup, otherGroup;
+    public GameObject graphicsGroup, audioGroup, controlsGroup;
 
     [Header("Graphics")]
     public List<Resolution> resolutions;
@@ -353,7 +353,6 @@ public class OptionsMenu : MonoBehaviour
         graphicsGroup.SetActive(true);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
-        otherGroup.SetActive(false);
     }
 
     public void OpenAudio()
@@ -363,7 +362,6 @@ public class OptionsMenu : MonoBehaviour
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(true);
         controlsGroup.SetActive(false);
-        otherGroup.SetActive(false);
     }
 
     public void OpenControls()
@@ -373,20 +371,8 @@ public class OptionsMenu : MonoBehaviour
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(true);
-        otherGroup.SetActive(false);
     }
 
-    public void OpenOther()
-    {
-        source.clip = click;
-        source.Play();
-        graphicsGroup.SetActive(false);
-        audioGroup.SetActive(false);
-        controlsGroup.SetActive(false);
-        otherGroup.SetActive(true);
-    }
-
-    // Why the fuck does this exist...
     public void NoFunction()
     {
         source.clip = error;
