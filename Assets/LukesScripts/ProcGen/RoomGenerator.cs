@@ -1034,8 +1034,9 @@ public class RoomGenerator : MonoBehaviour
                 if(current.flag.Equals(GridCell.GridFlag.WALL_PROP))
                 {
                     bool validVoid = HasAroundItAt(current, GridCell.GridFlag.WALKABLE);
-                    bool validOccupied = HasAroundItAt(current, GridCell.GridFlag.OCCUPIED);
+                    bool validOccupied = HasAroundItAt(current, GridCell.GridFlag.OCCUPIED, 3);
                     bool validWall = HasAroundItAt(current, GridCell.GridFlag.WALL, 2);
+                    bool validProp = HasAroundItAt(current, GridCell.GridFlag.WALL_PROP, 1);
 
                     bool isOverlapping = !validVoid || !validOccupied || !validWall;
 
