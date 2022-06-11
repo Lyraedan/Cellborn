@@ -27,6 +27,11 @@ public class PauseMenu : MonoBehaviour
         else
             Destroy(this);
     }
+
+    void Start()
+    {
+        canPause = true;
+    }
     
     void Update()
     {
