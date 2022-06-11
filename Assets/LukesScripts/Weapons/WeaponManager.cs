@@ -16,27 +16,15 @@ public class WeaponManager : MonoBehaviour
 
     public KeyCode[] slotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3 };
     public TextMeshProUGUI pickupText, weaponText, ammoText;
-    public GameObject firepoint;
-    public GameObject brenFirepoint;
-    public GameObject BHGFirepoint;
-    public GameObject bounceFirepoint;
-    public GameObject deagleFirepoint;
-    public GameObject uziFirepoint;
-    public GameObject f11Firepoint;
-    public GameObject grappleFirepoint;
-    public GameObject LBRFirepoint;
-    public GameObject muffinFirepoint;
-    public GameObject musicFirepoint;
-    public GameObject pebbleFirepoint;
-    public GameObject queenFirepoint;
-    public GameObject tripleFirepoint;
+    public Transform firepoint;
+    public Transform defaultFirePoint;
     public PlayerStats healthScript;
     public int currentlySelectedIndex = 0;
 
     public LaserControl laserController;
 
     public List<GameObject> possibleWeapons = new List<GameObject>();
-
+    
     public List<WeaponProperties> currentlyHeldWeapons = new List<WeaponProperties>();
 
     public GameObject slotContainer;
@@ -75,6 +63,12 @@ public class WeaponManager : MonoBehaviour
                     currentViewModelAnimator = currentViewModel.GetComponent<Animator>();
                 }
             }
+
+            if (value.functionality != null)
+                firepoint.position = value.functionality.firepoint.position;
+            else
+                firepoint.position = defaultFirePoint.position;
+
             _currentWeapon = value;
 
             if (value.weaponId != -1)

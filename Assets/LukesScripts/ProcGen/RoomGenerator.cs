@@ -908,10 +908,9 @@ public class RoomGenerator : MonoBehaviour
             }
 
             // Spawn ceiling light
-            var ceilingLightCell = grid.grid[x, 0, (int)gridCurrent.z];
-            Vector3 lightPos = ceilingLightCell.position;
-            lightPos.y = wallMesh.wallHeight - 0.5f;
-            SpawnPrefab(ceilingLight, lightPos, Vector3.zero);
+            SpawnCeilingLightAt(x, (int)gridCurrent.z);
+            SpawnCeilingLightAt(pointsX[1] / 2, (int)gridCurrent.z);
+            SpawnCeilingLightAt(x, pointsZ[1] / 2);
 
             int difZ = pointsZ[1] - pointsZ[0];
             int z = pointsZ[0];
@@ -964,6 +963,14 @@ public class RoomGenerator : MonoBehaviour
             }
         }
 
+    }
+
+    void SpawnCeilingLightAt(int x, int z)
+    {
+        var ceilingLightCell = grid.grid[x, 0, z];
+        Vector3 lightPos = ceilingLightCell.position;
+        lightPos.y = wallMesh.wallHeight - 0.5f;
+        SpawnPrefab(ceilingLight, lightPos, Vector3.zero);
     }
 
     void CombineRooms(Room root, List<Room> rooms)

@@ -15,7 +15,7 @@ public class WeaponMuffin : WeaponBase
 
     public override void Fire()
     {
-        GameObject proj = Instantiate(projectile, WeaponManager.instance.muffinFirepoint.transform.position, Quaternion.Euler(0, yRot, 0));
+        GameObject proj = Instantiate(projectile, WeaponManager.instance.firepoint.transform.position, Quaternion.Euler(0, yRot, 0));
         proj.GetComponent<ProjectileBehaviour>().FireProjectile(targetDistance * 3);
     }
 }

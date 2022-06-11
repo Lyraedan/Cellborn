@@ -10,6 +10,7 @@ public abstract class WeaponBase : MonoBehaviour
     public bool infiniteAmmo = false;
     public bool isInPlayerInventory = false;
     public GameObject projectile;
+    public Transform firepoint;
     protected float targetDistance;
 
     // Shooting
