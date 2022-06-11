@@ -739,13 +739,11 @@ public class RoomGenerator : MonoBehaviour
         PlayerStats.instance.bossVideo.SetActive(true);
         bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
         cutscenePlaying = true;
-        PauseMenu.instance.canPause = false;
         MusicManager.instance.source.Stop();
         bossCutsceneEnter.Play();
         WaitThenExecute(() =>
         {
             cutscenePlaying = false;
-            PauseMenu.instance.canPause = true;
             playerController.TeleportPlayer(arena.playerSpawn.position);
             PlayerStats.instance.bossVideo.SetActive(false);
 

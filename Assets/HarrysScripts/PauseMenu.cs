@@ -35,7 +35,13 @@ public class PauseMenu : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(pauseButton) && canPause)
+        if (!canPause)
+            return;
+
+        if (RoomGenerator.instance.cutscenePlaying)
+            return;
+
+        if (Input.GetKeyDown(pauseButton))
         {
             if (isPaused)
             {
