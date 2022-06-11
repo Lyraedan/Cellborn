@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1258668160847475281}
+  disappearTime: 0
 --- !u!82 &1258668160847475281
 AudioSource:
   m_ObjectHideFlags: 0
@@ -365,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 2147824379291249462}
+  disappearTime: 3
 --- !u!82 &2147824379291249462
 AudioSource:
   m_ObjectHideFlags: 0
