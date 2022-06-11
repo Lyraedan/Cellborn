@@ -27,6 +27,7 @@ public class WebDesolve : MonoBehaviour
             gameObjects.Remove(obj);
             Destroy(obj);
         }
+        RoomGenerator.instance.BakeNavmesh();
     }
 
 }
