@@ -581,6 +581,21 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
+    [Obsolete("Not in use")]
+    private void SpawnTrap()
+    {
+        for (int i = 0; i < 5; i++) {
+            Vector3 point = GetRandomPointOnNavmesh();
+            Vector3 gridSpace = PositionAsGridCoordinates(point);
+            GridCell cell = navAgent.GetGridCellAt((int)gridSpace.x, 0, (int) gridSpace.z);
+            int space = GetAdjacentCount(cell, GridCell.GridFlag.OCCUPIED);
+            if(space == 8)
+            {
+
+            }
+        }
+    }
+
     public bool HasAroundItAt(Vector3 point, GridCell.GridFlag flag, int threashold = 4, int radius = 1)
     {
         GridCell cell = navAgent.GetGridCellAt((int)point.x + radius, 0, (int)point.z + radius);
@@ -589,7 +604,6 @@ public class RoomGenerator : MonoBehaviour
 
         int found = GetAdjacentCount(cell, flag);
         bool condition = found < threashold;
-        Debug.Log("Found: " + found + " -> " + condition);
         return condition;
     }
 
@@ -1360,29 +1374,32 @@ public class RoomGenerator : MonoBehaviour
         if (start == null || end == null)
             return;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(start.centres[0], 0.25f);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(end.centres[0], 0.25f);
-
-        for (int i = 0; i < rooms.Count; i++)
+        if (Application.isPlaying)
         {
-            var room = rooms[i];
-            room.DrawGizmos();
-            if (room.drawHallwayPath)
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(start.centres[0], 0.25f);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(end.centres[0], 0.25f);
+
+            for (int i = 0; i < rooms.Count; i++)
             {
-                Gizmos.color = Color.black;
-                if (room.hallways.Count > 0)
+                var room = rooms[i];
+                room.DrawGizmos();
+                if (room.drawHallwayPath)
                 {
-                    for (int j = 1; j < room.hallways.Count - 1; j++)
+                    Gizmos.color = Color.black;
+                    if (room.hallways.Count > 0)
                     {
-                        Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
+                        for (int j = 1; j < room.hallways.Count - 1; j++)
+                        {
+                            Gizmos.DrawSphere(room.hallways[j].position, 0.25f);
+                        }
                     }
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawSphere(room.hallways[0].position, 0.25f);
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
                 }
-                Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(room.hallways[0].position, 0.25f);
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
         }
     }
