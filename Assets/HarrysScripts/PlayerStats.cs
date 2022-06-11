@@ -221,7 +221,9 @@ public class PlayerStats : MonoBehaviour
         WeaponManager.instance.OnPlayerDeath();
         moveScript.enabled = false;
         playerCollider.enabled = false;
-        laserControl.laserParticles.Stop();
+
+        if (laserControl)
+            laserControl.laserParticles.Stop();
 
         loseGroup.SetActive(true);
 
