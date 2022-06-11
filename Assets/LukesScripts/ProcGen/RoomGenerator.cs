@@ -58,6 +58,7 @@ public class RoomGenerator : MonoBehaviour
     private GameObject levelTeleporter;
     [SerializeField] private GameObject bossRoom;
     public VideoPlayer bossCutsceneEnter;
+    public GameObject ceilingLight;
 
     private Room start, end;
 
@@ -892,6 +893,12 @@ public class RoomGenerator : MonoBehaviour
                 }
             }
 
+            // Spawn ceiling light
+            var ceilingLightCell = grid.grid[x, 0, (int)gridCurrent.z];
+            Vector3 lightPos = ceilingLightCell.position;
+            lightPos.y = wallMesh.wallHeight - 0.5f;
+            SpawnPrefab(ceilingLight, lightPos, Vector3.zero);
+
             int difZ = pointsZ[1] - pointsZ[0];
             int z = pointsZ[0];
             if (difZ > 0)
@@ -1044,7 +1051,8 @@ public class RoomGenerator : MonoBehaviour
                     {
                         var prop = props.Where(p => p.cell.position.Equals(current.position)).First();
                         //prop.Remove();
-                        current.flag = GridCell.GridFlag.OCCUPIED;
+                        bool againstVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                        current.flag = againstVoid ? GridCell.GridFlag.WALL : GridCell.GridFlag.OCCUPIED;
                     }
                 }
             }
