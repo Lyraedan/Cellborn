@@ -11,6 +11,8 @@ public class WeaponLazer : WeaponBase
     float t;
     bool weaponIsFiring;
 
+    private Ray laserRay;
+
     public override void Init()
     {
         secondsBetweenShots = 0;
@@ -30,7 +32,7 @@ public class WeaponLazer : WeaponBase
             
             RaycastHit hit;
             GameObject hitEnemy;
-            Vector3 direction = WeaponManager.instance.firepoint.transform.forward;
+            Vector3 direction = GetRayDirection();
             int layerMask = (1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Default")); // Only collide with entities with Layers Enemy and Default
             if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, direction, out hit, Mathf.Infinity, layerMask))
             {
@@ -101,4 +103,22 @@ public class WeaponLazer : WeaponBase
             }
         }
     }
+
+    Vector3 GetRayDirection()
+    {
+
+        Vector3 direction = WeaponManager.instance.firepoint.transform.position - WeaponManager.instance.target.transform.position;
+        direction.y = 0;
+        return direction;
+    }
+
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+
+        Vector3 direction = GetRayDirection();
+        Gizmos.DrawRay(WeaponManager.instance.firepoint.transform.position, direction);
+    }
+
 }

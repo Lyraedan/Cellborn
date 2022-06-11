@@ -89,4 +89,5 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract void Init();
     public abstract void Tick();
     public abstract void Fire();
+
 }
