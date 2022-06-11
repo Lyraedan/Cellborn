@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 2bf2723b734dff747ade469df3340705
+guid: edbff759017769643b931a3b225a4f12
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Anim_Shoot_G11_V2
+    second: Anim_Shoot_G11_V3
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Anim_Shoot_G11_V2
+      name: Anim_Shoot_G11_V3
       takeName: Take 001
       internalID: 0
       firstFrame: 0
@@ -65,7 +65,7 @@ ModelImporter:
       - path: Character1_Reference
         weight: 0
       - path: Character1_Reference/Character1_Hips
-        weight: 0
+        weight: 1
       - path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg
         weight: 0
       - path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg/Character1_LeftLeg
