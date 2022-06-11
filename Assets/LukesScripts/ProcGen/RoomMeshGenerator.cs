@@ -646,6 +646,19 @@ public class RoomMeshGenerator : MonoBehaviour
         return normal.normalized;
     }
 
+    public Edge GetClosestEdgeAt(Vector3 point)
+    {
+        Dictionary<int, float> distances = new Dictionary<int, float>();
+        for(int i = 0; i < edgeVertices.Count; i++)
+        {
+            distances.Add(i, Vector3.Distance(edgeVertices[i].origin, point));
+        }
+        var sorted = distances.ToList();
+
+        sorted.Sort((a, b) => a.Value.CompareTo(b.Value));
+        return edgeVertices[sorted[0].Key];
+    }
+
     private void OnDrawGizmos()
     {
         if (showVertices)

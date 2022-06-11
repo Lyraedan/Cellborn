@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 using Random = UnityEngine.Random;
@@ -13,6 +14,7 @@ public class RoomGenerator : MonoBehaviour
 {
     public static RoomGenerator instance;
 
+    #region Properties
     public Transform roomParent;
     public Grid grid;
     [Header("Dungeon settings")]
@@ -87,10 +89,10 @@ public class RoomGenerator : MonoBehaviour
 
     public RoomMeshGenerator floorMesh, wallMesh, roofMesh;
 
-    private List<GameObject> wallProps = new List<GameObject>();
-    private List<RoomMeshGenerator.Edge> floorCorners = new List<RoomMeshGenerator.Edge>();
+    private List<GameObject> props = new List<GameObject>();
 
     [HideInInspector] public bool cutscenePlaying = false;
+    #endregion
 
     private void Awake()
     {
@@ -113,20 +115,6 @@ public class RoomGenerator : MonoBehaviour
         }
 
         Generate(levels[levelIndex]);
-    }
-
-    /// <summary>
-    /// Remove all the navmesh surface information and clear the navmesh list
-    /// </summary>
-    void ClearNavmesh()
-    {
-        if (navmesh.Count == 0)
-            return;
-
-        foreach (NavMeshSurface surface in navmesh)
-        {
-            surface.RemoveData();
-        }
     }
 
     void Generate(int seed)
@@ -223,11 +211,44 @@ public class RoomGenerator : MonoBehaviour
         BakeNavmesh();
         Minimap.instance.GenerateMinimap(grid);
 
-        floorCorners.Clear();
-        wallProps.Clear();
-        floorCorners = GetCorners();
-        Debug.Log($"Got {floorCorners.Count} corners!");
+        props.Clear();
         SpawnEnvironment(floorMesh.edgeVertices);
+
+        // unflag walls for prop overhang check
+        foreach (RoomMeshGenerator.Edge edge in floorMesh.edgeVertices)
+        {
+            edge.cell.flag = GridCell.GridFlag.OCCUPIED;
+        }
+        foreach(Prop prop in FindObjectsOfType<Prop>())
+        {
+            prop.BakePropCell();
+        }
+        RemoveOverhangingProps();
+
+        // Reflag walls
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if (!current.flag.Equals(GridCell.GridFlag.WALKABLE) && !current.flag.Equals(GridCell.GridFlag.WALL_PROP))
+                {
+                    bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                    if (isWall)
+                        current.flag = GridCell.GridFlag.WALL;
+                    else
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                }
+            }
+        }
+
+        // Reflag props
+        foreach (Prop prop in FindObjectsOfType<Prop>())
+        {
+            prop.BakePropCell();
+        }
+        RemoveOverhangingProps();
+
         SpawnLitter();
 
         Vector3 endCords = PositionAsGridCoordinates(end.centres[0]);
@@ -244,131 +265,6 @@ public class RoomGenerator : MonoBehaviour
         }
 
         StartCoroutine(AwaitAssignables());
-    }
-
-    void SetupArena(Arena arena)
-    {
-        // Delete dungeon
-        if (floorMesh != null)
-            Destroy(floorMesh.gameObject);
-
-        if (wallMesh != null)
-            Destroy(wallMesh.gameObject);
-
-        if (roofMesh != null)
-            Destroy(roofMesh.gameObject);
-
-        if (environment != null)
-            Destroy(environment);
-
-        grid.Bake();
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var current = grid.grid[x, 0, z];
-                if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
-                {
-                    bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
-                    if (isWall)
-                        current.flag = GridCell.GridFlag.WALL;
-                    else
-                        current.flag = GridCell.GridFlag.OCCUPIED;
-                }
-            }
-        }
-        Minimap.instance.GenerateMinimap(grid);
-
-        // Move player
-        playerController.TeleportPlayer(new Vector3(1000, 0, 1000));
-
-        PlayerStats.instance.bossVideo.SetActive(true);
-        bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
-        cutscenePlaying = true;
-        MusicManager.instance.source.Stop();
-        bossCutsceneEnter.Play();
-        WaitThenExecute(() =>
-        {
-            cutscenePlaying = false;
-            playerController.TeleportPlayer(arena.playerSpawn.position);
-            PlayerStats.instance.bossVideo.SetActive(false);
-
-            BossRoomMusic.instance.Play();
-
-            //Spawn wizard
-            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
-            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
-        }, (int) bossCutsceneEnter.clip.length);
-
-    }
-
-    void ClearDungeon()
-    {
-        DeleteAllObjectsWithTag("Weapon");
-        DeleteAllObjectsWithTag("Prop");
-        DeleteAllObjectsWithTag("Enemy");
-        DeleteAllObjectsWithTag("EnemyProjectile");
-        DeleteAllObjectsWithTag("Projectile");
-        // Reset grid
-        for (int z = 0; z < grid.cells.z; z++)
-        {
-            for (int x = 0; x < grid.cells.x; x++)
-            {
-                var current = grid.grid[x, 0, z];
-                current.rotation = Vector3.zero;
-                current.flag = GridCell.GridFlag.WALKABLE;
-            }
-        }
-
-        if (spawnCell != null)
-        {
-            Destroy(spawnCell);
-        }
-    }
-
-    void OnTeleport()
-    {
-        int next = levelIndex + 1;
-        Debug.Log("Do teleport! from " + levelIndex + " to " + next);
-        levelIndex = next;
-        ClearDungeon();
-        DeleteAllObjectsWithTag("Environment");
-        if (levelTeleporter != null)
-            Destroy(levelTeleporter);
-
-        // Is holding grapple hook
-        if (WeaponManager.instance.currentWeapon.weaponId == 4)
-        {
-            if (WeaponManager.instance.currentWeapon.functionality != null)
-            {
-                // This is fuckin dumb
-                WeaponGrapple weaponGrapple = (WeaponGrapple)WeaponManager.instance.currentWeapon.functionality;
-                var grapple = weaponGrapple.grapple;
-
-                if (grapple != null)
-                {
-                    if (grapple.isPulling)
-                    {
-                        grapple.RetrieveHook();
-                    }
-                }
-
-            }
-        }
-
-        rooms.Clear();
-
-        grid.Clear();
-        Minimap.instance.ClearMinimap(grid);
-        // Clear navmesh
-        ClearNavmesh();
-        navmesh.Clear();
-
-        WaitThenExecute(() =>
-        {
-            Debug.Log("Now generate");
-            Generate(levels[levelIndex]);
-        }, waitUntil: true, condition: navmesh.Count == 0);
     }
 
     public void Regenerate()
@@ -401,87 +297,6 @@ public class RoomGenerator : MonoBehaviour
         Debug.Log("Got assignables");
     }
 
-    private void SpawnEntities()
-    {
-        int entityCount = maxEntities * (levelIndex + 1);
-        for (int i = 0; i < entityCount; i++)
-        {
-            GridCell cell = GetRandomEntityCell();
-            SpawnRandomEntity(cell);
-        }
-    }
-
-    public void SpawnLitter()
-    {
-        for (int i = 0; i < maxLitter; i++)
-        {
-            GridCell cell = GetRandomLitterCell();
-            var litter = SpawnRandomLitter(cell);
-            litter.transform.SetParent(environment.transform);
-            if (litter == null)
-                break;
-        }
-    }
-
-    GridCell GetRandomEntityCell()
-    {
-        Vector3 position = GetRandomPointOnNavmesh();
-        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
-
-        bool isInStart = CellIsInRoom(cell, 0);
-        bool isInHallway = false;
-        for (int j = 0; j < rooms.Count; j++)
-        {
-            bool hallwayCheck = CellIsInHallway(cell, rooms[j]);
-            if (hallwayCheck)
-            {
-                isInHallway = true;
-                break;
-            }
-        }
-
-        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED);
-
-        if (!isInStart && !isInHallway && isValidTile)
-            return cell;
-        else // Lol this is bad
-            return GetRandomEntityCell();
-    }
-
-    GridCell GetRandomLitterCell()
-    {
-        Vector3 position = GetRandomPointOnNavmesh();
-        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
-        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.WALL);
-        if (isValidTile)
-            return cell;
-        else
-            return GetRandomLitterCell();
-    }
-
-    private Vector3 GetRandomPointOnNavmesh()
-    {
-        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
-
-        // Pick the first indice of a random triangle in the nav mesh
-        int t = Random.Range(0, navMeshData.indices.Length - 3);
-
-        // Select a random point on it
-        Vector3 point = Vector3.Lerp(navMeshData.vertices[navMeshData.indices[t]], navMeshData.vertices[navMeshData.indices[t + 1]], Random.value);
-        Vector3.Lerp(point, navMeshData.vertices[navMeshData.indices[t + 2]], Random.value);
-
-        return point;
-    }
-
-    public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
-    {
-        position.y += -0.5f;
-        GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
-        spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
-        spawned.transform.SetParent(roomParent);
-        return spawned;
-    }
-
     void WaitThenExecute(Action callback, int length = 1, bool waitEndOfFrame = false, bool waitUntil = false, bool condition = false)
     {
         StartCoroutine(WaitThenExecuteEnumerator(callback, length, waitEndOfFrame, waitUntil, condition));
@@ -497,28 +312,6 @@ public class RoomGenerator : MonoBehaviour
             yield return new WaitUntil(() => condition);
 
         callback?.Invoke();
-    }
-
-    /// <summary>
-    /// Grab all the corners of the mesh - wip
-    /// </summary>
-    /// <returns></returns>
-    public List<RoomMeshGenerator.Edge> GetCorners()
-    {
-        List<RoomMeshGenerator.Edge> corners = new List<RoomMeshGenerator.Edge>();
-        var edges = floorMesh.edgeVertices;
-        for (int i = 1; i < edges.Count - 1; i++)
-        {
-            var prev = edges[i - 1];
-            var current = edges[i];
-            var next = edges[i + 1];
-
-            if (current.x == next.x - 1 && current.z == prev.z + 1)
-            {
-                corners.Add(current);
-            }
-        }
-        return corners;
     }
 
     #region Prefab Grabbers
@@ -652,13 +445,14 @@ public class RoomGenerator : MonoBehaviour
                     }
                     var position = floorMesh.transform.position + edgeVertices[i].origin;
                     position.y += (wallMesh.wallHeight / 2) + 0.5f;
-                    if (IsNotACorner(position, GridCell.GridFlag.WALKABLE) &&
-                        IsNotACorner(position, GridCell.GridFlag.OCCUPIED))
+
+                    if (IsValidPropPosition(position) && WallPropPlacementIsValid(position))
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
                         var l = SpawnPrefab(light, position, direction);
                         l.transform.SetParent(environment.transform);
-                        wallProps.Add(l);
+
+                        props.Add(l);
                     }
                 }
             }
@@ -682,15 +476,14 @@ public class RoomGenerator : MonoBehaviour
                     {
                         position.y += (wallMesh.wallHeight / 2) + 0.5f;
                     }
-                    if (IsValidPropPosition(position) && IsNotACorner(position, GridCell.GridFlag.WALKABLE) &&
-                                                         IsNotACorner(position, GridCell.GridFlag.OCCUPIED) &&
-                                                         IsNotACorner(position, GridCell.GridFlag.PROP) &&
-                                                         IsNotACorner(position, GridCell.GridFlag.WALL_PROP))
+
+                    if (IsValidPropPosition(position) && WallPropPlacementIsValid(position))
                     {
                         var direction = edgeVertices[i].DirectionAsVector3();
                         var p = SpawnPrefab((GameObject)prop[1], position, direction);
                         p.transform.SetParent(environment.transform);
-                        wallProps.Add(p);
+
+                        props.Add(p);
                     }
                 }
             }
@@ -765,26 +558,61 @@ public class RoomGenerator : MonoBehaviour
 
     }
 
-    public bool IsNotACorner(Vector3 point, GridCell.GridFlag flag, int threashold = 4)
+    private void SpawnEntities()
     {
-        GridCell cell = navAgent.GetGridCellAt((int)point.x, 0, (int)point.z);
+        int entityCount = maxEntities * (levelIndex + 1);
+        for (int i = 0; i < entityCount; i++)
+        {
+            GridCell cell = GetRandomEntityCell();
+            SpawnRandomEntity(cell);
+        }
+    }
+
+    private void SpawnLitter()
+    {
+        for (int i = 0; i < maxLitter; i++)
+        {
+            GridCell cell = GetRandomLitterCell();
+            var litter = SpawnRandomLitter(cell);
+            litter.transform.SetParent(environment.transform);
+            if (litter == null)
+                break;
+        }
+    }
+
+    public bool HasAroundItAt(Vector3 point, GridCell.GridFlag flag, int threashold = 4, int radius = 1)
+    {
+        GridCell cell = navAgent.GetGridCellAt((int)point.x + radius, 0, (int)point.z + radius);
         if (HasAdjacentNulls(cell))
             return false;
 
         int found = GetAdjacentCount(cell, flag);
-        return found < threashold;
+        bool condition = found < threashold;
+        Debug.Log("Found: " + found + " -> " + condition);
+        return condition;
+    }
+
+    public bool HasAroundItAt(GridCell cell, GridCell.GridFlag flag, int threashold = 3)
+    {
+        if (HasAdjacentNulls(cell))
+            return false;
+
+        int found = GetAdjacentCount(cell, flag);
+        bool condition = found <= threashold;
+        Debug.Log("Found: " + found + " -> " + condition);
+        return condition;
     }
 
     public bool IsValidPropPosition(Vector3 point)
     {
-        if (wallProps.Count == 0)
+        if (props.Count == 0)
             return true;
 
         float radius = 3f;
         bool valid = true;
-        for (int i = 0; i < wallProps.Count; i++)
+        for (int i = 0; i < props.Count; i++)
         {
-            var position = wallProps[i].transform.position;
+            var position = props[i].gameObject.transform.position;
             float distance = Vector3.Distance(point, position);
             if (distance < radius)
             {
@@ -795,9 +623,193 @@ public class RoomGenerator : MonoBehaviour
         return valid;
     }
 
+    GridCell GetRandomEntityCell()
+    {
+        Vector3 position = GetRandomPointOnNavmesh();
+        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
+
+        bool isInStart = CellIsInRoom(cell, 0);
+        bool isInHallway = false;
+        for (int j = 0; j < rooms.Count; j++)
+        {
+            bool hallwayCheck = CellIsInHallway(cell, rooms[j]);
+            if (hallwayCheck)
+            {
+                isInHallway = true;
+                break;
+            }
+        }
+
+        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED);
+
+        if (!isInStart && !isInHallway && isValidTile)
+            return cell;
+        else // Lol this is bad
+            return GetRandomEntityCell();
+    }
+
+    GridCell GetRandomLitterCell()
+    {
+        Vector3 position = GetRandomPointOnNavmesh();
+        GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
+        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.WALL);
+        if (isValidTile)
+            return cell;
+        else
+            return GetRandomLitterCell();
+    }
+
+    private Vector3 GetRandomPointOnNavmesh()
+    {
+        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
+
+        // Pick the first indice of a random triangle in the nav mesh
+        int t = Random.Range(0, navMeshData.indices.Length - 3);
+
+        // Select a random point on it
+        Vector3 point = Vector3.Lerp(navMeshData.vertices[navMeshData.indices[t]], navMeshData.vertices[navMeshData.indices[t + 1]], Random.value);
+        Vector3.Lerp(point, navMeshData.vertices[navMeshData.indices[t + 2]], Random.value);
+
+        return point;
+    }
+
+    public GameObject SpawnPrefab(GameObject prefab, Vector3 position, Vector3 rotation)
+    {
+        position.y += -0.5f;
+        GameObject spawned = Instantiate(prefab, position, Quaternion.Euler(rotation));
+        spawned.name = $"{prefab.name}_{position.ToString()}_{rotation.ToString()}";
+        spawned.transform.SetParent(roomParent);
+        return spawned;
+    }
+
     #endregion
 
     #region Proc gen
+    void SetupArena(Arena arena)
+    {
+        // Delete dungeon
+        if (floorMesh != null)
+            Destroy(floorMesh.gameObject);
+
+        if (wallMesh != null)
+            Destroy(wallMesh.gameObject);
+
+        if (roofMesh != null)
+            Destroy(roofMesh.gameObject);
+
+        if (environment != null)
+            Destroy(environment);
+
+        grid.Bake();
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                if (!current.flag.Equals(GridCell.GridFlag.WALKABLE))
+                {
+                    bool isWall = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                    if (isWall)
+                        current.flag = GridCell.GridFlag.WALL;
+                    else
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                }
+            }
+        }
+        Minimap.instance.GenerateMinimap(grid);
+
+        // Move player
+        playerController.TeleportPlayer(new Vector3(1000, 0, 1000));
+
+        PlayerStats.instance.bossVideo.SetActive(true);
+        bossCutsceneEnter.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
+        cutscenePlaying = true;
+        MusicManager.instance.source.Stop();
+        bossCutsceneEnter.Play();
+        WaitThenExecute(() =>
+        {
+            cutscenePlaying = false;
+            playerController.TeleportPlayer(arena.playerSpawn.position);
+            PlayerStats.instance.bossVideo.SetActive(false);
+
+            BossRoomMusic.instance.Play();
+
+            //Spawn wizard
+            var finalWizard = Instantiate(wizard, arena.wizardSpawn.position, Quaternion.identity);
+            var finalWizardAI = finalWizard.GetComponent<AIWizard>();
+        }, (int)bossCutsceneEnter.clip.length);
+
+    }
+
+    void ClearDungeon()
+    {
+        DeleteAllObjectsWithTag("Weapon");
+        DeleteAllObjectsWithTag("Prop");
+        DeleteAllObjectsWithTag("Enemy");
+        DeleteAllObjectsWithTag("EnemyProjectile");
+        DeleteAllObjectsWithTag("Projectile");
+        // Reset grid
+        for (int z = 0; z < grid.cells.z; z++)
+        {
+            for (int x = 0; x < grid.cells.x; x++)
+            {
+                var current = grid.grid[x, 0, z];
+                current.rotation = Vector3.zero;
+                current.flag = GridCell.GridFlag.WALKABLE;
+            }
+        }
+
+        if (spawnCell != null)
+        {
+            Destroy(spawnCell);
+        }
+    }
+
+    void OnTeleport()
+    {
+        int next = levelIndex + 1;
+        Debug.Log("Do teleport! from " + levelIndex + " to " + next);
+        levelIndex = next;
+        ClearDungeon();
+        DeleteAllObjectsWithTag("Environment");
+
+        if (levelTeleporter != null)
+            Destroy(levelTeleporter);
+
+        // Is holding grapple hook
+        if (WeaponManager.instance.currentWeapon.weaponId == 4)
+        {
+            if (WeaponManager.instance.currentWeapon.functionality != null)
+            {
+                // This is fuckin dumb
+                WeaponGrapple weaponGrapple = (WeaponGrapple)WeaponManager.instance.currentWeapon.functionality;
+                var grapple = weaponGrapple.grapple;
+
+                if (grapple != null)
+                {
+                    if (grapple.isPulling)
+                    {
+                        grapple.RetrieveHook();
+                    }
+                }
+
+            }
+        }
+
+        rooms.Clear();
+
+        grid.Clear();
+        Minimap.instance.ClearMinimap(grid);
+        // Clear navmesh
+        ClearNavmesh();
+        navmesh.Clear();
+
+        WaitThenExecute(() =>
+        {
+            Debug.Log("Now generate");
+            Generate(levels[levelIndex]);
+        }, waitUntil: true, condition: navmesh.Count == 0);
+    }
 
     void CleanupRooms()
     {
@@ -997,6 +1009,56 @@ public class RoomGenerator : MonoBehaviour
     }
 
     /// <summary>
+    /// Remove all the navmesh surface information and clear the navmesh list
+    /// </summary>
+    void ClearNavmesh()
+    {
+        if (navmesh.Count == 0)
+            return;
+
+        foreach (NavMeshSurface surface in navmesh)
+        {
+            surface.RemoveData();
+        }
+    }
+
+    void RemoveOverhangingProps()
+    {
+        var props = FindObjectsOfType<Prop>();
+
+        for(int z = 0; z < grid.cells.z; z++)
+        {
+            for(int x = 0; x < grid.cells.x; x++)
+            {
+                GridCell current = grid.grid[x, 0, z];
+                if(current.flag.Equals(GridCell.GridFlag.WALL_PROP))
+                {
+                    bool validVoid = HasAroundItAt(current, GridCell.GridFlag.WALKABLE);
+                    bool validOccupied = HasAroundItAt(current, GridCell.GridFlag.OCCUPIED);
+
+                    bool isOverlapping = !validVoid;
+
+                    if (isOverlapping)
+                    {
+                        var prop = props.Where(p => p.cell.position.Equals(current.position)).First();
+                        //prop.Remove();
+                        current.flag = GridCell.GridFlag.OCCUPIED;
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < props.Length; i++)
+        {
+            var prop = props[i];
+            if(!prop.cell.flag.Equals(GridCell.GridFlag.WALL_PROP) && !prop.cell.flag.Equals(GridCell.GridFlag.PROP))
+            {
+                prop.Remove();
+            }
+        }
+    }
+
+    /// <summary>
     /// Returns the cells "up, down, left, right, upLeft, upRight, downLeft, downRight" to the current cell
     /// </summary>
     /// <param name="current"></param>
@@ -1108,9 +1170,9 @@ public class RoomGenerator : MonoBehaviour
     {
         int count = 0;
         var adjacent = GetAdjacentCells(current);
-        for(int i = 0; i < adjacent.Length; i++)
+        for (int i = 0; i < adjacent.Length; i++)
         {
-            if(adjacent[i] != null)
+            if (adjacent[i] != null)
             {
                 if (adjacent[i].flag.Equals(flag))
                     count++;
@@ -1123,9 +1185,9 @@ public class RoomGenerator : MonoBehaviour
     {
         bool found = false;
         var adjacent = GetAdjacentCells(cell);
-        for(int i = 0; i < adjacent.Length; i++)
+        for (int i = 0; i < adjacent.Length; i++)
         {
-            if(adjacent[i] == null)
+            if (adjacent[i] == null)
             {
                 found = true;
                 break;
@@ -1137,22 +1199,13 @@ public class RoomGenerator : MonoBehaviour
     public bool WallPropPlacementIsValid(Vector3 point)
     {
         GridCell current = navAgent.GetGridCellAt((int)point.x, 0, (int)point.z);
-        var adjacentHorizontalVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE, 3);
+        var adjacentHorizontalVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE, 4);
         var adjacentHorizontalOccupied = TileIsAdjacent(current, GridCell.GridFlag.OCCUPIED, 3);
 
         var adjacentVerticalVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE, 4);
-        var adjacentVerticalOccupied = TileIsAdjacent(current, GridCell.GridFlag.OCCUPIED, 4);
+        var adjacentVerticalOccupied = TileIsAdjacent(current, GridCell.GridFlag.OCCUPIED, 3);
 
-        if (adjacentHorizontalVoid)
-            return false;
-        else if (adjacentHorizontalOccupied)
-            return false;
-        else if (adjacentVerticalVoid)
-            return false;
-        else if (adjacentVerticalOccupied)
-            return false;
-
-        return true;
+        return adjacentHorizontalVoid || adjacentHorizontalOccupied || adjacentVerticalVoid || adjacentVerticalOccupied;
     }
 
     bool GenerateRoom(Vector3 pos, Vector3 roomDimensions)
@@ -1217,23 +1270,6 @@ public class RoomGenerator : MonoBehaviour
 
         return GenerateRoom(position, dimensions);
     }
-    #endregion
-
-    Vector3 GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
-    {
-        var x = Mathf.RoundToInt(Random.Range(minX, maxX));
-        var y = Mathf.RoundToInt(Random.Range(minY, maxY));
-        var z = Mathf.RoundToInt(Random.Range(minZ, maxZ));
-        return new Vector3(x, y, z);
-    }
-
-    public Vector3 PositionAsGridCoordinates(Vector3 position)
-    {
-        var x = Mathf.RoundToInt(position.x / grid.cellSize.x);
-        var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
-        var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
-        return new Vector3(x, y, z);
-    }
 
     private bool CellIsInRoom(GridCell current, int roomIndex)
     {
@@ -1290,6 +1326,24 @@ public class RoomGenerator : MonoBehaviour
         return false;
     }
 
+    #endregion
+
+    Vector3 GenerateRandomVector(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
+    {
+        var x = Mathf.RoundToInt(Random.Range(minX, maxX));
+        var y = Mathf.RoundToInt(Random.Range(minY, maxY));
+        var z = Mathf.RoundToInt(Random.Range(minZ, maxZ));
+        return new Vector3(x, y, z);
+    }
+
+    public Vector3 PositionAsGridCoordinates(Vector3 position)
+    {
+        var x = Mathf.RoundToInt(position.x / grid.cellSize.x);
+        var y = Mathf.RoundToInt(position.y / grid.cellSize.y);
+        var z = Mathf.RoundToInt(position.z / grid.cellSize.z);
+        return new Vector3(x, y, z);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -1320,13 +1374,6 @@ public class RoomGenerator : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawSphere(room.hallways[room.hallways.Count - 1].position, 0.25f);
             }
-        }
-        foreach (RoomMeshGenerator.Edge corner in floorCorners)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(corner.origin, corner.origin + (Vector3.up / 2));
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(corner.origin + (Vector3.one / 2), 0.1f);
         }
     }
 #endif

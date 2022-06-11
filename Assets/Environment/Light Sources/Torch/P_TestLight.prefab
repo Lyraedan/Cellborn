@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7909092857893307726}
   - component: {fileID: 6210196692074997198}
   - component: {fileID: 400416857403263090}
+  - component: {fileID: 478534798788081959}
   m_Layer: 0
   m_Name: P_TestLight
   m_TagString: Prop
@@ -69,6 +70,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25643796, y: 0.34652507, z: 0.12532791}
   m_Center: {x: -0.0042634755, y: 0.0483554, z: 0.04916559}
+--- !u!114 &478534798788081959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304730873011278789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2969226795049831461
 PrefabInstance:
   m_ObjectHideFlags: 0
