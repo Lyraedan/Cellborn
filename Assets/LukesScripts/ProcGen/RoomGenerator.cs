@@ -909,8 +909,8 @@ public class RoomGenerator : MonoBehaviour
 
             // Spawn ceiling light
             SpawnCeilingLightAt(x, (int)gridCurrent.z);
-            SpawnCeilingLightAt(pointsX[1] / 2, (int)gridCurrent.z);
-            SpawnCeilingLightAt(x, pointsZ[1] / 2);
+            //SpawnCeilingLightAt(pointsX[1] / 2, (int)gridCurrent.z);
+            //SpawnCeilingLightAt(x, pointsZ[1] / 2);
 
             int difZ = pointsZ[1] - pointsZ[0];
             int z = pointsZ[0];
