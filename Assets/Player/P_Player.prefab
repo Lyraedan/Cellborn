@@ -238,6 +238,7 @@ MonoBehaviour:
   source: {fileID: 8419515365273862257}
   pickupSound: {fileID: 8300000, guid: c931485ce61b33f49921a146f89bf8c1, type: 3}
   pickupAmmoSound: {fileID: 8300000, guid: c931485ce61b33f49921a146f89bf8c1, type: 3}
+  baseGlobalAnimationSpeed: 1
   playingShootingAnim: 0
   shootingAnimTime: 0
 --- !u!114 &2505581065836584820
@@ -1436,7 +1437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938823242211908336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7064694838615943271}
@@ -2357,7 +2358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2601691010617797902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.078, y: 0.008, z: 0.3}
+  m_LocalPosition: {x: 0.078, y: 0, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7064694838615943271}
