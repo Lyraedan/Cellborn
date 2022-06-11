@@ -109,7 +109,7 @@ public class WeaponLazer : WeaponBase
 
         Vector3 direction = WeaponManager.instance.firepoint.transform.position - WeaponManager.instance.target.transform.position;
         direction.y = 0;
-        return direction;
+        return -direction;
     }
 
 
