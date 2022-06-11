@@ -1026,7 +1026,7 @@ public class RoomGenerator : MonoBehaviour
         return a.Intersects(b);
     }
 
-    void BakeNavmesh()
+    public void BakeNavmesh()
     {
         Debug.Log("Baking navmesh");
         foreach (NavMeshSurface surface in navmesh)
