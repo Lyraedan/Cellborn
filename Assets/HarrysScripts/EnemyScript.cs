@@ -15,6 +15,8 @@ public class EnemyScript : MonoBehaviour
     public bool blue;
     public bool yellow;
 
+    public AIWizard wizardScript;
+
     private void Start()
     {
         if (red)
@@ -28,6 +30,15 @@ public class EnemyScript : MonoBehaviour
         else if (yellow)
         {
             colour = Color.yellow;
+        }
+
+        wizardScript = this.gameObject.GetComponent<AIWizard>();
+        if (wizardScript != null && !UIController.instance.isFightingBoss)
+        {
+            UIController.instance.isFightingBoss = true;
+            UIController.instance.bossHealthBar.maxValue = maxHP;
+            UIController.instance.bossHealthBar.value = currentHP;
+            UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;
         }
     }
 
@@ -110,5 +121,11 @@ public class EnemyScript : MonoBehaviour
     public void DamageEnemy(float damage)
     {
         currentHP -= damage;
+
+        if (wizardScript != null)
+        {
+            UIController.instance.bossHealthBar.value = currentHP;
+            UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;
+        }        
     }
 }

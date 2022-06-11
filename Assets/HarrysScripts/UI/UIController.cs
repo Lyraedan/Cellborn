@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -28,6 +29,12 @@ public class UIController : MonoBehaviour
     [Header("Minimap")]
     public Image minimapBG;
 
+    [Header("Boss Health")]
+    public GameObject bossHealthGroup;
+    public Slider bossHealthBar;
+    public TextMeshProUGUI bossHealthText;
+    public bool isFightingBoss;
+
     public Camera UICamera;
 
     void Start()
@@ -44,5 +51,17 @@ public class UIController : MonoBehaviour
             minimapBG.rectTransform.position = Minimap.instance.canvas.rectTransform.position;
             minimapBG.rectTransform.sizeDelta = new Vector2(Minimap.instance.canvas.sprite.rect.width * 4, Minimap.instance.canvas.sprite.rect.height * 4);
         };
+    }
+
+    void Update()
+    {
+        if (isFightingBoss)
+        {
+            bossHealthGroup.SetActive(true);
+        }
+        else
+        {
+            bossHealthGroup.SetActive(false);
+        }
     }
 }
