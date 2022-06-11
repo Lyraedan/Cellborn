@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     public AudioSource source;
     public AudioClip menuClickSound;
+    public bool canPause = true;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class PauseMenu : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(pauseButton))
+        if (Input.GetKeyDown(pauseButton) && canPause)
         {
             if (isPaused)
             {
