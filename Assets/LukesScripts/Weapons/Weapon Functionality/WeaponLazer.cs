@@ -113,12 +113,15 @@ public class WeaponLazer : WeaponBase
     }
 
 
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-
-        Vector3 direction = GetRayDirection();
-        Gizmos.DrawRay(WeaponManager.instance.firepoint.transform.position, direction);
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.white;
+            Vector3 direction = GetRayDirection();
+            Gizmos.DrawRay(WeaponManager.instance.firepoint.transform.position, direction);
+        }
     }
-
+#endif
 }
