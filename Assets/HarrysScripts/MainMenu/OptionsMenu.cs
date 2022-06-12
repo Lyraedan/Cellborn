@@ -77,7 +77,7 @@ public class OptionsMenu : MonoBehaviour
             string resString = resolutions[i].width + " x " + resolutions[i].height + " " + resolutions[i].refreshRate + "Hz";
             resolutionStr.Add(resString);
 
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].Equals(Screen.currentResolution))
             {
                 currentResolutionIndex = i;
             }
