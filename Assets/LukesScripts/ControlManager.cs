@@ -26,6 +26,7 @@ public class ControlManager : MonoBehaviour
 
     public static string JOYSTICK_HORIZONTAL_TURN = "HorizontalTurn";
     public static string JOYSTICK_VERTICAL_TURN = "VerticalTurn";
+    public static string JOYSTICK_WEAPON_SWITCH = "XboxWeaponSwitch";
 
 
     private void Update()
@@ -33,33 +34,34 @@ public class ControlManager : MonoBehaviour
         var names = Input.GetJoystickNames();
 
         Debug.Log("Controllers: " + names.Length);
-        for(int i = 0; i < names.Length; i++)
+        for (int i = 0; i < names.Length; i++)
         {
             Debug.Log("Controller: " + names[i]);
-            if(names[i].Length == 19)
+            if (names[i].Length == 19)
             {
                 Debug.Log("PS4 controller is connected");
                 PS4Controller = 1;
                 XboxOneController = 0;
             }
-            if(names[i].Length == 33)
+            if (names[i].Length == 33)
             {
                 Debug.Log("Xbox controller is connected");
                 PS4Controller = 0;
                 XboxOneController = 1;
             }
-            if(string.IsNullOrEmpty(names[i]))
+            if (string.IsNullOrEmpty(names[i]))
             {
                 PS4Controller = 0;
                 XboxOneController = 0;
             }
         }
 
-        if(XboxOneController == 1)
+        if (XboxOneController == 1)
         {
             //Remap
             JOYSTICK_HORIZONTAL_TURN = "XboxHorizontalTurn";
             JOYSTICK_VERTICAL_TURN = "XboxVerticalTurn";
+            JOYSTICK_WEAPON_SWITCH = "XboxWeaponSwitch";
 
             INPUT_FIRE = "XboxFire";
             INPUT_DROP = "XboxDrop";
@@ -70,7 +72,8 @@ public class ControlManager : MonoBehaviour
             drop = "Y";
             usePotionA = "LB";
             usePotionB = "RB";
-        } else if(PS4Controller == 1)
+        }
+        else if (PS4Controller == 1)
         {
             INPUT_FIRE = "PS4Fire";
             INPUT_DROP = "PS4Drop";
@@ -79,13 +82,19 @@ public class ControlManager : MonoBehaviour
 
             JOYSTICK_HORIZONTAL_TURN = "PS4HorizontalTurn";
             JOYSTICK_VERTICAL_TURN = "PS4VerticalTurn";
+            JOYSTICK_WEAPON_SWITCH = "PS4WeaponSwitch";
 
             pickup = "Square";
             drop = "Triangle";
             usePotionA = "L1";
             usePotionB = "R1";
-        } else
+        }
+        else
         {
+            JOYSTICK_HORIZONTAL_TURN = "XboxHorizontalTurn";
+            JOYSTICK_VERTICAL_TURN = "XboxVerticalTurn";
+            JOYSTICK_WEAPON_SWITCH = "XboxWeaponSwitch";
+
             INPUT_FIRE = "Fire1";
             INPUT_PICKUP = "Pickup";
             INPUT_DROP = "Drop";

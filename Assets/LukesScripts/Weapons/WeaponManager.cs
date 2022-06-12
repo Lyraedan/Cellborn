@@ -24,7 +24,7 @@ public class WeaponManager : MonoBehaviour
     public LaserControl laserController;
 
     public List<GameObject> possibleWeapons = new List<GameObject>();
-    
+
     public List<WeaponProperties> currentlyHeldWeapons = new List<WeaponProperties>();
 
     public GameObject slotContainer;
@@ -184,6 +184,8 @@ public class WeaponManager : MonoBehaviour
     public bool playingShootingAnim = false;
     public float shootingAnimTime = 0;
 
+    private float joystickSwitchDelay = 0f, joystickSwitchDelayMax = 0.25f;
+
     private void Awake()
     {
         if (instance == null)
@@ -236,8 +238,8 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(9);
-        //currentlyHeldWeapons[1] = FindWeapon(7);
+        currentlyHeldWeapons[0] = FindWeapon(9);
+        currentlyHeldWeapons[1] = FindWeapon(7);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
         for (int i = 0; i < currentlyHeldWeapons.Count; i++)
@@ -256,62 +258,62 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseMenu.isPaused)
+        if (PauseMenu.isPaused)
+            return;
+
+        if (PlayerStats.instance.isDead)
+            return;
+
+        if (playingShootingAnim)
         {
-            if (PlayerStats.instance.isDead)
+            int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
+            var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
+            float animationSpeed = state.speed;
+            animController.speed = animationSpeed;
+            shootingAnimTime += animController.speed * Time.deltaTime;
+
+            float animationTime = currentWeapon.shootingAnimationLength / animationSpeed;
+            bool waited = shootingAnimTime >= animationTime;
+            animController.SetBool("IsShooting", waited);
+            if (waited)
+            {
+                animController.speed = baseGlobalAnimationSpeed;
+                shootingAnimTime = 0;
+                playingShootingAnim = false;
+                animController.SetBool("IsShooting", false);
+            }
+        }
+
+        if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
+        {
+            if (RoomGenerator.instance.cutscenePlaying)
                 return;
 
-            if (playingShootingAnim)
+            if (!healthScript.isDead)
             {
-                int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
-                var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
-                float animationSpeed = state.speed;
-                animController.speed = animationSpeed;
-                shootingAnimTime += animController.speed * Time.deltaTime;
+                if (shootingAnimTime == 0)
+                    playingShootingAnim = true;
 
-                float animationTime = currentWeapon.shootingAnimationLength / animationSpeed;
-                bool waited = shootingAnimTime >= animationTime;
-                animController.SetBool("IsShooting", waited);
-                if (waited)
+                currentWeapon.Shoot(delayed =>
                 {
-                    animController.speed = baseGlobalAnimationSpeed;
-                    shootingAnimTime = 0;
-                    playingShootingAnim = false;
-                    animController.SetBool("IsShooting", false);
-                }
-            }
-
-            if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
-            {
-                if (RoomGenerator.instance.cutscenePlaying)
-                    return;
-
-                if (!healthScript.isDead)
-                {
-                    if(shootingAnimTime == 0)
-                        playingShootingAnim = true;
-
-                    currentWeapon.Shoot(delayed =>
+                    if (!currentWeapon.functionality.infiniteAmmo)
                     {
-                        if (!currentWeapon.functionality.infiniteAmmo)
-                        {
-                            ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
+                        ammoText.text = currentWeapon.currentAmmo + " / " + currentWeapon.maxAmmo;
 
-                            if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
+                        if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
                             {
-                                var empty = FindWeapon(-1);
-                                currentlyHeldWeapons[currentlySelectedIndex] = empty;
+                            var empty = FindWeapon(-1);
+                            currentlyHeldWeapons[currentlySelectedIndex] = empty;
 
-                                var slot = uiSlots[currentlySelectedIndex];
-                                var slotHolder = slot.GetComponent<SlotHolder>();
-                                slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
-                                weaponText.text = string.Empty;
+                            var slot = uiSlots[currentlySelectedIndex];
+                            var slotHolder = slot.GetComponent<SlotHolder>();
+                            slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
+                            weaponText.text = string.Empty;
 
-                                currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
-                            }
+                            currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
                         }
-                    });
-                }
+                    }
+                });
             }
         }
 
@@ -321,7 +323,7 @@ public class WeaponManager : MonoBehaviour
                 Pickup(toPickup);
         }
 
-        if (Input.GetAxisRaw("Drop") > 0)
+        if (Input.GetButtonDown(ControlManager.INPUT_DROP))
         {
             // Is not pebble bag
             if (currentWeapon.weaponId > 0)
@@ -339,8 +341,40 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
+        if (joystickSwitchDelay >= joystickSwitchDelayMax)
+        {
+            if (Input.GetAxisRaw(ControlManager.JOYSTICK_WEAPON_SWITCH) > 0)
+            {
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
+                currentlySelectedIndex--;
+                if (currentlySelectedIndex < 0)
+                    currentlySelectedIndex = currentlyHeldWeapons.Count - 1;
+
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
+
+                currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
+                joystickSwitchDelay = 0f;
+            }
+            else if (Input.GetAxisRaw(ControlManager.JOYSTICK_WEAPON_SWITCH) < 0)
+            {
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
+                currentlySelectedIndex++;
+                if (currentlySelectedIndex >= currentlyHeldWeapons.Count)
+                    currentlySelectedIndex = 0;
+
+                uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
+
+                currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
+                joystickSwitchDelay = 0f;
+            }
+        } else
+        {
+            joystickSwitchDelay += 1f * Time.deltaTime;
+        }
+
+
         var scrollDelta = Input.mouseScrollDelta;
-        if (scrollDelta != Vector2.zero && !PauseMenu.isPaused)
+        if (scrollDelta != Vector2.zero)
         {
             uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().DeselectSlot();
             if (scrollDelta.y < 0)
