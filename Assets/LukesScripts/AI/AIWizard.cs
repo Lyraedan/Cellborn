@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bolt;
 using LukesScripts.AI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using EventHooks = LukesScripts.Blueprints.EventHooks;
 
 public class AIWizard : AI
@@ -10,6 +11,8 @@ public class AIWizard : AI
 
     private float secondsBetweenAttacks = 2.8f;
     private float attackDelay = 0;
+
+    public string endingScene;
 
     public override void Init()
     {
@@ -47,7 +50,7 @@ public class AIWizard : AI
 
     public override void OnDeath()
     {
-        
+        SceneManager.LoadScene(endingScene);
     }
 
     public override void DrawGizmos()
