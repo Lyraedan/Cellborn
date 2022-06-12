@@ -21,7 +21,7 @@ public class WeaponMusicGun : WeaponBase
     {
         MusicGunMusicControl.instance.hasCooledDown = hasCooledDown;
         
-        if (Input.GetButton(ControlManager.INPUT_FIRE))
+        if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
         {
             if (hasCooledDown)
             {
