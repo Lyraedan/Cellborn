@@ -80,7 +80,7 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("UsePotionA"))
+        if (Input.GetButtonDown(ControlManager.INPUT_USE_POTION_A))
         {
             if (currentlyHeldPotions[0] == emptyPotion)
                 return;
@@ -100,7 +100,7 @@ public class PotionManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("UsePotionB"))
+        if (Input.GetButtonDown(ControlManager.INPUT_USE_POTION_B))
         {
             if (currentlyHeldPotions[1] == emptyPotion)
                 return;

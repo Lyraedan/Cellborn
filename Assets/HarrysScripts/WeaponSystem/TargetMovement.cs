@@ -40,7 +40,7 @@ public class TargetMovement : MonoBehaviour
                     var translation = PlayerStats.instance.gameObject.transform.position + joystickHeading;
                     translation.y = height;
 
-                        transform.position = translation;
+                    transform.position = translation;
                 }
             }
         }
