@@ -348,8 +348,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenGraphics()
     {
-        source.clip = click;
-        source.Play();
         graphicsGroup.SetActive(true);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(false);
@@ -357,8 +355,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenAudio()
     {
-        source.clip = click;
-        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(true);
         controlsGroup.SetActive(false);
@@ -366,8 +362,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void OpenControls()
     {
-        source.clip = click;
-        source.Play();
         graphicsGroup.SetActive(false);
         audioGroup.SetActive(false);
         controlsGroup.SetActive(true);
