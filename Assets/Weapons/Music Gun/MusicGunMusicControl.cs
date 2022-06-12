@@ -75,7 +75,7 @@ public class MusicGunMusicControl : MonoBehaviour
             return;
         }
 
-        if (Input.GetButton(ControlManager.INPUT_FIRE))
+        if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
         {
             if(!playing)
             {
