@@ -8,28 +8,50 @@ using UnityEngine.UI;
 public class ControllerCursor : MonoBehaviour
 {
 
+    public bool inMainMenu = true;
     public float cursorSpeed = 3f;
     public RawImage cursor;
 
+    private Vector3 reset;
+
     private bool wasClicked = false;
+
+    private void Start()
+    {
+        reset = cursor.gameObject.transform.position;
+    }
 
     void Update()
     {
-        cursor.gameObject.SetActive(ControlManager.ControllerConnected);
+        if(inMainMenu)
+            cursor.gameObject.SetActive(ControlManager.ControllerConnected);
+        else
+        {
+            if(PauseMenu.isPaused)
+            {
+                cursor.gameObject.SetActive(ControlManager.ControllerConnected);
+            }
+        }
+
         if(ControlManager.ControllerConnected && cursor.gameObject.activeSelf)
         {
-            // Move
+            if(Input.GetButtonDown(ControlManager.INPUT_DROP))
+            {
+                cursor.gameObject.transform.position = reset;
+            }
+
             var horizontal = Input.GetAxisRaw("Horizontal");
             var vertical = Input.GetAxisRaw("Vertical");
 
-            var up = transform.up;
-            var right = transform.right;
+            var right = Vector3.right;
+            var up = Vector3.up;
+            var deltaTime = Time.unscaledDeltaTime; //DeltaTime.instance.deltaTime;
 
-            Vector3 rightMovement = right * cursorSpeed * Time.deltaTime * horizontal;
-            Vector3 upMovement = up * cursorSpeed * Time.deltaTime * vertical;
+            Vector3 rightMovement = right * cursorSpeed * deltaTime * horizontal;
+            Vector3 upMovement = up * cursorSpeed * deltaTime * vertical;
 
             Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-            Vector3 movingDirection = heading * cursorSpeed * Time.deltaTime;
+            var movingDirection = heading * cursorSpeed * deltaTime;
             cursor.gameObject.transform.Translate(movingDirection);
 
             try

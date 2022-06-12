@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu instance;
     
     public static bool isPaused = false;
-    public KeyCode pauseButton;
 
     public GameObject pauseMenuUI;
 
@@ -41,7 +40,7 @@ public class PauseMenu : MonoBehaviour
         if (RoomGenerator.instance.cutscenePlaying)
             return;
 
-        if (Input.GetKeyDown(pauseButton))
+        if (Input.GetButtonDown(ControlManager.INPUT_PAUSE))
         {
             if (isPaused)
             {
