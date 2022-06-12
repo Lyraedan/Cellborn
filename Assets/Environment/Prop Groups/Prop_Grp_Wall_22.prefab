@@ -100,34 +100,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94d9310294cbf82409dae106766276f7, type: 3}
---- !u!1 &4803731591122892238 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1030353634786362366, guid: 94d9310294cbf82409dae106766276f7, type: 3}
-  m_PrefabInstance: {fileID: 5541333294744532528}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5323704197135462260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 362361131052374340, guid: 94d9310294cbf82409dae106766276f7, type: 3}
   m_PrefabInstance: {fileID: 5541333294744532528}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7014527083795013835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4803731591122892238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cell:
-    x: 0
-    y: 0
-    z: 0
-    flag: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0}
-    score: 0
-    distance: 0
