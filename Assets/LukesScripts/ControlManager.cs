@@ -40,7 +40,7 @@ public class ControlManager : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             Debug.Log("Controller: " + names[i]);
-            if (names[i].Contains("Playstation"))
+            if (names[i].Length == 19) //wireless controller
             {
                 Debug.Log("PS4 controller is connected");
                 PS4Controller = 1;
