@@ -60,7 +60,7 @@ public class LaserControl : MonoBehaviour
             }
 
             Debug.Log("Agh a laser");
-            if (Input.GetButton(ControlManager.INPUT_FIRE) && hasCooledDown && !PlayerStats.instance.isDead && !PauseMenu.isPaused)
+            if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0 && hasCooledDown && !PlayerStats.instance.isDead && !PauseMenu.isPaused)
             {
                 hasWarmedUp = false;
                 //cooldownTimer = 0f;
