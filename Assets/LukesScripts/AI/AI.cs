@@ -159,11 +159,11 @@ namespace LukesScripts.AI
                 {
                     WeaponBag.instance.RefillBag();
                 }
-                WeaponBag.instance.dropChance = 70;
+                WeaponBag.instance.dropChance = 60;
             }
             else
             {
-                WeaponBag.instance.dropChance = WeaponBag.instance.dropChance - 30;
+                WeaponBag.instance.dropChance = WeaponBag.instance.dropChance - 25;
             }
             audioSource.clip = deathSound;
             audioSource.Play();
