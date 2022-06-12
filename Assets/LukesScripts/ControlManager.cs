@@ -40,23 +40,24 @@ public class ControlManager : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             Debug.Log("Controller: " + names[i]);
-            if (names[i].Length == 19) //wireless controller
-            {
-                Debug.Log("PS4 controller is connected");
-                PS4Controller = 1;
-                XboxOneController = 0;
-            }
-            if (names[i].Contains("Xbox"))
-            {
-                Debug.Log("Xbox controller is connected");
-                PS4Controller = 0;
-                XboxOneController = 1;
-            }
             if (string.IsNullOrEmpty(names[i]))
             {
                 PS4Controller = 0;
                 XboxOneController = 0;
             }
+            else if (names[i].Length == 19) //wireless controller
+            {
+                Debug.Log("PS4 controller is connected");
+                PS4Controller = 1;
+                XboxOneController = 0;
+            }
+            else if (names[i].Contains("Xbox"))
+            {
+                Debug.Log("Xbox controller is connected");
+                PS4Controller = 0;
+                XboxOneController = 1;
+            }
+            
         }
 
         if (XboxOneController == 1)
