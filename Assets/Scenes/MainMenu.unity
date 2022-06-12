@@ -544,7 +544,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetAmbientOcclusion
         m_Mode: 0
@@ -1390,7 +1390,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: OpenGraphics
         m_Mode: 1
@@ -1998,7 +1998,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetDepthOfField
         m_Mode: 0
@@ -2184,7 +2184,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
@@ -3064,6 +3064,7 @@ GameObject:
   - component: {fileID: 350851910}
   - component: {fileID: 350851909}
   - component: {fileID: 350851908}
+  - component: {fileID: 350851915}
   - component: {fileID: 350851914}
   - component: {fileID: 350851913}
   m_Layer: 5
@@ -3297,6 +3298,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903854bdbd1ba040a5b8e46171acb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &350851915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350851907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a9c7cd190b16e49ac9b3dc6a68647c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicsGroup: {fileID: 1437678000}
+  audioGroup: {fileID: 2052333430}
+  controlsGroup: {fileID: 1585510484}
+  resolutionStr: []
+  resolutionDropdown: {fileID: 491777618}
+  vsyncToggle: {fileID: 1682616661}
+  fullscreenToggle: {fileID: 1320382341}
+  anisotropicToggle: {fileID: 970124729}
+  antiAliasingDropdown: {fileID: 1039458067}
+  shadowsDropdown: {fileID: 1485257517}
+  shadowResDropdown: {fileID: 1686012727}
+  textureResDropdown: {fileID: 1082317518}
+  qualitySettings:
+  - Ultra
+  - Very High
+  - High
+  - Medium
+  - Low
+  - Potato
+  qualityDropdown: {fileID: 250413556}
+  pageText: {fileID: 457696508}
+  pages:
+  - {fileID: 565840512}
+  - {fileID: 243434117}
+  page01Button: {fileID: 1738513891}
+  page02Button: {fileID: 423224856}
+  profile: {fileID: 11400000, guid: 2bc9c98cd9bbf1443bace542672be395, type: 2}
+  ambientOcclusionToggle: {fileID: 19126251}
+  vignetteToggle: {fileID: 777065494}
+  bloomToggle: {fileID: 724679541}
+  chromaticAberrationToggle: {fileID: 1424504582}
+  depthOfFieldToggle: {fileID: 242083255}
+  source: {fileID: 1981635449}
+  click: {fileID: 8300000, guid: fe3be78f5e561e74da2e0aed694fe826, type: 3}
+  error: {fileID: 8300000, guid: f4d732a21b56b2a4a8a4fac5d0d6f008, type: 3}
 --- !u!1 &367058582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,7 +3644,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 0
@@ -4393,7 +4441,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetPage
         m_Mode: 3
@@ -5082,7 +5130,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 350851915}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
@@ -6450,7 +6498,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetMasterVolume
         m_Mode: 0
@@ -6837,7 +6885,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetSoundVolume
         m_Mode: 0
@@ -8044,7 +8092,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: OpenGraphics
         m_Mode: 1
@@ -8379,7 +8427,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetBloom
         m_Mode: 0
@@ -8697,7 +8745,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetVignette
         m_Mode: 0
@@ -10446,7 +10494,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetAnisotropic
         m_Mode: 0
@@ -11998,7 +12046,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetAntiAliasing
         m_Mode: 0
@@ -12543,7 +12591,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetTextureResolution
         m_Mode: 0
@@ -14130,7 +14178,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetFullscreen
         m_Mode: 0
@@ -14238,7 +14286,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: OpenAudio
         m_Mode: 1
@@ -14966,7 +15014,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetChromaticAberration
         m_Mode: 0
@@ -15317,7 +15365,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetShadows
         m_Mode: 0
@@ -16279,7 +16327,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: OpenControls
         m_Mode: 1
@@ -17190,7 +17238,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetVSync
         m_Mode: 0
@@ -17406,7 +17454,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetShadowResolution
         m_Mode: 0
@@ -17826,7 +17874,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1981635448}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: SetPage
         m_Mode: 3
@@ -20100,7 +20148,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981635447}
-  - component: {fileID: 1981635448}
   - component: {fileID: 1981635449}
   - component: {fileID: 1981635450}
   m_Layer: 5
@@ -20135,53 +20182,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1981635448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981635446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a9c7cd190b16e49ac9b3dc6a68647c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphicsGroup: {fileID: 1437678000}
-  audioGroup: {fileID: 2052333430}
-  controlsGroup: {fileID: 1585510484}
-  resolutionStr: []
-  resolutionDropdown: {fileID: 491777618}
-  vsyncToggle: {fileID: 1682616661}
-  fullscreenToggle: {fileID: 1320382341}
-  anisotropicToggle: {fileID: 970124729}
-  antiAliasingDropdown: {fileID: 1039458067}
-  shadowsDropdown: {fileID: 1485257517}
-  shadowResDropdown: {fileID: 1686012727}
-  textureResDropdown: {fileID: 1082317518}
-  qualitySettings:
-  - Ultra
-  - Very High
-  - High
-  - Medium
-  - Low
-  - Potato
-  qualityDropdown: {fileID: 250413556}
-  pageText: {fileID: 457696508}
-  pages:
-  - {fileID: 565840512}
-  - {fileID: 243434117}
-  page01Button: {fileID: 1738513891}
-  page02Button: {fileID: 423224856}
-  profile: {fileID: 11400000, guid: 2bc9c98cd9bbf1443bace542672be395, type: 2}
-  ambientOcclusionToggle: {fileID: 19126251}
-  vignetteToggle: {fileID: 777065494}
-  bloomToggle: {fileID: 724679541}
-  chromaticAberrationToggle: {fileID: 1424504582}
-  depthOfFieldToggle: {fileID: 242083255}
-  source: {fileID: 1981635449}
-  click: {fileID: 8300000, guid: fe3be78f5e561e74da2e0aed694fe826, type: 3}
-  error: {fileID: 8300000, guid: f4d732a21b56b2a4a8a4fac5d0d6f008, type: 3}
 --- !u!82 &1981635449
 AudioSource:
   m_ObjectHideFlags: 0
