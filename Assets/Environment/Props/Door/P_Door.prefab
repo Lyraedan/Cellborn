@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 900044438699182756}
   - component: {fileID: 4496144703497035744}
   - component: {fileID: 4640782339047889500}
+  - component: {fileID: 1934368145847382304}
+  - component: {fileID: 3512689770970666117}
   m_Layer: 0
   m_Name: P_Door
   m_TagString: Untagged
@@ -84,6 +86,45 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 7.9, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1934368145847382304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030353634786362366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc691b978885e246bc024c151ebf22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell:
+    x: 0
+    y: 0
+    z: 0
+    flag: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+    score: 0
+    distance: 0
+--- !u!114 &3512689770970666117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030353634786362366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1894140601640795549
 GameObject:
   m_ObjectHideFlags: 0

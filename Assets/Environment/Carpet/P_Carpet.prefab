@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5780038752581682948}
   - component: {fileID: 7465007797467383969}
   - component: {fileID: 4647149957311134827}
+  - component: {fileID: 6936369446434989686}
   m_Layer: 0
   m_Name: P_Carpet
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 4bc1eac025967ea4ca95de4b4ec9d975, type: 3}
+  - {fileID: 2100000, guid: c349216d52e03734aaade28754c6ceb9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,3 +82,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6936369446434989686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592427849774259646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850ceb2e090cfa44d80ee88912d32328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 0}
+  meshRenderers:
+  - {fileID: 4647149957311134827}
+  lights:
+    sources: []
+  particles:
+    emitters: []
