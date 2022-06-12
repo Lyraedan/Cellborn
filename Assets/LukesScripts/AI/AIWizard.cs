@@ -21,8 +21,8 @@ public class AIWizard : AI
 
     private void OnDestroy()
     {
-        if(PlayerStats.instance != null)
-            SceneManager.LoadScene(endingScene);
+        /* if(PlayerStats.instance != null)
+            PlayerStats.instance.winGroup.SetActive(true); */
     }
 
     public override void Tick()
@@ -50,7 +50,7 @@ public class AIWizard : AI
 
     public override void OnDeath()
     {
-        
+        SceneManager.LoadScene(endingScene);
     }
 
     public override void DrawGizmos()
