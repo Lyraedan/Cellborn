@@ -72,7 +72,6 @@ public class ControllerCursor : MonoBehaviour
                 var button = sorted[0];
                 Button selected = buttons[button.Key];
                 selected.Select();
-                Debug.Log("Distance: " + button.Value + " -> " + button.Key);
 
                 if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0 && !wasClicked)
                 {
