@@ -275,6 +275,8 @@ MonoBehaviour:
   teleporter: {fileID: 0}
   prisonCell: {fileID: 0}
   bossRoom: {fileID: 0}
+  bossCutsceneEnter: {fileID: 0}
+  ceilingLight: {fileID: 0}
   prefabs: []
   navAgent: {fileID: 0}
   targetAim: {fileID: 0}
@@ -285,6 +287,7 @@ MonoBehaviour:
   floorMesh: {fileID: 0}
   wallMesh: {fileID: 0}
   roofMesh: {fileID: 0}
+  cutscenePlaying: 0
 --- !u!4 &955071183
 Transform:
   m_ObjectHideFlags: 0
