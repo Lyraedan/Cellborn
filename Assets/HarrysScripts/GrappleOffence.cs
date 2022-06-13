@@ -97,15 +97,15 @@ public class GrappleOffence : MonoBehaviour
                 {
                     if (WeaponManager.instance.currentWeapon.colour == enemy.colour)
                     {
-                        enemy.currentHP -= (attackDamage * 2);
+                        enemy.DamageEnemy(attackDamage * 2);
                     }
                     else if (WeaponManager.instance.currentWeapon.colour == Color.grey)
                     {
-                        enemy.currentHP -= attackDamage;
+                        enemy.DamageEnemy(attackDamage);
                     }
                     else
                     {
-                        enemy.currentHP -= (attackDamage / 2);
+                        enemy.DamageEnemy(attackDamage / 2);
                     }
 
                     if (WeaponManager.instance.currentWeapon.colour == Color.red)
