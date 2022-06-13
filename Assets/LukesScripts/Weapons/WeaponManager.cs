@@ -308,6 +308,9 @@ public class WeaponManager : MonoBehaviour
                                 LaserControl.instance.EmptyLaser();
                             }
 
+                            animController.SetBool("IsHolding", false);
+                            animController.SetBool("IsShooting", false);
+
                             var empty = FindWeapon(-1);
                             currentlyHeldWeapons[currentlySelectedIndex] = empty;
 
