@@ -11,8 +11,8 @@ public class EndingCutscene : MonoBehaviour
 
     void Start()
     {
-        videoPlayer.loopPointReached += ReturnScene;
         videoPlayer.SetDirectAudioVolume(0, (AudioManagerRevised.instance.GetMasterVolume() * AudioManagerRevised.instance.GetSfxVolume()) / 1f);
+        videoPlayer.loopPointReached += ReturnScene;
     }
     
     void ReturnScene (VideoPlayer vp)
