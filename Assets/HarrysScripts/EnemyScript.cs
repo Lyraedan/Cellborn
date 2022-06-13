@@ -15,7 +15,7 @@ public class EnemyScript : MonoBehaviour
     public bool blue;
     public bool yellow;
 
-    public AIWizard wizardScript;
+    [SerializeField] private bool isFightingBoss = false;
 
     private void Start()
     {
@@ -32,13 +32,17 @@ public class EnemyScript : MonoBehaviour
             colour = Color.yellow;
         }
 
-        wizardScript = this.gameObject.GetComponent<AIWizard>();
-        if (wizardScript != null && !UIController.instance.isFightingBoss)
+        isFightingBoss = functionality.GetType().Equals(typeof(AIWizard));
+        if (isFightingBoss)
         {
-            UIController.instance.isFightingBoss = true;
             UIController.instance.bossHealthBar.maxValue = maxHP;
             UIController.instance.bossHealthBar.value = currentHP;
             UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;
+            UIController.instance.bossHealthGroup.SetActive(true);
+        } else
+        {
+            if(UIController.instance.bossHealthGroup.activeSelf)
+                UIController.instance.bossHealthGroup.SetActive(false);
         }
     }
 
@@ -122,7 +126,7 @@ public class EnemyScript : MonoBehaviour
     {
         currentHP -= damage;
 
-        if (wizardScript != null)
+        if (isFightingBoss)
         {
             UIController.instance.bossHealthBar.value = currentHP;
             UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;

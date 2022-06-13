@@ -1,3 +1,4 @@
+using LukesScripts.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,13 +26,19 @@ public class WeaponLazer : WeaponBase
 
     public override void Fire()
     {
+        if (RoomGenerator.instance.cutscenePlaying)
+            return;
+        if (!PauseMenu.instance.canPause)
+            return;
+        if (PlayerStats.instance.isDead)
+            return;
+
         if (WeaponManager.instance.laserController.isFiring)
         {
             WeaponProperties weaponProperties = gameObject.GetComponent<WeaponProperties>();
             weaponProperties.RemoveAmmo(1);
             
             RaycastHit hit;
-            GameObject hitEnemy;
             Vector3 direction = GetRayDirection();
             int layerMask = (1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Default")); // Only collide with entities with Layers Enemy and Default
             if (Physics.Raycast(WeaponManager.instance.firepoint.transform.position, direction, out hit, Mathf.Infinity, layerMask))
@@ -42,7 +49,7 @@ public class WeaponLazer : WeaponBase
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit!");
-                    hitEnemy = hit.transform.gameObject;
+                    var hitEnemy = hit.transform.gameObject;
 
                     var enemyScript = hitEnemy.GetComponent<EnemyScript>();
 
@@ -51,15 +58,18 @@ public class WeaponLazer : WeaponBase
                     {
                         if (weaponProperties.colour == enemyScript.colour)
                         {
-                            enemyScript.currentHP -= (enemyDamage*2);
+                            //enemyScript.currentHP -= (enemyDamage*2);
+                            enemyScript.DamageEnemy(enemyDamage * 2);
                         }
                         else if (weaponProperties.colour == Color.grey)
                         {
-                            enemyScript.currentHP -= enemyDamage;
+                            //enemyScript.currentHP -= enemyDamage;
+                            enemyScript.DamageEnemy(enemyDamage);
                         }
                         else
                         {
-                            enemyScript.currentHP -= (enemyDamage/2);
+                            //enemyScript.currentHP -= (enemyDamage/2);
+                            enemyScript.DamageEnemy(enemyDamage / 2);
                         }
 
                         if (WeaponManager.instance.currentWeapon.colour == Color.red)
@@ -75,31 +85,12 @@ public class WeaponLazer : WeaponBase
                             enemyScript.temperature.shockDuration = 4;
                         }
 
-                        if (hitEnemy.GetComponent<AITest>() != null)
-                        {
-                            hitEnemy.GetComponent<AITest>().Hit();
-                        }
-                        else if (hitEnemy.GetComponent<AIFairy>() != null)
-                        {
-                            hitEnemy.GetComponent<AIFairy>().Hit();
-                        }
-                        else if (hitEnemy.GetComponent<AIWizard>() != null)
-                        {
-                            hitEnemy.GetComponent<AIWizard>().Hit();
-                        }
+                        var ai = hitEnemy.GetComponent<AI>();
+                        if (ai)
+                            ai.Hit();
                         t = 0;
                     }
                 }
-                else
-                {
-                    Debug.Log("Not an enemy... :(");
-                }
-            }
-            else
-            {
-                Debug.DrawRay(WeaponManager.instance.firepoint.transform.position, direction, Color.green);
-                hitEnemy = null;
-                return;
             }
         }
     }

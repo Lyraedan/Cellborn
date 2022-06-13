@@ -19,6 +19,13 @@ public class WeaponMusicGun : WeaponBase
 
     public override void Tick()
     {
+        if (RoomGenerator.instance.cutscenePlaying)
+            return;
+        if (!PauseMenu.instance.canPause)
+            return;
+        if (PlayerStats.instance.isDead)
+            return;
+
         MusicGunMusicControl.instance.hasCooledDown = hasCooledDown;
         
         if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)

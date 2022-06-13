@@ -238,7 +238,7 @@ public class WeaponManager : MonoBehaviour
             currentlyHeldWeapons[i] = FindWeapon(-1);
         }
         currentlyHeldWeapons[2] = FindWeapon(0); // Pebbles 
-        //currentlyHeldWeapons[0] = FindWeapon(9);
+        currentlyHeldWeapons[0] = FindWeapon(5);
         //currentlyHeldWeapons[1] = FindWeapon(7);
         //currentlyHeldWeapons[1] = FindWeapon(2);
 
@@ -302,6 +302,12 @@ public class WeaponManager : MonoBehaviour
 
                         if (currentWeapon.currentAmmo < 1 && currentWeapon.weaponId != 4) // no ammo and NOT crossbow
                             {
+                            // Is laser weapon
+                            if(currentWeapon.weaponId == 5)
+                            {
+                                LaserControl.instance.EmptyLaser();
+                            }
+
                             var empty = FindWeapon(-1);
                             currentlyHeldWeapons[currentlySelectedIndex] = empty;
 

@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class LaserControl : MonoBehaviour
 {
+    public static LaserControl instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     public ParticleSystem laserParticles;
     public ParticleSystem redLaserParticles;
     public ParticleSystem blueLaserParticles;
@@ -39,6 +49,13 @@ public class LaserControl : MonoBehaviour
 
     void Update()
     {
+        if (RoomGenerator.instance.cutscenePlaying)
+            return;
+        if (!PauseMenu.instance.canPause)
+            return;
+        if (PlayerStats.instance.isDead)
+            return;
+
         if (WeaponManager.instance.currentWeapon == null)
             return;
 
@@ -75,11 +92,6 @@ public class LaserControl : MonoBehaviour
                 if (!laserParticles.isPlaying && WeaponManager.instance.currentWeapon.currentAmmo > 0)
                 {
                     laserParticles.Play();
-                }
-                
-                if (WeaponManager.instance.currentWeapon.currentAmmo <= 1)
-                {
-                    EmptyLaser();                   
                 }
 
                 if (warmupTimer >= warmup && !hasWarmedUp)
@@ -134,16 +146,9 @@ public class LaserControl : MonoBehaviour
         }
     }
 
-    void EmptyLaser()
+    public void EmptyLaser()
     {
         laserParticles.Stop();
-
-        var manInst = WeaponManager.instance;
-        var currentSlot = manInst.uiSlots[manInst.currentlySelectedIndex].GetComponent<SlotHolder>();
-
-        manInst.currentWeapon.SetAmmo(0);
-        currentSlot.image.sprite = empty.icon;
-        manInst.currentlyHeldWeapons[manInst.currentlySelectedIndex] = empty;
         isFiring = false;
         hasWarmedUp = false;
         warmupTimer = 0;

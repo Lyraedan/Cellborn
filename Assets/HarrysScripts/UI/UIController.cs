@@ -33,7 +33,6 @@ public class UIController : MonoBehaviour
     public GameObject bossHealthGroup;
     public Slider bossHealthBar;
     public TextMeshProUGUI bossHealthText;
-    public bool isFightingBoss;
 
     public Camera UICamera;
 
@@ -53,15 +52,4 @@ public class UIController : MonoBehaviour
         };
     }
 
-    void Update()
-    {
-        if (isFightingBoss)
-        {
-            bossHealthGroup.SetActive(true);
-        }
-        else
-        {
-            bossHealthGroup.SetActive(false);
-        }
-    }
 }
