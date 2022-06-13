@@ -33,12 +33,18 @@ public class EnemyScript : MonoBehaviour
         }
 
         isFightingBoss = functionality.GetType().Equals(typeof(AIWizard));
-        if (isFightingBoss)
+        if (isFightingBoss && !UIController.instance.bossHealthGroup.activeSelf)
         {
             UIController.instance.bossHealthBar.maxValue = maxHP;
             UIController.instance.bossHealthBar.value = currentHP;
             UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;
             UIController.instance.bossHealthGroup.SetActive(true);
+        } else
+        {
+            if(RoomGenerator.instance.levelIndex < RoomGenerator.instance.numberOfLevels - 1)
+            {
+                UIController.instance.bossHealthGroup.SetActive(false);
+            }
         }
     }
 
