@@ -309,6 +309,7 @@ public class WeaponManager : MonoBehaviour
                             var slotHolder = slot.GetComponent<SlotHolder>();
                             slotHolder.image.sprite = currentlyHeldWeapons[currentlySelectedIndex].icon;
                             weaponText.text = string.Empty;
+                            UIController.instance.ammoContainer.SetActive(false);
 
                             currentWeapon = currentlyHeldWeapons[currentlySelectedIndex];
                         }
