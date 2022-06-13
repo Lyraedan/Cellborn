@@ -91,7 +91,6 @@ public class MusicGunMusicControl : MonoBehaviour
         else
         {
             StopMusic();
-            MusicManager.instance.source.UnPause();
         }
     }
 
@@ -103,6 +102,7 @@ public class MusicGunMusicControl : MonoBehaviour
             source.Stop();
             playing = false;
             discoLights.SetActive(false);
+            MusicManager.instance.source.UnPause();
         }
     }
 }

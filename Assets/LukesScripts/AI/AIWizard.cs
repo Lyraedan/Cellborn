@@ -50,6 +50,7 @@ public class AIWizard : AI
 
     public override void OnDeath()
     {
+        MusicManager.instance.source.Stop();
         SceneManager.LoadScene(endingScene);
     }
 
