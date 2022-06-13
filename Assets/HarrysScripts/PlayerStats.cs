@@ -89,18 +89,6 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        healthText.text = currentHP + " / " + maxHP;
-        
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
-            
-            if(!isDead)
-            {
-                KillPlayer();
-            }
-        }
-
         if (currentHP >= maxHP)
         {
             currentHP = maxHP;
@@ -204,7 +192,17 @@ public class PlayerStats : MonoBehaviour
             source.clip = hurtSound;
             source.Play();
             currentHP -= (int)(damage * defenseMultiplier);
+            healthText.text = currentHP + " / " + maxHP;
+        
+            if (currentHP <= 0)
+            {
+                currentHP = 0;
+                healthText.text = currentHP + " / " + maxHP;
+                KillPlayer();
+            }
         }
+
+
     }
 
     public void KillPlayer()
