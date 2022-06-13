@@ -38,7 +38,7 @@ public class Acid : MonoBehaviour
 
         OnPlayerStoodInAcid?.AddListener(() =>
         {
-            PlayerStats.instance.DamagePlayer(playerDamage);
+            //PlayerStats.instance.DamagePlayer(playerDamage);
             if (colour == Color.red)
             {
                 PlayerStats.instance.temperature.temperature += 6;
