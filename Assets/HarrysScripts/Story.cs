@@ -58,7 +58,7 @@ public class Story : MonoBehaviour
             LoadGame(dungeonSceneName);
         }
 
-        /* if (ControlManager.ControllerConnected)
+        if (ControlManager.ControllerConnected)
         {
             pictureController.enabled = true;
             pictureKeyboard.enabled = false;
@@ -67,7 +67,7 @@ public class Story : MonoBehaviour
         {
             pictureKeyboard.enabled = true;
             pictureController.enabled = false;
-        } */
+        }
     }
 
     void LoadGame(string sceneName)
