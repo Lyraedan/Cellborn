@@ -39,10 +39,6 @@ public class EnemyScript : MonoBehaviour
             UIController.instance.bossHealthBar.value = currentHP;
             UIController.instance.bossHealthText.text = currentHP + "/" + maxHP;
             UIController.instance.bossHealthGroup.SetActive(true);
-        } else
-        {
-            if(UIController.instance.bossHealthGroup.activeSelf)
-                UIController.instance.bossHealthGroup.SetActive(false);
         }
     }
 
