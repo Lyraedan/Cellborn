@@ -7,8 +7,8 @@ using TMPro;
 
 public class Story : MonoBehaviour
 {
-    public List<Sprite> storyPictures;
-    public Image picture;
+    public List<Sprite> storyPicturesKeyboard, storyPicturesController;
+    public Image pictureKeyboard, pictureController;
 
     int chosenPic = 0;
 
@@ -29,7 +29,7 @@ public class Story : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown && chosenPic <= storyPictures.Count && !isLoading)
+        if (Input.anyKeyDown && chosenPic <= storyPicturesKeyboard.Count && !isLoading)
         {
             source.clip = pageTurn;
             source.Play();
@@ -46,16 +46,28 @@ public class Story : MonoBehaviour
             }
         }
 
-        if (chosenPic < storyPictures.Count)
+        if (chosenPic < storyPicturesKeyboard.Count)
         {
-            picture.sprite = storyPictures[chosenPic];
+            pictureKeyboard.sprite = storyPicturesKeyboard[chosenPic];
+            pictureController.sprite = storyPicturesController[chosenPic];
         }
 
-        if (chosenPic == storyPictures.Count && !isLoading)
+        if (chosenPic == storyPicturesKeyboard.Count && !isLoading)
         {
             isLoading = true;
             LoadGame(dungeonSceneName);
         }
+
+        /* if (ControlManager.ControllerConnected)
+        {
+            pictureController.enabled = true;
+            pictureKeyboard.enabled = false;
+        }
+        else
+        {
+            pictureKeyboard.enabled = true;
+            pictureController.enabled = false;
+        } */
     }
 
     void LoadGame(string sceneName)
