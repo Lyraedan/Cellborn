@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7465007797467383969}
   - component: {fileID: 4647149957311134827}
   - component: {fileID: 6936369446434989686}
+  - component: {fileID: 2248157067264230899}
   m_Layer: 0
   m_Name: P_Carpet
   m_TagString: Untagged
@@ -101,3 +102,16 @@ MonoBehaviour:
     sources: []
   particles:
     emitters: []
+--- !u!65 &2248157067264230899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592427849774259646}
+  m_Material: {fileID: 13400000, guid: 7e3cddc6b6a94834b9b812adb55e21cd, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.120828435, y: 0.0002038, z: 0.120828435}
+  m_Center: {x: 0, y: 0, z: 0}

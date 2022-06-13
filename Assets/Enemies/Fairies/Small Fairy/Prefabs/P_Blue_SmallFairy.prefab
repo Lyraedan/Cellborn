@@ -102,6 +102,7 @@ MonoBehaviour:
   red: 0
   blue: 1
   yellow: 0
+  isFightingBoss: 0
 --- !u!54 &1968839935604444948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,7 +191,9 @@ MonoBehaviour:
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
   showPath: 0
   rotationDampening: 8
-  skinnedMeshRenderer: {fileID: 6826545288478285973}
+  skinnedMeshRenderers:
+  - {fileID: 6826545288478285973}
+  meshRenderers: []
   defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   animController: {fileID: 2531404140077799830}

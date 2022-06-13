@@ -19,7 +19,8 @@ namespace LukesScripts.AI
         protected GridCell currentCell, lastCell;
         [SerializeField] protected bool showPath = false;
         [SerializeField] protected float rotationDampening = 8f;
-        public SkinnedMeshRenderer skinnedMeshRenderer;
+        public List<SkinnedMeshRenderer> skinnedMeshRenderers;
+        public List<MeshRenderer> meshRenderers;
         public Material defaultMaterial;
         public Material damagedMaterial;
         public Animator animController;
@@ -187,9 +188,35 @@ namespace LukesScripts.AI
 
         IEnumerator DamageIndicator()
         {
-            skinnedMeshRenderer.material = damagedMaterial;
+            if (skinnedMeshRenderers.Count > 0)
+            {
+                for(int i = 0; i < skinnedMeshRenderers.Count; i++)
+                {
+                    skinnedMeshRenderers[i].material = damagedMaterial;
+                }
+            }
+            else if (meshRenderers.Count > 0)
+            {
+                for (int i = 0; i < meshRenderers.Count; i++)
+                {
+                    meshRenderers[i].material = damagedMaterial;
+                }
+            }
             yield return new WaitForSeconds(0.1f);
-            skinnedMeshRenderer.material = defaultMaterial;
+            if (skinnedMeshRenderers.Count > 0)
+            {
+                for (int i = 0; i < skinnedMeshRenderers.Count; i++)
+                {
+                    skinnedMeshRenderers[i].material = defaultMaterial;
+                }
+            }
+            else if (meshRenderers.Count > 0)
+            {
+                for (int i = 0; i < meshRenderers.Count; i++)
+                {
+                    meshRenderers[i].material = defaultMaterial;
+                }
+            }
             yield return new WaitUntil(() => !audioSource.isPlaying);
             if (idleSound != null)
             {
