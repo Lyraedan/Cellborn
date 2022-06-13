@@ -264,12 +264,14 @@ public class WeaponManager : MonoBehaviour
         if (PlayerStats.instance.isDead)
             return;
 
+        float animSpeed = baseGlobalAnimationSpeed;
+
         if (playingShootingAnim)
         {
             int layerIndex = animController.GetLayerIndex(currentAnimationLayerWeapon);
             var state = animController.GetCurrentAnimatorStateInfo(layerIndex);
             float animationSpeed = state.speed;
-            animController.speed = animationSpeed;
+            animSpeed = animationSpeed;
             shootingAnimTime += animController.speed * Time.deltaTime;
 
             float animationTime = currentWeapon.shootingAnimationLength / animationSpeed;
@@ -283,6 +285,7 @@ public class WeaponManager : MonoBehaviour
                 animController.SetBool("IsShooting", false);
             }
         }
+
 
         if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) > 0)
         {
@@ -308,7 +311,8 @@ public class WeaponManager : MonoBehaviour
                                 LaserControl.instance.EmptyLaser();
                             }
 
-                            animController.SetBool("IsHolding", false);
+                            animController.SetBool("IsHoldingWeapon", false);
+                            animController.SetBool("IsCharging", false);
                             animController.SetBool("IsShooting", false);
 
                             var empty = FindWeapon(-1);
@@ -326,6 +330,8 @@ public class WeaponManager : MonoBehaviour
                 });
             }
         }
+
+        animController.speed = animSpeed;
 
         if (Input.GetButtonDown(ControlManager.INPUT_PICKUP))
         {
@@ -405,6 +411,11 @@ public class WeaponManager : MonoBehaviour
                 uiSlots[currentlySelectedIndex].GetComponent<SlotHolder>().SelectSlot();
             }
             currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
+        }
+
+        if(currentWeapon.weaponId == -1)
+        {
+            animController.SetBool("IsHoldingWeapon", false);
         }
     }
 
