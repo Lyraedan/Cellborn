@@ -52,7 +52,7 @@ public class PotionManager : MonoBehaviour
             currentlyHeldPotions[i] = emptyPotion;
         }
 
-        //currentlyHeldPotions[0] = FindPotion(3);
+        //currentlyHeldPotions[0] = FindPotion(1);
         //urrentlyHeldPotions[1] = FindPotion(4);
 
         source01.clip = pickupSound;
@@ -85,6 +85,12 @@ public class PotionManager : MonoBehaviour
             if (currentlyHeldPotions[0] == emptyPotion)
                 return;
 
+            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.infiniteAmmo)
+                return;
+
+            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.weaponId == 4)
+                return;
+
             if (!healthScript.isDead)
             {
                 var psMain = potionDrinkEffectPS.main;
@@ -103,6 +109,12 @@ public class PotionManager : MonoBehaviour
         if (Input.GetButtonDown(ControlManager.INPUT_USE_POTION_B))
         {
             if (currentlyHeldPotions[1] == emptyPotion)
+                return;
+
+            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.infiniteAmmo)
+                return;
+
+            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.weaponId == 4)
                 return;
 
             if (!healthScript.isDead)
