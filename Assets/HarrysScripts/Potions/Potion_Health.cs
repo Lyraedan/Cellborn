@@ -17,7 +17,18 @@ public class Potion_Health : PotionBase
 
     public override void Use()
     {
-        PlayerStats.instance.currentHP += healthRefill;
-        PlayerStats.instance.healthText.text = PlayerStats.instance.currentHP + " / " + PlayerStats.instance.maxHP;
+        if (PlayerStats.instance.currentHP < 100)
+        {
+            PlayerStats.instance.currentHP += healthRefill;
+            
+            if (PlayerStats.instance.currentHP > 100)
+            {
+                PlayerStats.instance.healthText.text = PlayerStats.instance.maxHP + " / " + PlayerStats.instance.maxHP;
+            }
+            else
+            {
+                PlayerStats.instance.healthText.text = PlayerStats.instance.currentHP + " / " + PlayerStats.instance.maxHP;
+            }
+        }
     }
 }
