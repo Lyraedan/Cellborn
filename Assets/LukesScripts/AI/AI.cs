@@ -19,8 +19,7 @@ namespace LukesScripts.AI
         protected GridCell currentCell, lastCell;
         [SerializeField] protected bool showPath = false;
         [SerializeField] protected float rotationDampening = 8f;
-        public List<SkinnedMeshRenderer> skinnedMeshRenderers;
-        public List<MeshRenderer> meshRenderers;
+        public List<DamageMaterial> damageMaterials = new List<DamageMaterial>();
         public Material defaultMaterial;
         public Material damagedMaterial;
         public Animator animController;
@@ -188,33 +187,29 @@ namespace LukesScripts.AI
 
         IEnumerator DamageIndicator()
         {
-            if (skinnedMeshRenderers.Count > 0)
+            if (damageMaterials.Count > 0)
             {
-                for(int i = 0; i < skinnedMeshRenderers.Count; i++)
+                for (int i = 0; i < damageMaterials.Count; i++)
                 {
-                    skinnedMeshRenderers[i].material = damagedMaterial;
-                }
-            }
-            else if (meshRenderers.Count > 0)
-            {
-                for (int i = 0; i < meshRenderers.Count; i++)
-                {
-                    meshRenderers[i].material = damagedMaterial;
+                    var damageMat = damageMaterials[i];
+
+                    for (int j = 0; j < damageMat.renderers.Count; j++)
+                    {
+                        damageMat.renderers[j].material = damagedMaterial;
+                    }
                 }
             }
             yield return new WaitForSeconds(0.1f);
-            if (skinnedMeshRenderers.Count > 0)
+            if (damageMaterials.Count > 0)
             {
-                for (int i = 0; i < skinnedMeshRenderers.Count; i++)
+                for (int i = 0; i < damageMaterials.Count; i++)
                 {
-                    skinnedMeshRenderers[i].material = defaultMaterial;
-                }
-            }
-            else if (meshRenderers.Count > 0)
-            {
-                for (int i = 0; i < meshRenderers.Count; i++)
-                {
-                    meshRenderers[i].material = defaultMaterial;
+                    var damageMat = damageMaterials[i];
+
+                    for (int j = 0; j < damageMat.renderers.Count; j++)
+                    {
+                        damageMat.renderers[j].material = damageMat.defaultMaterial;
+                    }
                 }
             }
             yield return new WaitUntil(() => !audioSource.isPlaying);
@@ -299,4 +294,11 @@ namespace LukesScripts.AI
         }
 #endif
     }
+}
+
+[System.Serializable]
+public class DamageMaterial
+{
+    public List<Renderer> renderers = new List<Renderer>();
+    public Material defaultMaterial;
 }

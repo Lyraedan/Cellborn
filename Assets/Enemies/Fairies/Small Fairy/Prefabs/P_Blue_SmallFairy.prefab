@@ -191,9 +191,10 @@ MonoBehaviour:
   minimapBlip: {r: 1, g: 0, b: 0, a: 1}
   showPath: 0
   rotationDampening: 8
-  skinnedMeshRenderers:
-  - {fileID: 6826545288478285973}
-  meshRenderers: []
+  damageMaterials:
+  - renderers:
+    - {fileID: 6826545288478285973}
+    defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 6821888764fc8e3498a96506e8bf4644, type: 2}
   damagedMaterial: {fileID: 2100000, guid: ff022a0e60e4ecc4489e8a8fecbc9866, type: 2}
   animController: {fileID: 2531404140077799830}
