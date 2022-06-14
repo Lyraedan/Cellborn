@@ -1070,10 +1070,17 @@ public class RoomGenerator : MonoBehaviour
 
                     if (isOverlapping)
                     {
-                        var prop = props.Where(p => p.cell.position.Equals(current.position)).First();
-                        //prop.Remove();
-                        bool againstVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
-                        current.flag = againstVoid ? GridCell.GridFlag.WALL : GridCell.GridFlag.OCCUPIED;
+                        try
+                        {
+                            var prop = props.Where(p => p.cell.position.Equals(current.position)).First();
+                            //prop.Remove();
+                            bool againstVoid = TileIsAdjacent(current, GridCell.GridFlag.WALKABLE);
+                            current.flag = againstVoid ? GridCell.GridFlag.WALL : GridCell.GridFlag.OCCUPIED;
+                        }
+                        catch (Exception e)
+                        {
+                            // Do nothing
+                        }
                     }
                 }
             }

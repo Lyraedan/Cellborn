@@ -502,9 +502,12 @@ public class WeaponManager : MonoBehaviour
                 CustomEvent.Trigger(gameObject, EventHooks.OnAmmoFull);
             }
 
-            ammoText.text = wep.currentAmmo + " / " + wep.maxAmmo;
-            UIController.instance.ammoBar.maxValue = wep.maxAmmo;
-            UIController.instance.ammoBar.value = wep.currentAmmo;
+            if (currentWeapon.weaponId == wep.weaponId)
+            {
+                ammoText.text = wep.currentAmmo + " / " + wep.maxAmmo;
+                UIController.instance.ammoBar.maxValue = wep.maxAmmo;
+                UIController.instance.ammoBar.value = wep.currentAmmo;
+            }
         }
         else
         {
