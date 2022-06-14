@@ -1089,9 +1089,12 @@ public class RoomGenerator : MonoBehaviour
         for(int i = 0; i < props.Length; i++)
         {
             var prop = props[i];
-            if(!prop.cell.flag.Equals(GridCell.GridFlag.WALL_PROP) && !prop.cell.flag.Equals(GridCell.GridFlag.PROP))
+            if (prop)
             {
-                prop.Remove();
+                if (!prop.cell.flag.Equals(GridCell.GridFlag.WALL_PROP) && !prop.cell.flag.Equals(GridCell.GridFlag.PROP))
+                {
+                    prop.Remove();
+                }
             }
         }
     }
