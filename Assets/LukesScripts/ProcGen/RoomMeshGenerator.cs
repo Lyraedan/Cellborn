@@ -281,8 +281,25 @@ public class RoomMeshGenerator : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
-        meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
+        // Extrude
+        float floorThickness = 0.1f;
+        Matrix4x4[] matrix = new Matrix4x4[] {
+                new Matrix4x4(new Vector4(1, 0, 0, 0),
+                              new Vector4(0, 1, 0, 0),
+                              new Vector4(0, 0, 1, 0),
+                              new Vector4(0, 0, 0, 1)),
+
+                new Matrix4x4(new Vector4(1, 0, 0, 0),
+                              new Vector4(0, 1, 0, 0),
+                              new Vector4(0, 0, 1, 0),
+                              new Vector4(0, -floorThickness, 0, 1))
+        };
+
+        Mesh extruded = new Mesh();
+        MeshExtrusion.ExtrudeMesh(mesh, extruded, matrix, false);
+
+        meshFilter.mesh = extruded;
+        meshCollider.sharedMesh = extruded;
         meshCollider.material = physicsMaterial;
     }
 
