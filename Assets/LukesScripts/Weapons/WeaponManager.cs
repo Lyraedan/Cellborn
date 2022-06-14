@@ -308,7 +308,10 @@ public class WeaponManager : MonoBehaviour
                             // Is laser weapon
                             if(currentWeapon.weaponId == 5)
                             {
-                                LaserControl.instance.EmptyLaser();
+                                if (laserController)
+                                    laserController.EmptyLaser();
+                                else
+                                    Debug.LogError("Laser controller is null not emptying");
                             }
 
                             animController.SetBool("IsHoldingWeapon", false);

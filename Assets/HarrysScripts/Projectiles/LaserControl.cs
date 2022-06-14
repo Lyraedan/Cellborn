@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class LaserControl : MonoBehaviour
 {
-    public static LaserControl instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(this);
-    }
-
     public ParticleSystem laserParticles;
     public ParticleSystem redLaserParticles;
     public ParticleSystem blueLaserParticles;
