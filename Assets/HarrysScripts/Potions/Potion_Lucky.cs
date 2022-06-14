@@ -38,7 +38,19 @@ public class Potion_Lucky : PotionBase
 
                 if (healthMod >= 0)
                 {
-                    PlayerStats.instance.currentHP += healthMod;
+                    if (PlayerStats.instance.currentHP < 100)
+                    {
+                        PlayerStats.instance.currentHP += healthMod;
+                        
+                        if (PlayerStats.instance.currentHP > 100)
+                        {
+                            PlayerStats.instance.healthText.text = PlayerStats.instance.maxHP + " / " + PlayerStats.instance.maxHP;
+                        }
+                        else
+                        {
+                            PlayerStats.instance.healthText.text = PlayerStats.instance.currentHP + " / " + PlayerStats.instance.maxHP;
+                        }
+                    }
                 }
                 else if (healthMod < 0)
                 {
