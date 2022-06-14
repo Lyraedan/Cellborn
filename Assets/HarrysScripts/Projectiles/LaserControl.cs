@@ -122,7 +122,7 @@ public class LaserControl : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonUp(ControlManager.INPUT_FIRE))
+            if (Input.GetAxisRaw(ControlManager.INPUT_FIRE) <= 0)
             {
                 hasCooledDown = false;
                 hasWarmedUp = false;
