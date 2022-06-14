@@ -85,10 +85,15 @@ public class PotionManager : MonoBehaviour
             if (currentlyHeldPotions[0] == emptyPotion)
                 return;
 
-            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.infiniteAmmo)
+            if (currentlyHeldPotions[0].potionID == 1 && 
+                WeaponManager.instance.currentWeapon && // Is the weapon != null
+                WeaponManager.instance.currentWeapon.functionality && // Is the weapon functionality != null
+                WeaponManager.instance.currentWeapon.functionality.infiniteAmmo) // Is the ammo infinite
                 return;
 
-            if (currentlyHeldPotions[0].potionID == 1 && WeaponManager.instance.currentWeapon.weaponId == 4)
+            if (currentlyHeldPotions[0].potionID == 1 &&
+                WeaponManager.instance.currentWeapon && // Is the current weapon != null
+                WeaponManager.instance.currentWeapon.weaponId == 4) // Is the weapon a grappling hook
                 return;
 
             if (!healthScript.isDead)

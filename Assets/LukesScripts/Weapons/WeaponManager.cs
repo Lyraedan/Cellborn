@@ -413,8 +413,16 @@ public class WeaponManager : MonoBehaviour
             currentWeapon = currentlyHeldWeapons[currentlySelectedIndex].GetComponent<WeaponProperties>();
         }
 
-        if(currentWeapon.weaponId == -1)
+        if (currentWeapon)
         {
+            if (currentWeapon.weaponId == -1)
+            {
+                // Current weapon is empty
+                animController.SetBool("IsHoldingWeapon", false);
+            }
+        } else
+        {
+            // Current weapon is null - This is a failsafe
             animController.SetBool("IsHoldingWeapon", false);
         }
     }
