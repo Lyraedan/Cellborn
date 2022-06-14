@@ -85,6 +85,7 @@ public class PlayerStats : MonoBehaviour
         speedBlue.CrossFadeAlpha(0, 0f, false);
         UIController.instance.healthBar.maxValue = maxHP;
         RoomGenerator.instance.bossCutsceneEnter = bossIntro;
+        healthText.text = currentHP + " / " + maxHP;
     }
 
     void Update()
