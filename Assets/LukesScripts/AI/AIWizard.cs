@@ -11,12 +11,13 @@ public class AIWizard : AI
 
     private float secondsBetweenAttacks = 2.8f;
     private float attackDelay = 0;
-
     public string endingScene;
+    public Animator animController;
+    public float stage;
+    public EnemyScript enemyScript;
 
     public override void Init()
     {
-
     }
 
     private void OnDestroy()
@@ -37,6 +38,20 @@ public class AIWizard : AI
         if (attackDelay >= secondsBetweenAttacks)
         {
             Debug.Log("Do attack!");
+
+            if (enemyScript.currentHP > (enemyScript.maxHP * 0.66))
+            {
+                animController.SetTrigger("Attack1");
+            }
+            else if (enemyScript.currentHP > (enemyScript.maxHP * 0.33))
+            {
+                animController.SetTrigger("Attack2");
+            }
+            else
+            {
+                animController.SetTrigger("Attack3");
+            }
+
             CustomEvent.Trigger(gameObject, EventHooks.DelayedAttack);
             attackDelay = 0;
         }
