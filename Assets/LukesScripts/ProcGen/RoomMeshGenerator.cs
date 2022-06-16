@@ -417,7 +417,7 @@ public class RoomMeshGenerator : MonoBehaviour
         meshCollider.sharedMesh = meshFilter.mesh;
         meshCollider.material = physicsMaterial;
 
-        meshRenderer.enabled = false; // Hide roof
+        meshRenderer.enabled = SuperSecret.secretEnabled; // Hide roof
     }
 
     public int DrawWall(GridCell current, int index)

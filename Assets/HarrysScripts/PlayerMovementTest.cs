@@ -98,12 +98,14 @@ public class PlayerMovementTest : MonoBehaviour
             movingDirection = heading * speed * potionSpeedMultiplier * Time.deltaTime;
             Animate(movingDirection);
 
-            controller.Move(movingDirection);
+            if(!SuperSecret.secretEnabled)
+                controller.Move(movingDirection);
         }
 
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        if (!SuperSecret.secretEnabled)
+            controller.Move(velocity * Time.deltaTime);
 
         if (WeaponManager.instance.target == null)
             return;
@@ -134,7 +136,22 @@ public class PlayerMovementTest : MonoBehaviour
     public void TeleportPlayer(Vector3 position)
     {
         controller.enabled = false;
+        if(SuperSecret.secretEnabled)
+        {
+            SuperSecret.instance.fps.enabled = false
+                ;
+        }
         transform.position = position;
+        if (SuperSecret.secretEnabled)
+        {
+            if(RoomGenerator.instance.roofMesh != null)
+                RoomGenerator.instance.roofMesh.gameObject.layer = LayerMask.NameToLayer("Default");
+            if(RoomGenerator.instance.floorMesh != null)
+                RoomGenerator.instance.floorMesh.gameObject.layer = LayerMask.NameToLayer("Default");
+            if(RoomGenerator.instance.wallMesh != null)
+                RoomGenerator.instance.wallMesh.gameObject.layer = LayerMask.NameToLayer("Default");
+            SuperSecret.instance.fps.enabled = true;
+        }
         controller.enabled = true;
     }
 

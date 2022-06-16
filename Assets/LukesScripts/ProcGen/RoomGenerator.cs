@@ -643,35 +643,47 @@ public class RoomGenerator : MonoBehaviour
         Vector3 position = GetRandomPointOnNavmesh();
         GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
 
-        bool isInStart = CellIsInRoom(cell, 0);
-        bool isInHallway = false;
-        for (int j = 0; j < rooms.Count; j++)
+        if (cell != null)
         {
-            bool hallwayCheck = CellIsInHallway(cell, rooms[j]);
-            if (hallwayCheck)
+            bool isInStart = CellIsInRoom(cell, 0);
+            bool isInHallway = false;
+            for (int j = 0; j < rooms.Count; j++)
             {
-                isInHallway = true;
-                break;
+                bool hallwayCheck = CellIsInHallway(cell, rooms[j]);
+                if (hallwayCheck)
+                {
+                    isInHallway = true;
+                    break;
+                }
             }
-        }
 
-        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED);
+            bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED);
 
-        if (!isInStart && !isInHallway && isValidTile)
-            return cell;
-        else // Lol this is bad
+            if (!isInStart && !isInHallway && isValidTile)
+                return cell;
+            else // Lol this is bad
+                return GetRandomEntityCell();
+        } else
+        {
             return GetRandomEntityCell();
+        }
     }
 
     GridCell GetRandomLitterCell()
     {
         Vector3 position = GetRandomPointOnNavmesh();
         GridCell cell = navAgent.GetGridCellAt((int)position.x, (int)position.y, (int)position.z);
-        bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.WALL);
-        if (isValidTile)
-            return cell;
-        else
+        if (cell != null)
+        {
+            bool isValidTile = cell.flag.Equals(GridCell.GridFlag.OCCUPIED) || cell.flag.Equals(GridCell.GridFlag.WALL);
+            if (isValidTile)
+                return cell;
+            else
+                return GetRandomLitterCell();
+        } else
+        {
             return GetRandomLitterCell();
+        }
     }
 
     private Vector3 GetRandomPointOnNavmesh()

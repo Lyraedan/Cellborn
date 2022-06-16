@@ -9,6 +9,9 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
+        if (SuperSecret.secretEnabled)
+            return;
+
         if (player != null)
         {
             Vector3 pos = player.transform.position;
