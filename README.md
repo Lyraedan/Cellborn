@@ -1,2 +1,2 @@
-# ThirdYearGameDevelopment
-The game we are making for third year :)
+# Cellborn
+The game we made for third year Game Development
